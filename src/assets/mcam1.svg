@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 300.01">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke-width: 10.39px;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-7 {
+        stroke: #fff;
+      }
+
+      .cls-1, .cls-4, .cls-6 {
+        fill: none;
+      }
+
+      .cls-8, .cls-2, .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-9 {
+        letter-spacing: -.05em;
+      }
+
+      .cls-2, .cls-7 {
+        stroke-width: 6px;
+      }
+
+      .cls-3 {
+        stroke-width: 12.08px;
+      }
+
+      .cls-4 {
+        stroke-width: 12px;
+      }
+
+      .cls-10 {
+        letter-spacing: .05em;
+      }
+
+      .cls-5 {
+        font-family: MyriadPro-Regular, 'Myriad Pro';
+        font-size: 80.87px;
+        stroke-width: 5.81px;
+      }
+
+      .cls-5, .cls-6 {
+        stroke: #000;
+      }
+
+      .cls-11 {
+        letter-spacing: .03em;
+      }
+
+      .cls-6 {
+        stroke-width: 4px;
+      }
+    </style>
+  </defs>
+  <g>
+    <line class="cls-1" x1="12.99" y1="165.32" x2="330.35" y2="165.32"/>
+    <path class="cls-8" d="M13.68,178.99c-7.55,0-13.68-6.12-13.68-13.68s6.12-13.68,13.68-13.68,13.68,6.12,13.68,13.68-6.12,13.68-13.68,13.68Z"/>
+    <path class="cls-8" d="M323.82,165.32l-7.97-13.11.45-.3,21.37,8.49c7.45,1.64,14.89,3.27,22.34,4.91-7.45,1.64-14.89,3.27-22.34,4.91l-21.37,8.49-.45-.22,7.97-13.18Z"/>
+  </g>
+  <path class="cls-7" d="M105.03,36.67c-.07-.08-.15-.16-.22-.23-6.35-6.35-15.91-8.61-26.91-6.36-10.55,2.16-21.27,8.25-30.18,17.16-18.71,18.72-23.56,44.32-10.81,57.08.08.08.16.15.25.23l2.12,2.04L104.99,40.88l2.07-2.09-2.04-2.12Z"/>
+  <path class="cls-7" d="M315.04,77.42c-2.16-10.55-8.25-21.27-17.16-30.18-18.71-18.71-44.32-23.56-57.08-10.8-.08.08-.15.16-.23.25l-2.04,2.12,65.71,65.71,2.09,2.07,2.12-2.04c.08-.07.16-.15.23-.22,6.35-6.35,8.61-15.91,6.36-26.91Z"/>
+  <line class="cls-3" x1="257.8" y1="253.32" x2="300.23" y2="295.74"/>
+  <line class="cls-3" x1="45.37" y1="295.74" x2="87.8" y2="253.32"/>
+  <line class="cls-2" x1="172.8" y1="45.32" x2="172.8" y2="15.32"/>
+  <ellipse class="cls-7" cx="174.8" cy="12" rx="27" ry="9"/>
+  <g>
+    <circle class="cls-8" cx="173.35" cy="165.32" r="120"/>
+    <circle class="cls-4" cx="173.35" cy="165.32" r="120"/>
+    <circle class="cls-6" cx="173.35" cy="165.32" r="120"/>
+  </g>
+  <text class="cls-5" transform="translate(119.54 187.07) scale(.78 .75)"><tspan class="cls-11" x="0" y="0">le</tspan><tspan class="cls-10" x="63.65" y="0">t</tspan><tspan class="cls-9" x="94.13" y="0">’</tspan><tspan class="cls-11" x="107.07" y="0">s</tspan></text>
+</svg>

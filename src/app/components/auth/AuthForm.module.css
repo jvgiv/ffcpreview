@@ -1,0 +1,318 @@
+.authPage {
+  min-height: 100vh;
+  padding: 8.5rem 1.5rem 5rem;
+  background:
+    radial-gradient(circle at top right, rgba(231, 76, 60, 0.2), transparent 28rem),
+    radial-gradient(circle at bottom left, rgba(217, 31, 44, 0.12), transparent 24rem),
+    linear-gradient(180deg, #090909 0%, #111111 55%, #080808 100%);
+}
+
+.authShell {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(340px, 460px);
+  gap: 2rem;
+  align-items: stretch;
+}
+
+.authLead,
+.authCard {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(245, 240, 232, 0.12);
+  background: rgba(10, 10, 10, 0.82);
+  backdrop-filter: blur(10px);
+}
+
+.authLead {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 36rem;
+}
+
+.authLead::before,
+.authCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.authLead::before {
+  background:
+    linear-gradient(140deg, rgba(231, 76, 60, 0.08), transparent 42%),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.03), transparent 70%);
+}
+
+.eyebrow {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: "Space Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--red-hot);
+  margin-bottom: 1.4rem;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 2.8rem;
+  height: 1px;
+  background: rgba(231, 76, 60, 0.75);
+}
+
+.headline {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-bebas-neue), sans-serif;
+  font-size: clamp(3.3rem, 8vw, 6.2rem);
+  line-height: 0.92;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  max-width: 7ch;
+}
+
+.headlineAccent {
+  display: block;
+  color: var(--red-hot);
+}
+
+.leadCopy {
+  position: relative;
+  z-index: 1;
+  max-width: 34rem;
+  margin-top: 1.4rem;
+  color: rgba(245, 240, 232, 0.7);
+  font-size: 1rem;
+  line-height: 1.85;
+}
+
+.authCard {
+  padding: 2.2rem;
+}
+
+.authCard::before {
+  background:
+    linear-gradient(180deg, rgba(231, 76, 60, 0.08), transparent 32%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02), transparent 40%);
+}
+
+.cardInner {
+  position: relative;
+  z-index: 1;
+}
+
+.cardKicker {
+  font-family: "Space Mono", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 232, 0.52);
+}
+
+.cardTitle {
+  margin-top: 0.8rem;
+  font-family: var(--font-bebas-neue), sans-serif;
+  font-size: clamp(2.3rem, 5vw, 3.3rem);
+  line-height: 0.95;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.cardBody {
+  margin-top: 1rem;
+  color: rgba(245, 240, 232, 0.68);
+  font-size: 0.96rem;
+  line-height: 1.7;
+}
+
+.authForm {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.fieldGroup {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.fieldLabel {
+  font-family: "Space Mono", monospace;
+  font-size: 0.67rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 232, 0.66);
+}
+
+.fieldInput {
+  width: 100%;
+  border: 1px solid rgba(245, 240, 232, 0.14);
+  background: rgba(8, 8, 8, 0.96);
+  color: var(--white);
+  padding: 0.95rem 1rem;
+  font: inherit;
+  color-scheme: dark;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.fieldInput:focus {
+  outline: none;
+  border-color: rgba(231, 76, 60, 0.85);
+  background: rgba(8, 8, 8, 1);
+}
+
+.fieldInput::placeholder {
+  color: rgba(245, 240, 232, 0.32);
+}
+
+.fieldInput option {
+  background: var(--black);
+  color: var(--white);
+}
+
+.fieldInput:-webkit-autofill,
+.fieldInput:-webkit-autofill:hover,
+.fieldInput:-webkit-autofill:focus,
+.fieldInput:-webkit-autofill:active {
+  -webkit-text-fill-color: var(--white);
+  -webkit-box-shadow: 0 0 0 1000px var(--black) inset;
+  box-shadow: 0 0 0 1000px var(--black) inset;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+.errorMessage,
+.successMessage {
+  padding: 0.9rem 1rem;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  border: 1px solid;
+}
+
+.errorMessage {
+  border-color: rgba(231, 76, 60, 0.45);
+  background: rgba(217, 31, 44, 0.12);
+  color: #ffb0a8;
+}
+
+.successMessage {
+  border-color: rgba(245, 240, 232, 0.16);
+  background: rgba(245, 240, 232, 0.06);
+  color: rgba(245, 240, 232, 0.88);
+}
+
+.submitButton {
+  margin-top: 0.3rem;
+  width: 100%;
+  border: 1px solid var(--red);
+  background: var(--red);
+  color: var(--white);
+  padding: 1rem 1.1rem;
+  font-family: "Space Mono", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: var(--red-hot);
+  border-color: var(--red-hot);
+}
+
+.submitButton:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.helperRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.15rem;
+  padding-top: 1.15rem;
+  border-top: 1px solid rgba(245, 240, 232, 0.1);
+}
+
+.helperText {
+  color: rgba(245, 240, 232, 0.56);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.helperLink,
+.homeLink {
+  font-family: "Space Mono", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--white);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.helperLink:hover,
+.homeLink:hover {
+  color: var(--red-hot);
+}
+
+.homeLink {
+  display: inline-flex;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 920px) {
+  .authShell {
+    grid-template-columns: 1fr;
+  }
+
+  .authLead {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .authPage {
+    padding: 7.4rem 1rem 4rem;
+  }
+
+  .authLead,
+  .authCard {
+    padding: 1.4rem;
+  }
+
+  .helperRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+
+.inlineLinkRow {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -0.35rem;
+}
+
+.inlineLink {
+  font-family: "Space Mono", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 232, 0.74);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.inlineLink:hover {
+  color: var(--red-hot);
+}

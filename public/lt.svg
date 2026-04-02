@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 322.74">
+  <defs>
+    <style>
+      .cls-1 {
+        font-size: 38.55px;
+        letter-spacing: 0em;
+      }
+
+      .cls-2 {
+        stroke-width: .99px;
+      }
+
+      .cls-2, .cls-3 {
+        fill: #fff;
+        font-family: MyriadPro-Regular, 'Myriad Pro';
+        opacity: .88;
+        stroke: #fff;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-4 {
+        font-size: 40.38px;
+        letter-spacing: 0em;
+      }
+
+      .cls-5 {
+        letter-spacing: -.07em;
+      }
+
+      .cls-6 {
+        font-size: 47.72px;
+        letter-spacing: 0em;
+      }
+
+      .cls-7 {
+        letter-spacing: .02em;
+      }
+
+      .cls-8 {
+        font-size: 42.22px;
+        letter-spacing: 0em;
+      }
+
+      .cls-3 {
+        font-size: 24.99px;
+        stroke-width: .98px;
+      }
+    </style>
+  </defs>
+  <rect width="390" height="322.74"/>
+  <g id="Layer_1" data-name="Layer 1">
+    <g>
+      <text class="cls-2" transform="translate(173.09 178.76) scale(.79 .75)"><tspan class="cls-1" x="0" y="0">t</tspan><tspan class="cls-4" x="12.57" y="0">a</tspan><tspan class="cls-8" x="31.83" y="0">l</tspan><tspan class="cls-6" x="41.58" y="0">k</tspan></text>
+      <text class="cls-3" transform="translate(162.86 157.74) scale(.81 .75)"><tspan x="0" y="0">le</tspan><tspan class="cls-7" x="18.42" y="0">t</tspan><tspan class="cls-5" x="27.22" y="0">’</tspan><tspan x="30.59" y="0">s</tspan></text>
+    </g>
+  </g>
+</svg>

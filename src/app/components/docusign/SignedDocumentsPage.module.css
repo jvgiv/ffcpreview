@@ -1,0 +1,251 @@
+.page {
+  min-height: 100vh;
+  padding: 8.5rem 1.25rem 4rem;
+  background:
+    radial-gradient(circle at top, rgba(206, 66, 43, 0.15), transparent 28rem),
+    linear-gradient(180deg, #090909 0%, #111111 100%);
+}
+
+.shell {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.hero,
+.panel {
+  border: 1px solid rgba(245, 240, 232, 0.12);
+  background: rgba(10, 10, 10, 0.88);
+  padding: clamp(1.5rem, 3vw, 2.4rem);
+}
+
+.eyebrow {
+  display: inline-block;
+  color: var(--red-hot);
+  font-family: "Space Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 0.85rem;
+}
+
+.title {
+  font-family: var(--font-bebas-neue), sans-serif;
+  font-size: clamp(2.9rem, 6vw, 4.8rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0 0 0.75rem;
+}
+
+.copy {
+  max-width: 50rem;
+  color: rgba(245, 240, 232, 0.75);
+  line-height: 1.8;
+  margin: 0;
+}
+
+.stats {
+  display: grid;
+  gap: 1rem;
+}
+
+.statCard {
+  border: 1px solid rgba(245, 240, 232, 0.12);
+  background: rgba(10, 10, 10, 0.88);
+  padding: 1.25rem;
+}
+
+.statLabel {
+  display: block;
+  color: rgba(245, 240, 232, 0.64);
+  font-family: "Space Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.statValue {
+  display: block;
+  color: var(--white);
+  font-family: var(--font-bebas-neue), sans-serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.sectionTitle {
+  font-family: var(--font-bebas-neue), sans-serif;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0 0 0.35rem;
+}
+
+.sectionCopy {
+  color: rgba(245, 240, 232, 0.72);
+  line-height: 1.7;
+  margin: 0 0 1.25rem;
+}
+
+.stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.message {
+  margin: 0;
+  padding: 0.95rem 1rem;
+  border: 1px solid rgba(245, 240, 232, 0.14);
+  background: rgba(245, 240, 232, 0.05);
+  color: rgba(245, 240, 232, 0.85);
+  line-height: 1.7;
+}
+
+.error {
+  border-color: rgba(206, 66, 43, 0.45);
+  background: rgba(206, 66, 43, 0.12);
+  color: #ffd8cf;
+}
+
+.docCard {
+  border: 1px solid rgba(245, 240, 232, 0.12);
+  background: rgba(12, 12, 12, 0.9);
+  padding: 1.2rem;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.docTop {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.85rem;
+  align-items: start;
+}
+
+.docTitle {
+  margin: 0;
+  color: var(--white);
+  font-size: 1.15rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2rem;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid rgba(245, 240, 232, 0.16);
+  color: rgba(245, 240, 232, 0.88);
+  font-family: "Space Mono", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.badgeComplete {
+  border-color: rgba(148, 187, 91, 0.36);
+  background: rgba(148, 187, 91, 0.12);
+  color: #eef8dd;
+}
+
+.badgePending {
+  border-color: rgba(245, 197, 24, 0.34);
+  background: rgba(245, 197, 24, 0.12);
+  color: #fff2bc;
+}
+
+.badgeCancelled {
+  border-color: rgba(206, 66, 43, 0.4);
+  background: rgba(206, 66, 43, 0.12);
+  color: #ffd8cf;
+}
+
+.metaGrid {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.metaRow {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.metaLabel {
+  color: rgba(245, 240, 232, 0.55);
+  font-family: "Space Mono", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.metaValue {
+  color: rgba(245, 240, 232, 0.88);
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+.docActions,
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+.primaryButton,
+.secondaryButton,
+.inlineButton,
+.textLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0.85rem 1.2rem;
+  text-decoration: none;
+  font-family: "Space Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.primaryButton {
+  border: 1px solid var(--red);
+  background: var(--red);
+  color: var(--white);
+}
+
+.secondaryButton,
+.inlineButton {
+  border: 1px solid rgba(245, 240, 232, 0.2);
+  background: transparent;
+  color: var(--white);
+}
+
+.inlineButton:disabled,
+.primaryButton:disabled,
+.secondaryButton:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.textLink {
+  color: rgba(245, 240, 232, 0.8);
+}
+
+.inlineCode {
+  font-family: "Space Mono", monospace;
+  font-size: 0.85em;
+}
+
+@media (min-width: 960px) {
+  .stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .metaGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
