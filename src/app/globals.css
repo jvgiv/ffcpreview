@@ -12,10 +12,12 @@
   --red-hot: #e74c3c;
   --gray: #888;
   --border: rgba(245,240,232,0.12);
+  --site-header-offset: 5.5rem;
 }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--site-header-offset);
 }
 
 body {
@@ -24,6 +26,10 @@ body {
   font-family: 'DM Sans', sans-serif;
   font-weight: 300;
   overflow-x: hidden;
+}
+
+.site-content {
+  padding-top: var(--site-header-offset);
 }
 
 .container {
@@ -276,6 +282,10 @@ button.ffc-nav-cta {
 }
 
 @media (max-width: 768px) {
+  :root {
+    --site-header-offset: 4.9rem;
+  }
+
   .ffc-nav {
     display: grid;
     grid-template-columns: 1fr auto auto;

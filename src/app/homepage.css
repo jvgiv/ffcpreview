@@ -1,6 +1,6 @@
 .home-page {
   width: 100%;
-  padding-top: 1.1rem;
+  padding-top: 0.25rem;
 }
 
 /* Hero */
@@ -11,7 +11,7 @@
   justify-content: flex-start;
   align-items: center;
   text-align: center;
-  padding: 2.4rem 2rem 4.25rem;
+  padding: 1.35rem 2rem 4.25rem;
   position: relative;
   overflow: hidden;
 }
@@ -54,8 +54,8 @@
 }
 
 .hero-logo-ring {
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   border: 2px solid rgba(245,240,232,0.15);
   display: flex;
@@ -267,6 +267,7 @@
   align-items: flex-start;
   gap: 1rem;
   padding: 1rem 0;
+  /* padding-top: 2%; */
   border-bottom: 1px solid var(--border);
   font-size: 0.95rem;
   line-height: 1.5;
@@ -299,6 +300,7 @@
   color: var(--white);
   line-height: 1;
   margin-bottom: 0.25rem;
+  padding-top: 3%;
 }
 
 .stat-num span {
@@ -773,12 +775,12 @@
 
 @media (max-width: 768px) {
   .home-page {
-    padding-top: 1.1rem;
+    padding-top: 0.2rem;
   }
 
   .hero {
     min-height: auto;
-    padding: 1.4rem 1.25rem 2.6rem;
+    padding: 0.9rem 1.25rem 2.6rem;
   }
 
   .hero-eyebrow {
@@ -822,6 +824,14 @@
   .scorecard-inner {
     grid-template-columns: 1fr;
     gap: 2.5rem;
+  }
+
+  .defs-homepage-inner .defs-homepage-copy {
+    order: 1;
+  }
+
+  .defs-homepage-inner .defs-homepage-preview {
+    order: 2;
   }
 
   .scorecard-visual {

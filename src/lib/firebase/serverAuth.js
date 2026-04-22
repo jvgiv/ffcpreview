@@ -1,6 +1,7 @@
 import "server-only";
 
-import { getAdminAuth } from "./admin";
+import { getAdminAuth, getAdminDb } from "./admin";
+import { isAllowedUserRole, normalizeUserRole } from "./userRoles";
 
 export class FirebaseAuthenticationError extends Error {
   constructor(message, status = 401) {
@@ -16,20 +17,46 @@ function getBearerToken(request) {
 
   if (scheme !== "Bearer" || !token) {
     throw new FirebaseAuthenticationError(
-      "A valid Firebase ID token is required for this DocuSign action."
+      "A valid Firebase ID token is required for this action."
     );
   }
 
   return token;
 }
 
+async function getFirebaseUserProfile(uid) {
+  const snapshot = await getAdminDb().collection("users").doc(uid).get();
+
+  if (!snapshot.exists) {
+    return null;
+  }
+
+  return snapshot.data() || null;
+}
+
 export async function requireVerifiedFirebaseUser(request) {
   const token = getBearerToken(request);
   const decodedToken = await getAdminAuth().verifyIdToken(token);
+  const profile = await getFirebaseUserProfile(decodedToken.uid);
 
   return {
     uid: decodedToken.uid,
-    email: decodedToken.email || "",
-    name: decodedToken.name || "",
+    email: decodedToken.email || profile?.email || "",
+    name: decodedToken.name || profile?.displayName || "",
+    role: normalizeUserRole(profile?.role),
+    profile: profile || null,
   };
+}
+
+export async function requireFirebaseUserRole(request, allowedRoles = []) {
+  const requestUser = await requireVerifiedFirebaseUser(request);
+
+  if (!isAllowedUserRole(requestUser.role, allowedRoles)) {
+    throw new FirebaseAuthenticationError(
+      "You do not have permission to access this admin view.",
+      403
+    );
+  }
+
+  return requestUser;
 }

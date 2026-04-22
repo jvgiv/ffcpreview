@@ -2,15 +2,21 @@ import React from 'react'
 import '../../(content)/caddybook/caddybook.css'
 import Image from 'next/image'
 
-export default function CaddyBookCover() {
+export default function CaddyBookCover({ memberProfile }) {
+  const hasMemberProfile = Boolean(
+    memberProfile?.displayName || memberProfile?.zipCode || memberProfile?.ageRange
+  )
+
   return (
     <div className="cover">
         <div className="cover-logo">
             <Image
-                src='/ffc-dark.svg'
+                src='/FFLogo.png'
                 alt="FFC Logo"
-                width={150}
-                height={150}
+                fill
+                sizes="(max-width: 580px) 120px, (max-width: 900px) 150px, 180px"
+                className="cover-logo-image"
+                style={{ objectFit: 'contain', objectPosition: 'center 46%' }}
             />
         </div>
         <div className="cover-mid">
@@ -27,6 +33,31 @@ export default function CaddyBookCover() {
             <div className="cover-stat"><span className="stat-num"><span className="circled">0</span></span>Wrong<br />Answers</div>
             <div className="cover-stat"><span className="stat-num"><span className="circled">0</span></span>$ Cost<br />Keep or Share</div>
             </div>
+            {hasMemberProfile ? (
+              <div className="cover-member-card">
+                <span className="cover-member-label">Prepared for</span>
+                <div className="cover-member-grid">
+                  <div className="cover-member-item">
+                    <span className="cover-member-key">Name</span>
+                    <span className="cover-member-value">
+                      {memberProfile.displayName || 'Not provided'}
+                    </span>
+                  </div>
+                  <div className="cover-member-item">
+                    <span className="cover-member-key">Zip</span>
+                    <span className="cover-member-value">
+                      {memberProfile.zipCode || 'Not provided'}
+                    </span>
+                  </div>
+                  <div className="cover-member-item">
+                    <span className="cover-member-key">Age Range</span>
+                    <span className="cover-member-value">
+                      {memberProfile.ageRange || 'Not provided'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ) : null}
         </div>
         <div className="cover-bottom">
             <div className="cover-brand">

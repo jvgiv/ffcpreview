@@ -2,14 +2,15 @@
 import React from 'react'
 import { useState } from 'react'
 import './caddybook.css'
-import CaddyBookCover from '../../components/caddybook/CaddyBookCover'
 import NavBar from '@/app/components/caddybook/CaddyNavBar'
-import CaddyBookTOC from '@/app/components/caddybook/CaddyBookTOC'
-import SummaryPage from '@/app/components/caddybook/SummaryPage'
-import ClosingPage from '@/app/components/caddybook/ClosingPage'
 import CurrentPage from '@/app/components/caddybook/CurrentPage'
 import elements from '../../../data/caddybook.js'
+import { useAuth } from '@/app/components/auth/AuthProvider'
+import emailjs from '@emailjs/browser'
 
+const serviceId = process.env.NEXT_PUBLIC_SERVICE_ID;
+const templateId = process.env.NEXT_PUBLIC_TEMPLATE_ID;
+const publicKeyEnv = process.env.NEXT_PUBLIC_PUBLIC_KEY;
 
 const PAGES = [
   { id: 'cover',     title: 'Cover',      sub: 'far flung change' },
@@ -27,6 +28,7 @@ const PAGES = [
 ]
 
 export default function CaddyBook() {
+    const { authUser, profile } = useAuth()
     const [current, setCurrent] = useState(0)
     const [notes, setNotes] = useState({
       position: '',
@@ -36,6 +38,11 @@ export default function CaddyBook() {
       pace: '',
       options: '',
       readiness: '',
+      email: profile?.email || '',
+      displayName: profile?.displayName || '',
+      phoneNumber: profile?.phoneNumber || '',
+      zipCode: profile?.zipCode || '',
+      ageRange: profile?.ageRange || '',
     })
     
     const handleChange = (slug, value) => {
@@ -50,7 +57,29 @@ export default function CaddyBook() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    emailjs.send(
+      serviceId,
+      templateId,
+      notes,
+      { publicKey: publicKeyEnv }
+    )
+    .then(() => {
+      setCurrent(13)
+    })
+    .catch((error) => {
+      // console.error('EmailJS error:', error);
+      setCurrent(12)
+    });
+  }
+
   const page = PAGES[current]
+  const memberProfile = {
+    displayName: profile?.displayName || authUser?.displayName || '',
+    zipCode: profile?.zipCode || '',
+    ageRange: profile?.ageRange || '',
+  }
 
   return (
     <div className="page">
@@ -59,6 +88,9 @@ export default function CaddyBook() {
         data={elements} 
         notes={notes}
         handleChange={handleChange}
+        memberProfile={memberProfile}
+        handleSubmit={handleSubmit}
+        onRetrySubmit={() => goTo(current - 1)}
       />
       <NavBar 
         pages={PAGES}

@@ -16,6 +16,27 @@
   align-items: stretch;
 }
 
+.redirectToast {
+  position: fixed;
+  top: clamp(5.25rem, 9vw, 6.5rem);
+  left: 50%;
+  z-index: 80;
+  width: min(42rem, calc(100vw - 2rem));
+  padding: 0.95rem 1.2rem;
+  border: 1px solid rgba(120, 255, 176, 0.48);
+  background: linear-gradient(180deg, rgba(16, 117, 59, 0.96), rgba(10, 87, 44, 0.96));
+  color: #f4fff7;
+  box-shadow: 0 1.2rem 2.5rem rgba(0, 0, 0, 0.35);
+  font-family: "Space Mono", monospace;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  text-align: center;
+  letter-spacing: 0.02em;
+  transform: translateX(-50%);
+  pointer-events: none;
+  animation: redirect-toast-fade 5s ease forwards;
+}
+
 .authLead,
 .authCard {
   position: relative;
@@ -315,4 +336,22 @@
 
 .inlineLink:hover {
   color: var(--red-hot);
+}
+
+@keyframes redirect-toast-fade {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-0.75rem);
+  }
+
+  10%,
+  78% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-0.55rem);
+  }
 }

@@ -49,19 +49,19 @@ export const AGREEMENT_DEFINITIONS = {
   "premium-expansion-pack": {
     slug: "premium-expansion-pack",
     packageName: "Premium Expansion Pack",
-    agreementTitle: "Premium Expansion Pack Add-On Agreement",
+    agreementTitle: "Premium Expansion Pack Agreement",
     priceLabel: "$750 / 1 year",
     shortDescription:
-      "An add-on agreement for clients who want more structure, recurring accountability, and organized progress tracking.",
+      "A premium engagement for clients who want more structure, recurring accountability, and organized progress tracking.",
     viewerIntro:
-      "This agreement covers the Premium Expansion Pack add-on. It should be reviewed separately from the core package agreement.",
+      "This agreement covers the Premium Expansion Pack package. It is the agreement a visitor should review before purchasing the $750 premium engagement.",
     ctaLabel: "Continue To Premium Expansion Signing",
     sections: [
       {
-        heading: "Add-On Nature",
+        heading: "Premium Scope",
         paragraphs: [
-          "The Premium Expansion Pack is an add-on to the core engagement and is intended for clients who want additional structure, recurring check-ins, and accountability support.",
-          "This add-on does not replace the core agreement. It supplements the base service with extra process support and progress visibility.",
+          "The Premium Expansion Pack is intended for clients who want additional structure, recurring check-ins, and accountability support.",
+          "This package expands the level of ongoing process support and progress visibility available through the engagement.",
         ],
       },
       {
@@ -81,8 +81,8 @@ export const AGREEMENT_DEFINITIONS = {
       {
         heading: "Fee",
         paragraphs: [
-          "The total fee for this add-on is $250 in addition to any active core package fee unless both parties agree otherwise in writing.",
-          "Because this add-on reserves additional time and operational support, fees are for access to the add-on service itself rather than guaranteed outcomes.",
+          "The total fee for this package is $750 for a one-year term unless both parties agree otherwise in writing.",
+          "Because this package reserves additional time and operational support, fees are for access to the premium service itself rather than guaranteed outcomes.",
         ],
       },
       {

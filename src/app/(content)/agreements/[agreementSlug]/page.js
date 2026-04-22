@@ -103,7 +103,8 @@ export default async function AgreementPage({ params }) {
           }}
         >
           This page is a package-specific review screen so each pricing button can route to the
-          right agreement. The final signing flow uses the same agreement definition.
+          right agreement. The final checkout flow uses the same agreement definition before
+          payment.
         </p>
 
         <div
@@ -115,7 +116,7 @@ export default async function AgreementPage({ params }) {
           }}
         >
           <Link
-            href={`/logged-in/docusign?agreement=${agreement.slug}`}
+            href={`/logged-in/checkout?agreement=${agreement.slug}`}
             style={{
               display: "inline-block",
               padding: "0.95rem 1.25rem",

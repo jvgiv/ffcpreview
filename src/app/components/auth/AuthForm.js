@@ -5,16 +5,19 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { getFirebaseAuth } from "@/lib/firebase/auth";
-import { getDb } from "@/lib/firebase/firestore";
+import { useAuth } from "./AuthProvider";
+import {
+  ensureFirebaseUserProfile,
+  syncFirebaseUserProfile,
+} from "@/lib/firebase/userProfiles";
+import { AGE_RANGE_OPTIONS } from "@/lib/firebase/profileOptions";
+import { USER_ROLES } from "@/lib/firebase/userRoles";
 import styles from "./AuthForm.module.css";
 
-const AGE_RANGE_OPTIONS = ["18-24", "25-34", "35-44", "45-54", "55-64", "65+"];
 
 const FORM_COPY = {
   login: {
@@ -25,7 +28,7 @@ const FORM_COPY = {
     cardKicker: "Login",
     cardTitle: "Sign In",
     cardBody:
-      "Use the email and password tied to your account. Once you are in, we will send you to your welcome page.",
+      "Use the email and password tied to your account. Once you are in, we will send you to the member page you asked for.",
     buttonLabel: "Log In",
     helperText: "Need an account?",
     helperHref: "/register",
@@ -39,13 +42,139 @@ const FORM_COPY = {
     cardKicker: "Register",
     cardTitle: "Create Account",
     cardBody:
-      "Use an email and password you will remember, then add the details that help us personalize your experience.",
+      "Use an email and password you will remember, then add the details that help us personalize your experience behind the member gates.",
     buttonLabel: "Register",
     helperText: "Already have an account?",
     helperHref: "/login",
     helperLabel: "Log In",
   },
 };
+
+const REDIRECT_PAGE_LABELS = [
+  {
+    match(pathname) {
+      return pathname.startsWith("/logged-in/checkout/success");
+    },
+    label: "payment confirmation",
+  },
+  {
+    match(pathname) {
+      return pathname.startsWith("/logged-in/checkout");
+    },
+    label: "checkout",
+  },
+  {
+    match(pathname) {
+      return pathname === "/caddybook";
+    },
+    label: "Caddy Book",
+  },
+  {
+    match(pathname) {
+      return pathname.startsWith("/definitions");
+    },
+    label: "DogStar Definitions",
+  },
+  {
+    match(pathname) {
+      return pathname.startsWith("/logged-in/admin/documents");
+    },
+    label: "All Signed DocuSign Documents",
+  },
+  {
+    match(pathname) {
+      return pathname.startsWith("/logged-in/documents");
+    },
+    label: "Signed Documents",
+  },
+  {
+    match(pathname) {
+      return pathname.startsWith("/logged-in/docusign");
+    },
+    label: "DocuSign",
+  },
+  {
+    match(pathname) {
+      return pathname === "/logged-in";
+    },
+    label: "your member page",
+  },
+];
+
+function getSafeRedirectPath(value) {
+  if (typeof value !== "string") {
+    return "/logged-in";
+  }
+
+  const trimmedValue = value.trim();
+
+  if (!trimmedValue.startsWith("/") || trimmedValue.startsWith("//")) {
+    return "/logged-in";
+  }
+
+  return trimmedValue || "/logged-in";
+}
+
+function buildAuthHelperHref(baseHref, redirectTarget, { loginRequired = false } = {}) {
+  if ((!redirectTarget || redirectTarget === "/logged-in") && !loginRequired) {
+    return baseHref;
+  }
+
+  const params = new URLSearchParams();
+
+  if (redirectTarget && redirectTarget !== "/logged-in") {
+    params.set("redirect", redirectTarget);
+  }
+
+  if (loginRequired) {
+    params.set("loginRequired", "1");
+  }
+
+  return `${baseHref}?${params.toString()}`;
+}
+
+function getCurrentSearchParams() {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  return new URLSearchParams(window.location.search);
+}
+
+function formatPageLabelFromSegment(segment) {
+  return segment
+    .split(/[-_]/g)
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
+function getRedirectPageLabel(redirectTarget) {
+  try {
+    const pathname = new URL(redirectTarget, "https://ffc.local").pathname;
+    const matchedPage = REDIRECT_PAGE_LABELS.find((entry) => entry.match(pathname));
+
+    if (matchedPage) {
+      return matchedPage.label;
+    }
+
+    const pathSegments = pathname.split("/").filter(Boolean);
+
+    if (!pathSegments.length) {
+      return "this page";
+    }
+
+    return formatPageLabelFromSegment(pathSegments[pathSegments.length - 1]);
+  } catch {
+    return "this page";
+  }
+}
+
+function buildRedirectNotice(redirectTarget) {
+  const pageLabel = getRedirectPageLabel(redirectTarget);
+
+  return `In order to access ${pageLabel}, you need to log in first. Then you will be taken to ${pageLabel}.`;
+}
 
 function getFirebaseErrorMessage(error) {
   switch (error?.code) {
@@ -75,17 +204,9 @@ async function syncUserProfile(user, profile) {
     await updateProfile(user, { displayName: profile.displayName });
   }
 
-  setDoc(
-    doc(getDb(), "users", user.uid),
-    {
-      uid: user.uid,
-      email: user.email,
-      ...profile,
-      createdAt: serverTimestamp(),
-    },
-    { merge: true }
-  ).catch((error) => {
-    console.error("User document sync failed", error);
+  return syncFirebaseUserProfile(user, {
+    ...profile,
+    role: USER_ROLES.CLIENT,
   });
 }
 
@@ -93,7 +214,8 @@ export default function AuthForm({ mode }) {
   const isRegister = mode === "register";
   const copy = FORM_COPY[mode] ?? FORM_COPY.login;
   const router = useRouter();
-  const [hasCheckedExistingSession, setHasCheckedExistingSession] = useState(false);
+  const { isAuthenticated, isLoading: isAuthLoading } = useAuth();
+  const currentSearchParams = getCurrentSearchParams();
   const [formData, setFormData] = useState({
     fullName: "",
     phoneNumber: "",
@@ -106,33 +228,30 @@ export default function AuthForm({ mode }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const redirectTarget =
+    currentSearchParams === null
+      ? "/logged-in"
+      : getSafeRedirectPath(currentSearchParams.get("redirect"));
+  const wasRedirectedToLogin = currentSearchParams?.get("loginRequired") === "1";
 
   useEffect(() => {
-    if (mode !== "login") {
-      setHasCheckedExistingSession(true);
-      return undefined;
+    if (isAuthLoading || !isAuthenticated) {
+      return;
     }
 
-    const auth = getFirebaseAuth();
-    let isFirstEmission = true;
+    router.replace(redirectTarget);
+  }, [isAuthenticated, isAuthLoading, redirectTarget, router]);
 
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (isFirstEmission && user) {
-        router.replace("/logged-in");
-      }
-
-      if (isFirstEmission) {
-        setHasCheckedExistingSession(true);
-        isFirstEmission = false;
-      }
-    });
-
-    return unsubscribe;
-  }, [mode, router]);
-
-  if (mode === "login" && !hasCheckedExistingSession) {
+  if (isAuthLoading || isAuthenticated) {
     return null;
   }
+
+  const helperHref = buildAuthHelperHref(copy.helperHref, redirectTarget, {
+    loginRequired: wasRedirectedToLogin,
+  });
+  const redirectNotice =
+    mode === "login" && wasRedirectedToLogin ? buildRedirectNotice(redirectTarget) : "";
+  const showRedirectToast = Boolean(redirectNotice);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -189,19 +308,35 @@ export default function AuthForm({ mode }) {
           formData.password
         );
 
-        await syncUserProfile(credentials.user, {
-          displayName: trimmedName,
-          phoneNumber: trimmedPhoneNumber,
-          zipCode: trimmedZipCode,
-          ageRange: formData.ageRange,
-        });
+        try {
+          await syncUserProfile(credentials.user, {
+            displayName: trimmedName,
+            phoneNumber: trimmedPhoneNumber,
+            zipCode: trimmedZipCode,
+            ageRange: formData.ageRange,
+          });
+        } catch (profileError) {
+          console.error("User document sync failed", profileError);
+        }
+
         setSuccessMessage("Account created. Redirecting...");
       } else {
-        await signInWithEmailAndPassword(auth, trimmedEmail, formData.password);
+        const credentials = await signInWithEmailAndPassword(
+          auth,
+          trimmedEmail,
+          formData.password
+        );
+
+        try {
+          await ensureFirebaseUserProfile(credentials.user);
+        } catch (profileError) {
+          console.error("User document backfill failed", profileError);
+        }
+
         setSuccessMessage("Signed in. Redirecting...");
       }
 
-      router.push("/logged-in");
+      router.push(redirectTarget);
       router.refresh();
     } catch (error) {
       setErrorMessage(getFirebaseErrorMessage(error));
@@ -211,6 +346,12 @@ export default function AuthForm({ mode }) {
 
   return (
     <main className={styles.authPage}>
+      {showRedirectToast ? (
+        <div className={styles.redirectToast} role="status" aria-live="polite">
+          {redirectNotice}
+        </div>
+      ) : null}
+
       <div className={styles.authShell}>
         <section className={styles.authLead}>
           <div>
@@ -221,8 +362,6 @@ export default function AuthForm({ mode }) {
             </h1>
             <p className={styles.leadCopy}>{copy.leadCopy}</p>
           </div>
-
-
         </section>
 
         <section className={styles.authCard}>
@@ -395,7 +534,7 @@ export default function AuthForm({ mode }) {
 
             <div className={styles.helperRow}>
               <p className={styles.helperText}>{copy.helperText}</p>
-              <Link className={styles.helperLink} href={copy.helperHref}>
+              <Link className={styles.helperLink} href={helperHref}>
                 {copy.helperLabel}
               </Link>
             </div>

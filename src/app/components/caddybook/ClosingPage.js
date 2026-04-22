@@ -1,7 +1,7 @@
 import React from "react";
 import "../../(content)/caddybook/caddybook.css";
 
-export default function ClosingPage() {
+export default function ClosingPage({ handleSubmit }) {
   return (
     <>
       <div className="doc-header">
@@ -60,9 +60,7 @@ export default function ClosingPage() {
         <div className="mb-label">Momentum</div>
         <div className="mb-main">Begins Here</div>
         <div className="mb-divider"></div>
-        <button className="submit-btn" 
-        // onClick="handleSubmit()"
-        >
+        <button className="submit-btn" onClick={handleSubmit}>
           Submit Your Caddybook <span className="submit-arrow">&#8594;</span>
         </button>
       </div>

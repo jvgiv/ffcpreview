@@ -6,9 +6,9 @@ export default function HomePageDefs() {
   return (
     <div className="defs-homepage" id="definitions-preview">
       <div className="container">
-        <div className="scorecard-inner">
+        <div className="scorecard-inner defs-homepage-inner">
           <div
-            className="definitions-visual reveal"
+            className="definitions-visual defs-homepage-preview reveal"
             style={{ transitionDelay: "0.15s" }}
           >
             <div className="hole-grid-defs">
@@ -58,8 +58,8 @@ export default function HomePageDefs() {
               </div>
             </div>
           </div>
-          <div className="scorecard-copy reveal">
-            <span className="section-label">Dogstar Definitions</span>
+          <div className="scorecard-copy defs-homepage-copy reveal">
+            <span className="section-label">DogStar Definitions</span>
             <h2 className="section-title">Your Financial Orientation Dictionary</h2>
             <p>
               The Dogstar Definitions are your personal field guide through 18

@@ -71,6 +71,7 @@ export async function POST(request) {
 
     await storeDocuSignEnvelopeRecord({
       envelopeId: signingSession.envelopeId,
+      agreementSlug: validated.agreementSlug,
       agreementTitle: validated.agreementTitle,
       signerName: validated.signerName,
       signerEmail: validated.signerEmail,
