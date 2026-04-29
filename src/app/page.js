@@ -8,20 +8,21 @@ import Quote from "./components/home/Quote";
 import PunchTheClock from "./components/home/PunchTheClock";
 import Image from "next/image";
 import Link from "next/link";
-import HomePageDefs from "./components/homepagedefs/HomePageDefs";
+import HomePageDefs from "./components/home/HomePageDefs";
 
 export default function Home() {
   return (
     <main className="home-page">
       <section className="hero">
         <div className="hero-inner container">
-          <p className="hero-eyebrow-top">First Financial Advisory - Est. 1974</p>
+          <p className="hero-eyebrow-top">A Special Program from First Financial Advisory - Est. 1974</p>
           <div className="hero-logo-ring">
             <Image
-              src='/ffc-dark.svg'
+              className="hero-logo-image"
+              src='/fflogo.png'
               alt="FFC Logo"
               width={140}
-              height={140}
+              height={155}
             />
           </div>
           <h1 className="hero-title">
@@ -29,14 +30,13 @@ export default function Home() {
             <span className="hero-title-main">ORIENTATION</span>
           </h1>
           <p className="hero-sub">
-            Most adults never get a clear introduction to managing their own money.
-            Far Flung Change fills that gap  - {" "}
-            <strong style={{ color: "var(--white)" }}>before it costs you.</strong>
+            Financial stress isn&apos;t mostly a money problem. It&apos;s mostly a fog problem. Far Flung Change clears the fog.  - {" "}
+            <strong style={{ color: "var(--white)" }}>Before you reach the clubhouse.</strong>
           </p>
           <p className="hero-sub">Welcome to <span style={{color: "var(--red)"}}>Financial</span> Orientation</p>
           <div className="hero-actions">
             <Link href="#pricing" className="btn-primary">Get Oriented -&gt;</Link>
-            <Link href="/logged-in" className="btn-ghost">Unlock Free Caddy Book</Link>
+            <Link href="/logged-in" className="btn-ghost">Unlock FREE Caddy Book of Orientation + Scorecard</Link>
           </div>
           <div className="scroll-hint">
             <span>scroll</span>

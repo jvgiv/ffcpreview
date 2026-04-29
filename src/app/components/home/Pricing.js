@@ -30,7 +30,7 @@ export default function Pricing() {
         <div className="pricing-grid reveal" style={{ transitionDelay: "0.1s" }}>
           <div className="pricing-card featured">
             <div className="pricing-badge">Core Program</div>
-            <div className="pricing-name">{financialServices?.displayName || "Financial Services"}</div>
+            <div className="pricing-name">{financialServices?.displayName || "Guided Orientation"}</div>
             <div className="pricing-price">{financialServices?.priceLabel || "$500"} <span>/ 1 year</span></div>
             <div className="pricing-desc">A flat-fee educational engagement to foster financial clarity and confidence. Forge Fog into Focus.</div>
             <ul className="pricing-features">

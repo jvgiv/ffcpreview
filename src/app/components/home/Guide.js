@@ -7,8 +7,8 @@ export default function Guide() {
         <div className="container">
             <div className="guide-intro reveal">
             <span className="section-label">The Solution</span>
-            <h2 className="section-title">You don't need another product. You need a starting point.</h2>
-            <p>Far Flung Change isn't financial advice. It isn't management or implementation. It's <strong style={{color: "var(--white)"}}>orientation</strong> — the kind of on-the-ground training in the cockpit that you should've had before anyone asked you to fly.</p>
+            <h2 className="section-title">You don&apos;t need another product. You need a starting point.</h2>
+            <p>Far Flung Change isn&apos;t financial advice. It isn&apos;t management or implementation. It&apos;s <strong style={{color: "var(--white)"}}>orientation</strong> — the kind of on-the-ground training in the cockpit that you should&apos;ve had before anyone asked you to fly.  Information helps. Just not before orientation. Without a reference point, nothing you learn has anywhere to land. It just adds to the noise.  Because information helps.  Just not before orientation.  Without a reference point, nothing you learn has anywhere to land. It just adds to the noise.</p>
             </div>
             {/* <div className="guide-cards reveal" style={{transitionDelay: "0.1s"}}> */}
             <div className="guide-cards" style={{transitionDelay: "0.1s"}}>

@@ -5,7 +5,7 @@ export default function Quote() {
     <div className="creed">
     <div className="container">
         <blockquote className="reveal">
-        "We believe in honest, faithful, and attentive work, with our clients' best interests steadfastly leading the way — always."
+        &quot;Orientation brings clarity. Clarity builds confidence.  Short, on-voice, and earns trust through logic rather than credentials.&quot;
         </blockquote>
         <div className="creed-bar reveal" style={{transitionDelay: '0.1s'}}>
         <span className="creed-tag">Fiduciary</span>

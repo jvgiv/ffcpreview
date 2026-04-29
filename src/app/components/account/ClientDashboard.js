@@ -6,6 +6,7 @@ import { signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { getFirebaseAuth } from "@/lib/firebase/auth";
 import { AGE_RANGE_OPTIONS } from "@/lib/firebase/profileOptions";
+import { getPurchaseBySlug, isPaymentComplete } from "@/lib/purchases";
 
 const pageStyle = {
   minHeight: "100vh",
@@ -97,6 +98,11 @@ const dangerButtonStyle = {
   cursor: "pointer",
 };
 
+const PROGRAM_ACCESS = [
+  getPurchaseBySlug("financial-orientation"),
+  getPurchaseBySlug("premium-expansion-pack"),
+].filter(Boolean);
+
 function buildFormState(profile, authUser) {
   return {
     displayName: profile?.displayName || authUser?.displayName || "",
@@ -152,6 +158,134 @@ function MessageBanner({ type, message }) {
   );
 }
 
+function DashboardStat({ label, value, copy }) {
+  return (
+    <article
+      style={{
+        border: "1px solid rgba(245, 240, 232, 0.12)",
+        background: "rgba(10, 10, 10, 0.88)",
+        padding: "1.25rem",
+        display: "grid",
+        gap: "0.45rem",
+      }}
+    >
+      <span
+        style={{
+          display: "block",
+          color: "rgba(245, 240, 232, 0.64)",
+          fontFamily: "'Space Mono', monospace",
+          fontSize: "0.72rem",
+          letterSpacing: "0.12em",
+          textTransform: "uppercase",
+        }}
+      >
+        {label}
+      </span>
+      <span
+        style={{
+          display: "block",
+          color: "var(--white)",
+          fontFamily: "var(--font-bebas-neue), sans-serif",
+          fontSize: "clamp(2rem, 5vw, 3rem)",
+          letterSpacing: "0.04em",
+          textTransform: "uppercase",
+        }}
+      >
+        {value}
+      </span>
+      <p style={{ margin: 0, color: "rgba(245, 240, 232, 0.66)", lineHeight: 1.7 }}>{copy}</p>
+    </article>
+  );
+}
+
+function getAccessBadgeStyles(tone) {
+  if (tone === "success") {
+    return {
+      border: "1px solid rgba(148, 187, 91, 0.36)",
+      background: "rgba(148, 187, 91, 0.12)",
+      color: "#eef8dd",
+    };
+  }
+
+  if (tone === "accent") {
+    return {
+      border: "1px solid rgba(206, 66, 43, 0.45)",
+      background: "rgba(206, 66, 43, 0.12)",
+      color: "#ffd8cf",
+    };
+  }
+
+  return {
+    border: "1px solid rgba(245, 240, 232, 0.16)",
+    background: "rgba(245, 240, 232, 0.06)",
+    color: "rgba(245, 240, 232, 0.9)",
+  };
+}
+
+function AccessCard({ item }) {
+  const badgeStyles = getAccessBadgeStyles(item.badgeTone);
+  const actionStyle = item.isPrimary ? primaryButtonStyle : secondaryButtonStyle;
+
+  return (
+    <article
+      style={{
+        border: "1px solid rgba(245, 240, 232, 0.12)",
+        background: "rgba(12, 12, 12, 0.9)",
+        padding: "1.2rem",
+        display: "grid",
+        gap: "0.9rem",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: "0.85rem",
+          alignItems: "start",
+          flexWrap: "wrap",
+        }}
+      >
+        <div style={{ display: "grid", gap: "0.45rem" }}>
+          <h3 style={{ margin: 0, color: "var(--white)", fontSize: "1.15rem" }}>{item.title}</h3>
+          <p style={{ margin: 0, color: "rgba(245, 240, 232, 0.72)", lineHeight: 1.7 }}>
+            {item.description}
+          </p>
+        </div>
+        <span
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            minHeight: "2rem",
+            padding: "0.35rem 0.75rem",
+            fontFamily: "'Space Mono', monospace",
+            fontSize: "0.68rem",
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            ...badgeStyles,
+          }}
+        >
+          {item.badgeLabel}
+        </span>
+      </div>
+
+      <p style={{ margin: 0, color: "rgba(245, 240, 232, 0.58)", lineHeight: 1.7 }}>
+        {item.meta}
+      </p>
+
+      {item.isDownload ? (
+        <a href={item.href} download style={actionStyle}>
+          {item.ctaLabel}
+        </a>
+      ) : (
+        <Link href={item.href} style={actionStyle}>
+          {item.ctaLabel}
+        </Link>
+      )}
+    </article>
+  );
+}
+
 export default function ClientDashboard({
   authUser,
   profile,
@@ -166,6 +300,81 @@ export default function ClientDashboard({
   const [successMessage, setSuccessMessage] = useState("");
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const paymentSummary = profile?.paymentSummary || {};
+  const purchasedProgramCount = PROGRAM_ACCESS.filter((purchase) =>
+    isPaymentComplete(paymentSummary?.[purchase.agreementSlug]?.status)
+  ).length;
+  const memberAccessItems = [
+    ...PROGRAM_ACCESS.map((purchase) => {
+      const summary = paymentSummary?.[purchase.agreementSlug] || null;
+      const isPurchased = isPaymentComplete(summary?.status);
+
+      return {
+        title: purchase.displayName,
+        description: isPurchased
+          ? "Your agreement and payment are already tied to this program. Reopen the checkout page any time to review status."
+          : "Available from your member account whenever you are ready to start the sign-and-pay flow.",
+        meta: isPurchased
+          ? summary?.completedAt
+            ? `Purchased on ${new Date(summary.completedAt).toLocaleDateString("en-US")}`
+            : "Purchased and active"
+          : `${purchase.priceLabel} flat-fee access`,
+        href: `/logged-in/checkout?agreement=${purchase.agreementSlug}`,
+        ctaLabel: isPurchased ? "View Program Status" : "Start Checkout",
+        badgeLabel: isPurchased ? "Purchased" : "Available",
+        badgeTone: isPurchased ? "success" : "accent",
+        isPrimary: !isPurchased,
+      };
+    }),
+    {
+      title: "DogStar Definitions",
+      description:
+        "Browse the definitions library so concepts, terms, and trade-offs stay within easy reach.",
+      meta: "Included member resource",
+      href: "/definitions",
+      ctaLabel: "Open Definitions",
+      badgeLabel: "Included",
+      badgeTone: "success",
+      isPrimary: false,
+    },
+    {
+      title: "Thought Gallery",
+      description:
+        "Revisit writing and perspective pieces that support the broader Far Flung Change philosophy.",
+      meta: "Included member resource",
+      href: "/thoughtgallery",
+      ctaLabel: "Open Thought Gallery",
+      badgeLabel: "Included",
+      badgeTone: "success",
+      isPrimary: false,
+    },
+    {
+      title: "Free Caddy Book + ScoreCard",
+      description:
+        "Download the Caddy Book and ScoreCard PDF again anytime from your account home.",
+      meta: "Included member download",
+      href: "/files/CaddyBook.pdf",
+      ctaLabel: "Download PDF",
+      badgeLabel: "Included",
+      badgeTone: "success",
+      isPrimary: false,
+      isDownload: true,
+    },
+    {
+      title: "Signed Documents",
+      description:
+        "Review the agreements already connected to your account and reopen stored PDFs when needed.",
+      meta: "Account-linked member tool",
+      href: "/logged-in/documents",
+      ctaLabel: "View Signed Documents",
+      badgeLabel: "Member Tool",
+      badgeTone: "default",
+      isPrimary: false,
+    },
+  ];
+  const includedResourceCount = memberAccessItems.filter(
+    (item) => item.badgeLabel === "Included" || item.badgeLabel === "Member Tool"
+  ).length;
 
   useEffect(() => {
     setFormData(buildFormState(profile, authUser));
@@ -334,9 +543,63 @@ export default function ClientDashboard({
           </h1>
           <p style={{ color: "rgba(245, 240, 232, 0.75)", lineHeight: 1.8, margin: 0 }}>
             Signed in as <strong style={{ color: "var(--white)" }}>{roleLabel}</strong>. This
-            page gives you a clean place to review your account information, update the details we
-            store for your membership, and manage your login.
+            page is your member home, with direct access to the resources, documents, and program
+            paths connected to your login.
           </p>
+        </section>
+
+        <section
+          style={{
+            display: "grid",
+            gap: "1rem",
+            gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+          }}
+        >
+          <DashboardStat
+            label="Member Access"
+            value={memberAccessItems.length}
+            copy="Distinct resources and program paths you can jump into from this page."
+          />
+          <DashboardStat
+            label="Included Resources"
+            value={includedResourceCount}
+            copy="Always available with your logged-in account."
+          />
+          <DashboardStat
+            label="Active Programs"
+            value={purchasedProgramCount}
+            copy="Packages already purchased and tied to your account."
+          />
+        </section>
+
+        <section style={panelStyle}>
+          <h2
+            style={{
+              fontFamily: "var(--font-bebas-neue), sans-serif",
+              fontSize: "clamp(2rem, 4vw, 2.8rem)",
+              letterSpacing: "0.04em",
+              textTransform: "uppercase",
+              margin: "0 0 0.35rem",
+            }}
+          >
+            Your Member Access
+          </h2>
+          <p style={{ color: "rgba(245, 240, 232, 0.72)", lineHeight: 1.7, margin: "0 0 1.25rem" }}>
+            Everything below is reachable because you are signed in. Use this page as the single
+            jump-off point for what your account includes right now.
+          </p>
+
+          <div
+            style={{
+              display: "grid",
+              gap: "1rem",
+              gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+            }}
+          >
+            {memberAccessItems.map((item) => (
+              <AccessCard key={item.title} item={item} />
+            ))}
+          </div>
         </section>
 
         <section
@@ -388,7 +651,7 @@ export default function ClientDashboard({
                 margin: "0 0 0.35rem",
               }}
             >
-              Member Actions
+              Quick Account Tools
             </h2>
             <p
               style={{
@@ -397,20 +660,17 @@ export default function ClientDashboard({
                 margin: "0 0 1.25rem",
               }}
             >
-              Jump to the member tools connected to your account, or head home when you are done.
+              These are the account-management shortcuts you are most likely to need between visits.
             </p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.85rem" }}>
-              <a href="/files/CaddyBook.pdf" download style={primaryButtonStyle}>
-                Get your Free Caddy Book + ScoreCard
-              </a>
-              <Link href="/logged-in/documents" style={secondaryButtonStyle}>
-                View Signed Documents
-              </Link>
-              <Link href="/logged-in/docusign" style={secondaryButtonStyle}>
-                Open DocuSign Demo
-              </Link>
-              <Link href="/forgot-password" style={secondaryButtonStyle}>
+              <Link href="/forgot-password" style={primaryButtonStyle}>
                 Reset Password
+              </Link>
+              <Link href="/logged-in/checkout" style={secondaryButtonStyle}>
+                View Checkout Options
+              </Link>
+              <Link href="/agreements" style={secondaryButtonStyle}>
+                Review Agreements
               </Link>
               <Link href="/" style={secondaryButtonStyle}>
                 Back Home

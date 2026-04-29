@@ -1,20 +1,22 @@
 'use client'
-import React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { onAuthStateChanged, signOut } from 'firebase/auth'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
 import { getFirebaseAuth } from '@/lib/firebase/auth'
 
 export default function Header() {
   const pathName = usePathname();
-  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false)
   const [authUser, setAuthUser] = useState(null)
+  const profileMenuRef = useRef(null)
   const homeSectionLinks = [
     { href: '/#problem', label: 'The Problem' },
     { href: '/#solution', label: 'The Guide' },
-    { href: '/#plan', label: 'The Plan' },
+    { href: '/#plan', label: 'The Process' },
     { href: '/#pricing', label: 'MenuBoard' },
     { href: '/#definitions-preview', label: 'Definitions' },
     { href: '/#scorecard', label: 'ScoreCard' },
@@ -22,30 +24,63 @@ export default function Header() {
   ]
 
   useEffect(() => {
-    setIsMenuOpen(false)
-  }, [pathName])
-
-  useEffect(() => {
     const auth = getFirebaseAuth()
 
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setAuthUser(user)
+
+      if (!user) {
+        setIsProfileMenuOpen(false)
+      }
     })
 
     return unsubscribe
   }, [])
 
+  useEffect(() => {
+    if (!isProfileMenuOpen) {
+      return undefined
+    }
+
+    const handlePointerDown = (event) => {
+      if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
+        setIsProfileMenuOpen(false)
+      }
+    }
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setIsProfileMenuOpen(false)
+      }
+    }
+
+    document.addEventListener('pointerdown', handlePointerDown)
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown)
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isProfileMenuOpen])
+
   const handleMenuToggle = () => {
+    setIsProfileMenuOpen(false)
     setIsMenuOpen((current) => !current)
   }
 
   const handleNavClose = () => {
     setIsMenuOpen(false)
+    setIsProfileMenuOpen(false)
+  }
+
+  const handleProfileMenuToggle = () => {
+    setIsMenuOpen(false)
+    setIsProfileMenuOpen((current) => !current)
   }
 
   const handleLogout = async () => {
     await signOut(getFirebaseAuth())
-    setIsMenuOpen(false)
+    handleNavClose()
     window.location.assign('/')
   }
 
@@ -125,7 +160,7 @@ export default function Header() {
             href="/definitions"
             onClick={handleNavClose}
           >
-            DOGSTAR DEFINITIONS
+            GUIDED ORIENTATION
           </Link>
         </li>
         <li className="ffc-nav-item">
@@ -213,16 +248,8 @@ export default function Header() {
               ABOUT
             </Link>
           </li>
-          <li className="ffc-nav-mobile-item">
-            {authUser ? (
-              <button
-                type="button"
-                className="ffc-nav-cta ffc-nav-cta-mobile"
-                onClick={handleLogout}
-              >
-                LOG OUT
-              </button>
-            ) : (
+          {!authUser ? (
+            <li className="ffc-nav-mobile-item">
               <Link
                 className="ffc-nav-cta ffc-nav-cta-mobile"
                 href="/login"
@@ -230,7 +257,16 @@ export default function Header() {
               >
                 LOG IN
               </Link>
-            )}
+            </li>
+          ) : null}
+          <li className="ffc-nav-mobile-item">
+            <Link
+              className="ffc-nav-cta ffc-nav-cta-mobile"
+              href="/#pricing"
+              onClick={handleNavClose}
+            >
+              GET ORIENTED
+            </Link>
           </li>
         </ul>
       </div>
@@ -239,13 +275,46 @@ export default function Header() {
         FAR FLUNG CHANGE
       </Link>
       {authUser ? (
-        <button
-          type="button"
-          className="ffc-nav-cta"
-          onClick={handleLogout}
-        >
-          LOG OUT
-        </button>
+        <div className="ffc-nav-profile" ref={profileMenuRef}>
+          <button
+            type="button"
+            className={`ffc-nav-profile-button ${isProfileMenuOpen ? 'active' : ''}`}
+            aria-expanded={isProfileMenuOpen}
+            aria-controls="ffc-profile-menu"
+            aria-haspopup="menu"
+            aria-label={isProfileMenuOpen ? 'Close profile menu' : 'Open profile menu'}
+            onClick={handleProfileMenuToggle}
+          >
+            <FontAwesomeIcon icon={faCircleUser} />
+          </button>
+          <ul
+            id="ffc-profile-menu"
+            className={`ffc-nav-profile-menu ${isProfileMenuOpen ? 'open' : ''}`}
+            role="menu"
+            aria-label="Profile menu"
+          >
+            <li role="none">
+              <Link
+                className="ffc-nav-profile-link"
+                href="/logged-in"
+                role="menuitem"
+                onClick={handleNavClose}
+              >
+                Home
+              </Link>
+            </li>
+            <li role="none">
+              <button
+                type="button"
+                className="ffc-nav-profile-link ffc-nav-profile-action"
+                role="menuitem"
+                onClick={handleLogout}
+              >
+                Log Out
+              </button>
+            </li>
+          </ul>
+        </div>
       ) : (
         <Link
           className="ffc-nav-cta"

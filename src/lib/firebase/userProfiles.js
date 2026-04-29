@@ -26,6 +26,40 @@ function firstAvailableText(...values) {
   return "";
 }
 
+function serializeTimestamp(value) {
+  if (!value) {
+    return null;
+  }
+
+  if (typeof value.toDate === "function") {
+    return value.toDate().toISOString();
+  }
+
+  if (value instanceof Date) {
+    return value.toISOString();
+  }
+
+  return typeof value === "string" ? value : null;
+}
+
+function buildResolvedPaymentSummary(paymentSummary) {
+  if (!paymentSummary || typeof paymentSummary !== "object") {
+    return {};
+  }
+
+  return Object.fromEntries(
+    Object.entries(paymentSummary).map(([agreementSlug, summary]) => [
+      agreementSlug,
+      {
+        ...(summary || {}),
+        completedAt: serializeTimestamp(summary?.completedAt),
+        updatedAt: serializeTimestamp(summary?.updatedAt),
+        createdAt: serializeTimestamp(summary?.createdAt),
+      },
+    ])
+  );
+}
+
 function buildUserProfileRecord(user, profile = {}, existingProfile = null) {
   const displayName = firstAvailableText(
     profile.displayName,
@@ -69,6 +103,7 @@ export function buildResolvedFirebaseUserProfile(user, ...profiles) {
     zipCode: firstAvailableText(resolvedProfile.zipCode),
     ageRange: firstAvailableText(resolvedProfile.ageRange),
     role: normalizeUserRole(resolvedProfile.role || DEFAULT_USER_ROLE),
+    paymentSummary: buildResolvedPaymentSummary(resolvedProfile.paymentSummary),
   };
 }
 

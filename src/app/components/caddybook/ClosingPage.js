@@ -13,7 +13,7 @@ export default function ClosingPage({ handleSubmit }) {
         <h2>What This Means</h2>
         <div className="closing-block">
           <p>
-            You've just done something most people never do. You've looked at
+            You&apos;ve just done something most people never do. You&apos;ve looked at
             your financial life with honest eyes and identified where
             orientation is needed most. That alone puts you ahead of where you
             were when you picked this up.
@@ -24,18 +24,18 @@ export default function ClosingPage({ handleSubmit }) {
           <p>
             Keep this. Come back to it. The questions you wrote in your notes
             are worth sitting with. Share it with someone who matters to your
-            financial life: a partner, a family member, a friend who's been
+            financial life: a partner, a family member, a friend who&apos;s been
             asking the same questions. There are no wrong answers here and no
-            expiration date on the work you've started.
+            expiration date on the work you&apos;ve started.
           </p>
         </div>
         <div className="closing-block">
           <p className="cl-label">If you want a guide for the next part:</p>
           <p>
-            That's exactly what Far Flung Change was built for. A conversation,
+            That&apos;s exactly what Far Flung Change was built for. A conversation,
             not a sales pitch to manage your money for you. Orientation first.
             Always. We listen before we speak and we never hand you a map before
-            you know where you're standing.
+            you know where you&apos;re standing.
           </p>
         </div>
         <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.55)', marginTop: '8px' }}>

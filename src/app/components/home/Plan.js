@@ -6,13 +6,13 @@ export default function Plan() {
     <section id="plan" className="plan">
       <div className="container">
         <div className="reveal">
-          <span className="section-label">The Plan</span>
+          <span className="section-label">The Process</span>
           <h2 className="section-title">Five moves. Zero mystery.</h2>
         </div>
         <div className="plan-steps reveal" style={{ transitionDelay: "0.1s" }}>
           <div className="plan-step">
             <div className="step-num">1</div>
-            <div className="step-title">Review the Offering</div>
+            <div className="step-title">Review the Offer</div>
             <div className="step-body">Explore program tiers and pricing on the MenuBoard.</div>
             <div className="step-arrow"></div>
           </div>
@@ -31,7 +31,7 @@ export default function Plan() {
           <div className="plan-step">
             <div className="step-num">4</div>
             <div className="step-title">Ask What Matters</div>
-            <div className="step-body">Submit your questions. Receive fiduciary-level responses.</div>
+            <div className="step-body">Submit your questions. Receive fiduciary-level responses. Repeat.</div>
             <div className="step-arrow"></div>
           </div>
           <div className="plan-step">

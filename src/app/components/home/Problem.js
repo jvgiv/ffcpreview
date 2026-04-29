@@ -17,7 +17,7 @@ export default function Problem() {
             <p>
               So you proceed anyway because <strong>life does not wait.</strong> You sign
               documents that feel almost clear. You accept explanations that feel close
-              enough. And somewhere beneath every decision, there is quiet unease.
+              enough. Fog isn&apos;t failure. Fog is normal. Steps are heavy when you can&apos;t see the field. That&apos;s not a personal flaw. It&apos;s a visibility problem.
             </p>
             <ul className="pain-list">
               <li>

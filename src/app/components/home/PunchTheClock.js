@@ -13,8 +13,7 @@ export default function PunchTheClock() {
             <span className="red">The Clock.</span>
           </h2>
           <p>
-            Confidence comes with clarity. If you're ready to understand what you're deciding and
-            agreeing to, if you're ready to move forward with steadiness, this is where it starts.
+            Your round is not over. Yet. BE Oriented. For Growin&apos; Up&apos;s Sake. Try Far Flung Change. Before you reach the Clubhouse.
           </p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link

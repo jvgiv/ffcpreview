@@ -14,7 +14,7 @@ export default function TempFooter() {
         <div className="ffc-footer-contact">
           <a className="ffc-footer-item" href="https://www.firstfinancialadvisory.com" target="_blank" rel="noopener noreferrer">
             <FontAwesomeIcon icon={faGlobe} />
-            <span>firstfinancialadvisory.com</span>
+            <span>Powered by firstfinancialadvisory.com</span>
           </a>
           <div className="ffc-footer-item">
             <FontAwesomeIcon icon={faMapMarkerAlt} />

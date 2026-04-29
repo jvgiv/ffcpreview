@@ -1,7 +1,5 @@
 import "server-only";
 
-import fs from "node:fs";
-import path from "node:path";
 import { DocuSignConfigurationError } from "./errors";
 
 const DOCUSIGN_ENVIRONMENTS = {
@@ -47,17 +45,8 @@ function normalizePem(pem) {
 }
 
 function readPrivateKey() {
-  const keyPath = process.env.DOCUSIGN_PRIVATE_KEY_PATH?.trim();
   const rawEnvKey = process.env.DOCUSIGN_PRIVATE_KEY?.trim();
   const base64EnvKey = process.env.DOCUSIGN_PRIVATE_KEY_BASE64?.trim();
-
-  if (keyPath) {
-    const resolvedPath = path.isAbsolute(keyPath)
-      ? keyPath
-      : path.resolve(process.cwd(), keyPath);
-
-    return fs.readFileSync(resolvedPath, "utf8").trim();
-  }
 
   if (rawEnvKey) {
     return normalizePem(rawEnvKey);
@@ -87,7 +76,7 @@ export function getDocuSignConfig() {
     !process.env.DOCUSIGN_CONSENT_REDIRECT_URI?.trim() &&
       "DOCUSIGN_CONSENT_REDIRECT_URI",
     !privateKey &&
-      "DOCUSIGN_PRIVATE_KEY_PATH or DOCUSIGN_PRIVATE_KEY or DOCUSIGN_PRIVATE_KEY_BASE64",
+      "DOCUSIGN_PRIVATE_KEY or DOCUSIGN_PRIVATE_KEY_BASE64",
   ].filter(Boolean);
 
   if (missing.length) {
