@@ -78,7 +78,7 @@ body {
   font-size: 7px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.56);
   line-height: 1.4;
   margin-top: 4px;
 }
@@ -93,7 +93,7 @@ body {
   font-size: 11px;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.56);
   margin-bottom: 18px;
   font-style: italic;
 }
@@ -139,7 +139,7 @@ body {
   font-family: "EB Garamond", serif;
   font-style: italic;
   font-size: 16px;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.56);
   margin-bottom: 32px;
 }
 .cover-rule2 {
@@ -178,7 +178,7 @@ body {
   font-size: 9px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.42);
+  color: rgba(255, 255, 255, 0.54);
 }
 .cover-member-value {
   font-family: "EB Garamond", serif;
@@ -200,7 +200,7 @@ body {
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.68);
   line-height: 1.4;
 }
 .cover-stat:last-child {
@@ -277,7 +277,7 @@ body {
   justify-content: center;
 }
 .cover-getready .get {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.6);
   font-size: 10px;
   letter-spacing: 2px;
 }
@@ -314,6 +314,12 @@ body {
 }
 
 /* TOC */
+.toc-doc-header .brand-left {
+  color: rgba(255, 255, 255, 0.44);
+}
+.toc-doc-header .brand-right {
+  color: rgba(255, 255, 255, 0.38);
+}
 .toc-page {
   background: var(--black);
   padding: 48px 40px;
@@ -324,7 +330,7 @@ body {
   font-size: 18px;
   letter-spacing: 4px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.28);
+  color: rgba(255, 255, 255, 0.46);
   margin-bottom: 28px;
 }
 .toc-eyebrow-left {
@@ -372,13 +378,17 @@ body {
   font-weight: 400;
   letter-spacing: 0;
   text-transform: none;
-  color: rgba(255, 255, 255, 0.38);
+  color: rgba(255, 255, 255, 0.56);
   margin-top: 2px;
+}
+.toc-item:last-child .toc-name,
+.toc-item:last-child .toc-name span {
+  color: var(--red);
 }
 .toc-fraction {
   font-family: "Roboto Condensed", sans-serif;
   font-size: 20px;
-  color: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.36);
   letter-spacing: 1px;
 }
 .toc-begin {

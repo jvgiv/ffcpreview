@@ -19,7 +19,7 @@ export default function Home() {
           <div className="hero-logo-ring">
             <Image
               className="hero-logo-image"
-              src='/FFLogo.png'
+              src='/fflogo.png'
               alt="FFC Logo"
               width={140}
               height={155}

@@ -123,14 +123,14 @@ body {
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(245, 240, 232, 0.86);
+  color: var(--red);
   text-decoration: none;
   transition: color 0.2s ease, background-color 0.2s ease;
 }
 
 .ffc-home-menu-link:hover,
 .ffc-home-menu-link:focus-visible {
-  color: var(--white);
+  color: var(--red-hot);
   background: rgba(231, 76, 60, 0.14);
 }
 
@@ -518,7 +518,7 @@ button.ffc-nav-cta {
   .ffc-home-mobile-menu .ffc-home-menu-link {
     padding: 0.45rem 0.25rem;
     font-size: 0.68rem;
-    color: rgba(245, 240, 232, 0.74);
+    color: var(--red);
   }
 
   .ffc-nav-cta-mobile {
