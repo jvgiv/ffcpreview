@@ -6,9 +6,7 @@ export default function Disclosures() {
       <div className="ffc-disclosure-inner container">
         <p className="ffc-disclosure-label">Important Disclosure</p>
         <p className="ffc-disclosure-copy">
-          Far Flung Change is a division of First Financial Advisory Services.  Investment Advisory Services are offered through First Financial Advisory Services, Inc., a
-          Registered Investment Advisor. Securities are offered through Cetera Advisors, LLC, member
-          FINRA/SIPC. Cetera is under separate ownership from any other named entity.
+          Far Flung Change is a division of First Financial Advisory Services, Inc. (FFAS), a Registered Investment Advisor. Far Flung Change provides financial orientation services only and does not offer securities advice, investment management, or financial planning.
         </p>
       </div>
     </section>

@@ -4,7 +4,7 @@ import "../../(content)/caddybook/caddybook.css";
 export default function CaddyBookTOC() {
   return (
     <>
-      <div className="doc-header">
+      <div className="doc-header toc-doc-header">
         <span className="brand-left">Far Flung Change · the Caddy Book</span>
         <span className="brand-right">Forging Fog Into Focus</span>
       </div>

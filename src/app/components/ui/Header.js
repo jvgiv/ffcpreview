@@ -15,11 +15,11 @@ export default function Header() {
   const profileMenuRef = useRef(null)
   const homeSectionLinks = [
     { href: '/#problem', label: 'The Problem' },
-    { href: '/#solution', label: 'The Guide' },
+    { href: '/#solution', label: 'The Solution' },
     { href: '/#plan', label: 'The Process' },
     { href: '/#pricing', label: 'MenuBoard' },
-    { href: '/#definitions-preview', label: 'Definitions' },
-    { href: '/#scorecard', label: 'ScoreCard' },
+    { href: '/#definitions-preview', label: 'DogStar Definitions' },
+    { href: '/#scorecard', label: 'Orientation ScoreCard' },
     { href: '/#cta', label: 'Punch The Clock' },
   ]
 
