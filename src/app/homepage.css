@@ -78,7 +78,7 @@
 
 .hero-logo-image {
   width: 100%;
-  max-width: 124px;
+  /* max-width: 124px; */
   height: auto;
   display: block;
   object-fit: contain;

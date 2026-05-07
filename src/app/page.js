@@ -21,8 +21,8 @@ export default function Home() {
               className="hero-logo-image"
               src='/FFLogo.png'
               alt="FFC Logo"
-              width={140}
-              height={155}
+              width={190}
+              height={210}
             />
           </div>
           <h1 className="hero-title">
