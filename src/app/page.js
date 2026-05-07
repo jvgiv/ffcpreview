@@ -31,7 +31,7 @@ export default function Home() {
           </h1>
           <p className="hero-sub">
             Financial stress isn&apos;t mostly a money problem. It&apos;s mostly a fog problem. Far Flung Change clears the fog.  - {" "}
-            <strong style={{ color: "var(--white)" }}>Before you reach the clubhouse.</strong>
+            <strong style={{ color: "var(--white)" }}>Before you reach the Clubhouse.</strong>
           </p>
           <p className="hero-sub">Welcome to <span style={{color: "var(--red)"}}>Financial</span> Orientation</p>
           <div className="hero-actions">

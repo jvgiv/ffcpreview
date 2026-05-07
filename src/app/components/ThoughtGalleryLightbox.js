@@ -6,7 +6,7 @@ import 'yet-another-react-lightbox/styles.css'
 import Image from 'next/image'
 import styles from './GameTheory.module.css'
 
-export default function ThoughtGalleryLightbox({ images, title }) {
+export default function ThoughtGalleryLightbox({ images, title, copy }) {
   const [index, setIndex] = useState(-1);
   
       const slides = images.map((img) => ({
@@ -21,7 +21,7 @@ export default function ThoughtGalleryLightbox({ images, title }) {
       <div className={styles.gallery}>
       <div className={styles.header}>
         <h2 className={styles.title}>{title}</h2>
-        <p className={styles.meta}>{images.length} frames in view</p>
+        <p className={styles.meta}>{copy}</p>
       </div>
       <div className={styles.grid}>
         {images.map(function (img, idx) {

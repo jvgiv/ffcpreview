@@ -3,6 +3,7 @@ import React from 'react'
 import ThoughtGalleryLightbox from '@/app/components/ThoughtGalleryLightbox'
 import styles from './page.module.css'
 import '../../homepage.css'
+import { useState } from 'react'
 
 let gameTheoryImages = [
     { src: '/GT.1.png', alt: '', width: 1500, height: 1500 },
@@ -43,8 +44,32 @@ let fogSeriesImages = [
     { src: '/fs5.png', alt: '', width: 1500, height: 1500 }
 ]
 
+const galleries = [
+  {
+    images: gameTheoryImages,
+    title: "Game Theory",
+    copy: "Before spreadsheets, there were games. Turns out, they taught you every skill you needed : deliBErate : rememBErable : difBErent"
+  },
+  {
+    images: movieNightImages,
+    title: "Movie Night",
+    copy: "Beyond classrooms, there were movies. Turns out, they taught you every concept you needed : sBEadfast : a reBEl : oBiEnted"
+  },
+  {
+    images: fogSeriesImages,
+    title: "Fog Bank",
+    copy: "Most financial stress isn't about money. It's about fog. These frames help clear it. : BE Oriented :"
+  },
+  {
+    images: oriMattImages,
+    title: "Come on Up to the House",
+    copy: "You don't need more information. You need a place to stand. Come on Up + Mind Your Step"
+  }
+]
+
 
 export default function ThoughtGallery() {
+  const [gallery, setGallery] = useState(0);
   return (
     <main className={styles.page}>
       <section className={styles.hero}>
@@ -54,8 +79,7 @@ export default function ThoughtGallery() {
             Visual prompts for <span>deliberate thinking.</span>
           </h1>
           <p className={styles.lead}>
-            A running gallery of visual frames, sharp questions, and conceptual
-            sketches that support the broader Far Flung Change point of view.
+            Frames that change what you see when you linger and look.
           </p>
         </div>
 
@@ -63,86 +87,44 @@ export default function ThoughtGallery() {
           className={`${styles.heroPanel} ${styles.revealCard} reveal`}
           style={{ transitionDelay: '0.12s' }}
         >
-          <p className={styles.panelLabel}>How to use it</p>
+          <p className={styles.panelLabel}>HOW TO WALK IN</p>
           <p className={styles.panelBody}>
-            Browse the boards, open any image for a closer read, and treat the
-            gallery as a place to notice patterns rather than collect answers.
+            Browse the boards. Open anything that stops you. This is a place to notice patterns, not collect answers.
           </p>
         </aside>
       </section>
+
+      <nav className={styles.navBar}>
+        {galleries.map((gal, index) => (
+          <button
+            key={index}
+            className={`${styles.navButton} ${gallery === index ? styles.active : ''}`}
+            onClick={() => setGallery(index)}
+          >
+            {gal.title}
+          </button>
+        ))}
+      </nav>
 
       <section
         className={`${styles.gallerySection} ${styles.revealCard} reveal`}
         style={{ transitionDelay: '0.18s' }}
       >
-        <div className={`${styles.galleryIntro} reveal`} style={{ transitionDelay: '0.24s' }}>
-          <p className={styles.sectionLabel}>Current collection</p>
-          <p className={styles.sectionCopy}>
-            This set focuses on Game Theory: image-led prompts meant to surface
-            incentives, tradeoffs, and the quiet logic hiding under everyday
-            decisions.
-          </p>
-        </div>
-
+         <div className={`${styles.galleryIntro} reveal`} style={{ transitionDelay: '0.24s' }}>
+        <p className={styles.sectionLabel}>Chamber Contents</p>
+         </div>
         <ThoughtGalleryLightbox 
-          images={gameTheoryImages} 
-          title="Game Theory"
+          images={galleries[gallery].images} 
+          title={galleries[gallery].title}
+          copy={galleries[gallery].copy}
         />
       </section>
 
 
-       <section
-        className={`${styles.gallerySection} ${styles.revealCard} reveal`}
-        style={{ transitionDelay: '0.18s' }}
-      >
-        <div className={`${styles.galleryIntro} reveal`} style={{ transitionDelay: '0.24s' }}>
-          <p className={styles.sectionLabel}>Current collection</p>
-          <p className={styles.sectionCopy}>
-            NEED TEXT HERE
-          </p>
-          </div>
-
-        <ThoughtGalleryLightbox 
-          images={oriMattImages} 
-          title="Come on Up to the House"
-        />
-        </section>
-
-
-       <section
-        className={`${styles.gallerySection} ${styles.revealCard} reveal`}
-        style={{ transitionDelay: '0.18s' }}
-      >
-        <div className={`${styles.galleryIntro} reveal`} style={{ transitionDelay: '0.24s' }}>
-          <p className={styles.sectionLabel}>Current collection</p>
-          <p className={styles.sectionCopy}>
-            NEED FOG TEXT HERE
-          </p>
-          </div>
-
-        <ThoughtGalleryLightbox 
-          images={fogSeriesImages} 
-          title="Fog Bank"
-        />
-        </section>
+      
        
        
-       <section
-        className={`${styles.gallerySection} ${styles.revealCard} reveal`}
-        style={{ transitionDelay: '0.18s' }}
-      >
-        <div className={`${styles.galleryIntro} reveal`} style={{ transitionDelay: '0.24s' }}>
-          <p className={styles.sectionLabel}>Current collection</p>
-          <p className={styles.sectionCopy}>
-            This set focuses on Movie Night: images that are meant to spark reflection, discussion, and insight — the kind of frames that you might draw on a napkin to explain something important to a friend.
-          </p>
-          </div>
-
-        <ThoughtGalleryLightbox 
-          images={movieNightImages} 
-          title="Movie Night"
-        />
-        </section>
+       
     </main>
   )
 }

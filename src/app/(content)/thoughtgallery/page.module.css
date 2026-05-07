@@ -61,11 +61,25 @@
   justify-content: flex-end;
 }
 
-.eyebrow,
-.sectionLabel,
+.eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: .68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--red-hot);
+}
+
 .panelLabel {
   font-family: 'Space Mono', monospace;
-  font-size: 0.68rem;
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--red-hot);
+}
+
+.sectionLabel {
+  font-family: 'Space Mono', monospace;
+  font-size: 1rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--red-hot);
@@ -187,4 +201,42 @@
   .sectionCopy {
     font-size: 0.94rem;
   }
+}
+
+.navBar {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0)),
+    rgba(12, 12, 12, 0.92);
+  backdrop-filter: blur(10px);
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.navButton {
+  padding: 0.5rem 1rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 232, 0.7);
+  background: none;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.navButton:hover {
+  color: var(--red-hot);
+  border-color: rgba(231, 76, 60, 0.5);
+}
+
+.navButton.active {
+  color: var(--red-hot);
+  border-color: rgba(231, 76, 60, 0.8);
+  background: rgba(231, 76, 60, 0.1);
 }
