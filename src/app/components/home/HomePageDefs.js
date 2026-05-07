@@ -9,7 +9,7 @@ export default function HomePageDefs() {
         <div className="scorecard-inner defs-homepage-inner">
           <div className="scorecard-copy defs-homepage-copy reveal">
             <span className="section-label">DogStar Definitions</span>
-            <h2 className="section-title">Your Financial Orientation Dictionary</h2>
+            <h2 className="section-title">Your Financial Orientation Compendium</h2>
             <p>
               The Dogstar Definitions are your personal field guide through 18
               essential areas of financial life from Accounts and Cash Flow to

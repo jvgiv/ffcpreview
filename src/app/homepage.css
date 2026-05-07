@@ -226,7 +226,7 @@
 
 .section-label {
   font-family: 'Space Mono', monospace;
-  font-size: 0.65rem;
+  font-size: 0.9rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--red-hot);
@@ -299,7 +299,7 @@
 .friction-stat {
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
   padding: 3rem 2.5rem;
   gap: 2rem;
 }
@@ -350,7 +350,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5px;
   background: var(--border);
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
 }
 
 .guide-card {
@@ -455,7 +455,7 @@
   grid-template-columns: 2fr 2fr;
   gap: 1.5px;
   background: var(--border);
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
   margin-top: 4rem;
 }
 
@@ -569,18 +569,18 @@
 }
 
 .scorecard-visual {
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
   padding: 2.5rem;
   position: relative;
 }
 
 .scorecard-visual::before {
-  content: 'SCORECARD';
+  content: 'ORIENTATION SCORECARD';
   position: absolute;
   top: -0.6rem;
   left: 1.5rem;
   font-family: 'Space Mono', monospace;
-  font-size: 0.6rem;
+  font-size: 0.9rem;
   letter-spacing: 0.2em;
   background: var(--offblack);
   padding: 0 0.5rem;
@@ -588,7 +588,7 @@
 }
 
 .definitions-visual {
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
   padding: 2.5rem;
   position: relative;
 }
@@ -599,7 +599,7 @@
   top: -0.6rem;
   left: 1.5rem;
   font-family: 'Space Mono', monospace;
-  font-size: 0.6rem;
+  font-size: 0.9rem;
   letter-spacing: 0.2em;
   background: var(--offblack);
   padding: 0 0.5rem;
@@ -738,12 +738,12 @@
 
 .creed-tag {
   font-family: 'Space Mono', monospace;
-  font-size: 0.65rem;
+  font-size: .85rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--gray);
   padding: 0.4rem 0.8rem;
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
 }
 
 /* Final CTA */

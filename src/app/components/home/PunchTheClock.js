@@ -13,7 +13,7 @@ export default function PunchTheClock() {
             <span className="red">The Clock.</span>
           </h2>
           <p>
-            Your round is not over. Yet. BE Oriented. For Growin&apos; Up&apos;s Sake. Try Far Flung Change. Before you reach the Clubhouse.
+            Your round is not over. Yet. <br />BE Oriented. For Growin&apos; Up&apos;s Sake. <br />Try Far Flung Change. Before you reach the Clubhouse.
           </p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link
