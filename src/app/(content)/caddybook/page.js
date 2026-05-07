@@ -91,6 +91,7 @@ export default function CaddyBook() {
         memberProfile={memberProfile}
         handleSubmit={handleSubmit}
         onRetrySubmit={() => goTo(current - 1)}
+        goTo={goTo}
       />
       <NavBar 
         pages={PAGES}

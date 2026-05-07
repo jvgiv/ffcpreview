@@ -30,7 +30,7 @@ export default function Definitions() {
                 height={480}
             />
         </div>
-        <p className="master-hint">Select a chapter below &nbsp;·&nbsp; <span>or search above</span></p>
+        <p className="master-hint"><span>Select a chapter below</span></p>
     </div>
        
         <div id="chapterGrid" style={{maxWidth: '860px', margin: '2.5rem auto 0', display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(200px,1fr))', gap:'0.6rem'}}>
@@ -49,7 +49,7 @@ export default function Definitions() {
                         <span style={{fontFamily: "'Bebas Neue',sans-serif", fontSize: '1.6rem', color: 'var(--orange)', lineHeight: '1'}}>{chapter.num}</span>
                         <span className="v6-link" style={{fontFamily: "'Bebas Neue',sans-serif", fontSize: '1rem', color: 'var(--white)', letterSpacing: '0.05em'}}>{chapter.title}</span>
                     </div>
-                    <div style={{fontFamily: "'Space Mono',monospace", fontSize: '0.48rem', color: 'var(--mgray)', letterSpacing: '0.08em'}}>{chapter.terms[0][7]} - {chapter.terms[19][7]}</div>
+                    <div style={{fontFamily: "'Space Mono',monospace", fontSize: '0.68rem', color: 'var(--mgray)', letterSpacing: '0.08em'}}>{chapter.terms[0][7]} - {chapter.terms[19][7]}</div>
                 </div>
                 </Link>
             ))}

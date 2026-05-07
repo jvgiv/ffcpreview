@@ -44,7 +44,7 @@ export default function ElementPage({ element, note, handleChange }) {
           ))}
         </div>
         <div className="el-notes">
-          <h4><span className="element-num-title">4</span> Your Notes:</h4>
+          <h4><span className="element-num-title">4</span> Your Notes: {notesPrompt}</h4>
           <textarea
             className="notes-prompt"
             placeholder={notesPrompt}

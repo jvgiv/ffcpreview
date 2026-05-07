@@ -8,11 +8,11 @@ import ClosingPage from './ClosingPage'
 import CaddySuccess from './CaddySuccess'
 import CaddyFailure from './CaddyFailure'
 
-export default function CurrentPage({ index, data, notes, handleChange, handleSubmit, memberProfile, onRetrySubmit }) {
+export default function CurrentPage({ index, data, notes, handleChange, goTo, handleSubmit, memberProfile, onRetrySubmit }) {
     const elementIndex = index - 2;
 
     if (index === 0) return <CaddyBookCover memberProfile={memberProfile} />
-    if (index === 1) return <CaddyBookTOC />
+    if (index === 1) return <CaddyBookTOC goTo={goTo} />
     if (index >= 2 && index <= 8) {
         const element = data[elementIndex]
 

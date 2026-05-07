@@ -110,6 +110,9 @@ export default function ScoreCardPage() {
             </div>
           </div>
         </div>
+          <a href="/scorecard.pdf" target="_blank" className="sc-download-link">
+            Download Yours
+          </a>
       </div>
     </>
   );

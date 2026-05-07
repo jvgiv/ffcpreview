@@ -34,7 +34,12 @@ export default async function ChapterPage({ params }) {
           {chapter.focus}
         </p>
         {/* CLOCK GOES HERE */}
-        <p className="ch-hint">Select a term to read it's definition</p>
+        <p className="ch-hint">Select a term to read it&apos;s definition</p>
+        <div className="ch-nav-top">
+          <Link href="/definitions" className="nav-btn">
+            ← Back to definitions
+          </Link>
+        </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {chapter.terms.map((sub, index) => (

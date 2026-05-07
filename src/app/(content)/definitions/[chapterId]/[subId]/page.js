@@ -73,6 +73,19 @@ export default async function Subpage({ params }) {
                 <div id="entryNoteLabel" className="entry-note-label">Field Note:</div>
                 <div id="entryNote" className="entry-note-text">{insight}</div>
             </div>
+            <a
+                    href="mailto:farflungchange@1stallied.com"
+                    id="btnEmail"
+                    className="nav-btn"
+                    rel="noreferrer"
+                    target="_blank"
+                    style={{
+                        textDecoration: 'none',
+                        color: 'inherit',
+                    }}
+                >
+                  Submit your Orientation Question
+                </a>
             <div id="progressRow" className="entry-progress fade-up">
                 {/* <div id="progBox" className="prog-box"></div> */}
                 {/* <span id="progLabel" className="prog-label">Mark as in progress</span> */}
@@ -101,6 +114,7 @@ export default async function Subpage({ params }) {
                 >
                   Chapter Index
                 </Link>
+                
                 {number < 20 ? (
                     <Link
                     href={`/definitions/${chapter.id}/${parseInt(number) + 1}`}

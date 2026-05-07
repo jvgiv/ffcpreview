@@ -38,27 +38,29 @@ header{
 #view-master{text-align:center;padding:2rem 1rem 4rem}
 .master-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,6vw,4rem);letter-spacing:0.06em;margin-bottom:0.3rem}
 .master-title span{color:var(--orange)}
-.master-sub{font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:var(--lgray);margin-bottom:0.4rem}
-.master-tag{font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--orange);margin-bottom:2rem}
+.master-sub{font-family:'Playfair Display',serif;font-style:italic;font-size:1.2rem;color:var(--lgray);margin-bottom:0.4rem}
+.master-tag{font-family:'Space Mono',monospace;font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--orange);margin-bottom:2rem}
 .clock-wrap{max-width:680px;margin:0 auto;cursor:pointer;transition:filter 0.3s;filter:drop-shadow(0 0 30px rgba(232,119,34,0.1))}
 .clock-wrap:hover{filter:drop-shadow(0 0 50px rgba(232,119,34,0.2))}
 .clock-wrap img{width:100%;height:auto;display:block;border-radius:50%}
-.master-hint{font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--mgray);margin-top:1.5rem}
+.master-hint{font-family:'Space Mono',monospace;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--mgray);margin-top:1.5rem}
 .master-hint span{color:var(--orange)}
 
 /* ── CHAPTER VIEW ── */
 #view-chapter{padding:0 1rem 4rem}
 .ch-header{text-align:center;padding:2rem 1rem 1.5rem;border-bottom:2px solid var(--blue)}
-.ch-eyebrow{font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--orange);margin-bottom:0.5rem}
+.ch-eyebrow{font-family:'Space Mono',monospace;font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--orange);margin-bottom:0.5rem}
 .ch-title-wrap{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:0.5rem}
 .ch-num{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:var(--orange);line-height:1;flex-shrink:0}
 .ch-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,7vw,3.5rem);color:var(--white);letter-spacing:0.05em}
-.ch-focus{font-family:'Playfair Display',serif;font-style:italic;font-size:0.9rem;color:var(--lgray);max-width:600px;margin:0 auto 1.5rem;line-height:1.7}
+.ch-focus{font-family:'Playfair Display',serif;font-style:italic;font-size:1.25rem;color:var(--lgray);max-width:600px;margin:0 auto 1.5rem;line-height:1.7}
 .ch-clock{max-width:520px;margin:0 auto 1.5rem;position:relative}
 .ch-clock img{width:100%;height:auto;display:block;filter:drop-shadow(0 0 20px rgba(232,119,34,0.15))}
 
 
-.ch-hint{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--mgray);text-align:center;margin-bottom:2rem}
+.ch-hint{font-family:'Space Mono',monospace;font-size:0.8rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--mgray);text-align:center;margin-bottom:2rem}
+
+.ch-nav-top{display:flex;justify-content:center;margin:1.5rem auto 1rem;}
 
 /* ── TERM LIST on chapter view ── */
 .term-index{max-width:800px;margin:0 auto}
@@ -71,8 +73,8 @@ header{
 .term-index-item:hover{background:var(--offblack);border-bottom-color:var(--orange)}
 .ti-num{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--orange);min-width:2rem;line-height:1}
 .ti-name{font-family:'DM Sans',sans-serif;font-size:0.9rem;color:var(--white);font-weight:400;flex:1}
-.ti-pos{font-family:'Space Mono',monospace;font-size:0.5rem;color:var(--mgray);letter-spacing:0.08em}
-.ti-stamp{font-family:'Space Mono',monospace;font-size:0.52rem;color:var(--orange);letter-spacing:0.05em;white-space:nowrap}
+.ti-pos{font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--mgray);letter-spacing:0.08em}
+.ti-stamp{font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--orange);letter-spacing:0.05em;white-space:nowrap}
 .ti-check{width:14px;height:14px;border:1px solid var(--border);border-radius:2px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
 .ti-check.checked{background:var(--orange);border-color:var(--orange)}
 .ti-check.checked::after{content:'✓';font-size:8px;color:var(--black)}
@@ -85,11 +87,11 @@ header{
   border-bottom:1px solid var(--border);
 }
 .breadcrumb{display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap}
-.bc-item{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--mgray);cursor:pointer;transition:color 0.2s}
+.bc-item{font-family:'Space Mono',monospace;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--mgray);cursor:pointer;transition:color 0.2s}
 .bc-item:hover{color:var(--orange)}
 .bc-sep{color:var(--border-hi);font-size:0.6rem}
 .bc-current{color:var(--orange)}
-.entry-stamp{font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--orange);letter-spacing:0.08em}
+.entry-stamp{font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--orange);letter-spacing:0.08em}
 
 .entry-header{margin-bottom:2rem}
 .entry-num{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:var(--orange);margin-bottom:0.2rem}
@@ -126,7 +128,7 @@ header{
   margin-top:1rem;
 }
 .nav-btn{
-  font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;
+  font-family:'Space Mono',monospace;font-size:0.8rem;letter-spacing:0.1em;
   text-transform:uppercase;padding:0.7rem 1.25rem;
   border:1px solid var(--border);background:transparent;
   color:var(--lgray);cursor:pointer;transition:all 0.2s;
@@ -139,7 +141,7 @@ header{
 /* chapter panel sidebar */
 .entry-layout{display:grid;grid-template-columns:1fr 220px;gap:2.5rem;align-items:start}
 .chapter-panel{position:sticky;top:80px}
-.panel-label{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--orange);margin-bottom:0.75rem;padding-bottom:0.4rem;border-bottom:1px solid var(--blue)}
+.panel-label{font-family:'Space Mono',monospace;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--orange);margin-bottom:0.75rem;padding-bottom:0.4rem;border-bottom:1px solid var(--blue)}
 .panel-item{
   display:flex;align-items:center;gap:0.5rem;
   padding:0.4rem 0.5rem;cursor:pointer;
