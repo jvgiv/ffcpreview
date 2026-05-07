@@ -33,7 +33,7 @@ export default function CaddyBookTOC({ goTo }) {
           <li onClick={() =>goTo(4)} className="toc-item">
             <div className="toc-circle">3</div>
             <div className="toc-name">
-              Forces<span>what's acting on you</span>
+              Forces<span>what&apos;s acting on you</span>
             </div>
             <div className="toc-fraction">③ / ⑦</div>
           </li>

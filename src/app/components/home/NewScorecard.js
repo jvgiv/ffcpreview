@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const HOLES = [
   'Accounts',
@@ -48,13 +49,24 @@ export default function NewScorecard() {
           </div>
           <div className="scorecard-visual reveal" style={{ transitionDelay: '0.15s' }}>
             <div className="hole-grid">
-              {HOLES.map((name, index) => (
-                <div key={name} className="hole">
-                  <span className="hole-num">{String(index + 1).padStart(2, '0')}</span>
-                  <span className="hole-name">{name}</span>
-                  <span className={`hole-status${index === HOLES.length - 1 ? ' begun' : ''}`}></span>
-                </div>
-              ))}
+              <div className="scorecard-image-wrapper">
+                <Image
+                  src="/front9.png"
+                  alt="Scorecard Mockup"
+                  width={400}
+                  height={500}
+                  style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '16px' }}
+                />
+              </div>
+              <div className="scorecard-image-wrapper">
+                <Image
+                  src="/back9.png"
+                  alt="Scorecard Mockup"
+                  width={400}
+                  height={500}
+                  style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '16px' }}
+                />
+              </div>
             </div>
           </div>
         </div>

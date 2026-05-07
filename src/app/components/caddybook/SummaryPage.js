@@ -46,10 +46,6 @@ export default function SummaryPage({ notes, onSave }) {
       </div>
       <div className="summary-page">
         <div className="summary-outer">
-          {/* <div className="summary-header">
-            <span className="sh-brand">FAR FLUNG CHANGE</span>
-            <span className="sh-right">the Caddy Book</span>
-          </div> */}
           <div className="summary-title-bar">
             <p>
               YOUR CADDY BOOK of <em><strong>ORIENTATION</strong></em>
