@@ -6,7 +6,7 @@
   --lgray:#AAAAAA;
   --mgray:#777;
   --blue:#2D368F;
-  --border:rgba(245,240,232,0.1);
+  --border:rgba(245, 240, 232, 0.158);
   --border-hi:rgba(245,240,232,0.25);
 }
 html{scroll-behavior:smooth}

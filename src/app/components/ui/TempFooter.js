@@ -8,7 +8,7 @@ export default function TempFooter() {
       <div className="ffc-footer-inner container">
         <div className="ffc-footer-brand">
           <p className="ffc-footer-name">FAR FLUNG CHANGE</p>
-          <p className="ffc-footer-note">practical financial orientation for GROWIN'UP's sake</p>
+          <p className="ffc-footer-note">practical financial orientation for GROWIN&apos;UP&apos;s sake</p>
         </div>
 
         <div className="ffc-footer-contact">

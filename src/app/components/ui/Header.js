@@ -118,40 +118,13 @@ export default function Header() {
             ))}
           </ul>
         </li>
-        {/* <li className="ffc-nav-item">
-          <Link
-            className={`ffc-nav-link ${pathName === "/menuboard" ? "active" : "" }`}
-            href="/menuboard"
-            onClick={handleNavClose}
-          >
-            MENU BOARD
-          </Link>
-        </li>
-        <li className="ffc-nav-item">
-          <Link
-            className={`ffc-nav-link ${pathName === "/scorecard" ? "active" : "" }`}
-            href="/scorecard"
-            onClick={handleNavClose}
-          >
-            SCORECARD
-          </Link>
-        </li> */}
         <li className="ffc-nav-item">
           <Link
             className={`ffc-nav-link ${pathName === "/caddybook" ? "active" : "" }`}
             href="/caddybook"
             onClick={handleNavClose}
           >
-            CADDY BOOK
-          </Link>
-        </li>
-        <li className="ffc-nav-item">
-          <Link
-            className={`ffc-nav-link ${pathName === "/thoughtgallery" ? "active" : "" }`}
-            href="/thoughtgallery"
-            onClick={handleNavClose}
-          >
-            THOUGHT GALLERY
+            CADDY BOOK + SCORECARD
           </Link>
         </li>
         <li className="ffc-nav-item">
@@ -170,6 +143,15 @@ export default function Header() {
             onClick={handleNavClose}
           >
             ABOUT
+          </Link>
+        </li>
+        <li className="ffc-nav-item">
+          <Link
+            className={`ffc-nav-link ${pathName === "/thoughtgallery" ? "active" : "" }`}
+            href="/thoughtgallery"
+            onClick={handleNavClose}
+          >
+            THOUGHT GALLERY
           </Link>
         </li>
       </ul>

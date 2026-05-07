@@ -62,7 +62,7 @@ const galleries = [
   },
   {
     images: oriMattImages,
-    title: "Come on Up to the House",
+    title: "Housework",
     copy: "You don't need more information. You need a place to stand. Come on Up + Mind Your Step"
   }
 ]
