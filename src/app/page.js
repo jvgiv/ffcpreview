@@ -42,7 +42,7 @@ export default function Home() {
           <p className="hero-sub">Welcome to <span style={{color: "var(--red)"}}>Far Flung Change</span><br /> practical financial orientation for GROWIN'UP's sake</p>
           {/* <p className="hero-sub">Welcome to FinancialOrientation</p> */}
           <div className="hero-actions">
-            <Link href="#pricing" className="btn-primary">Get to BE -&gt;</Link>
+            <Link href="#pricing" className="btn-primary">BE ORIENTED-&gt;</Link>
             <Link href="/logged-in" className="btn-ghost">Unlock FREE Caddy Book of Orientation + Scorecard</Link>
           </div>
           <div className="scroll-hint">
