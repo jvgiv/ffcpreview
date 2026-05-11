@@ -27,21 +27,21 @@ export default function Home() {
               height={230}
             />
           </div>
-          <h1 className="hero-title">
+          {/* <h1 className="hero-title">
             <em>practical financial</em>
             <span className="hero-title-main">ORIENTATION</span>
-          </h1>
-          <p className="hero-sub">
+          </h1> */}
+          <p className="hero-sub-changes">
             {/* Financial stress isn&apos;t mostly a money problem. It&apos;s mostly a fog problem. Far Flung Change clears the fog.  - {" "}
             <strong style={{ color: "var(--white)" }}>Before you reach the Clubhouse.</strong> */}
-            Does finance feel like a foreign language?<br />You don&apos;t need to be an expert to make the most of your money.
+            Does finance feel like a <span style={{color: "var(--red)",fontStyle: 'italic'}}><span style={{fontWeight:'bold'}}>foreign</span> language?</span><br />You don&apos;t have to be an expert to <span style={{color: "var(--red)",fontStyle: 'italic'}}>make <span style={{fontWeight:'bold'}}>sense</span></span> of money matters!
           </p>
-          <ul className="hero-sub">
-            <li>Understand where you are on your financial map</li>
-            <li>Clarify what matters most to you right now</li>
-            <li>Identify what comes next</li>
+          <ul style={{listStyleType: 'none'}} className="hero-sub-list">
+            <li className="hero-sub-item"><Image src="/FFEmblem.png" alt="FFC Emblem" width={20} height={20} />Understand where you are on your financial map <span style={{fontStyle: 'italic', color: "var(--gray)"}}>today</span></li>
+            <li className="hero-sub-item"><Image src="/FFEmblem.png" alt="FFC Emblem" width={20} height={20} />Clarify what matters most to you <span style={{fontStyle: 'italic', color: "var(--gray)"}}>right now</span></li>
+            <li className="hero-sub-item"><Image src="/FFEmblem.png" alt="FFC Emblem" width={20} height={20} />Identify your next step <span style={{fontStyle: 'italic', color: "var(--gray)"}}>with confidence</span></li>
           </ul>
-          <p className="hero-sub">Welcome to <span style={{color: "var(--red)"}}>Far Flung Change</span><br /> practical financial orientation for GROWIN'UP's sake</p>
+          <p className="hero-sub-changes">Welcome to <span style={{color: "var(--red)"}}>Far Flung Change</span><br /> practical financial orientation for GROWIN'UP's sake</p>
           {/* <p className="hero-sub">Welcome to FinancialOrientation</p> */}
           <div className="hero-actions">
             <Link href="#pricing" className="btn-primary">BE ORIENTED-&gt;</Link>
