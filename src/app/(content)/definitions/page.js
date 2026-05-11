@@ -26,8 +26,8 @@ export default function Definitions() {
             <Image
                 src='/def.png'
                 alt="Definitions Clock"
-                width={480}
-                height={480}
+                width={680}
+                height={680}
             />
         </div>
         <p className="master-hint"><span>Select a chapter below</span></p>
@@ -48,6 +48,7 @@ export default function Definitions() {
                     <div style={{display:'flex',alignItems:'center',gap:'0.6rem',marginBottom:'0.3rem'}}>
                         <span style={{fontFamily: "'Bebas Neue',sans-serif", fontSize: '1.6rem', color: 'var(--orange)', lineHeight: '1'}}>{chapter.num}</span>
                         <span className="v6-link" style={{fontFamily: "'Bebas Neue',sans-serif", fontSize: '1rem', color: 'var(--white)', letterSpacing: '0.05em'}}>{chapter.title}</span>
+                        <span>{chapter.supplement ? '*' : null}</span>
                     </div>
                     <div style={{fontFamily: "'Space Mono',monospace", fontSize: '0.68rem', color: 'var(--mgray)', letterSpacing: '0.08em'}}>{chapter.terms[0][7]} - {chapter.terms[19][7]}</div>
                 </div>

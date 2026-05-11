@@ -857,7 +857,7 @@
   }
 
   .hero-logo-image {
-    max-width: 104px;
+    /* max-width: 104px; */
     transform: translateY(-3px);
   }
 

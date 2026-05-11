@@ -16,13 +16,15 @@ export default function Home() {
       <section className="hero">
         <div className="hero-inner container">
           <p className="hero-eyebrow-top">A division of First Financial Advisory - Est. 1974 - </p>
-          <div className="hero-logo-ring">
+          <div 
+          className="hero-logo-ring"
+          >
             <Image
               className="hero-logo-image"
               src='/FFLogo.png'
               alt="FFC Logo"
-              width={190}
-              height={210}
+              width={210}
+              height={230}
             />
           </div>
           <h1 className="hero-title">

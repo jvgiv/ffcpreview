@@ -132,6 +132,7 @@ header{
   text-transform:uppercase;padding:0.7rem 1.25rem;
   border:1px solid var(--border);background:transparent;
   color:var(--lgray);cursor:pointer;transition:all 0.2s;
+  text-decoration: none;
 }
 .nav-btn:hover{border-color:var(--orange);color:var(--orange)}
 .nav-btn:disabled{opacity:0.2;cursor:default}
@@ -231,3 +232,105 @@ footer{
   animation:coverFadeIn 0.6s ease 0.2s both;
 }
 .cover-enter-btn:hover{background:#ff8c30;transform:scale(1.03);}
+.cover-intro {
+  font-family: 'DM Sans', sans-serif;
+  max-width: 640px;
+  margin: 0 auto 2.5rem;
+  font-size: 0.95rem;
+  line-height: 1.9;
+  color: var(--lgray);
+  font-weight: 300;
+  text-align: left;
+  padding-top: 3%;
+}
+
+.cover-intro p {
+  margin-bottom: 1rem
+}
+
+.cover-intro p:last-child {
+  margin-bottom: 0
+}
+
+.idx-header {
+  text-align: center;
+  padding: 2rem 1rem 2rem;
+
+  margin-bottom: 2rem
+}
+
+.idx-sub {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--lgray);
+  margin-top: 0.4rem
+}
+
+.idx-line {
+  border-bottom: 1px solid var(--orange);
+  width: 5%;
+  margin: 0 auto;
+  /* padding-top: 5%; */
+}
+
+.idx-title {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(6rem, 7vw, 3.5rem);
+  color: var(--white);
+  letter-spacing: 0.05em
+}
+
+.idx-title span {
+  color: var(--orange)
+}
+.idx-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 0.5rem
+}
+.cover-count {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mgray);
+  margin-bottom: 2rem
+}
+
+.cover-count span {
+  color: var(--orange)
+}
+
+
+.cover-enter-btn {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.2em;
+  color: var(--black);
+  background: var(--orange);
+  border: none;
+  padding: 0.85rem 3rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.cover-enter-btn:hover {
+  background: #ff8c2a;
+  transform: translateY(-1px)
+}
+
+.cover-hint {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--mgray);
+  margin-top: 2rem
+}
