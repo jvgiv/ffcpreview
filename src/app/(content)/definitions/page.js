@@ -33,7 +33,7 @@ export default function Definitions() {
         <p className="master-hint"><span>Select a chapter below</span></p>
     </div>
        
-        <div id="chapterGrid" style={{maxWidth: '860px', margin: '2.5rem auto 0', display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(200px,1fr))', gap:'0.6rem'}}>
+        <div id="chapterGrid" className="chapter-grid">
 
             {chapters.map((chapter) => (
                 <Link
@@ -44,12 +44,12 @@ export default function Definitions() {
                         color: 'inherit',
                     }}
                 >
-                <div style={{border: '1px solid rgba(245, 240, 232, 0.1)', padding: '0.85rem 1rem', cursor: 'pointer', transition: '0.15s', background: 'var(--offblack)'}}>
+                <div className="chapter-item">
                     <div style={{display:'flex',alignItems:'center',gap:'0.6rem',marginBottom:'0.3rem'}}>
                         <span style={{fontFamily: "'Bebas Neue',sans-serif", fontSize: '1.6rem', color: 'var(--orange)', lineHeight: '1'}}>{chapter.num}</span>
                         <span className="v6-link" style={{fontFamily: "'Bebas Neue',sans-serif", fontSize: '1rem', color: 'var(--white)', letterSpacing: '0.05em'}}>{chapter.title}</span>
-                        <span>{chapter.supplement ? '*' : null}</span>
                     </div>
+                        <span className="asterisk-supp">{chapter.supplement ? 'This Chapter includes a supplement *' : null}</span>
                     <div style={{fontFamily: "'Space Mono',monospace", fontSize: '0.68rem', color: 'var(--mgray)', letterSpacing: '0.08em'}}>{chapter.terms[0][7]} - {chapter.terms[19][7]}</div>
                 </div>
                 </Link>

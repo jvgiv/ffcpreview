@@ -21,7 +21,8 @@ export default async function SupplementTermDetailPage({ params }) {
   const [number, title, pronunciation, partOfSpeech, definition, type, insight] = term;
 
   return (
-    <div>
+      <div>
+        {console.log(chapter)}
       <div id="view-entry" className="view active">
         <div className="entry-layout">
           <div>
@@ -69,19 +70,59 @@ export default async function SupplementTermDetailPage({ params }) {
             </a>
             <div id="progressRow" className="entry-progress fade-up"></div>
             <div className="entry-nav-bottom">
+                {number > 1 ? (
+                <Link
+                    href={`/definitions/${chapter.id}/supplement/terms/${parseInt(number) - 1}`}
+                    style={{
+                        textDecoration: 'none',
+                        color: 'inherit',
+                    }}    
+                    id="btnPrev" 
+                    className="nav-btn"
+                >
+                    ← Previous
+                </Link>
+                ) : <button id="btnPrev" className="nav-btn" style={{cursor: 'none'}}>← Previous</button> }
+                <Link
+                    href={`/definitions/${chapter.id}`}
+                    id="btnIndex" className="nav-btn"
+                    style={{
+                        textDecoration: 'none',
+                        color: 'inherit',
+                    }}    
+                >
+                  Chapter Index
+                </Link>
+                
+                {number < chapter.supplement.terms.length ? (
+                    <Link
+                    href={`/definitions/${chapter.id}/supplement/terms/${parseInt(number) + 1}`}
+                    style={{
+                        textDecoration: 'none',
+                        color: 'inherit'
+                    }}    
+                    id="btnNext" 
+                    className="nav-btn primary"
+                    >
+                    Next →
+                </Link>
+                ) : <button id="btnNext" className="nav-btn primary" style={{cursor: 'none'}}>Next →</button> }
+                </div>
+
+            <div className="entry-nav-bottom">
               <Link href={`/definitions/${chapter.id}/supplement/terms`} id="btnIndex" className="nav-btn" style={{ textDecoration: 'none', color: 'inherit' }}>
                 ← Supplement terms
               </Link>
-              <Link href={`/definitions/${chapter.id}`} id="btnChapter" className="nav-btn" style={{ textDecoration: 'none', color: 'inherit' }}>
+              {/* <Link href={`/definitions/${chapter.id}`} id="btnChapter" className="nav-btn" style={{ textDecoration: 'none', color: 'inherit' }}>
                 ← Back to chapter
-              </Link>
+              </Link> */}
             </div>
           </div>
           <SubSideNav
             chapterId={chapter.id}
             currentSubId={number}
             terms={chapter.supplement.terms}
-            title="Supplement"
+            title={chapter.supplement.title}
             number={supplement.num}
             basePath={`/definitions/${chapter.id}/supplement/terms`}
           />

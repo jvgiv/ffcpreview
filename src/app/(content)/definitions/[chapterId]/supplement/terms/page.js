@@ -22,11 +22,11 @@ export default async function SupplementTermsPage({ params }) {
         </div>
         <p className="ch-focus">{supplement.subTitle}</p>
         <p className="ch-hint">Select a supplemental term to review its description</p>
-        <div className="ch-nav-top">
-          <Link href={`/definitions/${chapter.id}/supplement`} className="nav-btn">
+        <div className="supp-back-buttons">
+          <Link href={`/definitions/${chapter.id}/supplement`} className="nav-btn-supp">
             ← Back to supplement intro
           </Link>
-          <Link href={`/definitions/${chapter.id}`} className="nav-btn">
+          <Link href={`/definitions/${chapter.id}`} className="nav-btn-supp">
             ← Back to chapter
           </Link>
         </div>
