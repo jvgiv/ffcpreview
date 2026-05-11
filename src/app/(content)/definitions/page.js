@@ -15,8 +15,8 @@ export default function Definitions() {
     </div>
 
     <div id="view-master" className="view active">
+        <p className="master-sub">A FINANCIAL ORIENTATION COMPENDIUM of</p>
         <h1 className="master-title">DogStar <span>Definitions</span></h1>
-        <p className="master-sub">A Financial Orientation Compendium</p>
         <p className="master-tag">18 Chapters · 20 Terms · 360° · ◷ 00:00 → 59:50</p>
         {/* <div className="clock-wrap" onclick="window.location.href=FFC_URL"> */}
       
