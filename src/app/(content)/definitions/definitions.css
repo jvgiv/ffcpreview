@@ -969,7 +969,7 @@ footer {
   cursor: pointer;
   transition: all 0.2s;
   text-decoration: none;
-  padding-top: 1.5rem;
+  /* padding-top: 1.5rem; */
   width: 350px;
   margin: 0 auto 0.5rem;
 }
