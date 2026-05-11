@@ -910,6 +910,12 @@
     gap: 2.5rem;
   }
 
+  .friction-stat {
+    height: auto;
+    min-height: unset;
+    padding: 2rem 1.5rem;
+  }
+
   .guide-cards {
     grid-template-columns: 1fr;
   }
