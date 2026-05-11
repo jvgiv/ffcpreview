@@ -34,10 +34,17 @@ export default async function ChapterPage({ params }) {
           {chapter.focus}
         </p>
         {/* CLOCK GOES HERE */}
-        <p className="ch-hint">Select a term to read it&apos;s definition</p>
+        <p className="ch-hint">Select a term to read its definition</p>
+        {chapter.supplement ? (
+          <Link href={`/definitions/${chapter.id}/supplement`} className="nav-btn-supp">
+            <span style={{ color: "var(--orange)" }}>
+              Forward to Supplement -&gt;
+            </span>
+          </Link>
+        ) : null}
         <div className="ch-nav-top">
           <Link href="/definitions" className="nav-btn">
-            ← Back to definitions
+            ← Back to Compendium Index
           </Link>
         </div>
       </div>

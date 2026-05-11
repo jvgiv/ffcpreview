@@ -4,7 +4,9 @@
 import Link from 'next/link';
 import '../(content)/definitions/definitions.css';
 
-export default function SubSideNav({ chapterId, currentSubId, terms, title, number }) {
+export default function SubSideNav({ chapterId, currentSubId, terms, title, number, basePath }) {
+  const linkBase = basePath ?? `/definitions/${chapterId}`;
+
   return (
     <div className="chapter-panel">
       <div id="panelLabel" className="panel-label">
@@ -12,16 +14,14 @@ export default function SubSideNav({ chapterId, currentSubId, terms, title, numb
       </div>
 
       <div id="chapterPanel">
-
-      
         {terms.map((term) => {
           const [number, title] = term;
-          const isActive = number === currentSubId;
+          const isActive = String(number) === String(currentSubId);
 
           return (
             <Link
               key={number}
-              href={`/definitions/${chapterId}/${number}`}
+              href={`${linkBase}/${number}`}
               style={{
                 textDecoration: 'none',
                 color: 'inherit',
@@ -38,11 +38,11 @@ export default function SubSideNav({ chapterId, currentSubId, terms, title, numb
                         {title}
                     </span>
                     <span className='pi-dot'></span>
-                    </div>
+                </div>
             </Link>
           );
         })}
-        </div>
       </div>
+    </div>
   );
 }

@@ -54,8 +54,8 @@
 }
 
 .hero-logo-ring {
-  width: 172px;
-  height: 172px;
+  width: 260px;
+  height: 260px;
   border-radius: 50%;
   border: 2px solid rgba(245,240,232,0.15);
   display: flex;
@@ -63,7 +63,7 @@
   justify-content: center;
   margin: 0 auto 2.5rem;
   position: relative;
-  padding: 14px;
+  padding: 18px;
   opacity: 0;
   animation: fadeUp 0.7s 0.3s forwards;
 }
@@ -139,6 +139,42 @@
   opacity: 0;
   animation: fadeUp 0.8s 0.5s forwards;
 }
+
+.hero-sub-changes {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: rgba(245,240,232,0.6);
+  max-width: 520px;
+  line-height: 1.7;
+  text-align: center;
+  margin: 0 auto 2.2rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.5s forwards;
+  text-transform: uppercase;
+}
+
+.hero-sub-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: rgba(245,240,232,0.6);
+  max-width: 650px;
+  line-height: 1.7;
+  text-align: center;
+  margin: 0 auto 2.2rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.5s forwards;
+}
+
+.hero-sub-item {
+  display: flex;
+  align-items: center;
+  color: white;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
 
 .hero-actions {
   display: flex;
@@ -849,6 +885,10 @@
     margin-bottom: 2rem;
   }
 
+  .hero-sub-list {
+    margin-bottom: 2rem;
+  }
+
   .hero-logo-ring {
     width: 146px;
     height: 146px;
@@ -857,7 +897,7 @@
   }
 
   .hero-logo-image {
-    max-width: 104px;
+    /* max-width: 104px; */
     transform: translateY(-3px);
   }
 

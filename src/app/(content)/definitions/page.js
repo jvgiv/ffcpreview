@@ -15,8 +15,8 @@ export default function Definitions() {
     </div>
 
     <div id="view-master" className="view active">
+        <p className="master-sub">A FINANCIAL ORIENTATION COMPENDIUM of</p>
         <h1 className="master-title">DogStar <span>Definitions</span></h1>
-        <p className="master-sub">A Financial Orientation Compendium</p>
         <p className="master-tag">18 Chapters · 20 Terms · 360° · ◷ 00:00 → 59:50</p>
         {/* <div className="clock-wrap" onclick="window.location.href=FFC_URL"> */}
       
@@ -26,14 +26,14 @@ export default function Definitions() {
             <Image
                 src='/def.png'
                 alt="Definitions Clock"
-                width={480}
-                height={480}
+                width={680}
+                height={680}
             />
         </div>
         <p className="master-hint"><span>Select a chapter below</span></p>
     </div>
        
-        <div id="chapterGrid" style={{maxWidth: '860px', margin: '2.5rem auto 0', display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(200px,1fr))', gap:'0.6rem'}}>
+        <div id="chapterGrid" className="chapter-grid">
 
             {chapters.map((chapter) => (
                 <Link
@@ -44,11 +44,12 @@ export default function Definitions() {
                         color: 'inherit',
                     }}
                 >
-                <div style={{border: '1px solid rgba(245, 240, 232, 0.1)', padding: '0.85rem 1rem', cursor: 'pointer', transition: '0.15s', background: 'var(--offblack)'}}>
+                <div className="chapter-item">
                     <div style={{display:'flex',alignItems:'center',gap:'0.6rem',marginBottom:'0.3rem'}}>
                         <span style={{fontFamily: "'Bebas Neue',sans-serif", fontSize: '1.6rem', color: 'var(--orange)', lineHeight: '1'}}>{chapter.num}</span>
                         <span className="v6-link" style={{fontFamily: "'Bebas Neue',sans-serif", fontSize: '1rem', color: 'var(--white)', letterSpacing: '0.05em'}}>{chapter.title}</span>
                     </div>
+                        <span className="asterisk-supp">{chapter.supplement ? 'This Chapter includes a supplement *' : null}</span>
                     <div style={{fontFamily: "'Space Mono',monospace", fontSize: '0.68rem', color: 'var(--mgray)', letterSpacing: '0.08em'}}>{chapter.terms[0][7]} - {chapter.terms[19][7]}</div>
                 </div>
                 </Link>

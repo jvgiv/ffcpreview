@@ -24,9 +24,9 @@ export default function TempFooter() {
             <FontAwesomeIcon icon={faPhone} />
             <span>401-596-0193</span>
           </a>
-          <a className="ffc-footer-item" href="mailto:farflungchange@1stallied.com" target="_blank" rel="noopener noreferrer">
+          <a className="ffc-footer-item" href="mailto:FarFlungChange@1stAllied.com" target="_blank" rel="noopener noreferrer">
             <FontAwesomeIcon icon={faEnvelope} />
-            <span>farflungchange@1stallied.com</span>
+            <span>FarFlungChange@1stAllied.com</span>
           </a>
         </div>
 

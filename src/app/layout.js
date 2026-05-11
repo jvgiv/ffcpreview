@@ -1,4 +1,4 @@
-import { Bebas_Neue, Geist, Geist_Mono } from "next/font/google";
+import { Bebas_Neue, Geist, Geist_Mono, DM_Sans } from "next/font/google";
 import "./globals.css";
 import '../../lib/fontawesome'
 import Header from "./components/ui/Header";
@@ -22,6 +22,14 @@ const bebasNeue = Bebas_Neue({
   variable: "--font-bebas-neue",
   weight: "400",
   subsets: ["latin"],
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"], // Add the weights you need
+  style: ["normal", "italic"],
+  variable: "--font-dm-sans", // Recommended for Tailwind
+  // display: "swap",
 });
 
 export const metadata = {
