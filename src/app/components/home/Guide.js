@@ -28,7 +28,7 @@ export default function Guide() {
             <br />
             Far Flung Change is your starting point -- a 12-month program with one goal: helping you better understand your financial life.
             <br />
-            <br />
+            <br />  
             Not manage it for you.  Understand it.
             <br />
             <span style={{ color: "var(--red)", fontWeight: "bold" }}>Far Flung Change</span> helps you <span style={{ fontWeight: 'bold' }}>find your bearings</span>.
