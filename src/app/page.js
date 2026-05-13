@@ -95,11 +95,11 @@ export default function Home() {
               FREE Caddy Book of Orientation + Scorecard
             </Link>
           </div>
-          <div class="brand-signature">
-            <span class="sig-for">for</span>
-            <span class="sig-main">
-              <span class="red-word">growin'up's</span>{" "}
-              <span class="white-word">sake</span>
+          <div className="brand-signature">
+            <span className="sig-for">for</span>
+            <span className="sig-main">
+              <span className="red-word">growin'up's</span>{" "}
+              <span className="white-word">sake</span>
             </span>
           </div>
           <div className="scroll-hint">
