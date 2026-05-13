@@ -15,16 +15,18 @@ export default function Home() {
     <main className="home-page">
       <section className="hero">
         <div className="hero-inner container">
-          <p className="hero-eyebrow-top">A division of First Financial Advisory - Est. 1974 - </p>
-          <div 
-          className="hero-logo-ring"
-          >
+          <p className="hero-eyebrow-top">
+            A division of 
+            <br />First Financial Advisory 
+            <br />- Est. 1974 -{" "}
+          </p>
+          <div className="hero-logo-ring">
             <Image
               className="hero-logo-image"
-              src='/FFLogo.png'
+              src="/FFLogo.png"
               alt="FFC Logo"
-              width={210}
-              height={230}
+              width={250}
+              height={280}
             />
           </div>
           {/* <h1 className="hero-title">
@@ -34,18 +36,71 @@ export default function Home() {
           <p className="hero-sub-changes">
             {/* Financial stress isn&apos;t mostly a money problem. It&apos;s mostly a fog problem. Far Flung Change clears the fog.  - {" "}
             <strong style={{ color: "var(--white)" }}>Before you reach the Clubhouse.</strong> */}
-            Does finance feel like a <span style={{color: "var(--red)",fontStyle: 'italic'}}><span style={{fontWeight:'bold'}}>foreign</span> language?</span><br />You don&apos;t have to be an expert to <span style={{color: "var(--red)",fontStyle: 'italic'}}>make <span style={{fontWeight:'bold'}}>sense</span></span> of money matters!
+            Finance doesn&apos;t have to feel like a{" "}
+            <span style={{ color: "var(--red)" }}>
+              <span style={{ fontWeight: "bold" }}>foreign</span>
+            </span>{" "}
+            <span style={{ fontStyle: "italic" }}>language</span>
+            {/* <br />
+            You don&apos;t have to be an expert to{" "}
+            <span style={{ color: "var(--red)", fontStyle: "italic" }}>
+              make <span style={{ fontWeight: "bold" }}>sense</span>
+            </span>{" "}
+            of money matters! */}
           </p>
-          <ul style={{listStyleType: 'none'}} className="hero-sub-list">
-            <li className="hero-sub-item"><Image src="/FFEmblem.png" alt="FFC Emblem" width={20} height={20} />Understand where you are on your financial map <span style={{fontStyle: 'italic', color: "var(--gray)"}}>today</span></li>
-            <li className="hero-sub-item"><Image src="/FFEmblem.png" alt="FFC Emblem" width={20} height={20} />Clarify what matters most to you <span style={{fontStyle: 'italic', color: "var(--gray)"}}>right now</span></li>
-            <li className="hero-sub-item"><Image src="/FFEmblem.png" alt="FFC Emblem" width={20} height={20} />Identify your next step <span style={{fontStyle: 'italic', color: "var(--gray)"}}>with confidence</span></li>
+          <ul style={{ listStyleType: "none" }} className="hero-sub-list">
+            <li className="hero-sub-item">
+              <div className="bullet-icon">
+                <div className="bullet-dot"></div>
+              </div>
+              See where you are on your financial map
+              <span style={{ fontStyle: "italic", color: "var(--gray)" }}>
+                today
+              </span>
+            </li>
+            <li className="hero-sub-item">
+              <div className="bullet-icon">
+                <div className="bullet-dot"></div>
+              </div>
+              <div className="hero-sub-item-text">
+              Clarify what matters most to you{" "}
+              <span style={{ fontStyle: "italic", color: "var(--gray)" }}>
+                right now
+              </span></div>
+            </li>
+            <li className="hero-sub-item">
+              <div className="bullet-icon">
+                <div className="bullet-dot"></div>
+              </div>
+              Identify your next step
+              <span style={{ fontStyle: "italic", color: "var(--gray)" }}>
+                with confidence
+              </span>
+            </li>
           </ul>
-          <p className="hero-sub-changes">Welcome to <span style={{color: "var(--red)"}}>Far Flung Change</span><br /> practical financial orientation for GROWIN'UP's sake</p>
+          <p className="hero-sub-changes">
+            <span style={{ color: "var(--red)" }}>
+              Welcome to Far Flung Change
+            </span>
+            <br /> practical financial orientation
+            <br />
+            for people who want clarity, not complexity.
+          </p>
           {/* <p className="hero-sub">Welcome to FinancialOrientation</p> */}
           <div className="hero-actions">
-            <Link href="#pricing" className="btn-primary">BE ORIENTED-&gt;</Link>
-            <Link href="/logged-in" className="btn-ghost">Unlock FREE Caddy Book of Orientation + Scorecard</Link>
+            <Link href="#pricing" className="btn-primary">
+              BE ORIENTED &gt;
+            </Link>
+            <Link href="/logged-in" className="btn-ghost">
+              FREE Caddy Book of Orientation + Scorecard
+            </Link>
+          </div>
+          <div class="brand-signature">
+            <span class="sig-for">for</span>
+            <span class="sig-main">
+              <span class="red-word">growin'up's</span>{" "}
+              <span class="white-word">sake</span>
+            </span>
           </div>
           <div className="scroll-hint">
             <span>scroll</span>
