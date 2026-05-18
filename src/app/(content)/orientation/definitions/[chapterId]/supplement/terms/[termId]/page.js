@@ -22,21 +22,20 @@ export default async function SupplementTermDetailPage({ params }) {
 
   return (
       <div>
-        {console.log(chapter)}
       <div id="view-entry" className="view active">
         <div className="entry-layout">
           <div>
             <div className="entry-nav-top">
               <div className="breadcrumb">
-                <Link href="/definitions" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Link href="/orientation/definitions" style={{ textDecoration: 'none', color: 'inherit' }}>
                   <span className="bc-item">◎ Home</span>
                 </Link>
                 <span className="bc-sep">›</span>
-                <Link href={`/definitions/${chapter.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Link href={`/orientation/definitions/${chapter.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                   <span className="bc-item">{chapter.num} {chapter.title}</span>
                 </Link>
                 <span className="bc-sep">›</span>
-                <Link href={`/definitions/${chapter.id}/supplement`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Link href={`/orientation/definitions/${chapter.id}/supplement`} style={{ textDecoration: 'none', color: 'inherit' }}>
                   <span className="bc-item">Supplement</span>
                 </Link>
                 <span className="bc-sep">›</span>
@@ -72,7 +71,7 @@ export default async function SupplementTermDetailPage({ params }) {
             <div className="entry-nav-bottom">
                 {number > 1 ? (
                 <Link
-                    href={`/definitions/${chapter.id}/supplement/terms/${parseInt(number) - 1}`}
+                    href={`/orientation/definitions/${chapter.id}/supplement/terms/${parseInt(number) - 1}`}
                     style={{
                         textDecoration: 'none',
                         color: 'inherit',
@@ -84,7 +83,7 @@ export default async function SupplementTermDetailPage({ params }) {
                 </Link>
                 ) : <button id="btnPrev" className="nav-btn" style={{cursor: 'none'}}>← Previous</button> }
                 <Link
-                    href={`/definitions/${chapter.id}`}
+                    href={`/orientation/definitions/${chapter.id}`}
                     id="btnIndex" className="nav-btn"
                     style={{
                         textDecoration: 'none',
@@ -96,7 +95,7 @@ export default async function SupplementTermDetailPage({ params }) {
                 
                 {number < chapter.supplement.terms.length ? (
                     <Link
-                    href={`/definitions/${chapter.id}/supplement/terms/${parseInt(number) + 1}`}
+                    href={`/orientation/definitions/${chapter.id}/supplement/terms/${parseInt(number) + 1}`}
                     style={{
                         textDecoration: 'none',
                         color: 'inherit'
@@ -110,7 +109,7 @@ export default async function SupplementTermDetailPage({ params }) {
                 </div>
 
             <div className="entry-nav-bottom">
-              <Link href={`/definitions/${chapter.id}/supplement/terms`} id="btnIndex" className="nav-btn" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href={`/orientation/definitions/${chapter.id}/supplement/terms`} id="btnIndex" className="nav-btn" style={{ textDecoration: 'none', color: 'inherit' }}>
                 ← Supplement terms
               </Link>
               {/* <Link href={`/definitions/${chapter.id}`} id="btnChapter" className="nav-btn" style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -124,7 +123,7 @@ export default async function SupplementTermDetailPage({ params }) {
             terms={chapter.supplement.terms}
             title={chapter.supplement.title}
             number={supplement.num}
-            basePath={`/definitions/${chapter.id}/supplement/terms`}
+            basePath={`/orientation/definitions/${chapter.id}/supplement/terms`}
           />
         </div>
       </div>

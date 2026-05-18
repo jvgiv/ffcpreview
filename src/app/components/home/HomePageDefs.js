@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import "../../(content)/definitions/definitions.css";
+import "../../(content)/orientation/definitions/definitions.css";
 
 export default function HomePageDefs() {
   return (
@@ -20,7 +20,7 @@ export default function HomePageDefs() {
               concepts.
             </p>
             <Link
-              href="/definitions"
+              href="/orientation/definitions"
               className="btn-ghost"
               style={{ marginTop: "1rem", display: "inline-block" }}
             >

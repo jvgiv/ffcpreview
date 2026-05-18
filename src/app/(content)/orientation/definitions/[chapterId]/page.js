@@ -36,14 +36,14 @@ export default async function ChapterPage({ params }) {
         {/* CLOCK GOES HERE */}
         <p className="ch-hint">Select a term to read its definition</p>
         {chapter.supplement ? (
-          <Link href={`/definitions/${chapter.id}/supplement`} className="nav-btn-supp">
+          <Link href={`/orientation/definitions/${chapter.id}/supplement`} className="nav-btn-supp">
             <span style={{ color: "var(--orange)" }}>
               Forward to Supplement -&gt;
             </span>
           </Link>
         ) : null}
         <div className="ch-nav-top">
-          <Link href="/definitions" className="nav-btn">
+          <Link href="/orientation/definitions" className="nav-btn">
             ← Back to Compendium Index
           </Link>
         </div>
@@ -53,7 +53,7 @@ export default async function ChapterPage({ params }) {
           <div key={index} id="termIndex" className="term-index">
             <Link
               key={index}
-              href={`/definitions/${chapter.id}/${sub[0]}`} // chapter id + term code
+              href={`/orientation/definitions/${chapter.id}/${sub[0]}`} // chapter id + term code
               style={{
                 textDecoration: "none",
                 color: "inherit",

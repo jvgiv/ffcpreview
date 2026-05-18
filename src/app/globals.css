@@ -108,7 +108,9 @@ body {
 }
 
 .ffc-nav-item-home:hover .ffc-home-menu,
-.ffc-nav-item-home:focus-within .ffc-home-menu {
+.ffc-nav-item-home:focus-within .ffc-home-menu,
+.ffc-nav-item-orientation:hover .ffc-home-menu,
+.ffc-nav-item-orientation:focus-within .ffc-home-menu {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;

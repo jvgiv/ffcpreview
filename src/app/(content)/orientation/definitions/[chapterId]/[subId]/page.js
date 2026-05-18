@@ -35,7 +35,7 @@ export default async function Subpage({ params }) {
                 <div className="breadcrumb">
                     {/* ADD NAV LATER */}
                     <Link
-                        href={`/definitions/`}
+                        href={`/orientation/definitions/`}
                         style={{
                             textDecoration: 'none',
                             color: 'inherit',
@@ -45,7 +45,7 @@ export default async function Subpage({ params }) {
                     </Link>
                     <span className="bc-sep">›</span>
                     <Link
-                        href={`/definitions/${chapter.id}`}
+                        href={`/orientation/definitions/${chapter.id}`}
                         style={{
                             textDecoration: 'none',
                             color: 'inherit',
@@ -93,7 +93,7 @@ export default async function Subpage({ params }) {
             <div className="entry-nav-bottom">
                 {number > 1 ? (
                 <Link
-                    href={`/definitions/${chapter.id}/${parseInt(number) - 1}`}
+                    href={`/orientation/definitions/${chapter.id}/${parseInt(number) - 1}`}
                     style={{
                         textDecoration: 'none',
                         color: 'inherit',
@@ -105,7 +105,7 @@ export default async function Subpage({ params }) {
                 </Link>
                 ) : <button id="btnPrev" className="nav-btn" style={{cursor: 'none'}}>← Previous</button> }
                 <Link
-                    href={`/definitions/${chapter.id}`}
+                    href={`/orientation/definitions/${chapter.id}`}
                     id="btnIndex" className="nav-btn"
                     style={{
                         textDecoration: 'none',
@@ -117,7 +117,7 @@ export default async function Subpage({ params }) {
                 
                 {number < 20 ? (
                     <Link
-                    href={`/definitions/${chapter.id}/${parseInt(number) + 1}`}
+                    href={`/orientation/definitions/${chapter.id}/${parseInt(number) + 1}`}
                     style={{
                         textDecoration: 'none',
                         color: 'inherit'

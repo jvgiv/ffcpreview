@@ -127,14 +127,26 @@ export default function Header() {
             CADDY BOOK + SCORECARD
           </Link>
         </li>
-        <li className="ffc-nav-item">
+        <li className="ffc-nav-item ffc-nav-item-orientation">
           <Link
-            className={`ffc-nav-link ${pathName === "/definitions" ? "active" : "" }`}
-            href="/definitions"
+            className={`ffc-nav-link ${pathName === "/orientation" ? "active" : "" }`}
+            href="/orientation"
             onClick={handleNavClose}
           >
             GUIDED ORIENTATION
           </Link>
+          <ul className="ffc-home-menu" aria-label="Guided Orientation section links">
+            <li>
+              <Link className="ffc-home-menu-link" href="/orientation#submit-oq">
+                Submit Your OQ
+              </Link>
+            </li>
+            <li>
+              <Link className="ffc-home-menu-link" href="/orientation/definitions">
+                DogStar Definitions
+              </Link>
+            </li>
+          </ul>
         </li>
         <li className="ffc-nav-item">
           <Link
@@ -214,12 +226,24 @@ export default function Header() {
           </li>
           <li className="ffc-nav-mobile-item">
             <Link
-              className={`ffc-nav-link ${pathName === "/definitions" ? "active" : "" }`}
-              href="/definitions"
+              className={`ffc-nav-link ${pathName === "/orientation" ? "active" : "" }`}
+              href="/orientation"
               onClick={handleNavClose}
             >
-              DOGSTAR DEFINITIONS
+              GUIDED ORIENTATION
             </Link>
+            <ul className="ffc-home-mobile-menu" aria-label="Guided Orientation section links">
+              <li>
+                <Link className="ffc-home-menu-link" href="/orientation#submit-oq" onClick={handleNavClose}>
+                  Submit Your OQ
+                </Link>
+              </li>
+              <li>
+                <Link className="ffc-home-menu-link" href="/orientation/definitions" onClick={handleNavClose}>
+                  DogStar Definitions
+                </Link>
+              </li>
+            </ul>
           </li>
           <li className="ffc-nav-mobile-item">
             <Link

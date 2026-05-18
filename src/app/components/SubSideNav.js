@@ -2,10 +2,10 @@
 'use client';
 
 import Link from 'next/link';
-import '../(content)/definitions/definitions.css';
+import '../(content)/orientation/definitions/definitions.css';
 
 export default function SubSideNav({ chapterId, currentSubId, terms, title, number, basePath }) {
-  const linkBase = basePath ?? `/definitions/${chapterId}`;
+  const linkBase = basePath ?? `/orientation/definitions/${chapterId}`;
 
   return (
     <div className="chapter-panel">
