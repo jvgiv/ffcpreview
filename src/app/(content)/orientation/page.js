@@ -70,7 +70,7 @@ export default function Orientation() {
         </div>
       </section>
 
-      <section className={`${styles.callout} ${styles.revealCard} reveal`} style={{ transitionDelay: "0.08s" }}>
+      <section id="submit-oq"className={`${styles.callout} ${styles.revealCard} reveal`} style={{ transitionDelay: "0.08s" }}>
         <p className={styles.sectionHeading}>Submit an orientation question</p>
         <div className={styles.definitionBlock}>
           <div className={styles.sectionCopy}>

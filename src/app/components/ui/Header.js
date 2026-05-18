@@ -127,7 +127,7 @@ export default function Header() {
             CADDY BOOK + SCORECARD
           </Link>
         </li>
-        <li className="ffc-nav-item">
+        <li className="ffc-nav-item ffc-nav-item-orientation">
           <Link
             className={`ffc-nav-link ${pathName === "/orientation" ? "active" : "" }`}
             href="/orientation"
@@ -135,6 +135,18 @@ export default function Header() {
           >
             GUIDED ORIENTATION
           </Link>
+          <ul className="ffc-home-menu" aria-label="Guided Orientation section links">
+            <li>
+              <Link className="ffc-home-menu-link" href="/orientation#submit-oq">
+                Submit Your OQ
+              </Link>
+            </li>
+            <li>
+              <Link className="ffc-home-menu-link" href="/orientation/definitions">
+                DogStar Definitions
+              </Link>
+            </li>
+          </ul>
         </li>
         <li className="ffc-nav-item">
           <Link
@@ -220,6 +232,18 @@ export default function Header() {
             >
               GUIDED ORIENTATION
             </Link>
+            <ul className="ffc-home-mobile-menu" aria-label="Guided Orientation section links">
+              <li>
+                <Link className="ffc-home-menu-link" href="/orientation#submit-oq" onClick={handleNavClose}>
+                  Submit Your OQ
+                </Link>
+              </li>
+              <li>
+                <Link className="ffc-home-menu-link" href="/orientation/definitions" onClick={handleNavClose}>
+                  DogStar Definitions
+                </Link>
+              </li>
+            </ul>
           </li>
           <li className="ffc-nav-mobile-item">
             <Link
