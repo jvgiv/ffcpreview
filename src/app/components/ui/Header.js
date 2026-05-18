@@ -129,8 +129,8 @@ export default function Header() {
         </li>
         <li className="ffc-nav-item">
           <Link
-            className={`ffc-nav-link ${pathName === "/definitions" ? "active" : "" }`}
-            href="/definitions"
+            className={`ffc-nav-link ${pathName === "/orientation" ? "active" : "" }`}
+            href="/orientation"
             onClick={handleNavClose}
           >
             GUIDED ORIENTATION
@@ -214,11 +214,11 @@ export default function Header() {
           </li>
           <li className="ffc-nav-mobile-item">
             <Link
-              className={`ffc-nav-link ${pathName === "/definitions" ? "active" : "" }`}
-              href="/definitions"
+              className={`ffc-nav-link ${pathName === "/orientation" ? "active" : "" }`}
+              href="/orientation"
               onClick={handleNavClose}
             >
-              DOGSTAR DEFINITIONS
+              GUIDED ORIENTATION
             </Link>
           </li>
           <li className="ffc-nav-mobile-item">

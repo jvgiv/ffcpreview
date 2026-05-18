@@ -30,7 +30,7 @@ export default function CaddySuccess() {
           <Link href="/" className="success-link">
             Return Home
           </Link>
-          <Link href="/definitions" className="success-link">
+          <Link href="/orientation/definitions" className="success-link">
             Explore DogStar Definitions
           </Link>
         </div>

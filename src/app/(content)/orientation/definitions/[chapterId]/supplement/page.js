@@ -30,12 +30,12 @@ export default async function SupplementPage({ params }) {
             <p>{supplement.contentThree}</p>
         </div>
         <div className="cover-count"><span>{supplement.terms.length}</span> terms · {supplement.subTitle}</div>
-        <Link href={`/definitions/${chapter.id}/supplement/terms`} className="cover-enter-btn">
+        <Link href={`/orientation/definitions/${chapter.id}/supplement/terms`} className="cover-enter-btn">
           Enter
         </Link>
         <div className="cover-hint">Tap any term to read its definition</div>
         <div className="ch-nav-top">
-          <Link href={`/definitions/${chapter.id}`} className="nav-btn">
+          <Link href={`/orientation/definitions/${chapter.id}`} className="nav-btn">
             ← Back to {chapter.title}
           </Link>
         </div>

@@ -23,10 +23,10 @@ export default async function SupplementTermsPage({ params }) {
         <p className="ch-focus">{supplement.subTitle}</p>
         <p className="ch-hint">Select a supplemental term to review its description</p>
         <div className="supp-back-buttons">
-          <Link href={`/definitions/${chapter.id}/supplement`} className="nav-btn-supp">
+          <Link href={`/orientation/definitions/${chapter.id}/supplement`} className="nav-btn-supp">
             ← Back to supplement intro
           </Link>
-          <Link href={`/definitions/${chapter.id}`} className="nav-btn-supp">
+          <Link href={`/orientation/definitions/${chapter.id}`} className="nav-btn-supp">
             ← Back to chapter
           </Link>
         </div>
@@ -38,7 +38,7 @@ export default async function SupplementTermsPage({ params }) {
           return (
             <Link
               key={number}
-              href={`/definitions/${chapter.id}/supplement/terms/${number}`}
+              href={`/orientation/definitions/${chapter.id}/supplement/terms/${number}`}
               style={{
                 textDecoration: 'none',
                 color: 'inherit',

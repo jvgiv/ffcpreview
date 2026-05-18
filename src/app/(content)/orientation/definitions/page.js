@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import chapters from '../../../data/def.js'
+import chapters from '../../../../data/def.js'
 import Link from 'next/link.js'
 import './definitions.css'
 import Image from 'next/image.js'
@@ -38,7 +38,7 @@ export default function Definitions() {
             {chapters.map((chapter) => (
                 <Link
                     key={chapter.id}
-                    href={`/definitions/${chapter.id}`}
+                    href={`/orientation/definitions/${chapter.id}`}
                     style={{
                         textDecoration: 'none',
                         color: 'inherit',

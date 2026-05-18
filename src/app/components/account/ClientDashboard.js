@@ -331,7 +331,7 @@ export default function ClientDashboard({
       description:
         "Browse the definitions library so concepts, terms, and trade-offs stay within easy reach.",
       meta: "Included member resource",
-      href: "/definitions",
+      href: "/orientation/definitions",
       ctaLabel: "Open Definitions",
       badgeLabel: "Included",
       badgeTone: "success",
