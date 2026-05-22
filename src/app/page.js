@@ -16,8 +16,9 @@ export default function Home() {
       <section className="hero">
         <div className="hero-inner container">
           <p className="hero-eyebrow-top">
-            A division of 
-            <br />First Financial Advisory 
+            A division of
+            <br />
+            First Financial Advisory
             <br />- Est. 1974 -{" "}
           </p>
           <div className="hero-logo-ring">
@@ -33,14 +34,16 @@ export default function Home() {
             <em>practical financial</em>
             <span className="hero-title-main">ORIENTATION</span>
           </h1> */}
-          <p className="hero-sub-changes">
+          <p className="hero-sub-changes-top">
             {/* Financial stress isn&apos;t mostly a money problem. It&apos;s mostly a fog problem. Far Flung Change clears the fog.  - {" "}
             <strong style={{ color: "var(--white)" }}>Before you reach the Clubhouse.</strong> */}
-            Finance doesn&apos;t have to feel like a{" "}
+            Facing your finances <br /> doesn&apos;t have to feel like a{" "}
             <span style={{ color: "var(--red)" }}>
               <span style={{ fontWeight: "bold" }}>foreign</span>
             </span>{" "}
-            <span style={{ fontStyle: "italic" }}>language</span>
+            {/* <span style={{ fontStyle: "italic" }}> */}
+            land
+            {/* </span> */}
             {/* <br />
             You don&apos;t have to be an expert to{" "}
             <span style={{ color: "var(--red)", fontStyle: "italic" }}>
@@ -51,48 +54,86 @@ export default function Home() {
           <ul style={{ listStyleType: "none" }} className="hero-sub-list">
             <li className="hero-sub-item">
               <div className="bullet-icon">
-                <div className="bullet-dot"></div>
-              </div>
-              See where you are on your financial map
-              <span style={{ fontStyle: "italic", color: "var(--gray)" }}>
-                today
-              </span>
-            </li>
-            <li className="hero-sub-item">
-              <div className="bullet-icon">
-                <div className="bullet-dot"></div>
+                VISION
+                {/* <div className="bullet-dot"></div> */}
               </div>
               <div className="hero-sub-item-text">
-              Clarify what matters most to you{" "}
-              <span style={{ fontStyle: "italic", color: "var(--gray)" }}>
-                right now
-              </span></div>
+                <span style={{ color: "var(--gray)" }}>
+                  See where you are on your financial map{" "}
+                  today
+                </span>
+              </div>
+              <div className="hero-sub-icon">
+                <Image
+                  src="/svg/eye.svg"
+                  alt="eyeball"
+                  width={40}
+                  height={40}
+                  style={{ marginLeft: "0.5rem" }}
+                />
+              </div>
+              {/* </span> */}
             </li>
             <li className="hero-sub-item">
               <div className="bullet-icon">
-                <div className="bullet-dot"></div>
+                MISSION
+                {/* <div className="bullet-dot"></div> */}
               </div>
-              Identify your next step
-              <span style={{ fontStyle: "italic", color: "var(--gray)" }}>
-                with confidence
-              </span>
+              <div className="hero-sub-item-text">
+                <span style={{ color: "var(--gray)" }}>
+                  Clarify what matters most to you{" "}
+                  {/* <span style={{ fontStyle: "italic", color: "var(--gray)" }}> */}
+                  right now
+                </span>
+                {/* </span> */}
+              </div>
+              <div className="hero-sub-icon">
+                <Image
+                  src="/svg/mag.svg"
+                  alt="magnifying glass"
+                  width={40}
+                  height={40}
+                  style={{ marginLeft: "0.5rem" }}
+                />
+              </div>
+            </li>
+            <li className="hero-sub-item">
+              <div className="bullet-icon">
+                PURPOSE
+                {/* <div className="bullet-dot"></div> */}
+              </div>
+              <div className="hero-sub-item-text">
+                <span style={{ color: "var(--gray)" }}>
+                  Identify your next step{" "}
+                  with confidence
+                </span>
+              </div>
+              <div className="hero-sub-icon">
+                <Image
+                  src="/svg/chair.svg"
+                  alt="crosshair"
+                  width={40}
+                  height={40}
+                  style={{ marginLeft: "0.5rem" }}
+                />
+              </div>
             </li>
           </ul>
           <p className="hero-sub-changes">
             <span style={{ color: "var(--red)" }}>
               Welcome to Far Flung Change
             </span>
-            <br /> practical financial orientation
-            <br />
-            for people who want clarity, not complexity.
+            <p>practical financial orientation</p>
+
+            <p style={{color: 'var(--gray)', fontSize: "clamp(1.8rem, 2vw, 1.2rem)", lineHeight: '1.3'}}>for people who want clarity. Not complexity.</p>
           </p>
           {/* <p className="hero-sub">Welcome to FinancialOrientation</p> */}
           <div className="hero-actions">
-            <Link href="#pricing" className="btn-primary">
+            <Link href="#pricing" className="btn-primary" style={{ fontSize: '1.3em'}}>
               BE ORIENTED &gt;
             </Link>
-            <Link href="/logged-in" className="btn-ghost">
-              FREE Caddy Book of Orientation + Scorecard
+            <Link href="/logged-in" className="btn-ghost" style={{ fontSize: '1.3em'}}>
+              FREE Caddy Book + Scorecard
             </Link>
           </div>
           <div className="brand-signature">
