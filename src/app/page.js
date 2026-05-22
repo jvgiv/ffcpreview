@@ -34,7 +34,7 @@ export default function Home() {
             <em>practical financial</em>
             <span className="hero-title-main">ORIENTATION</span>
           </h1> */}
-          <p className="hero-sub-changes-top">
+          <div className="hero-sub-changes-top">
             {/* Financial stress isn&apos;t mostly a money problem. It&apos;s mostly a fog problem. Far Flung Change clears the fog.  - {" "}
             <strong style={{ color: "var(--white)" }}>Before you reach the Clubhouse.</strong> */}
             Facing your finances <br /> doesn&apos;t have to feel like a{" "}
@@ -50,7 +50,7 @@ export default function Home() {
               make <span style={{ fontWeight: "bold" }}>sense</span>
             </span>{" "}
             of money matters! */}
-          </p>
+          </div>
           <ul style={{ listStyleType: "none" }} className="hero-sub-list">
             <li className="hero-sub-item">
               <div className="bullet-icon">
@@ -119,14 +119,14 @@ export default function Home() {
               </div>
             </li>
           </ul>
-          <p className="hero-sub-changes">
+          <div className="hero-sub-changes">
             <span style={{ color: "var(--red)" }}>
               Welcome to Far Flung Change
             </span>
             <p>practical financial orientation</p>
 
             <p style={{color: 'var(--gray)', fontSize: "clamp(1.8rem, 2vw, 1.2rem)", lineHeight: '1.3'}}>for people who want clarity. Not complexity.</p>
-          </p>
+          </div>
           {/* <p className="hero-sub">Welcome to FinancialOrientation</p> */}
           <div className="hero-actions">
             <Link href="#pricing" className="btn-primary" style={{ fontSize: '1.3em'}}>
