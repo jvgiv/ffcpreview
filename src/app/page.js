@@ -54,7 +54,7 @@ export default function Home() {
           <ul style={{ listStyleType: "none" }} className="hero-sub-list">
             <li className="hero-sub-item">
               <div className="bullet-icon">
-                VISION
+                <span style={{color: "var(--white)" }}>POSITION</span>
                 {/* <div className="bullet-dot"></div> */}
               </div>
               <div className="hero-sub-item-text">
@@ -76,7 +76,7 @@ export default function Home() {
             </li>
             <li className="hero-sub-item">
               <div className="bullet-icon">
-                MISSION
+                <span style={{color: "var(--white)" }}>QUESTIONS</span>
                 {/* <div className="bullet-dot"></div> */}
               </div>
               <div className="hero-sub-item-text">
@@ -99,7 +99,7 @@ export default function Home() {
             </li>
             <li className="hero-sub-item">
               <div className="bullet-icon">
-                PURPOSE
+                READINESS
                 {/* <div className="bullet-dot"></div> */}
               </div>
               <div className="hero-sub-item-text">
