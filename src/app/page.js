@@ -54,13 +54,12 @@ export default function Home() {
           <ul style={{ listStyleType: "none" }} className="hero-sub-list">
             <li className="hero-sub-item">
               <div className="bullet-icon">
-                <span style={{color: "var(--white)" }}>POSITION</span>
+                <span style={{ color: "var(--white)" }}>POSITION</span>
                 {/* <div className="bullet-dot"></div> */}
               </div>
               <div className="hero-sub-item-text">
                 <span style={{ color: "var(--gray)" }}>
-                  See where you are on your financial map{" "}
-                  today
+                  See where you are on your financial map today
                 </span>
               </div>
               <div className="hero-sub-icon">
@@ -76,7 +75,7 @@ export default function Home() {
             </li>
             <li className="hero-sub-item">
               <div className="bullet-icon">
-                <span style={{color: "var(--white)" }}>QUESTIONS</span>
+                <span style={{ color: "var(--white)" }}>QUESTIONS</span>
                 {/* <div className="bullet-dot"></div> */}
               </div>
               <div className="hero-sub-item-text">
@@ -104,8 +103,7 @@ export default function Home() {
               </div>
               <div className="hero-sub-item-text">
                 <span style={{ color: "var(--gray)" }}>
-                  Identify your next step{" "}
-                  with confidence
+                  Identify your next step with confidence
                 </span>
               </div>
               <div className="hero-sub-icon">
@@ -125,23 +123,45 @@ export default function Home() {
             </span>
             <p>practical financial orientation</p>
 
-            <p style={{color: 'var(--gray)', fontSize: "clamp(1.8rem, 2vw, 1.2rem)", lineHeight: '1.3'}}>for people who want clarity. Not complexity.</p>
+            <p
+              style={{
+                color: "var(--gray)",
+                fontSize: "clamp(1.8rem, 2vw, 1.2rem)",
+                lineHeight: "1.3",
+              }}
+            >
+              for people who want clarity. Not complexity.
+            </p>
           </div>
           {/* <p className="hero-sub">Welcome to FinancialOrientation</p> */}
           <div className="hero-actions">
-            <Link href="#pricing" className="btn-primary" style={{ fontSize: '1.3em'}}>
+            <Link
+              href="#pricing"
+              className="btn-primary"
+              style={{ fontSize: "1.3em" }}
+            >
               BE ORIENTED &gt;
             </Link>
-            <Link href="/logged-in" className="btn-ghost" style={{ fontSize: '1.3em'}}>
+            <Link
+              href="/logged-in"
+              className="btn-ghost"
+              style={{ fontSize: "1.3em" }}
+            >
               FREE Caddy Book + Scorecard
             </Link>
           </div>
           <div className="brand-signature">
-            <span className="sig-for">for</span>
+            <Image
+              src="/ffcfgus.png"
+              alt="for Growin'up's sake"
+              width={358}
+              height={100}
+            />
+            {/* <span className="sig-for">for</span>
             <span className="sig-main">
               <span className="red-word">growin'up's</span>{" "}
               <span className="white-word">sake</span>
-            </span>
+            </span> */}
           </div>
           <div className="scroll-hint">
             <span>scroll</span>

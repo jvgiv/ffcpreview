@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 120">
+  <defs>
+    <style>
+      .cls-1 {
+        font-size: 95.08px;
+        letter-spacing: -.03em;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4 {
+        fill: #fff;
+        stroke: #fff;
+      }
+
+      .cls-5 {
+        font-size: 68.08px;
+        letter-spacing: -.03em;
+      }
+
+      .cls-6 {
+        letter-spacing: .02em;
+      }
+
+      .cls-2 {
+        font-size: 99.41px;
+        letter-spacing: -.03em;
+      }
+
+      .cls-7 {
+        fill: #231f20;
+      }
+
+      .cls-8 {
+        fill: #cccccb;
+        font-size: 55.93px;
+        stroke: #cccccb;
+      }
+
+      .cls-8, .cls-9, .cls-10 {
+        font-family: MyriadPro-Regular, 'Myriad Pro';
+        stroke-miterlimit: 10;
+        stroke-width: 1.5px;
+      }
+
+      .cls-11 {
+        font-size: 76.59px;
+        letter-spacing: -.03em;
+      }
+
+      .cls-12 {
+        font-size: 59.57px;
+        letter-spacing: -.03em;
+      }
+
+      .cls-3 {
+        font-size: 112.37px;
+        letter-spacing: -.03em;
+      }
+
+      .cls-13 {
+        letter-spacing: -.06em;
+      }
+
+      .cls-13, .cls-14 {
+        font-size: 89.63px;
+      }
+
+      .cls-14 {
+        letter-spacing: -.03em;
+      }
+
+      .cls-15 {
+        font-size: 89.35px;
+        letter-spacing: -.03em;
+      }
+
+      .cls-9 {
+        fill: #d71f2b;
+        stroke: #d71f2b;
+      }
+
+      .cls-16 {
+        letter-spacing: .01em;
+      }
+
+      .cls-17 {
+        font-size: 60.21px;
+        letter-spacing: -.03em;
+      }
+
+      .cls-18 {
+        font-size: 63.82px;
+        letter-spacing: -.03em;
+      }
+
+      .cls-19 {
+        font-size: 60.21px;
+        letter-spacing: -.03em;
+        stroke: #000;
+      }
+
+      .cls-4 {
+        font-size: 90.76px;
+        letter-spacing: -.03em;
+      }
+    </style>
+  </defs>
+  <rect class="cls-7" width="430" height="120"/>
+  <g id="Layer_1" data-name="Layer 1">
+    <g>
+      <text class="cls-9" transform="translate(6.45 93.14) scale(.78 1)"><tspan class="cls-15" x="0" y="0">g</tspan><tspan class="cls-11" x="47.62" y="0">r</tspan><tspan class="cls-5" x="70.68" y="0">o</tspan><tspan class="cls-18" x="106.28" y="0">w</tspan><tspan class="cls-12" x="151.59" y="0">i</tspan><tspan class="cls-18" x="163.98" y="0">n</tspan><tspan class="cls-5" x="197.74" y="0">’</tspan><tspan class="cls-11" x="210.07" y="0">u</tspan><tspan class="cls-13" x="250.27" y="0">p</tspan><tspan class="cls-14" x="295.98" y="0">’</tspan><tspan class="cls-17" x="312.21" y="0">s</tspan></text>
+      <text class="cls-10" transform="translate(267.64 93.14) scale(.78 .75)"><tspan class="cls-19" x="0" y="0" xml:space="preserve">  </tspan><tspan class="cls-4" x="22.39" y="0">s</tspan><tspan class="cls-1" x="55.98" y="0">a</tspan><tspan class="cls-2" x="99.33" y="0">k</tspan><tspan class="cls-3" x="143.37" y="0">e</tspan></text>
+      <text class="cls-8" transform="translate(104.14 39.56) scale(.78 .75)"><tspan class="cls-16" x="0" y="0">f</tspan><tspan class="cls-6" x="17" y="0">or</tspan></text>
+    </g>
+  </g>
+</svg>
