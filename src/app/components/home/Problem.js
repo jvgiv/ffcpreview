@@ -48,7 +48,7 @@ export default function Problem() {
               </li>
             </ul>
             <p>
-              That feeling has a name.  <span style={{color: "var(--red)"}}>Financial fog.</span>  And it&apos;s more common than the statistics will ever fully capture.
+              That feeling has a name:  <span style={{color: "var(--red)"}}>FINANCIAL FOG.</span>  And it&apos;s more common than the statistics will ever fully capture.
             </p>
           </div>
 
@@ -69,7 +69,7 @@ export default function Problem() {
               </p>
               <div className="stat-divider" />
               <p className="stat-num">
-                $388 <span>BILLION</span>
+                388 <span>$BILLION$</span>
               </p>
               <p className="stat-label">is the estimated cost of financial illiteracy in the United States in 2023.</p>
             </div>

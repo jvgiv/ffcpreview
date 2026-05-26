@@ -394,18 +394,18 @@
 .stat-num {
   font-family: var(--font-bebas-neue), sans-serif;
   font-size: 4rem;
-  color: var(--white);
+  color: var(--red-hot);
   line-height: 1;
   margin-bottom: 0.25rem;
   padding-top: 3%;
 }
 
 .stat-num span {
-  color: var(--red-hot);
+  color: var(--white);
 }
 
 .stat-label {
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   color: var(--gray);
   line-height: 1.5;
 }
