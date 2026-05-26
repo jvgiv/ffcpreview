@@ -27,7 +27,7 @@ export default function Guide() {
             <span style={{ fontWeight: "bold" }}>begin</span>.
             <br />
             <br />
-            Far Flung Change is your starting point -- a 12-month program with
+            Practical Financial Orientation is your starting point.  A 12-month program with
             one goal: helping you better understand your financial life.
             <br />
             <br />
