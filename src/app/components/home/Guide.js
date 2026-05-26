@@ -12,7 +12,7 @@ export default function Guide() {
             You don&apos;t need another product. You need a starting point.
           </h2>
           <p>
-            Far Flung Change practical financial{" "}
+            Far Flung Change providespractical financial{" "}
             <span style={{ fontWeight: "bold" }}>orientation.</span>  Nothing else.
             <br />
             <br />
