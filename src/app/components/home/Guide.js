@@ -57,8 +57,8 @@ export default function Guide() {
               <Image
                 src="/svg/eye.svg"
                 alt="eyeball"
-                width={40}
-                height={40}
+                width={60}
+                height={60}
                 style={{ marginLeft: "0.5rem" }}
               />
             </div>
@@ -73,8 +73,8 @@ export default function Guide() {
               <Image
                 src="/svg/mag.svg"
                 alt="magnifying glass"
-                width={40}
-                height={40}
+                width={60}
+                height={60}
                 style={{ marginLeft: "0.5rem" }}
               />
             </div>
@@ -89,8 +89,8 @@ export default function Guide() {
               <Image
                 src="/svg/chair.svg"
                 alt="crosshair"
-                width={40}
-                height={40}
+                width={60}
+                height={60}
                 style={{ marginLeft: "0.5rem" }}
               />
             </div>
