@@ -72,7 +72,7 @@ export default function HomePageDefs() {
                   <div id="entryNoteLabel" className="entry-note-label">
                     Field Note:
                   </div>
-                  <div id="entryNote" className="entry-note-text">
+                  <div id="entryNote" className="entry-note-text-home">
                     The gap is not what is left over. It is what you were
                     working toward. | see: Surplus; Deficit; Savings Rate
                     (Savings 6); Investing (Investing 14)

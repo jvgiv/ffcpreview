@@ -465,6 +465,14 @@ header {
   line-height: 1.8
 }
 
+.entry-note-text-home {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--lgray);
+  line-height: 1.8
+}
+
 /* progress checkbox */
 .entry-progress {
   display: flex;

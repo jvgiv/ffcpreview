@@ -54,7 +54,7 @@ export default function Pricing() {
           <div className="pricing-card">
             <div className="pricing-badge" style={{ background: "#cececeef", border: "1px solid var(--border)", color: "var(--red)" }}>Premium Program</div>
             <div className="pricing-name">{premiumExpansionPack?.displayName || "Premium Expansion Pack"}</div>
-            <div className="pricing-price">{premiumExpansionPack?.priceLabel || "$750"}</div>
+            <div className="pricing-price">{premiumExpansionPack?.priceLabel || "$750"} <span>/ 1 year</span></div>
             <div className="pricing-desc">For members who value more structure, tools, and accountability from the start.</div>
             <ul className="pricing-features">
               <li>Dynamic progress mapping</li>
