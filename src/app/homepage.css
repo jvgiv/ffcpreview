@@ -457,14 +457,14 @@
 
 .card-title {
   font-family: var(--font-bebas-neue), sans-serif;
-  font-size: 1.6rem;
+  font-size: 2.5em;
   letter-spacing: 0.03em;
   margin-bottom: 0.75rem;
   line-height: 1;
 }
 
 .card-body {
-  font-size: 0.85rem;
+  font-size: 1.05rem;
   line-height: 1.7;
   color: rgba(245,240,232,0.55);
 }
