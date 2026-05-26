@@ -1695,7 +1695,7 @@ const chapters = [
         "The Gap",
         "/ðə ˈgap/",
         "concept",
-        "The difference between what comes in and what goes out. Simple arithmetic. Profound consequence. When the gap is positive: you have something to work with. When it is negative: everything else is noise. When it is zero: you are running, not building. But the gap is more than a number. It is the hinge, the moment of now between then¹ and then²: between the financial life already lived and the financial life still possible. Then¹ is fixed. Then² is not yet written. The gap is where you stand between them, and the only place any act of financial liberty is ever actually available. Find your gap. Widen it. Then decide what it is for.",
+        "The difference between what comes in and what goes out. Simple arithmetic. Profound consequence. When the gap is positive: you have something to work with. When it is negative: everything else is noise. When it is zero: you are running, not building. But the gap is more than a number. It is the hinge, the moment of now between Then¹ and Then²: between the financial life already lived and the financial life still possible. Then¹ is fixed. Then² is not yet written. The gap is where you stand between them, and the only place any act of financial liberty is ever actually available. Find your gap. Widen it. Then decide what it is for.",
         "field",
         "The gap is not what is left over. It is what you were working toward.  |  → see: Surplus; Deficit; Savings Rate (Savings ⑥); Investing (Investing ⑬)",
         "13:01",
