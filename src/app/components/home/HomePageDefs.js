@@ -9,11 +9,17 @@ export default function HomePageDefs() {
         <div className="scorecard-inner defs-homepage-inner">
           <div className="scorecard-copy defs-homepage-copy reveal">
             <span className="section-label">DogStar Definitions</span>
-            <h2 className="section-title">Your Financial Orientation Compendium</h2>
+            <h2 className="section-title">
+              Your Financial Orientation Compendium
+            </h2>
             <p>
-              The Dogstar Definitions are your personal field guide through 18
-              essential areas of financial life from Accounts and Cash Flow to
-              Investing and Clarity.
+              Your personal field guide consists of 360 DogStar Definitions
+              covering 18 essential areas of financial life from Accounts and
+              Cash Flow to Investing and Clarity.
+            </p>{" "}
+            <p>
+              Six supplements are included, providing 293 more terms for the
+              subject matters that deserve a deeper dive.
             </p>
             <p>
               Think of it as your go to resource for understanding financial
@@ -55,17 +61,18 @@ export default function HomePageDefs() {
                     The difference between what comes in and what goes out.
                     Simple arithmetic. Profound consequence. When the gap is
                     positive: you have something to work with. When it is
-                    negative: everything else is noise. When it is zero: you
-                    are running, not building.
+                    negative: everything else is noise. When it is zero: you are
+                    running, not building.
                   </p>
                   <p>
                     But the gap is more than a number. It is the hinge, the
-                    moment of now between Then<sup>1</sup> and Then<sup>2</sup>: between the
-                    financial life already lived and the financial life still
-                    possible. Then<sup>1</sup> is fixed. Then<sup>2</sup> is not yet written. The gap
-                    is where you stand between them, and the only place any act
-                    of financial liberty is ever actually available. Find your
-                    gap. Widen it. Then decide what it is for.
+                    moment of now between Then<sup>1</sup> and Then<sup>2</sup>:
+                    between the financial life already lived and the financial
+                    life still possible. Then<sup>1</sup> is fixed. Then
+                    <sup>2</sup> is not yet written. The gap is where you stand
+                    between them, and the only place any act of financial
+                    liberty is ever actually available. Find your gap. Widen it.
+                    Then decide what it is for.
                   </p>
                 </div>
                 <div id="entryNoteWrap" className="entry-note fade-up">
@@ -81,7 +88,6 @@ export default function HomePageDefs() {
               </div>
             </div>
           </div>
-          
         </div>
       </div>
     </div>
