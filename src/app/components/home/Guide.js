@@ -1,5 +1,6 @@
 import React from "react";
 import "../../homepage.css";
+import Image from "next/image";
 
 export default function Guide() {
   return (
@@ -23,17 +24,20 @@ export default function Guide() {
             Information helps. But without orientation, it&apos;s harder to know
             what <span style={{ fontWeight: "bold" }}>matters</span>, what{" "}
             <span style={{ fontWeight: "bold" }}>connects</span>, and where to{" "}
-            <span style={{ fontWeight: "bold" }}>begin</span>. 
+            <span style={{ fontWeight: "bold" }}>begin</span>.
             <br />
             <br />
-            Far Flung Change is your starting point -- a 12-month program with one goal: helping you better understand your financial life.
+            Far Flung Change is your starting point -- a 12-month program with
+            one goal: helping you better understand your financial life.
             <br />
-            <br />  
-            Not manage it for you.  Understand it.
             <br />
-            <span style={{ color: "var(--red)", fontWeight: "bold" }}>Far Flung Change</span> helps you <span style={{ fontWeight: 'bold' }}>find your bearings</span>.
-
-            
+            Not manage it for you. Understand it.
+            <br />
+            <span style={{ color: "var(--red)", fontWeight: "bold" }}>
+              Far Flung Change
+            </span>{" "}
+            helps you{" "}
+            <span style={{ fontWeight: "bold" }}>find your bearings</span>.
             {/* It isn&apos;t
             management or implementation. It&apos;s{" "}
             <strong style={{ color: "var(--white)" }}>orientation</strong> — the
@@ -49,7 +53,15 @@ export default function Guide() {
         {/* <div className="guide-cards reveal" style={{transitionDelay: "0.1s"}}> */}
         <div className="guide-cards" style={{ transitionDelay: "0.1s" }}>
           <div className="guide-card">
-            <div className="card-icon">🗺</div>
+            <div className="card-icon">
+              <Image
+                src="/svg/eye.svg"
+                alt="eyeball"
+                width={40}
+                height={40}
+                style={{ marginLeft: "0.5rem" }}
+              />
+            </div>
             <div className="card-title">Learn the Terrain</div>
             <div className="card-body">
               Core financial concepts, vocabulary, and trade-offs — delivered in
@@ -57,7 +69,15 @@ export default function Guide() {
             </div>
           </div>
           <div className="guide-card">
-            <div className="card-icon">💬</div>
+            <div className="card-icon">
+              <Image
+                src="/svg/mag.svg"
+                alt="magnifying glass"
+                width={40}
+                height={40}
+                style={{ marginLeft: "0.5rem" }}
+              />
+            </div>
             <div className="card-title">Ask Real Questions</div>
             <div className="card-body">
               Submit your actual questions anytime. Get fiduciary-level
@@ -65,8 +85,18 @@ export default function Guide() {
             </div>
           </div>
           <div className="guide-card">
-            <div className="card-icon">🧭</div>
-            <div className="card-title">Move Forward Clearly</div>
+            <div className="card-icon">
+              <Image
+                src="/svg/chair.svg"
+                alt="crosshair"
+                width={40}
+                height={40}
+                style={{ marginLeft: "0.5rem" }}
+              />
+            </div>
+            <div className="card-title">
+              <span style={{ color: "#d91f2c" }}>Move Forward Clearly</span>
+            </div>
             <div className="card-body">
               Evaluate advice, products, and decisions intelligently — with the
               confidence that comes from genuine understanding.

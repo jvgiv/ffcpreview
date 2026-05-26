@@ -453,6 +453,8 @@
 .card-icon {
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
 }
 
 .card-title {
