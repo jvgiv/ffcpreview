@@ -19,14 +19,17 @@ export default function Orientation() {
             Most people don&apos;t need more financial advice. They need a
             starting point.
           </p>
+          <br />
           <p>
             The financial world is foggy by nature. Acronyms multiply. Products
             accumulate. Every conversation seems to end with something to sign.
           </p>
+          <br />
           <p>
             Somewhere along the way, a quiet suspicion sets in: that everyone
             else figured this out, and you missed something.
           </p>
+          <br />
           <p>
             You didn&apos;t miss anything. The fog was never your fault. But it
             is solvable.{" "}
