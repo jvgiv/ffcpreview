@@ -35,9 +35,9 @@ export default function Plan() {
             <div className="step-arrow"></div>
           </div>
           <div className="plan-step">
-            <div className="step-num">5</div>
+            <div className="step-num"><span style={{ color: "#d91f2c" }}>5</span></div>
             <div className="step-title">Decide <br /> Your Next Step</div>
-            <div className="step-body">Act with the steadiness that comes from real understanding.</div>
+            <div className="step-body"><span style={{color: "var(--white)"}}>Act with the steadiness that comes from real understanding.</span></div>
           </div>
         </div>
       </div>
