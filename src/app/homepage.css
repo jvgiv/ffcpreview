@@ -508,7 +508,7 @@
 
 .step-title {
   font-family: 'Space Mono', monospace;
-  font-size: 0.72rem;
+  font-size: 0.95rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--white);
@@ -516,7 +516,7 @@
 }
 
 .step-body {
-  font-size: 0.82rem;
+  font-size: 0.88rem;
   line-height: 1.6;
   color: var(--gray);
 }
