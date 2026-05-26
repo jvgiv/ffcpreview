@@ -64,8 +64,8 @@ export default function Guide() {
             </div>
             <div className="card-title">Learn the Terrain</div>
             <div className="card-body">
-              Core financial concepts, vocabulary, and trade-offs — delivered in
-              plain language, without products or pitches attached.
+              Grasp core financial concepts, vocabulary, and trade-offs delivered
+              plainly, without products or pitches attached.
             </div>
           </div>
           <div className="guide-card">
@@ -98,8 +98,10 @@ export default function Guide() {
               <span style={{ color: "#d91f2c" }}>Move Forward Clearly</span>
             </div>
             <div className="card-body">
-              Evaluate advice, products, and decisions intelligently — with the
-              confidence that comes from genuine understanding.
+              <span style={{ color: "var(--white)" }}>
+                Evaluate advice, products, and decisions intelligently — with
+                the confidence that comes from genuine understanding.
+              </span>
             </div>
           </div>
         </div>

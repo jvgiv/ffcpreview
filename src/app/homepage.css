@@ -463,6 +463,8 @@
   letter-spacing: 0.03em;
   margin-bottom: 0.75rem;
   line-height: 1;
+  display: flex;
+  justify-content: center;
 }
 
 .card-body {
