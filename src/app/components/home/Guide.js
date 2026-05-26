@@ -12,8 +12,8 @@ export default function Guide() {
             You don&apos;t need another product. You need a starting point.
           </h2>
           <p>
-            Far Flung Change isn&apos;t financial advice. It&apos;s financial{" "}
-            <span style={{ fontWeight: "bold" }}>orientation.</span>
+            Far Flung Change practical financial{" "}
+            <span style={{ fontWeight: "bold" }}>orientation.</span>  Nothing else.
             <br />
             <br />
             The kind of behind-the-wheel driver&apos;s education you had long
