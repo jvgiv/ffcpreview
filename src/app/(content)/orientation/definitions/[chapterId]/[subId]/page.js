@@ -74,7 +74,7 @@ export default async function Subpage({ params }) {
                 <div id="entryNote" className="entry-note-text">{insight}</div>
             </div>
             <a
-                    href="mailto:FarFlungChange@1stAllied.com"
+                    href="mailto:deliberate@FarFlungChange.com"
                     id="btnEmail"
                     className="nav-btn"
                     rel="noreferrer"

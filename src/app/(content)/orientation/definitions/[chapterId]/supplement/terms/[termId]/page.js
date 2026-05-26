@@ -58,7 +58,7 @@ export default async function SupplementTermDetailPage({ params }) {
               <div id="entryNote" className="entry-note-text">{insight}</div>
             </div>
             <a
-              href="mailto:farflungchange@1stallied.com"
+              href="mailto:deliberate@FarFlungChange.com"
               id="btnEmail"
               className="nav-btn"
               rel="noreferrer"

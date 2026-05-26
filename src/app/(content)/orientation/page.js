@@ -103,7 +103,7 @@ export default function Orientation() {
           </div>
           <div className={styles.definitionAction}>
             <a
-              href="mailto:INSERTEMAILHERE@test.com"
+              href="mailto:deliberate@FarFlungChange.com"
               className="btn-ghost"
               rel="noreferrer"
               target="_blank"
