@@ -26,7 +26,7 @@ export default function TempFooter() {
           </a>
           <a className="ffc-footer-item" href="mailto:deliberate@FarFlungChange.com" target="_blank" rel="noopener noreferrer">
             <FontAwesomeIcon icon={faEnvelope} />
-            <span>FarFlungChange@1stAllied.com</span>
+            <span>deliberate@FarFlungChange.com</span>
           </a>
         </div>
 

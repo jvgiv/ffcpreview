@@ -118,19 +118,26 @@ export default function Home() {
             </li>
           </ul>
           <div className="hero-sub-changes">
-            <span style={{ color: "var(--red)" }}>
+            {/* <span style={{ color: "var(--red)" }}>
               Welcome to Far Flung Change
-            </span>
-            <p>practical financial orientation</p>
-
+            </span> */}
+            {/* <p>practical financial orientation</p> */}
+            <Image
+              src="/pfo.png"
+              alt="practical financial orientation"
+              width={599}
+              height={104}
+              style={{ width: "100%", height: "auto", maxWidth: "599px" }}
+            />
             <p
               style={{
                 color: "var(--gray)",
                 fontSize: "clamp(1.8rem, 2vw, 1.2rem)",
                 lineHeight: "1.3",
+                fontStyle: "italic"
               }}
             >
-              for people who want clarity. Not complexity.
+              For people who want clarity. Not complexity.
             </p>
           </div>
           {/* <p className="hero-sub">Welcome to FinancialOrientation</p> */}
