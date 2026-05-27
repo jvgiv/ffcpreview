@@ -372,7 +372,7 @@ button.ffc-nav-cta {
   line-height: 1.8;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1180px) {
   :root {
     --site-header-offset: 4.9rem;
   }

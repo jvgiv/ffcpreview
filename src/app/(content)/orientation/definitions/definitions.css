@@ -252,8 +252,9 @@ header {
 }
 
 .ch-nav-top {
+  width: 35%;
   display: flex;
-  justify-content: center;
+  justify-content:space-between;
   margin: 1.5rem auto 1rem;
 }
 

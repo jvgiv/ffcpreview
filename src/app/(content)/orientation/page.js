@@ -13,7 +13,7 @@ export default function Orientation() {
             Practical Financial Orientation for Growin&apos;Up&apos;s Sake.
           </p>
         </div>
-
+        <span className="orientation-line"></span>
         <div className={styles.sectionCopy}>
           <p>
             Most people don&apos;t need more financial advice. They need a
@@ -111,7 +111,7 @@ export default function Orientation() {
               rel="noreferrer"
               target="_blank"
             >
-              PLACEHOLDER UNTIL WE FIGURE OUT THE NEW EMAIL
+              SUBMIT YOUR ORIENTATION QUESTION -&gt;
             </a>
           </div>
         </div>
@@ -132,7 +132,7 @@ export default function Orientation() {
           </p>
           <div className={styles.definitionAction}>
             <Link href="/orientation/definitions" className="btn-ghost">
-              Explore DogStar Definitions -
+              Explore DogStar Definitions -&gt;
             </Link>
           </div>
         </div>
