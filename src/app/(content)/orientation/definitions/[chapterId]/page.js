@@ -12,6 +12,8 @@ export default async function ChapterPage({ params }) {
     notFound();
   }
 
+  let chapterNav = Number(chapter.id);
+
   return (
     <div
     // id="view-chapter"
@@ -35,6 +37,28 @@ export default async function ChapterPage({ params }) {
         </p>
         {/* CLOCK GOES HERE */}
         <p className="ch-hint">Select a term to read its definition</p>
+        {/* {chapter.supplement ? (
+          <Link href={`/orientation/definitions/${chapter.id}/supplement`} className="nav-btn-supp">
+            <span style={{ color: "var(--orange)" }}>
+              Forward to Supplement -&gt;
+            </span>
+          </Link>
+        ) : null} */}
+        <div className="ch-nav-top">
+          {chapter.id > 1 ? (
+            <Link href={`/orientation/definitions/${chapterNav - 1}`} className="nav-btn">
+              ← Previous Chapter
+            </Link>
+          ) : null}
+          <Link href="/orientation/definitions" className="nav-btn">
+            ← Back to Compendium Index
+          </Link>
+          {chapter.id < chapters.length ? (
+            <Link href={`/orientation/definitions/${chapterNav + 1}`} className="nav-btn">
+              Next Chapter →
+            </Link>
+          ) : null}
+        </div>
         {chapter.supplement ? (
           <Link href={`/orientation/definitions/${chapter.id}/supplement`} className="nav-btn-supp">
             <span style={{ color: "var(--orange)" }}>
@@ -42,11 +66,6 @@ export default async function ChapterPage({ params }) {
             </span>
           </Link>
         ) : null}
-        <div className="ch-nav-top">
-          <Link href="/orientation/definitions" className="nav-btn">
-            ← Back to Compendium Index
-          </Link>
-        </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {chapter.terms.map((sub, index) => (
