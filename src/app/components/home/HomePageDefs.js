@@ -9,28 +9,29 @@ export default function HomePageDefs() {
         <div className="scorecard-inner defs-homepage-inner">
           <div className="scorecard-copy defs-homepage-copy reveal">
             <span className="section-label">DogStar Definitions</span>
-            <h2 className="section-title">
-              Your Financial Orientation Compendium
-            </h2>
+            <h2 className="section-title">Your Financial Field Guide</h2>
             <p>
-              Your personal field guide consists of 360 DogStar Definitions
-              covering 18 essential areas of financial life from Accounts and
-              Cash Flow to Investing and Clarity.
+              Stop guessing at terms designed to confuse you. This is your
+              personal field guide:{" "}
+              <span style={{ fontStyle: "italic" }}>
+                360 proprietary definitions
+              </span>{" "}
+              mapping out the 18 essential areas of your financial life, from
+              Cash Flow to Investing.
             </p>{" "}
             <p>
-              Six supplements are included, providing 293 more terms for the
-              subject matters that deserve a deeper dive.
-            </p>
-            <p>
-              Think of it as your go to resource for understanding financial
-              concepts.
+              Need a deeper dive? You also get{" "}
+              <span style={{ fontWeight: "bold" }}>6 specialized</span>{" "}
+              supplements uncovering 293 more advanced terms. It&apos;s not just
+              a glossary. It&apos;s your master key to decoding the financial
+              language.
             </p>
             <Link
               href="/orientation/definitions"
               className="btn-ghost"
               style={{ marginTop: "1rem", display: "inline-block" }}
             >
-              Unlock Dogstar Definitions -
+              Unlock the Field Guide -&gt;
             </Link>
           </div>
           <div

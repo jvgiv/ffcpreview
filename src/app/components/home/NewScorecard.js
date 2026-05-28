@@ -32,12 +32,11 @@ export default function NewScorecard() {
             <span className="section-label">Start Here - Free</span>
             <h2 className="section-title">Your Orientation ScoreCard</h2>
             <p>
-              The ScoreCard is your personal field guide through 18 essential areas of financial
-              life - from Accounts and Cash Flow to Investing and Clarity.
+              Establish your baseline across 18 essential areas of financial life, from Cash Flow to Investing.
             </p>
             <p>
-              Think of it as your course map before the round begins. Unlock it free. Keep it. Use
-              it to track where you are and what comes next.
+              Think of it as your course map before the round begins. Unlock it for free. Keep it forever. Use
+              it to map exactly where you stand.
             </p>
             <Link
               href="/logged-in"
@@ -48,6 +47,7 @@ export default function NewScorecard() {
             </Link>
           </div>
           <div className="scorecard-visual reveal" style={{ transitionDelay: '0.15s' }}>
+              <p>Click to view or download</p>
             <div className="hole-grid">
               <div className="scorecard-image-wrapper">
                 <Image

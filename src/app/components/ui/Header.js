@@ -17,9 +17,9 @@ export default function Header() {
     { href: '/#problem', label: 'The Problem' },
     { href: '/#solution', label: 'The Solution' },
     { href: '/#plan', label: 'The Process' },
-    { href: '/#pricing', label: 'MenuBoard' },
     { href: '/#definitions-preview', label: 'DogStar Definitions' },
     { href: '/#scorecard', label: 'Orientation ScoreCard' },
+    { href: '/#pricing', label: 'MenuBoard' },
     { href: '/#cta', label: 'Punch The Clock' },
   ]
 

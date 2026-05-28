@@ -9,16 +9,18 @@ export default function Guide() {
         <div className="guide-intro reveal">
           <span className="section-label">The Solution</span>
           <h2 className="section-title">
-            You don&apos;t need another product. You need a starting point.
+            You don&apos;t need another product. You need a bearing.
           </h2>
           <p>
             Far Flung Change provides practical financial{" "}
-            <span style={{ fontWeight: "bold" }}>orientation.</span>  Nothing else.
+            <span style={{ fontWeight: "bold" }}>orientation.</span> No hidden
+            agendas. No asset management.
             <br />
             <br />
-            The kind of behind-the-wheel driver&apos;s education you had long
-            before you ever considered navigating rush hour, taking a road trip,
-            or driving through fog.
+            Think of it as behind-the-wheel driver&apos;s ed - the fundamental
+            training you get before navigating rush hour or steering through a
+            heavy fog. Information tells you the weather. Orientation tells you
+            how to drive through it.
             <br />
             <br />
             Information helps. But without orientation, it&apos;s harder to know
@@ -27,17 +29,18 @@ export default function Guide() {
             <span style={{ fontWeight: "bold" }}>begin</span>.
             <br />
             <br />
-            Practical Financial Orientation is your starting point.  A 12-month program with
-            one goal: helping you better understand your financial life.
+            This is your 12-month baseline. We don&apos;t manage your money. We
+            help you master it&apos;s vocabulary. We don&apos;t take the wheel.
+            We illuminate the map.
             <br />
-            <br />
+            {/* <br />
             Not manage it for you. Understand it.
             <br />
             <span style={{ color: "var(--red)", fontWeight: "bold" }}>
               Far Flung Change
             </span>{" "}
             helps you{" "}
-            <span style={{ fontWeight: "bold" }}>find your bearings</span>.
+            <span style={{ fontWeight: "bold" }}>find your bearings</span>. */}
             {/* It isn&apos;t
             management or implementation. It&apos;s{" "}
             <strong style={{ color: "var(--white)" }}>orientation</strong> — the
@@ -50,6 +53,7 @@ export default function Guide() {
             adds to the noise. */}
           </p>
         </div>
+        <br />
         {/* <div className="guide-cards reveal" style={{transitionDelay: "0.1s"}}> */}
         <div className="guide-cards" style={{ transitionDelay: "0.1s" }}>
           <div className="guide-card">
@@ -64,8 +68,8 @@ export default function Guide() {
             </div>
             <div className="card-title">Learn the Terrain</div>
             <div className="card-body">
-              Grasp core financial concepts, vocabulary, and trade-offs delivered
-              plainly, without products or pitches attached.
+              Master core concepts, definitions, and trade-offs. Delivered
+              plainly - completely stripped of products, pitches, or pressure.
             </div>
           </div>
           <div className="guide-card">
@@ -80,8 +84,8 @@ export default function Guide() {
             </div>
             <div className="card-title">Ask Real Questions</div>
             <div className="card-body">
-              Submit your actual questions anytime. Get fiduciary-level
-              responses by phone, Zoom, or in person. No sales agenda.
+              Submit your real-world questions anytime. Get fiduciary-level
+              clarity via phone, Zoom, or face-to-face. Zero sales agenda.
             </div>
           </div>
           <div className="guide-card">
@@ -99,8 +103,9 @@ export default function Guide() {
             </div>
             <div className="card-body">
               <span style={{ color: "var(--white)" }}>
-                Evaluate advice, products, and decisions intelligently — with
-                the confidence that comes from genuine understanding.
+                Evaluate advice, products, and market noise intelligently. Build
+                the unshakeable confidence that only comes from genuine
+                understanding.
               </span>
             </div>
           </div>

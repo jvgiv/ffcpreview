@@ -179,9 +179,9 @@ export default function Home() {
       <Problem />
       <Guide />
       <Plan />
-      <Pricing />
       <HomePageDefs />
       <NewScorecard />
+      <Pricing />
       <Quote />
       <PunchTheClock />
     </main>

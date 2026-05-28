@@ -19,25 +19,25 @@ export default function Plan() {
           <div className="plan-step">
             <div className="step-num">2</div>
             <div className="step-title">Unlock <br /> the ScoreCard</div>
-            <div className="step-body">Begin building awareness. It is yours to keep for free.</div>
+            <div className="step-body">Assess your current financial standing now.  It&apos;s completely free and yours to keep.</div>
             <div className="step-arrow"></div>
           </div>
           <div className="plan-step">
             <div className="step-num">3</div>
-            <div className="step-title">Endorse <br /> the Agreement</div>
-            <div className="step-body">Select your orientation tier and get underway.</div>
+            <div className="step-title">Lock In <br /> Your Tier</div>
+            <div className="step-body">Pick the flat-fee plan that fits your pace and clear the fog.</div>
             <div className="step-arrow"></div>
           </div>
           <div className="plan-step">
             <div className="step-num">4</div>
             <div className="step-title">Ask <br />What Matters</div>
-            <div className="step-body">Submit your questions. Receive fiduciary-level responses. Repeat.</div>
+            <div className="step-body">Fire away your real-world questions.  Get clear, fiduciary-level answers in two business days.</div>
             <div className="step-arrow"></div>
           </div>
           <div className="plan-step">
             <div className="step-num"><span style={{ color: "#d91f2c" }}>5</span></div>
             <div className="step-title">Decide <br /> Your Next Step</div>
-            <div className="step-body"><span style={{color: "var(--white)"}}>Act with the steadiness that comes from real understanding.</span></div>
+            <div className="step-body"><span style={{color: "var(--white)"}}>Move forward with absolute certainty.  No guessing, no pressure, just a clear map.</span></div>
           </div>
         </div>
       </div>

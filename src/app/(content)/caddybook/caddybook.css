@@ -361,6 +361,11 @@ body {
   padding: 16px 0;
   border-bottom: 1px solid var(--rule);
 }
+
+.toc-item:hover {
+  cursor: pointer;
+}
+
 .toc-circle {
   width: 38px;
   height: 38px;

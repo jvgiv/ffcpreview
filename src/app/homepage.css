@@ -322,6 +322,23 @@
   display: block;
 }
 
+.pricing-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-content: flex-end;
+}
+
+.section-label-pric {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.9rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--red-hot);
+  margin-bottom: 1rem;
+  display: block;
+}
+
 .section-title {
   font-family: var(--font-bebas-neue), sans-serif;
   font-size: clamp(2.5rem, 6vw, 5rem);
@@ -537,9 +554,9 @@
   transform: translateY(-50%);
   width: 0;
   height: 0;
-  border-top: 6px solid transparent;
-  border-bottom: 6px solid transparent;
-  border-left: 8px solid var(--red);
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 10px solid var(--red);
   z-index: 1;
 }
 
@@ -564,6 +581,8 @@
 .pricing-card {
   background: var(--black);
   padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .pricing-card.featured {
@@ -580,6 +599,7 @@
   color: var(--white);
   padding: 0.2rem 0.6rem;
   display: inline-block;
+  align-self: flex-start;
   margin-bottom: 1rem;
 }
 
@@ -631,13 +651,14 @@
 }
 
 .pricing-features li::before {
-  content: '->';
+  content: '*';
   color: var(--red);
-  font-size: 0.7rem;
+  font-size: 1.2rem;
 }
 
 .pricing-cta {
-  margin-top: 2rem;
+  margin-top: auto;
+  padding-top: 2rem;
 }
 
 /* Scorecard */
@@ -689,6 +710,15 @@
   background: var(--offblack);
   padding: 0 0.5rem;
   color: var(--red-hot);
+}
+
+.scorecard-visual > p {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--red-hot);
+  text-align: center;
 }
 
 .scorecard-visual .hole-grid {
@@ -847,11 +877,20 @@
 .creed blockquote {
   font-family: 'Playfair Display', serif;
   font-style: italic;
-  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-size: clamp(1.4rem, 3vw, 2.5rem);
   line-height: 1.5;
-  max-width: 760px;
+  max-width: 860px;
   margin: 0 auto 3rem;
   color: rgba(245, 240, 232, 0.85);
+}
+
+.creed h3 {
+  font-family: var(--font-bebas-neue), sans-serif;
+  font-size: clamp(2rem, 5vw, 2.2rem);
+  letter-spacing: 0.06em;
+  line-height: 1;
+  color: var(--white);
+  margin-bottom: 2rem;
 }
 
 .creed-bar {

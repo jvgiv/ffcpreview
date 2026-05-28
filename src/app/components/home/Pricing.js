@@ -1,16 +1,16 @@
-import React from 'react'
-import "../../homepage.css"
-import Link from 'next/link'
-import { AGREEMENT_DEFINITIONS } from '@/lib/agreements'
-import { getPurchaseBySlug } from '@/lib/purchases'
+import React from "react";
+import "../../homepage.css";
+import Link from "next/link";
+import { AGREEMENT_DEFINITIONS } from "@/lib/agreements";
+import { getPurchaseBySlug } from "@/lib/purchases";
 
 function getCheckoutStartHref(agreementSlug) {
-  return `/logged-in/checkout?agreement=${agreementSlug}`
+  return `/logged-in/checkout?agreement=${agreementSlug}`;
 }
 
 export default function Pricing() {
-  const financialServices = getPurchaseBySlug("financial-orientation")
-  const premiumExpansionPack = getPurchaseBySlug("premium-expansion-pack")
+  const financialServices = getPurchaseBySlug("financial-orientation");
+  const premiumExpansionPack = getPurchaseBySlug("premium-expansion-pack");
 
   return (
     <section id="pricing" className="pricing">
@@ -18,57 +18,96 @@ export default function Pricing() {
         <div className="reveal">
           <span className="section-label">The MenuBoard</span>
           <h2 className="section-title">Flat-fee. No products. No pressure.</h2>
-        <ul className="pricing-features reveal">
-          <li>Learn core financial concepts and trade-offs</li>
-          <li>Access a 360-point Compendium of DogStar Definitions</li>
-          <li>Explore 6 Supplements with 275+ more terms explained</li>
-          <li>Ask any questions - anytime: get answers - in 2 business days</li>
-          <li>Have follow-up conversations by phone, Zoom, or in person</li>
-          <li>Process information without products, pressure, or pitches</li>
-        </ul>
+          <ul className="pricing-features reveal">
+            <li>Learn core financial concepts and trade-offs</li>
+            <li>
+              Cut through the jargon with the 360-point Compendium of DogStar
+              Definitions
+            </li>
+            <li>Explore 6 Supplements with 275+ more terms explained</li>
+            <li>
+              Direct line for your top financial questions - with fiduciary
+              answers in 2 business days
+            </li>
+            <li>Have follow-up conversations by phone, Zoom, or in person</li>
+            <li>
+              Total immunity from product pitches, hidden agendas, and sales
+              pressure
+            </li>
+          </ul>
         </div>
-        <div className="pricing-grid reveal" style={{ transitionDelay: "0.1s" }}>
-          <div className="pricing-card featured">
+        {/* <div className="pricing-title">
+          <span className="section-label-pric reveal">Best value</span>
+        </div> */}
+        <div
+          className="pricing-grid reveal"
+          style={{ transitionDelay: "0.1s" }}
+        >
+          <div className="pricing-card">
             <div className="pricing-badge">Core Program</div>
-            <div className="pricing-name">{financialServices?.displayName || "Guided Orientation"}</div>
-            <div className="pricing-price">{financialServices?.priceLabel || "$500"} <span>/ 1 year</span></div>
-            <div className="pricing-desc">A flat-fee educational engagement to foster financial clarity and confidence. Forge Fog into Focus.</div>
+            <div className="pricing-name">
+              {/* {financialServices?.displayName ||  */}
+              Guided Orientation
+              {/* } */}
+            </div>
+            <div className="pricing-price">
+              {financialServices?.priceLabel || "$500"} <span>/ 1 year</span>
+            </div>
+            <div className="pricing-desc">
+              Your foundational toolkit for financial clarity. No sales pitches,
+              no hidden fees - just the map and vocabulary you need to forge fog
+              into focus.
+            </div>
             <ul className="pricing-features">
-              <li>No recommendations</li>
-              <li>No advice</li>
-              <li>No management</li>
-              <li>No implementation</li>
+              <li><span style={{ fontWeight: "bold" }}>No</span> recommendations</li>
+              <li><span style={{ fontWeight: "bold" }}>No</span> investment advice</li>
+              <li><span style={{ fontWeight: "bold" }}>No</span> asset management</li>
             </ul>
             <div className="pricing-cta">
               <Link
                 href={getCheckoutStartHref(
-                  AGREEMENT_DEFINITIONS["financial-orientation"].slug
+                  AGREEMENT_DEFINITIONS["financial-orientation"].slug,
                 )}
                 className="btn-primary"
                 style={{ width: "100%", textAlign: "center", display: "block" }}
               >
-                Start Financial Services -&gt;
+                Start Guided Orientation -&gt;
               </Link>
             </div>
           </div>
-          <div className="pricing-card">
-            <div className="pricing-badge" style={{ background: "#cececeef", border: "1px solid var(--border)", color: "var(--red)" }}>Premium Program</div>
-            <div className="pricing-name">{premiumExpansionPack?.displayName || "Premium Expansion Pack"}</div>
-            <div className="pricing-price">{premiumExpansionPack?.priceLabel || "$750"} <span>/ 1 year</span></div>
-            <div className="pricing-desc">For members who value more structure, tools, and accountability from the start.</div>
+          <div className="pricing-card featured">
+            <div
+              className="pricing-badge"
+              style={{
+                background: "#cececeef",
+                border: "1px solid var(--border)",
+                color: "var(--red)",
+              }}
+            >
+              Premium Program
+            </div>
+            <div className="pricing-name">
+              {premiumExpansionPack?.displayName || "Premium Expansion Pack"}
+            </div>
+            <div className="pricing-price">
+              {premiumExpansionPack?.priceLabel || "$750"} <span>/ 1 year</span>
+            </div>
+            <div className="pricing-desc">
+              Built for those who want real-time structure, interactive tools, and direct accountability from day one.
+            </div>
             <ul className="pricing-features">
-              <li>Dynamic progress mapping</li>
+              <li>Visual tracking to see exactly where you stand</li>
               <li>Scheduled check-ins & follow ups</li>
-              <li>Personal financial aggregator to:</li>
-              <li>View assets + debts</li>
+              <li>A single secure dashboard to sync your assets, master your budget, and track real-time spending</li>
+              {/* <li>View assets + debts</li>
               <li>Track Spending</li>
               <li>Build budgets</li>
-              <li>Set + prioritize goals</li>
+              <li>Set + prioritize goals</li> */}
             </ul>
             <div className="pricing-cta">
               <Link
                 href={getCheckoutStartHref(
-                  AGREEMENT_DEFINITIONS["premium-expansion-pack"].slug
+                  AGREEMENT_DEFINITIONS["premium-expansion-pack"].slug,
                 )}
                 className="btn-primary"
                 style={{ width: "100%", textAlign: "center", display: "block" }}
@@ -80,5 +119,5 @@ export default function Pricing() {
         </div>
       </div>
     </section>
-  )
+  );
 }
