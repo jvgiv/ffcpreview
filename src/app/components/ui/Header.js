@@ -150,15 +150,6 @@ export default function Header() {
         </li>
         <li className="ffc-nav-item">
           <Link
-            className={`ffc-nav-link ${pathName === "/about" ? "active" : "" }`}
-            href="/about"
-            onClick={handleNavClose}
-          >
-            ABOUT
-          </Link>
-        </li>
-        <li className="ffc-nav-item">
-          <Link
             className={`ffc-nav-link ${pathName === "/thoughtgallery" ? "active" : "" }`}
             href="/thoughtgallery"
             onClick={handleNavClose}
@@ -166,6 +157,16 @@ export default function Header() {
             THOUGHT GALLERY
           </Link>
         </li>
+        <li className="ffc-nav-item">
+          <Link
+            className={`ffc-nav-link ${pathName === "/about" ? "active" : "" }`}
+            href="/about"
+            onClick={handleNavClose}
+          >
+            ABOUT
+          </Link>
+        </li>
+        
       </ul>
 
       <div id="ffc-nav-links" className={`ffc-nav-mobile-panel ${isMenuOpen ? 'open' : ''}`}>
@@ -215,15 +216,7 @@ export default function Header() {
               CADDY BOOK
             </Link>
           </li>
-          <li className="ffc-nav-mobile-item">
-            <Link
-              className={`ffc-nav-link ${pathName === "/thoughtgallery" ? "active" : "" }`}
-              href="/thoughtgallery"
-              onClick={handleNavClose}
-            >
-              THOUGHT GALLERY
-            </Link>
-          </li>
+          
           <li className="ffc-nav-mobile-item">
             <Link
               className={`ffc-nav-link ${pathName === "/orientation" ? "active" : "" }`}
@@ -244,6 +237,15 @@ export default function Header() {
                 </Link>
               </li>
             </ul>
+          </li>
+          <li className="ffc-nav-mobile-item">
+            <Link
+              className={`ffc-nav-link ${pathName === "/thoughtgallery" ? "active" : "" }`}
+              href="/thoughtgallery"
+              onClick={handleNavClose}
+            >
+              THOUGHT GALLERY
+            </Link>
           </li>
           <li className="ffc-nav-mobile-item">
             <Link
