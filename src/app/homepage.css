@@ -664,7 +664,7 @@
 /* Scorecard */
 .scorecard {
   border-top: 1px solid var(--border);
-  /* background: var(--offblack); */
+  background: var(--offblack);
 }
 
 .scorecard .scorecard-inner {
@@ -674,7 +674,7 @@
 /* homepagedefs */
 .defs-homepage {
   border-top: 1px solid var(--border);
-  background: var(--offblack);
+  background: var(--black);
 }
 
 .scorecard-inner {
