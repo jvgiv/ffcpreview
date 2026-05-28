@@ -29,6 +29,7 @@ export default async function SupplementTermsPage({ params }) {
           <Link href={`/orientation/definitions/${chapter.id}`} className="nav-btn-supp">
             ← Back to chapter
           </Link>
+          <p>Search for a term here:</p>
         </div>
       </div>
 

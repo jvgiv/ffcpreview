@@ -104,6 +104,7 @@ export default async function Subpage({ params }) {
                     ← Previous
                 </Link>
                 ) : <button id="btnPrev" className="nav-btn" style={{cursor: 'none'}}>← Previous</button> }
+                <p>Search here:</p>
                 <Link
                     href={`/orientation/definitions/${chapter.id}`}
                     id="btnIndex" className="nav-btn"
@@ -114,6 +115,7 @@ export default async function Subpage({ params }) {
                 >
                   Chapter Index
                 </Link>
+                
                 
                 {number < 20 ? (
                     <Link
@@ -129,7 +131,7 @@ export default async function Subpage({ params }) {
                 </Link>
                 ) : <button id="btnNext" className="nav-btn primary" style={{cursor: 'none'}}>Next →</button> }
             </div>
-
+                
         </div>
       
       

@@ -31,6 +31,7 @@ export default function Definitions() {
             />
         </div>
         <p className="master-hint"><span>Select a chapter below</span></p>
+        <p>Search a term here:</p>
     </div>
        
         <div id="chapterGrid" className="chapter-grid">

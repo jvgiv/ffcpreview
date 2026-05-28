@@ -82,6 +82,7 @@ export default async function SupplementTermDetailPage({ params }) {
                     ← Previous
                 </Link>
                 ) : <button id="btnPrev" className="nav-btn" style={{cursor: 'none'}}>← Previous</button> }
+                <p>Search for a term here:</p>
                 <Link
                     href={`/orientation/definitions/${chapter.id}`}
                     id="btnIndex" className="nav-btn"

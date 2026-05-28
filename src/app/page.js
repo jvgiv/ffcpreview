@@ -37,7 +37,7 @@ export default function Home() {
           <div className="hero-sub-changes-top">
             {/* Financial stress isn&apos;t mostly a money problem. It&apos;s mostly a fog problem. Far Flung Change clears the fog.  - {" "}
             <strong style={{ color: "var(--white)" }}>Before you reach the Clubhouse.</strong> */}
-            Facing your finances <br /> doesn&apos;t have to feel like a{" "}
+            Facing your finances <br /> doesn&apos;t have to feel <br /> like roaming a{" "}
             <span style={{ color: "var(--red)" }}>
               <span style={{ fontWeight: "bold" }}>foreign</span>
             </span>{" "}
@@ -102,7 +102,7 @@ export default function Home() {
                 {/* <div className="bullet-dot"></div> */}
               </div>
               <div className="hero-sub-item-text">
-                <span style={{ color: "var(--gray)" }}>
+                <span style={{ color: "var(--white)" }}>
                   Identify your next step with confidence
                 </span>
               </div>

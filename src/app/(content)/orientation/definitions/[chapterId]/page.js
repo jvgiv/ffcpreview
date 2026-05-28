@@ -37,6 +37,7 @@ export default async function ChapterPage({ params }) {
         </p>
         {/* CLOCK GOES HERE */}
         <p className="ch-hint">Select a term to read its definition</p>
+        <p>Search for a term:</p>
         {/* {chapter.supplement ? (
           <Link href={`/orientation/definitions/${chapter.id}/supplement`} className="nav-btn-supp">
             <span style={{ color: "var(--orange)" }}>
