@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import chapters from "@/data/def";
 import "../definitions.css";
+import TermSearch from "../TermSearch.js";
 
 export default async function ChapterPage({ params }) {
   const { chapterId } = await params;
@@ -37,7 +38,7 @@ export default async function ChapterPage({ params }) {
         </p>
         {/* CLOCK GOES HERE */}
         <p className="ch-hint">Select a term to read its definition</p>
-        <p>Search for a term:</p>
+        <TermSearch />
         {/* {chapter.supplement ? (
           <Link href={`/orientation/definitions/${chapter.id}/supplement`} className="nav-btn-supp">
             <span style={{ color: "var(--orange)" }}>

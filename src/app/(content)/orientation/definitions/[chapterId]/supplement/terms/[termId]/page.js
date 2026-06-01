@@ -3,6 +3,7 @@ import Link from "next/link";
 import chapters from "@/data/def";
 import SubSideNav from "@/app/components/SubSideNav";
 import "../../../../definitions.css";
+import TermSearch from "../../../../TermSearch";
 
 export default async function SupplementTermDetailPage({ params }) {
   const { chapterId, termId } = await params;
@@ -68,6 +69,7 @@ export default async function SupplementTermDetailPage({ params }) {
               Submit your Orientation Question
             </a>
             <div id="progressRow" className="entry-progress fade-up"></div>
+            <TermSearch />
             <div className="entry-nav-bottom">
                 {number > 1 ? (
                 <Link
@@ -82,7 +84,7 @@ export default async function SupplementTermDetailPage({ params }) {
                     ← Previous
                 </Link>
                 ) : <button id="btnPrev" className="nav-btn" style={{cursor: 'none'}}>← Previous</button> }
-                <p>Search for a term here:</p>
+                
                 <Link
                     href={`/orientation/definitions/${chapter.id}`}
                     id="btnIndex" className="nav-btn"

@@ -54,11 +54,11 @@ export default function Problem() {
                 where to start
               </li>
             </ul>
-            <p>
+            {/* <p>
               That feeling has a name:{" "}
               <span style={{ color: "var(--red)" }}>FINANCIAL FOG.</span> And
               it&apos;s more common than the statistics will ever fully capture.
-            </p>
+            </p> */}
           </div>
 
           <div className="friction-stat reveal">
