@@ -4,6 +4,7 @@ import chapters from "../../../../data/def.js";
 import Link from "next/link.js";
 import "./definitions.css";
 import Image from "next/image.js";
+import TermSearch from "./TermSearch.js";
 
 export default function Definitions() {
   return (
@@ -44,8 +45,8 @@ export default function Definitions() {
             prescribed order required.
           </span>
         </p>
-        <p>Search a term here:</p>
       </div>
+        <TermSearch />
 
       <div id="chapterGrid" className="chapter-grid">
         {chapters.map((chapter) => (

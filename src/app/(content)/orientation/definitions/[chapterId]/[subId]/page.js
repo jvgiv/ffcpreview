@@ -4,6 +4,7 @@ import Link from 'next/link';
 import chapters from '@/data/def';
 import SubSideNav from '@/app/components/SubSideNav';
 import '../../definitions.css';
+import TermSearch from '../../TermSearch.js';
 
 export default async function Subpage({ params }) {
   const { chapterId, subId } = await params;
@@ -90,6 +91,7 @@ export default async function Subpage({ params }) {
                 {/* <div id="progBox" className="prog-box"></div> */}
                 {/* <span id="progLabel" className="prog-label">Mark as in progress</span> */}
             </div>
+                <TermSearch />
             <div className="entry-nav-bottom">
                 {number > 1 ? (
                 <Link
@@ -104,7 +106,7 @@ export default async function Subpage({ params }) {
                     ← Previous
                 </Link>
                 ) : <button id="btnPrev" className="nav-btn" style={{cursor: 'none'}}>← Previous</button> }
-                <p>Search here:</p>
+                
                 <Link
                     href={`/orientation/definitions/${chapter.id}`}
                     id="btnIndex" className="nav-btn"
