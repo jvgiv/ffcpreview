@@ -7,19 +7,21 @@ const allTerms = chapters.flatMap((chapter) => {
   const results = [];
 
   const mainTerms = chapter.terms.map((term) => ({
+    id: term[8],
     name: term[1],
     definition: term[4],
     chapterId: chapter.id,
     chapterTitle: chapter.title,
     termIndex: term[0],
     isSupplement: false,
-    supplementTitle: null,
+    supplementTitle: null
   }));
 
   results.push(...mainTerms);
 
   if (chapter.supplement?.terms?.length > 0) {
     const suppTerms = chapter.supplement.terms.map((term) => ({
+      id: term[7],
       name: term[1],
       definition: term[4],
       chapterId: chapter.id,
@@ -90,7 +92,7 @@ export default function TermSearch() {
           }}
         >
           {results.map((t) => (
-            <li key={`${t.chapterId}-${t.termIndex}`}>
+            <li key={t.id}>
               <Link
                 href={
                   t.isSupplement
