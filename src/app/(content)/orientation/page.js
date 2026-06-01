@@ -45,23 +45,26 @@ export default function Orientation() {
         style={{ transitionDelay: "0.08s" }}
       >
         <p className={styles.sectionHeading}>How it works</p>
+        <span className="orientation-line"></span>
         <div className={styles.sectionCopy}>
           <p>
             One flat fee. One idea:{" "}
             <span className={styles.italic}>orientation before obligation</span>
             .
           </p>
+          <br />
           <p>
             The <strong>Caddy Book of Orientation</strong> starts the process
             before the first conversation.
           </p>
+          <br />
           <p>
             Seven elements. About ten minutes. Plain-language prompts that
             surface what&apos;s clear, what&apos;s foggy, and what&apos;s most
-            pressing. The notes are yours.
-          </p>
-          <p className={styles.italic}>
-            Context before conversation. Every time.
+            pressing. The notes are yours.{"  "}
+            <span className={styles.italic}>
+              Context before conversation. Every time.
+            </span>
           </p>
         </div>
       </section>
@@ -71,12 +74,14 @@ export default function Orientation() {
         style={{ transitionDelay: "0.12s" }}
       >
         <p className={styles.sectionHeading}>Orientation ScoreCard</p>
+        <span className="orientation-line"></span>
         <div className={styles.sectionCopy}>
           <p>
             The <strong>Orientation ScoreCard</strong> maps eighteen holes of
             financial terrain: nine covering foundational infrastructure, nine
             covering decisions, habits, and values.
           </p>
+          <br />
           <p>
             Not a report card. A living record of attention, updated as fog
             clears.
@@ -90,6 +95,7 @@ export default function Orientation() {
         style={{ transitionDelay: "0.08s" }}
       >
         <p className={styles.sectionHeading}>Submit an orientation question</p>
+        <span className="orientation-line"></span>
         <div className={styles.definitionBlock}>
           <div className={styles.sectionCopy}>
             <p>Got a question about your financial life? Ask it here.</p>
@@ -100,8 +106,8 @@ export default function Orientation() {
             </p>
             <p>
               We&apos;ll respond by email, then invite you to extend the
-              conversation by phone or Zoom, your choice, until you say,
-              &ldquo;enough &mdash; I get it.&rdquo;
+              conversation by phone or Zoom, your choice, until you say
+              you&apos;ve got it
             </p>
           </div>
           <div className={styles.definitionAction}>
@@ -124,11 +130,19 @@ export default function Orientation() {
         <p className={styles.sectionHeading}>
           Compendium of DogStar Definitions
         </p>
+        <span className="orientation-line"></span>
         <div className={styles.definitionBlock}>
           <p className={styles.sectionCopy}>
-            The Compendium of DogStar Definitions gives you the language: 360
-            plain-language terms, 18 chapters, expandable with six deeper-dive
-            Supplements that define nearly 300 more entries.
+            Finance has its own language, and not knowing it puts you at a
+            disadvantage before the conversation even starts. The Compendium of
+            DogStar Definitions changes that: 360 plain-language terms across 18
+            chapters, expandable with six deeper-dive Supplements covering
+            nearly 300 more entries.
+          </p>
+          <br />
+          <p>
+            The fog lifts faster when you have the words for what you&apos;re
+            looking at.
           </p>
           <div className={styles.definitionAction}>
             <Link href="/orientation/definitions" className="btn-ghost">
@@ -143,13 +157,18 @@ export default function Orientation() {
         style={{ transitionDelay: "0.12s" }}
       >
         <p className={styles.sectionHeading}>Unlimited orientation support</p>
+        <span className="orientation-line"></span>
         <div className={styles.sectionCopy}>
           <p>
             All of it comes with one full year of{" "}
-            <strong>Unlimited Orientation Questions</strong>, answered at the
+            {/* <strong> */}
+              Unlimited Orientation Questions
+              {/* </strong> */}
+              , answered at the
             fiduciary level by phone, Zoom, or in person.
           </p>
-          <p>No billable hours. No agenda attached to the answer.</p>
+          <br />
+          <p>No billable hours. No agenda attached to the answer.  Just the clarity you came for.</p>
         </div>
       </section>
 
@@ -177,18 +196,17 @@ export default function Orientation() {
             </p>
           </div>
           <div className={styles.planCard}>
-            <h3>The whole point</h3>
-            <p className={styles.planPrice}>&nbsp;</p>
+            <h3>The Real Deal</h3>
+            <p className={styles.planPrice}>PRICELESS</p>
             <p>
               One year. Unlimited Questions. No commissions. No hidden agenda.
             </p>
             <p>
-              Just orientation, so you know where you&apos;re standing before
-              you take the next step.
+              Just orientation: know where you&apos;re standing before you take the next step. The fog clears. The picture sharpens. What follows from there is entirely up to you.
             </p>
-            <p className={styles.italic}>
+            {/* <p className={styles.italic}>
               What follows from there is entirely up to you.
-            </p>
+            </p> */}
           </div>
         </div>
       </section>
