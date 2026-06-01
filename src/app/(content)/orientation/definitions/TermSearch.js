@@ -3,15 +3,36 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import chapters from "@/data/def";
 
-const allTerms = chapters.flatMap((chapter) =>
-  chapter.terms.map((term) => ({
+const allTerms = chapters.flatMap((chapter) => {
+  const results = [];
+
+  const mainTerms = chapter.terms.map((term) => ({
     name: term[1],
     definition: term[4],
     chapterId: chapter.id,
     chapterTitle: chapter.title,
-    termIndex: term[8],
-  }))
-);
+    termIndex: term[0],
+    isSupplement: false,
+    supplementTitle: null,
+  }));
+
+  results.push(...mainTerms);
+
+  if (chapter.supplement?.terms?.length > 0) {
+    const suppTerms = chapter.supplement.terms.map((term) => ({
+      name: term[1],
+      definition: term[4],
+      chapterId: chapter.id,
+      chapterTitle: chapter.title,
+      termIndex: term[0],
+      isSupplement: true,
+      supplementTitle: chapter.supplement.title,
+    }));
+    results.push(...suppTerms);
+  }
+
+  return results;
+});
 
 export default function TermSearch() {
   const [query, setQuery] = useState("");
@@ -19,11 +40,19 @@ export default function TermSearch() {
   const results = useMemo(() => {
     if (!query.trim()) return [];
     const q = query.toLowerCase();
-    return allTerms.filter((t) => t.name.toLowerCase().includes(q)).slice(0, 10);
+    return allTerms
+      .filter((t) => t.name.toLowerCase().includes(q))
+      .slice(0, 10);
   }, [query]);
 
   return (
-    <div style={{ position: "relative", maxWidth: "520px", margin: "0 auto 1.5rem" }}>
+    <div
+      style={{
+        position: "relative",
+        maxWidth: "520px",
+        margin: "0 auto 1.5rem",
+      }}
+    >
       <input
         type="text"
         value={query}
@@ -63,7 +92,11 @@ export default function TermSearch() {
           {results.map((t) => (
             <li key={`${t.chapterId}-${t.termIndex}`}>
               <Link
-                href={`/orientation/definitions/${t.chapterId}/${t.termIndex}`}
+                href={
+                  t.isSupplement
+                    ? `/orientation/definitions/${t.chapterId}/supplement/terms/${t.termIndex}`
+                    : `/orientation/definitions/${t.chapterId}/${t.termIndex}`
+                }
                 onClick={() => setQuery("")}
                 style={{
                   display: "block",
@@ -72,13 +105,54 @@ export default function TermSearch() {
                   borderBottom: "1px solid var(--border)",
                 }}
               >
-                <span style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: "1rem", color: "var(--orange)", letterSpacing: "0.05em" }}>
+                <span
+                  style={{
+                    fontFamily: "'Bebas Neue',sans-serif",
+                    fontSize: "1rem",
+                    color: "var(--orange)",
+                    letterSpacing: "0.05em",
+                  }}
+                >
                   {t.name}
                 </span>
-                <span style={{ fontFamily: "'Space Mono',monospace", fontSize: "0.6rem", color: "var(--mgray)", marginLeft: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>
+                <span
+                  style={{
+                    fontFamily: "'Space Mono',monospace",
+                    fontSize: "0.6rem",
+                    color: "var(--mgray)",
+                    marginLeft: "0.6rem",
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                  }}
+                >
                   {t.chapterTitle}
                 </span>
-                <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.78rem", color: "var(--lgray)", margin: "0.25rem 0 0", lineHeight: "1.5", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                {t.isSupplement && (
+                  <span
+                    style={{
+                      fontFamily: "'Space Mono',monospace",
+                      fontSize: "0.6rem",
+                      color: "var(--orange)",
+                      marginLeft: "0.4rem",
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    SUPPLEMENTAL DEFINTION *
+                  </span>
+                )}
+                <p
+                  style={{
+                    fontFamily: "'DM Sans',sans-serif",
+                    fontSize: "0.78rem",
+                    color: "var(--lgray)",
+                    margin: "0.25rem 0 0",
+                    lineHeight: "1.5",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
                   {t.definition}
                 </p>
               </Link>
