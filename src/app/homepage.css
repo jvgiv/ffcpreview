@@ -496,7 +496,7 @@
 .card-body {
   font-size: 1.05rem;
   line-height: 1.7;
-  color: --var(--homepage-gray);
+  color: var(--gray);
   text-align: justify;
   hyphens: auto;
 }

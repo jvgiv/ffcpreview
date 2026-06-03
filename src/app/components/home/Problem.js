@@ -23,7 +23,8 @@ export default function Problem() {
             <p>
               You&apos;ve made major decisions about debt, taxes, insurance, and
               retirement. Some felt right. Some felt rushed. Most felt like a
-              guess made in a language you never quite learned. It&apos;s not a
+              guess made in a language you never quite learned.</p>
+              <p> It&apos;s not a
               lack of intelligence. It&apos;s a lack of vocabulary.
             </p>
             <p>
@@ -82,7 +83,7 @@ export default function Problem() {
               </p>
               <div className="stat-divider" />
               <p className="stat-num">
-                388 <span>$BILLION$</span>
+                388 <span>$BILLION</span>
               </p>
               <p className="stat-label">
                 is the estimated cost of financial illiteracy in the United

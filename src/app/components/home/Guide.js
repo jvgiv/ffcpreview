@@ -104,7 +104,7 @@ export default function Guide() {
             <div className="card-body">
               <span style={{ color: "var(--white)" }}>
                 Evaluate advice, products, and market noise intelligently. Build
-                the unshakeable confidence that only comes from genuine
+                the confidence that only comes from true
                 understanding.
               </span>
             </div>
