@@ -361,9 +361,10 @@
 }
 
 .friction-copy p {
+  font-family: var(--font-source-sans), sans-serif;
   font-size: 1.1rem;
   line-height: 1.8;
-  color: --var(--homepage-grey);
+  color: var(--homepage-gray);
   margin-bottom: 1.5rem;
 }
 
@@ -378,6 +379,7 @@
 }
 
 .pain-list li {
+  font-family: var(--font-source-sans), sans-serif;
   display: flex;
   align-items: flex-start;
   gap: 1rem;
@@ -386,7 +388,7 @@
   border-bottom: 1px solid var(--border);
   font-size: 1.05rem;
   line-height: 1.5;
-  color: --var(--homepage-grey);
+  color: var(--homepage-gray);
 }
 
 .pain-list li:last-child {
@@ -431,6 +433,8 @@
 }
 
 .stat-label {
+
+  font-family: var(--font-source-sans), sans-serif;
   font-size: 1.05rem;
   color: var(--homepage-gray);
   line-height: 1.5;
@@ -453,9 +457,10 @@
 }
 
 .guide-intro p {
+  font-family: var(--font-source-sans), sans-serif;
   font-size: 1.1rem;
   line-height: 1.8;
-  color: --var(--homepage-gray);
+  color: var(--homepage-gray);
 }
 
 .guide-cards {
@@ -494,6 +499,7 @@
 }
 
 .card-body {
+  font-family: var(--font-source-sans), sans-serif;
   font-size: 1.05rem;
   line-height: 1.7;
   color: var(--gray);
@@ -626,6 +632,7 @@
 }
 
 .pricing-desc {
+  font-family: var(--font-source-sans), sans-serif;
   font-size: 0.95rem;
   color: var(--homepage-gray);
   margin-bottom: 1.5rem;
@@ -637,6 +644,8 @@
 }
 
 .pricing-features li {
+
+  font-family: var(--font-source-sans), sans-serif;
   font-size: 0.95rem;
   color: var(--homepage-gray);
   padding: 0.4rem 0;
@@ -685,9 +694,11 @@
 }
 
 .scorecard-copy p {
+
+  font-family: var(--font-source-sans), sans-serif;
   font-size: 1.05rem;
   line-height: 1.8;
-  color: --var(--homepage-gray);
+  color: var(--homepage-gray);
   margin-bottom: 1.5rem;
 }
 
@@ -712,7 +723,7 @@
   color: var(--red-hot);
 }
 
-.scorecard-visual > p {
+.scorecard-visual>p {
   font-family: 'Space Mono', monospace;
   font-size: 0.7rem;
   letter-spacing: 0.2em;
@@ -876,7 +887,7 @@
 }
 
 .creed blockquote {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Playfair Display', italic;
   font-style: italic;
   font-size: clamp(1.4rem, 3vw, 2.5rem);
   line-height: 1.5;
@@ -926,6 +937,7 @@
 }
 
 .final-cta p {
+  font-family: var(--font-source-sans), sans-serif;
   font-size: 1.05rem;
   color: rgba(245, 240, 232, 0.55);
   max-width: 480px;

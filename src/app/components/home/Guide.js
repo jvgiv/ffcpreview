@@ -30,7 +30,7 @@ export default function Guide() {
             <br />
             <br />
             This is your 12-month baseline. We don&apos;t manage your money. We
-            help you master it&apos;s vocabulary. We don&apos;t take the wheel.
+            help you master its vocabulary. We don&apos;t take the wheel.
             We illuminate the map.
             <br />
             {/* <br />

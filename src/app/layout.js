@@ -1,4 +1,4 @@
-import { Bebas_Neue, Geist, Geist_Mono, DM_Sans } from "next/font/google";
+import { Bebas_Neue, Source_Sans_3, Geist, Geist_Mono, DM_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import '../../lib/fontawesome'
 import Header from "./components/ui/Header";
@@ -11,6 +11,14 @@ import { AuthProvider } from "./components/auth/AuthProvider";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+});
+
+const sourceSans = Source_Sans_3({
+  subsets: ['latin'],           // or ['latin-ext']
+  weight: ['200', '300', '400', '500', '600', '700', '800', '900'], // pick what you need
+  style: ['normal', 'italic'],
+  display: 'swap',
+  variable: '--font-source-sans',   // Best for Tailwind
 });
 
 const geistMono = Geist_Mono({
@@ -32,6 +40,14 @@ const dmSans = DM_Sans({
   // display: "swap",
 });
 
+const playfair = Playfair_Display({
+  subsets: ['latin'],           // or ['latin-ext'] if needed
+  weight: ['400', '500', '600', '700', '900'], // specify weights you need
+  style: ['normal', 'italic'],  // optional
+  display: 'swap',              // recommended
+  variable: '--font-playfair',  // for Tailwind / CSS variables (best)
+});
+
 export const metadata = {
   title: "Far Flung Change",
   description: "deliBErate",
@@ -40,7 +56,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} ${bebasNeue.variable}`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${bebasNeue.variable} ${sourceSans.variable} ${dmSans.variable} ${playfair.variable}`}>
         <AuthProvider>
           <ScrollEffects />
           {/* <TopHeader /> */}

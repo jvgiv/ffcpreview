@@ -12,7 +12,7 @@
   --red-hot: #e74c3c;
   --gray: #888;
   --border: rgba(245,240,232,0.12);
-  --homepage-grey: #e0e0e0ce;
+  --homepage-gray: #e0e0e0f8;
   --site-header-offset: 5.5rem;
 }
 
@@ -25,6 +25,7 @@ body {
   background: var(--black);
   color: var(--white);
   font-family: 'DM Sans', sans-serif;
+  /* font-family: var(--font-source-sans), normal; */
   font-weight: 300;
   overflow-x: hidden;
 }
