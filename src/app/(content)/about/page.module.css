@@ -111,11 +111,22 @@
   justify-content: flex-end;
 }
 
+.heroPanelWhat {
+  padding: 1.5rem;
+  /* align-self: stretch; */
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-items: center; */
+  /* justify-content: center; */
+}
+
 .panelBody {
-  margin-top: 0.75rem;
+  /* margin-top: 0.75rem; */
   font-size: 1rem;
   line-height: 1.85;
   color: rgba(245, 240, 232, 0.72);
+  text-align: justify;
+  
 }
 
 .grid {
