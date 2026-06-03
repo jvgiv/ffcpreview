@@ -438,7 +438,7 @@ header {
 
 .entry-pos {
   font-family: 'Space Mono', monospace;
-  font-size: 0.58rem;
+  font-size: 0.88rem;
   letter-spacing: 0.12em;
   color: var(--mgray);
   text-transform: lowercase
@@ -459,15 +459,31 @@ header {
 }
 
 .entry-note {
+  border-left: 3px solid var(--orange);
+  padding: 1rem 1.25rem;
+  background: rgba(232, 146, 34, 0.04);
+  margin-bottom: 2.5rem;
+}
+
+.entry-note-home {
   border-left: 3px solid var(--red);
   padding: 1rem 1.25rem;
-  background: rgba(232, 64, 34, 0.04);
+  background: rgba(232, 97, 34, 0.04);
   margin-bottom: 2.5rem;
 }
 
 .entry-note-label {
   font-family: 'Space Mono', monospace;
-  font-size: 0.58rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 0.5rem
+}
+
+.entry-note-label-home {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.78rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--red);

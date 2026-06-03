@@ -77,8 +77,8 @@ export default function HomePageDefs() {
                     Then decide what it is for.
                   </p>
                 </div>
-                <div id="entryNoteWrap" className="entry-note fade-up">
-                  <div id="entryNoteLabel" className="entry-note-label">
+                <div id="entryNoteWrap" className="entry-note-home fade-up">
+                  <div id="entryNoteLabel" className="entry-note-label-home">
                     Field Note:
                   </div>
                   <div id="entryNote" className="entry-note-text-home">
