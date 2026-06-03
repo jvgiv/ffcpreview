@@ -20,7 +20,7 @@ const principles = [
   },
   {
     title: "Core Credibility",
-    body: "As fiduciaries, our guidance is led by loyalty, care, and mastery — so our clients can make choices that empower them. Never us.",
+    body: "As fiduciaries, our guidance is led by loyalty, care, and mastery — so our orienteers can make choices that empower them. Never us.",
   },
 ];
 
