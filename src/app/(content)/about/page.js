@@ -15,7 +15,7 @@ const principles = [
     body: "We translate financial concepts into plain language so people can orient themselves before they make bigger decisions.",
   },
   {
-    title: "Practicality",
+    title: "Presently Practical",
     body: "The work is meant to reduce confusion, build confidence, and help people understand what matters now.",
   },
   {
