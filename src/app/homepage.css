@@ -363,7 +363,7 @@
 .friction-copy p {
   font-size: 1.1rem;
   line-height: 1.8;
-  color: rgba(245, 240, 232, 0.7);
+  color: --var(--homepage-grey);
   margin-bottom: 1.5rem;
 }
 
@@ -386,7 +386,7 @@
   border-bottom: 1px solid var(--border);
   font-size: 1.05rem;
   line-height: 1.5;
-  color: rgba(245, 240, 232, 0.65);
+  color: --var(--homepage-grey);
 }
 
 .pain-list li:last-child {
@@ -432,7 +432,7 @@
 
 .stat-label {
   font-size: 1.05rem;
-  color: var(--gray);
+  color: var(--homepage-gray);
   line-height: 1.5;
 }
 
@@ -455,7 +455,7 @@
 .guide-intro p {
   font-size: 1.1rem;
   line-height: 1.8;
-  color: rgba(245, 240, 232, 0.7);
+  color: --var(--homepage-gray);
 }
 
 .guide-cards {
@@ -496,7 +496,7 @@
 .card-body {
   font-size: 1.05rem;
   line-height: 1.7;
-  color: rgba(245, 240, 232, 0.55);
+  color: --var(--homepage-gray);
   text-align: justify;
   hyphens: auto;
 }
@@ -544,7 +544,7 @@
 .step-body {
   font-size: 0.88rem;
   line-height: 1.6;
-  color: var(--gray);
+  color: var(--homepage-gray);
 }
 
 .step-arrow {
@@ -627,7 +627,7 @@
 
 .pricing-desc {
   font-size: 0.95rem;
-  color: var(--gray);
+  color: var(--homepage-gray);
   margin-bottom: 1.5rem;
   line-height: 1.6;
 }
@@ -638,7 +638,7 @@
 
 .pricing-features li {
   font-size: 0.95rem;
-  color: rgba(245, 240, 232, 0.6);
+  color: var(--homepage-gray);
   padding: 0.4rem 0;
   border-bottom: 1px solid var(--border);
   display: flex;
@@ -687,7 +687,7 @@
 .scorecard-copy p {
   font-size: 1.05rem;
   line-height: 1.8;
-  color: rgba(245, 240, 232, 0.65);
+  color: --var(--homepage-gray);
   margin-bottom: 1.5rem;
 }
 
