@@ -69,7 +69,8 @@ export default function HomePageDefs() {
                     But the gap is more than a number. It is the hinge, the
                     moment of now between Then<sup>1</sup> and Then<sup>2</sup>:
                     between the financial life already lived and the financial
-                    life still possible. Then<sup>1</sup> is fixed. Then
+                    life still possible.</p>
+                    <p>Then<sup>1</sup> is fixed. Then
                     <sup>2</sup> is not yet written. The gap is where you stand
                     between them, and the only place any act of financial
                     liberty is ever actually available. Find your gap. Widen it.
