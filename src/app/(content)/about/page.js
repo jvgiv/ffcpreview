@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./page.module.css";
 import "../../homepage.css";
+import Image from "next/image";
 
 const audience = [
   "finding your footing with money matters",
@@ -29,9 +30,25 @@ export default function About() {
       <section className={styles.hero}>
         <div className={`${styles.heroCopy} ${styles.revealCard} reveal`}>
           <p className={styles.eyebrow}>About Far Flung Change</p>
-          <h1 className={styles.title}>
-            Financial orientation<span>Growin&apos;Ups&apos; Sake.</span>
-          </h1>
+          {/* <h1 className={styles.title}>
+            Financial orientation<span>for Growin&apos;Ups&apos; Sake.</span>
+          </h1> */}
+          <Image
+            src="/pfo.png"
+            alt="practical financial orientation"
+            width={599}
+            height={104}
+            style={{ width: "100%", height: "auto", maxWidth: "599px" }}
+          />
+          <div style={{ margin: '0 auto'}}>
+
+          <Image
+            src="/ffcfgus.png"
+            alt="for Growin'up's sake"
+            width={358}
+            height={100}
+            />
+            </div>
           <p className={styles.lead}>
             Far Flung Change provides honest, practical financial orientation
             for people who want firmer footing before the terrain gets harder to
