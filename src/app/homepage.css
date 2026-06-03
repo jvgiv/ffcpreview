@@ -880,7 +880,8 @@
   font-style: italic;
   font-size: clamp(1.4rem, 3vw, 2.5rem);
   line-height: 1.5;
-  max-width: 860px;
+  max-width: 990px;
+  /* border: 1px solid red; */
   margin: 0 auto 3rem;
   color: rgba(245, 240, 232, 0.85);
 }
