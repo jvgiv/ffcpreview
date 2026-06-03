@@ -16,11 +16,11 @@ const principles = [
   },
   {
     title: "Presently Practical",
-    body: "The work is meant to reduce confusion, build confidence, and help people understand what matters now.",
+    body: "The work is meant to reduce confusion, build confidence, and help people understand what matters now. We scout the course. You play the round.",
   },
   {
     title: "Built On Experience",
-    body: "Far Flung Change is the education and orientation division of First Financial Advisory Services, Inc., a Registered Investment Advisor established in 1974.",
+    body: "As fiduciaries, our guidance is led by loyalty, care, and mastery — so our clients can make choices that empower them. Never us.",
   },
 ];
 
