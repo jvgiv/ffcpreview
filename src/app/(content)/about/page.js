@@ -15,7 +15,7 @@ const principles = [
     body: "We translate financial concepts into plain language so people can orient themselves before they make bigger decisions.",
   },
   {
-    title: "Practical Over Performative",
+    title: "Practicality",
     body: "The work is meant to reduce confusion, build confidence, and help people understand what matters now.",
   },
   {
@@ -57,7 +57,7 @@ export default function About() {
         </div>
 
         <aside
-          className={`${styles.heroPanel} ${styles.revealCard} reveal`}
+          className={`${styles.heroPanelWhat} ${styles.revealCard} reveal`}
           style={{ transitionDelay: "0.12s" }}
         >
           <p className={styles.panelLabel}>What this is</p>
