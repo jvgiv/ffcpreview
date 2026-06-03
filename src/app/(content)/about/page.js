@@ -1,27 +1,27 @@
-import React from 'react'
-import styles from './page.module.css'
-import '../../homepage.css'
+import React from "react";
+import styles from "./page.module.css";
+import "../../homepage.css";
 
 const audience = [
-  'just getting started with money matters',
-  'looking to recalibrate their understanding of personal finance',
-  'navigating a financial transition that feels unfamiliar',
-]
+  "finding your footing with money matters",
+  "recalibrating what you thought you knew about personal finance",
+  "navigating a financial transition that feels like unfamiliar terrain",
+];
 
 const principles = [
   {
-    title: 'Clarity First',
-    body: 'We translate financial concepts into plain language so people can orient themselves before they make bigger decisions.',
+    title: "Clarity First",
+    body: "We translate financial concepts into plain language so people can orient themselves before they make bigger decisions.",
   },
   {
-    title: 'Practical Over Performative',
-    body: 'The work is meant to reduce confusion, build confidence, and help people understand what matters now.',
+    title: "Practical Over Performative",
+    body: "The work is meant to reduce confusion, build confidence, and help people understand what matters now.",
   },
   {
-    title: 'Built On Experience',
-    body: 'Far Flung Change is the education and orientation division of First Financial Advisory Services, Inc., a Registered Investment Advisor established in 1974.',
+    title: "Built On Experience",
+    body: "Far Flung Change is the education and orientation division of First Financial Advisory Services, Inc., a Registered Investment Advisor established in 1974.",
   },
-]
+];
 
 export default function About() {
   return (
@@ -30,22 +30,24 @@ export default function About() {
         <div className={`${styles.heroCopy} ${styles.revealCard} reveal`}>
           <p className={styles.eyebrow}>About Far Flung Change</p>
           <h1 className={styles.title}>
-            Financial orientation for <span>Growin&apos;Ups&apos; Sake.</span>
+            Financial orientation<span>Growin&apos;Ups&apos; Sake.</span>
           </h1>
           <p className={styles.lead}>
-            Far Flung Change provides clear, practical financial orientation for
-            people who want firmer footing before the stakes get higher.
+            Far Flung Change provides honest, practical financial orientation
+            for people who want firmer footing before the terrain gets harder to
+            read.
           </p>
         </div>
 
         <aside
           className={`${styles.heroPanel} ${styles.revealCard} reveal`}
-          style={{ transitionDelay: '0.12s' }}
+          style={{ transitionDelay: "0.12s" }}
         >
           <p className={styles.panelLabel}>What this is</p>
           <p className={styles.panelBody}>
             A grounded starting point for understanding money decisions,
-            financial systems, and the next right move.
+            financial systems, and the next right move. No jargon. No agenda.
+            Just orientation.
           </p>
         </aside>
       </section>
@@ -60,16 +62,16 @@ export default function About() {
           </p>
           <p className={styles.storyText}>
             The Orientation Program is designed to help people build context,
-            recognize what they do not yet know, and move forward with less
-            friction.
+            move forward with less friction, and arrive at bigger decisions with
+            more confidence.
           </p>
         </article>
 
         <article
           className={`${styles.audienceCard} ${styles.revealCard} reveal`}
-          style={{ transitionDelay: '0.12s' }}
+          style={{ transitionDelay: "0.12s" }}
         >
-          <p className={styles.sectionLabel}>Especially useful for</p>
+          <p className={styles.sectionLabel}>Especially helpful for</p>
           <ul className={styles.audienceList}>
             {audience.map((item) => (
               <li key={item}>{item}</li>
@@ -94,5 +96,5 @@ export default function About() {
         </div>
       </section>
     </main>
-  )
+  );
 }

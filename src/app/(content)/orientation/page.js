@@ -61,7 +61,12 @@ export default function Orientation() {
           <p>
             Seven elements. About ten minutes. Plain-language prompts that
             surface what&apos;s clear, what&apos;s foggy, and what&apos;s most
-            pressing. The notes are yours.{"  "}
+            pressing.
+          </p>
+          <br />
+          <p>
+            {" "}
+            The notes are yours.{"  "}
             <span className={styles.italic}>
               Context before conversation. Every time.
             </span>
@@ -99,12 +104,12 @@ export default function Orientation() {
         <div className={styles.definitionBlock}>
           <div className={styles.sectionCopy}>
             <p>Got a question about your financial life? Ask it here.</p>
-            <p>No judgment. No sales pitch. No obligation.</p>
-            <p>Just a straight answer from a fiduciary-qualified guide.</p>
             <p>
-              Your question goes directly to the Far Flung Change Flight Crew.
+              No judgment. No sales pitch. No obligation. Just a straight answer
+              from a fiduciary-qualified guide.
             </p>
             <p>
+              Your question goes directly to the Far Flung Change Flight Crew.
               We&apos;ll respond by email, then invite you to extend the
               conversation by phone or Zoom, your choice, until you say
               you&apos;ve got it
@@ -160,15 +165,16 @@ export default function Orientation() {
         <span className="orientation-line"></span>
         <div className={styles.sectionCopy}>
           <p>
-            All of it comes with one full year of{" "}
-            {/* <strong> */}
-              Unlimited Orientation Questions
-              {/* </strong> */}
-              , answered at the
-            fiduciary level by phone, Zoom, or in person.
+            All of it comes with one full year of {/* <strong> */}
+            Unlimited Orientation Questions
+            {/* </strong> */}, answered at the fiduciary level by phone, Zoom,
+            or in person.
           </p>
           <br />
-          <p>No billable hours. No agenda attached to the answer.  Just the clarity you came for.</p>
+          <p>
+            No billable hours. No agenda attached to the answer. Just the
+            clarity you came for.
+          </p>
         </div>
       </section>
 
@@ -202,7 +208,9 @@ export default function Orientation() {
               One year. Unlimited Questions. No commissions. No hidden agenda.
             </p>
             <p>
-              Just orientation: know where you&apos;re standing before you take the next step. The fog clears. The picture sharpens. What follows from there is entirely up to you.
+              Just orientation: know where you&apos;re standing before you take
+              the next step. The fog clears. The picture sharpens. What follows
+              from there is entirely up to you.
             </p>
             {/* <p className={styles.italic}>
               What follows from there is entirely up to you.
