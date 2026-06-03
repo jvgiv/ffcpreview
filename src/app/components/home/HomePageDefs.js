@@ -41,10 +41,10 @@ export default function HomePageDefs() {
             <div className="hole-grid-defs">
               <div className="entry-layout">
                 <div className="entry-header fade-up">
-                  <div id="entryNum" className="entry-num">
+                  <div id="entryNum" className="entry-num-home">
                     14
                   </div>
-                  <div id="entryWord" className="entry-word">
+                  <div id="entryWord" className="entry-word-home">
                     THE GAP
                   </div>
                   <div className="entry-meta">

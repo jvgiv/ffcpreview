@@ -397,10 +397,26 @@ header {
   margin-bottom: 0.2rem
 }
 
+.entry-num-home {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  color: var(--red);
+  margin-bottom: 0.2rem
+}
+
 .entry-word {
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(2.5rem, 7vw, 4.5rem);
   color: var(--orange);
+  line-height: 0.95;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.5rem
+}
+
+.entry-word-home {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 7vw, 2.5rem);
+  color: var(--red);
   line-height: 0.95;
   letter-spacing: 0.03em;
   margin-bottom: 0.5rem
@@ -443,9 +459,9 @@ header {
 }
 
 .entry-note {
-  border-left: 3px solid var(--orange);
+  border-left: 3px solid var(--red);
   padding: 1rem 1.25rem;
-  background: rgba(232, 119, 34, 0.04);
+  background: rgba(232, 64, 34, 0.04);
   margin-bottom: 2.5rem;
 }
 
@@ -454,7 +470,7 @@ header {
   font-size: 0.58rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--orange);
+  color: var(--red);
   margin-bottom: 0.5rem
 }
 
