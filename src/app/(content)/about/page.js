@@ -19,7 +19,7 @@ const principles = [
     body: "The work is meant to reduce confusion, build confidence, and help people understand what matters now. We scout the course. You play the round.",
   },
   {
-    title: "Built On Experience",
+    title: "Core Credibility",
     body: "As fiduciaries, our guidance is led by loyalty, care, and mastery — so our clients can make choices that empower them. Never us.",
   },
 ];
