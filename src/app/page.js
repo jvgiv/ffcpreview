@@ -150,7 +150,7 @@ export default function Home() {
               BE ORIENTED &gt;
             </Link>
             <Link
-              href="/logged-in"
+              href="/logged-in/#member-access"
               className="btn-ghost"
               style={{ fontSize: "1.3em" }}
             >
