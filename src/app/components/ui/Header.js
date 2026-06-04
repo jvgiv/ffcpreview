@@ -137,6 +137,11 @@ export default function Header() {
           </Link>
           <ul className="ffc-home-menu" aria-label="Guided Orientation section links">
             <li>
+              <Link className="ffc-home-menu-link" href="/orientation#how-it-works">
+                View The Agreement
+              </Link>
+            </li>
+            <li>
               <Link className="ffc-home-menu-link" href="/orientation#submit-oq">
                 Submit Your OQ
               </Link>
@@ -226,6 +231,11 @@ export default function Header() {
               GUIDED ORIENTATION
             </Link>
             <ul className="ffc-home-mobile-menu" aria-label="Guided Orientation section links">
+              <li>
+                <Link className="ffc-home-menu-link" href="/orientation#how-it-works" onClick={handleNavClose}>
+                  How it Works
+                </Link>
+              </li>
               <li>
                 <Link className="ffc-home-menu-link" href="/orientation#submit-oq" onClick={handleNavClose}>
                   Submit Your OQ

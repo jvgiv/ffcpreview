@@ -41,6 +41,7 @@ export default function Orientation() {
       </section>
 
       <section
+        id="how-it-works"
         className={`${styles.section} ${styles.revealCard} reveal`}
         style={{ transitionDelay: "0.08s" }}
       >
@@ -78,14 +79,14 @@ export default function Orientation() {
               target="_blank"
               className="btn-ghost"
             >
-              View Agreement -&gt;
+              View Agreement
             </a>
             <Link
               href="/logged-in/#member-access"
               className="btn-primary"
               style={{ fontSize: "0.85rem", padding: "1.1rem 2.5rem" }}
             >
-              Choose a Plan
+              Choose a Plan -&gt;
             </Link>
           </div>
         </div>

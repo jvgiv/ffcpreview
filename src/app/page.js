@@ -143,7 +143,7 @@ export default function Home() {
           {/* <p className="hero-sub">Welcome to FinancialOrientation</p> */}
           <div className="hero-actions">
             <Link
-              href="#pricing"
+              href="#pricing-card"
               className="btn-primary"
               style={{ fontSize: "1.3em" }}
             >

@@ -43,7 +43,7 @@ export default function Pricing() {
           className="pricing-grid reveal"
           style={{ transitionDelay: "0.1s" }}
         >
-          <div className="pricing-card">
+          <div id="pricing-card" className="pricing-card">
             <div className="pricing-badge">Core Program</div>
             <div className="pricing-name">
               {/* {financialServices?.displayName ||  */}
