@@ -189,11 +189,17 @@
 
 .btnRow {
   margin-top: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
 }
 
-.btnRow :global(.btn-ghost) {
+.btnRow :global(.btn-ghost),
+.btnRow :global(.btn-primary) {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
 }
 
 @media (max-width: 860px) {

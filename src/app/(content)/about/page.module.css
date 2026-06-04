@@ -85,7 +85,7 @@
 .sectionLabel,
 .panelLabel {
   font-family: 'Space Mono', monospace;
-  font-size: 0.68rem;
+  font-size: 0.78rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--red);
@@ -211,6 +211,13 @@
   grid-template-columns: 1fr 1fr;
   gap: 1.25rem;
   margin: 1.25rem 0;
+}
+
+@media (max-width: 768px) {
+  .rosterGrid {
+   display: flex;
+    flex-direction: column;
+  }
 }
 
 .memberCard {

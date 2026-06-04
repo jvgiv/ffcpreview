@@ -71,6 +71,23 @@ export default function Orientation() {
               Context before conversation. Every time.
             </span>
           </p>
+          <br />
+          <div className={styles.btnRow}>
+            <a
+              href="/files/agreement.pdf"
+              target="_blank"
+              className="btn-ghost"
+            >
+              View Agreement -&gt;
+            </a>
+            <Link
+              href="/logged-in/#member-access"
+              className="btn-primary"
+              style={{ fontSize: "0.85rem", padding: "1.1rem 2.5rem" }}
+            >
+              Choose a Plan
+            </Link>
+          </div>
         </div>
       </section>
 

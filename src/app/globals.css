@@ -88,7 +88,7 @@ body {
 .ffc-nav-link:hover,
 .ffc-nav-link.active {
   color: var(--white);
-  border-bottom-color: var(--red-hot);
+  border-bottom-color: var(--red);
 }
 
 .ffc-home-menu {
@@ -134,7 +134,7 @@ body {
 
 .ffc-home-menu-link:hover,
 .ffc-home-menu-link:focus-visible {
-  color: var(--red-hot);
+  color: var(--red);
   background: rgba(231, 76, 60, 0.14);
 }
 
@@ -161,8 +161,8 @@ button.ffc-nav-cta {
 }
 
 .ffc-nav-cta:hover {
-  background: var(--red-hot);
-  border-color: var(--red-hot);
+  background: var(--red);
+  border-color: var(--red);
 }
 
 .ffc-nav-profile {
@@ -320,7 +320,7 @@ button.ffc-nav-cta {
 }
 
 .ffc-footer-item svg {
-  color: var(--red-hot);
+  color: var(--red);
   margin-top: 0.3rem;
   width: 0.85rem;
   font-size: 0.75rem;
@@ -344,8 +344,8 @@ button.ffc-nav-cta {
 }
 
 .ffc-footer-social-link:hover {
-  border-color: var(--red-hot);
-  color: var(--red-hot);
+  border-color: var(--red);
+  color: var(--red);
 }
 
 .ffc-disclosure {

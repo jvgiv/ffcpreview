@@ -572,7 +572,7 @@ export default function ClientDashboard({
           />
         </section>
 
-        <section style={panelStyle}>
+        <section id="member-access" style={panelStyle}>
           <h2
             style={{
               fontFamily: "var(--font-bebas-neue), sans-serif",
