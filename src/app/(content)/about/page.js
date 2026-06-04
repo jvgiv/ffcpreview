@@ -40,15 +40,14 @@ export default function About() {
             height={104}
             style={{ width: "100%", height: "auto", maxWidth: "599px" }}
           />
-          <div style={{ margin: '0 auto'}}>
-
-          <Image
-            src="/ffcfgus.png"
-            alt="for Growin'up's sake"
-            width={358}
-            height={100}
+          <div style={{ margin: "0 auto" }}>
+            <Image
+              src="/ffcfgus.png"
+              alt="for Growin'up's sake"
+              width={358}
+              height={100}
             />
-            </div>
+          </div>
           <p className={styles.lead}>
             Far Flung Change provides honest, practical financial orientation
             for people who want firmer footing before the terrain gets harder to
@@ -94,6 +93,64 @@ export default function About() {
               <li key={item}>{item}</li>
             ))}
           </ul>
+        </article>
+      </section>
+      <section className={styles.rosterSection}>
+        <article className={`${styles.storyCard} ${styles.revealCard} reveal`}>
+          <p className={styles.sectionLabel}>Captaining our roster</p>
+          <h3 className={styles.titleRoster}>
+            <span style={{ color: "var(--red)", fontStyle: "italic", letterSpacing: "0.04em" }}>
+              ATTENTIVE
+            </span>{" "}
+            COURSE PROS
+          </h3>
+          <p className={styles.storyText}>
+            At <span style={{ fontWeight: "bold" }}>FAR FLUNG CHANGE</span>, you
+            get a sharp team shaped by decades of keen practice and action, on
+            and off the fairways, led by Matty the Financial Caddy and Pete the
+            GreensKeeper.
+          </p>
+          <div className={styles.rosterGrid}>
+            <div className={`${styles.memberCard} ${styles.revealCard} reveal`}>
+              <p className={styles.memberName}>Matty the Financial Caddy</p>
+              <Image
+                src="/headshots/matty.png"
+                alt="Matty the Financial Caddy"
+                width={323}
+                height={323}
+                style={{ width: "100%", height: "auto" }}
+              />
+            </div>
+            <div
+              className={`${styles.memberCard} ${styles.revealCard} reveal`}
+              style={{ transitionDelay: "0.1s" }}
+            >
+              <p className={styles.memberName}>Pete the GreensKeeper</p>
+              <Image
+                src="/headshots/pete.png"
+                alt="Pete the GreensKeeper"
+                width={323}
+                height={323}
+                style={{ width: "100%", height: "auto" }}
+              />
+            </div>
+          </div>
+          <p className={styles.storyText}>
+            Our crew brings the{" "}
+            <span style={{ fontWeight: "bold", color: "var(--red)" }}>
+              BALANCE
+            </span>{" "}
+            every strong roster needs : eyes wide-open on the holes ahead,
+            customized service, and solid support that keeps you steady as each
+            round twists and turns.
+          </p>
+          <p className={styles.storyText}>
+            Many Strengths. Many Roles. One Shared{" "}
+            <span style={{ fontWeight: "bold", color: "var(--red)" }}>
+              PURPOSE
+            </span>
+            .
+          </p>
         </article>
       </section>
 
