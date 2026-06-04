@@ -1,5 +1,4 @@
 import React from "react";
-import "./problem.css";
 import "../../homepage.css";
 
 export default function Problem() {
