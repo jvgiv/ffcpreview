@@ -246,6 +246,40 @@
   color: rgba(245, 240, 232, 0.68);
 }
 
+.finalCta {
+  margin-top: 1.25rem;
+  padding: clamp(2rem, 4vw, 3.5rem);
+  position: relative;
+  border: 1px solid var(--border);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0)),
+    rgba(12, 12, 12, 0.92);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.finalCtaTitle {
+  font-family: var(--font-bebas-neue), sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  max-width: 20ch;
+}
+
+.finalCtaBody {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: rgba(245, 240, 232, 0.7);
+}
+
+.finalCtaActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .revealCard {
     transition: none;

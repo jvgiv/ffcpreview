@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./page.module.css";
 import "../../homepage.css";
 import Image from "next/image";
+import Link from "next/link";
 
 const audience = [
   "finding your footing with money matters",
@@ -99,7 +100,13 @@ export default function About() {
         <article className={`${styles.storyCard} ${styles.revealCard} reveal`}>
           <p className={styles.sectionLabel}>Captaining our roster</p>
           <h3 className={styles.titleRoster}>
-            <span style={{ color: "var(--red)", fontStyle: "italic", letterSpacing: "0.04em" }}>
+            <span
+              style={{
+                color: "var(--red)",
+                fontStyle: "italic",
+                letterSpacing: "0.04em",
+              }}
+            >
               ATTENTIVE
             </span>{" "}
             COURSE PROS
@@ -167,6 +174,31 @@ export default function About() {
               <p>{item.body}</p>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section>
+        <div className={`${styles.finalCta} ${styles.revealCard} reveal`}>
+          <p className={styles.sectionLabel}>Try Far Flung Change</p>
+          <h2 className={styles.finalCtaTitle}>Your round is not over. Yet.</h2>
+          <p className={styles.finalCtaBody}>See what orientation looks like before you commit to anything.</p>
+          <div className={styles.finalCtaActions}>
+            <a
+              href="/files/agreement.pdf"
+              target="_blank"
+              className="btn-primary"
+              style={{ fontSize: "0.85rem", padding: "1.1rem 2.5rem" }}
+            >
+              View Agreement -&gt;
+            </a>
+            <Link
+              href="/#scorecard"
+              className="btn-ghost"
+              style={{ fontSize: "0.85rem", padding: "1.1rem 2.5rem" }}
+            >
+              Free ScoreCard First
+            </Link>
+          </div>
         </div>
       </section>
     </main>

@@ -1,5 +1,5 @@
-import React from 'react'
-import Link from 'next/link'
+import React from "react";
+import Link from "next/link";
 
 export default function PunchTheClock() {
   return (
@@ -13,20 +13,35 @@ export default function PunchTheClock() {
             <span className="red">The Clock.</span>
           </h2>
           <p>
-            Your round is not over. Yet. <br /><span style={{fontWeight: 'bold', color: 'var(--red)'}}>BE</span> <span style={{color: 'var(--white)'}}>Oriented. For Growin&apos;Up&apos;s Sake. </span><br />Try Far Flung Change. Before you reach the Clubhouse.
+            Your round is not over. Yet. <br />
+            <span style={{ fontWeight: "bold", color: "var(--red)" }}>
+              BE
+            </span>{" "}
+            <span style={{ color: "var(--white)" }}>
+              Oriented. For Growin&apos;Up&apos;s Sake.{" "}
+            </span>
+            <br />
+            Try Far Flung Change. Before you reach the Clubhouse.
           </p>
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <div
+            style={{
+              display: "flex",
+              gap: "1rem",
+              justifyContent: "center",
+              flexWrap: "wrap",
+            }}
+          >
             <Link
               href="/#pricing"
               className="btn-primary"
-              style={{ fontSize: '0.85rem', padding: '1.1rem 2.5rem' }}
+              style={{ fontSize: "0.85rem", padding: "1.1rem 2.5rem" }}
             >
               Get Oriented - $500 / Year -&gt;
             </Link>
             <Link
               href="/#scorecard"
               className="btn-ghost"
-              style={{ fontSize: '0.85rem', padding: '1.1rem 2.5rem' }}
+              style={{ fontSize: "0.85rem", padding: "1.1rem 2.5rem" }}
             >
               Free ScoreCard First
             </Link>
@@ -34,5 +49,5 @@ export default function PunchTheClock() {
         </div>
       </div>
     </div>
-  )
+  );
 }
