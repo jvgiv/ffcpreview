@@ -20,6 +20,26 @@ function findLatestSignedEnvelope(documents, purchase) {
   );
 }
 
+function buildCheckoutPurchaseSummary({ purchase, signedEnvelope, paymentSummary }) {
+  if (paymentSummary?.amount?.value) {
+    return {
+      ...purchase,
+      displayName: paymentSummary.packageName || purchase.displayName,
+      priceLabel: paymentSummary.priceLabel || purchase.priceLabel,
+      amount: paymentSummary.amount || purchase.amount,
+    };
+  }
+
+  if (signedEnvelope?.checkout?.purchase?.amount?.value) {
+    return {
+      ...purchase,
+      ...signedEnvelope.checkout.purchase,
+    };
+  }
+
+  return purchase;
+}
+
 export async function GET(request, { params }) {
   try {
     const { agreementSlug } = await params;
@@ -47,9 +67,14 @@ export async function GET(request, { params }) {
       }),
     ]);
     const signedEnvelope = findLatestSignedEnvelope(documents, purchase);
+    const checkoutPurchase = buildCheckoutPurchaseSummary({
+      purchase,
+      signedEnvelope,
+      paymentSummary,
+    });
 
     return NextResponse.json({
-      purchase,
+      purchase: checkoutPurchase,
       agreement: {
         slug: agreement.slug,
         title: agreement.agreementTitle,
@@ -61,6 +86,7 @@ export async function GET(request, { params }) {
         envelopeId: signedEnvelope?.envelopeId || "",
         status: signedEnvelope?.status || "",
         completedAt: signedEnvelope?.completedAt || null,
+        checkout: signedEnvelope?.checkout || null,
       },
       payment: {
         ...(paymentSummary || {}),

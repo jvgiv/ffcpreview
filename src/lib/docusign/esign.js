@@ -1,10 +1,17 @@
 import "server-only";
 
 import crypto from "node:crypto";
+import fs from "node:fs/promises";
+import path from "node:path";
 import { getDocuSignSession } from "./auth";
 import { getEmbeddedSigningOrigins } from "./config";
 import { DocuSignApiError } from "./errors";
-import { getAgreementBySlug, getAgreementDocumentHtml } from "@/lib/agreements";
+import { getAgreementBySlug } from "@/lib/agreements";
+
+const AGREEMENT_PDF_PATH = path.join(process.cwd(), "public", "files", "agreement.pdf");
+const AGREEMENT_DOCUMENT_ID = "1";
+
+let agreementPdfBase64Promise;
 
 function parseJsonText(text) {
   if (!text) {
@@ -16,6 +23,233 @@ function parseJsonText(text) {
   } catch {
     return { raw: text };
   }
+}
+
+async function getAgreementPdfBase64() {
+  if (!agreementPdfBase64Promise) {
+    agreementPdfBase64Promise = fs
+      .readFile(AGREEMENT_PDF_PATH)
+      .then((documentBuffer) => documentBuffer.toString("base64"));
+  }
+
+  return agreementPdfBase64Promise;
+}
+
+function buildAnchorTabBase({
+  tabLabel,
+  anchorString,
+  anchorXOffset = "0",
+  anchorYOffset = "0",
+  anchorOccurrence = "1",
+}) {
+  return {
+    tabLabel,
+    documentId: AGREEMENT_DOCUMENT_ID,
+    anchorString,
+    anchorUnits: "pixels",
+    anchorXOffset: String(anchorXOffset),
+    anchorYOffset: String(anchorYOffset),
+    anchorOccurrence: String(anchorOccurrence),
+    anchorIgnoreIfNotPresent: "false",
+  };
+}
+
+function buildPrefilledTextTab({
+  tabLabel,
+  value,
+  anchorString,
+  anchorXOffset = "0",
+  anchorYOffset = "0",
+  anchorOccurrence = "1",
+  width = "200",
+  height = "18",
+  fontSize = "size10",
+  bold = "false",
+}) {
+  if (!value) {
+    return null;
+  }
+
+  return {
+    ...buildAnchorTabBase({
+      tabLabel,
+      anchorString,
+      anchorXOffset,
+      anchorYOffset,
+      anchorOccurrence,
+    }),
+    value,
+    width: String(width),
+    height: String(height),
+    font: "helvetica",
+    fontSize,
+    bold,
+    required: "false",
+    locked: "true",
+  };
+}
+
+function buildSelectionMarkTab({
+  tabLabel,
+  anchorString,
+  anchorOccurrence = "1",
+}) {
+  return buildPrefilledTextTab({
+    tabLabel,
+    value: "X",
+    anchorString,
+    anchorOccurrence,
+    anchorXOffset: "-48",
+    anchorYOffset: "-4",
+    width: "16",
+    height: "16",
+    fontSize: "size12",
+    bold: "true",
+  });
+}
+
+function buildAgreementTabs({ checkout, signerName }) {
+  const textTabs = [
+    checkout.basePlanTier === "basic"
+      ? buildSelectionMarkTab({
+          tabLabel: "first-orienteer-basic",
+          anchorString: "$500",
+        })
+      : null,
+    checkout.basePlanTier === "premium"
+      ? buildSelectionMarkTab({
+          tabLabel: "first-orienteer-premium",
+          anchorString: "$750",
+        })
+      : null,
+    checkout.additionalPlanTier === "basic" && checkout.additionalCount > 0
+      ? buildSelectionMarkTab({
+          tabLabel: "additional-orienteer-basic",
+          anchorString: "$250",
+        })
+      : null,
+    checkout.additionalPlanTier === "premium" && checkout.additionalCount > 0
+      ? buildSelectionMarkTab({
+          tabLabel: "additional-orienteer-premium",
+          anchorString: "$375",
+        })
+      : null,
+    checkout.additionalCount > 0
+      ? buildPrefilledTextTab({
+          tabLabel: "additional-orienteer-count",
+          value: String(checkout.additionalCount),
+          anchorString: "TOTAL # of Additional Orienteers ____",
+          anchorOccurrence:
+            checkout.additionalPlanTier === "premium" ? "2" : "1",
+          anchorXOffset: "132",
+          anchorYOffset: "-2",
+          width: "20",
+          height: "14",
+          fontSize: "size10",
+          bold: "true",
+        })
+      : null,
+    buildPrefilledTextTab({
+      tabLabel: "client-name",
+      value: signerName,
+      anchorString: "Client Name (printed)",
+      anchorYOffset: "-24",
+      width: "220",
+    }),
+    buildPrefilledTextTab({
+      tabLabel: "client-tax-id",
+      value: checkout.client?.taxId,
+      anchorString: "Client Tax Identification Number",
+      anchorYOffset: "-24",
+      width: "190",
+    }),
+    buildPrefilledTextTab({
+      tabLabel: "client-street-address",
+      value: checkout.client?.streetAddress,
+      anchorString: "Client Street Address",
+      anchorYOffset: "-24",
+      width: "220",
+    }),
+    buildPrefilledTextTab({
+      tabLabel: "client-city-state-zip",
+      value: checkout.client?.cityStateZip,
+      anchorString: "Client City, State & Zip Code",
+      anchorYOffset: "-24",
+      width: "190",
+    }),
+    buildPrefilledTextTab({
+      tabLabel: "orienteer-name-1",
+      value: checkout.orienteers?.[0]?.name,
+      anchorString: "Orienteer Name (if different)",
+      anchorOccurrence: "1",
+      anchorYOffset: "-24",
+      width: "235",
+    }),
+    buildPrefilledTextTab({
+      tabLabel: "orienteer-phone-1",
+      value: checkout.orienteers?.[0]?.phone,
+      anchorString: "Telephone No.",
+      anchorOccurrence: "1",
+      anchorYOffset: "-24",
+      width: "110",
+    }),
+    buildPrefilledTextTab({
+      tabLabel: "orienteer-email-1",
+      value: checkout.orienteers?.[0]?.email,
+      anchorString: "eMail Address",
+      anchorOccurrence: "1",
+      anchorYOffset: "-24",
+      width: "110",
+    }),
+    buildPrefilledTextTab({
+      tabLabel: "orienteer-name-2",
+      value: checkout.orienteers?.[1]?.name,
+      anchorString: "Orienteer Name (if different)",
+      anchorOccurrence: "2",
+      anchorYOffset: "-24",
+      width: "235",
+    }),
+    buildPrefilledTextTab({
+      tabLabel: "orienteer-phone-2",
+      value: checkout.orienteers?.[1]?.phone,
+      anchorString: "Telephone No.",
+      anchorOccurrence: "2",
+      anchorYOffset: "-24",
+      width: "110",
+    }),
+    buildPrefilledTextTab({
+      tabLabel: "orienteer-email-2",
+      value: checkout.orienteers?.[1]?.email,
+      anchorString: "eMail Address",
+      anchorOccurrence: "2",
+      anchorYOffset: "-24",
+      width: "110",
+    }),
+  ].filter(Boolean);
+
+  return {
+    signHereTabs: [
+      {
+        ...buildAnchorTabBase({
+          tabLabel: "payor-signature",
+          anchorString: "Payor Signature",
+          anchorXOffset: "78",
+          anchorYOffset: "-32",
+        }),
+      },
+    ],
+    dateSignedTabs: [
+      {
+        ...buildAnchorTabBase({
+          tabLabel: "payor-date-signed",
+          anchorString: "Payor Signature",
+          anchorXOffset: "270",
+          anchorYOffset: "-26",
+        }),
+      },
+    ],
+    textTabs,
+  };
 }
 
 async function postToDocuSign(session, pathname, body) {
@@ -45,21 +279,19 @@ async function createEnvelope({
   signerName,
   signerEmail,
   agreement,
+  checkout,
   clientUserId,
 }) {
   const session = await getDocuSignSession();
-  const htmlDocument = getAgreementDocumentHtml({
-    agreement,
-    signerName,
-  });
+  const documentBase64 = await getAgreementPdfBase64();
   const envelopeDefinition = {
     emailSubject: agreement.agreementTitle,
     documents: [
       {
-        documentBase64: Buffer.from(htmlDocument).toString("base64"),
-        name: `${agreement.agreementTitle}.html`,
-        fileExtension: "html",
-        documentId: "1",
+        documentBase64,
+        name: "Financial Orientation Agreement.pdf",
+        fileExtension: "pdf",
+        documentId: AGREEMENT_DOCUMENT_ID,
       },
     ],
     recipients: {
@@ -70,24 +302,10 @@ async function createEnvelope({
           recipientId: "1",
           routingOrder: "1",
           clientUserId,
-          tabs: {
-            signHereTabs: [
-              {
-                anchorString: "/sn1/",
-                anchorUnits: "pixels",
-                anchorXOffset: "20",
-                anchorYOffset: "-12",
-              },
-            ],
-            dateSignedTabs: [
-              {
-                anchorString: "/ds1/",
-                anchorUnits: "pixels",
-                anchorXOffset: "0",
-                anchorYOffset: "-12",
-              },
-            ],
-          },
+          tabs: buildAgreementTabs({
+            checkout,
+            signerName,
+          }),
         },
       ],
     },
@@ -138,6 +356,7 @@ export async function createEmbeddedSigningSession({
   signerName,
   signerEmail,
   agreementSlug,
+  checkout,
   requestOrigin,
   returnUrl,
 }) {
@@ -157,6 +376,7 @@ export async function createEmbeddedSigningSession({
     signerName: normalizedName,
     signerEmail: normalizedEmail,
     agreement,
+    checkout,
     clientUserId,
   });
 

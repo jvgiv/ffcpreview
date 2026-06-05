@@ -14,7 +14,11 @@ import {
   getUserPaymentSummary,
   storePayPalOrderRecord,
 } from "@/lib/paypal/firestore";
-import { getPurchaseBySlug, isPaymentComplete } from "@/lib/purchases";
+import {
+  buildPurchaseFromStoredRecord,
+  getPurchaseBySlug,
+  isPaymentComplete,
+} from "@/lib/purchases";
 
 export const runtime = "nodejs";
 
@@ -96,15 +100,18 @@ export async function POST(request) {
       );
     }
 
+    const resolvedPurchase =
+      buildPurchaseFromStoredRecord(signedEnvelope.checkout?.purchase) || purchase;
+
     const order = await createPayPalOrder({
-      purchase,
+      purchase: resolvedPurchase,
       requestUser,
       envelopeId: signedEnvelope.envelopeId,
     });
 
     await storePayPalOrderRecord({
       order,
-      purchase,
+      purchase: resolvedPurchase,
       requestUser,
       envelopeId: signedEnvelope.envelopeId,
     });

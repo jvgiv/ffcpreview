@@ -4,7 +4,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useEffectEvent, useState } from "react";
 import { useAuth } from "@/app/components/auth/AuthProvider";
-import { formatPaymentStatus, listPurchases } from "@/lib/purchases";
+import {
+  buildCheckoutPurchase,
+  formatPaymentStatus,
+  listPurchases,
+} from "@/lib/purchases";
 
 const EMPTY_MESSAGE = {
   type: "",
@@ -50,6 +54,63 @@ function buildPayPalSdkUrl(clientId) {
 
   return `https://www.paypal.com/sdk/js?${params.toString()}`;
 }
+
+function buildInitialSigningForm() {
+  return {
+    signerName: "",
+    signerEmail: "",
+    clientTaxId: "",
+    clientStreetAddress: "",
+    clientCityStateZip: "",
+    additionalPlanTier: "none",
+    additionalCount: "0",
+    primaryOrienteerName: "",
+    primaryOrienteerPhone: "",
+    primaryOrienteerEmail: "",
+    secondaryOrienteerName: "",
+    secondaryOrienteerPhone: "",
+    secondaryOrienteerEmail: "",
+  };
+}
+
+function buildSigningFormFromCheckout(checkout, fallback = {}) {
+  const baseForm = buildInitialSigningForm();
+
+  return {
+    ...baseForm,
+    signerName: fallback.signerName || "",
+    signerEmail: fallback.signerEmail || "",
+    clientTaxId: checkout?.client?.taxId || "",
+    clientStreetAddress: checkout?.client?.streetAddress || "",
+    clientCityStateZip: checkout?.client?.cityStateZip || "",
+    additionalPlanTier: checkout?.additionalPlanTier || "none",
+    additionalCount: String(checkout?.additionalCount || 0),
+    primaryOrienteerName: checkout?.orienteers?.[0]?.name || "",
+    primaryOrienteerPhone: checkout?.orienteers?.[0]?.phone || "",
+    primaryOrienteerEmail: checkout?.orienteers?.[0]?.email || "",
+    secondaryOrienteerName: checkout?.orienteers?.[1]?.name || "",
+    secondaryOrienteerPhone: checkout?.orienteers?.[1]?.phone || "",
+    secondaryOrienteerEmail: checkout?.orienteers?.[1]?.email || "",
+  };
+}
+
+const FIELD_LABEL_STYLE = {
+  color: "rgba(245, 240, 232, 0.7)",
+  fontFamily: "'Space Mono', monospace",
+  fontSize: "0.7rem",
+  letterSpacing: "0.14em",
+  textTransform: "uppercase",
+};
+
+const FIELD_INPUT_STYLE = {
+  width: "100%",
+  minHeight: "3.2rem",
+  border: "1px solid rgba(245, 240, 232, 0.14)",
+  background: "rgba(255, 255, 255, 0.04)",
+  color: "var(--white)",
+  padding: "0.85rem 1rem",
+  fontSize: "0.98rem",
+};
 
 function MessageBanner({ message }) {
   if (!message?.text) {
@@ -229,10 +290,7 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
   });
   const [docuSignConfig, setDocuSignConfig] = useState(null);
   const [isLoadingDocuSignConfig, setIsLoadingDocuSignConfig] = useState(true);
-  const [signingForm, setSigningForm] = useState({
-    signerName: "",
-    signerEmail: "",
-  });
+  const [signingForm, setSigningForm] = useState(buildInitialSigningForm);
   const [isStartingSigning, setIsStartingSigning] = useState(false);
   const [recipientViewUrl, setRecipientViewUrl] = useState("");
   const [envelopeId, setEnvelopeId] = useState("");
@@ -259,6 +317,11 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
     setPaymentMessage(EMPTY_MESSAGE);
     setDocuSignJsError("");
     setPayPalError("");
+    setSigningForm((currentForm) => ({
+      ...currentForm,
+      additionalPlanTier: "none",
+      additionalCount: "0",
+    }));
   }, [selectedPurchase]);
 
   useEffect(() => {
@@ -315,6 +378,12 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
           completedAt: data.payment?.completedAt || null,
         },
       });
+      setSigningForm((currentForm) =>
+        buildSigningFormFromCheckout(data.signing?.checkout, {
+          signerName: currentForm.signerName,
+          signerEmail: currentForm.signerEmail,
+        })
+      );
     } catch (error) {
       setCheckoutState((currentState) => ({
         ...currentState,
@@ -323,6 +392,16 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
       }));
     }
   });
+
+  const formPurchase =
+    buildCheckoutPurchase({
+      agreementSlug: selectedPurchase?.agreementSlug,
+      additionalPlanTier: signingForm.additionalPlanTier,
+      additionalCount: signingForm.additionalCount,
+    }) || null;
+  const activePurchase = checkoutState.payment.isPaid
+    ? checkoutState.purchase || formPurchase || selectedPurchase
+    : formPurchase || checkoutState.purchase || selectedPurchase;
 
   useEffect(() => {
     if (isAuthLoading || !authUser || !selectedPurchase) {
@@ -735,6 +814,10 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
           router.push(
             `/logged-in/checkout/success?agreement=${selectedPurchase.agreementSlug}&orderId=${encodeURIComponent(
               data.orderID
+            )}&package=${encodeURIComponent(
+              activePurchase?.displayName || selectedPurchase.displayName
+            )}&amount=${encodeURIComponent(
+              activePurchase?.priceLabel || selectedPurchase.priceLabel
             )}`
           );
           router.refresh();
@@ -801,6 +884,11 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
     setSigningForm((currentForm) => ({
       ...currentForm,
       [name]: value,
+      ...(name === "additionalPlanTier" && value === "none"
+        ? {
+            additionalCount: "0",
+          }
+        : {}),
     }));
   }
 
@@ -824,6 +912,17 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
           signerName: signingForm.signerName.trim(),
           signerEmail: signingForm.signerEmail.trim(),
           agreementSlug: selectedPurchase.agreementSlug,
+          clientTaxId: signingForm.clientTaxId.trim(),
+          clientStreetAddress: signingForm.clientStreetAddress.trim(),
+          clientCityStateZip: signingForm.clientCityStateZip.trim(),
+          additionalPlanTier: signingForm.additionalPlanTier,
+          additionalCount: signingForm.additionalCount,
+          primaryOrienteerName: signingForm.primaryOrienteerName.trim(),
+          primaryOrienteerPhone: signingForm.primaryOrienteerPhone.trim(),
+          primaryOrienteerEmail: signingForm.primaryOrienteerEmail.trim(),
+          secondaryOrienteerName: signingForm.secondaryOrienteerName.trim(),
+          secondaryOrienteerPhone: signingForm.secondaryOrienteerPhone.trim(),
+          secondaryOrienteerEmail: signingForm.secondaryOrienteerEmail.trim(),
         }),
       });
       const data = await response.json();
@@ -846,6 +945,10 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
 
       setEnvelopeId(data.envelopeId || "");
       setRecipientViewUrl(data.recipientViewUrl || "");
+      setCheckoutState((currentState) => ({
+        ...currentState,
+        purchase: data.purchase || currentState.purchase,
+      }));
       setSigningMessage({
         type: "success",
         text: "Agreement session created. DocuSign is loading now.",
@@ -960,7 +1063,7 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
                 Selected Package
               </span>
               <strong style={{ display: "block", fontSize: "1.1rem" }}>
-                {selectedPurchase.displayName}
+                {activePurchase?.displayName || selectedPurchase.displayName}
               </strong>
             </article>
             <article
@@ -984,7 +1087,7 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
                 Price
               </span>
               <strong style={{ display: "block", fontSize: "1.1rem" }}>
-                {selectedPurchase.priceLabel}
+                {activePurchase?.priceLabel || selectedPurchase.priceLabel}
               </strong>
             </article>
             <article
@@ -1025,7 +1128,7 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
         <StepCard
           eyebrow="Step 1"
           title="Review And Sign"
-          copy="Complete the package agreement first. Once the signed DocuSign event is saved, the PayPal section below unlocks automatically."
+          copy="Capture the payor details and program selections first, then sign the agreement. Once the signed DocuSign event is saved, the PayPal section below unlocks automatically."
           statusLabel={
             checkoutState.signing.isSigned
               ? `Signed ${formatDate(checkoutState.signing.completedAt)}`
@@ -1039,71 +1142,273 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
             style={{
               display: "grid",
               gap: "1rem",
-              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
             }}
           >
-            <div style={{ display: "grid", gap: "0.85rem" }}>
-              <label style={{ display: "grid", gap: "0.45rem" }}>
+            <div style={{ display: "grid", gap: "1rem" }}>
+              <div
+                style={{
+                  border: "1px solid rgba(245, 240, 232, 0.12)",
+                  background: "rgba(255, 255, 255, 0.03)",
+                  padding: "1rem",
+                  display: "grid",
+                  gap: "0.9rem",
+                }}
+              >
                 <span
                   style={{
-                    color: "rgba(245, 240, 232, 0.7)",
+                    color: "rgba(245, 240, 232, 0.6)",
                     fontFamily: "'Space Mono', monospace",
-                    fontSize: "0.7rem",
+                    fontSize: "0.68rem",
                     letterSpacing: "0.14em",
                     textTransform: "uppercase",
                   }}
                 >
-                  Signer Name
+                  Payor Details
                 </span>
-                <input
+                <div
                   style={{
-                    width: "100%",
-                    minHeight: "3.2rem",
-                    border: "1px solid rgba(245, 240, 232, 0.14)",
-                    background: "rgba(255, 255, 255, 0.04)",
-                    color: "var(--white)",
-                    padding: "0.85rem 1rem",
-                    fontSize: "0.98rem",
+                    display: "grid",
+                    gap: "0.85rem",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
                   }}
-                  name="signerName"
-                  type="text"
-                  value={signingForm.signerName}
-                  onChange={handleSigningInputChange}
-                  disabled={checkoutState.payment.isPaid}
-                  required
-                />
-              </label>
+                >
+                  <label style={{ display: "grid", gap: "0.45rem" }}>
+                    <span style={FIELD_LABEL_STYLE}>Signer Name</span>
+                    <input
+                      style={FIELD_INPUT_STYLE}
+                      name="signerName"
+                      type="text"
+                      value={signingForm.signerName}
+                      onChange={handleSigningInputChange}
+                      disabled={checkoutState.payment.isPaid}
+                      required
+                    />
+                  </label>
 
-              <label style={{ display: "grid", gap: "0.45rem" }}>
+                  <label style={{ display: "grid", gap: "0.45rem" }}>
+                    <span style={FIELD_LABEL_STYLE}>Signer Email</span>
+                    <input
+                      style={FIELD_INPUT_STYLE}
+                      name="signerEmail"
+                      type="email"
+                      value={signingForm.signerEmail}
+                      onChange={handleSigningInputChange}
+                      disabled={checkoutState.payment.isPaid}
+                      required
+                    />
+                  </label>
+
+                  <label style={{ display: "grid", gap: "0.45rem" }}>
+                    <span style={FIELD_LABEL_STYLE}>Client Street Address</span>
+                    <input
+                      style={FIELD_INPUT_STYLE}
+                      name="clientStreetAddress"
+                      type="text"
+                      value={signingForm.clientStreetAddress}
+                      onChange={handleSigningInputChange}
+                      disabled={checkoutState.payment.isPaid}
+                      required
+                    />
+                  </label>
+
+                  <label style={{ display: "grid", gap: "0.45rem" }}>
+                    <span style={FIELD_LABEL_STYLE}>Client City, State & Zip</span>
+                    <input
+                      style={FIELD_INPUT_STYLE}
+                      name="clientCityStateZip"
+                      type="text"
+                      value={signingForm.clientCityStateZip}
+                      onChange={handleSigningInputChange}
+                      disabled={checkoutState.payment.isPaid}
+                      required
+                    />
+                  </label>
+
+                  <label style={{ display: "grid", gap: "0.45rem" }}>
+                    <span style={FIELD_LABEL_STYLE}>Client Tax ID</span>
+                    <input
+                      style={FIELD_INPUT_STYLE}
+                      name="clientTaxId"
+                      type="text"
+                      value={signingForm.clientTaxId}
+                      onChange={handleSigningInputChange}
+                      disabled={checkoutState.payment.isPaid}
+                    />
+                  </label>
+                </div>
+              </div>
+
+              <div
+                style={{
+                  border: "1px solid rgba(245, 240, 232, 0.12)",
+                  background: "rgba(255, 255, 255, 0.03)",
+                  padding: "1rem",
+                  display: "grid",
+                  gap: "0.9rem",
+                }}
+              >
                 <span
                   style={{
-                    color: "rgba(245, 240, 232, 0.7)",
+                    color: "rgba(245, 240, 232, 0.6)",
                     fontFamily: "'Space Mono', monospace",
-                    fontSize: "0.7rem",
+                    fontSize: "0.68rem",
                     letterSpacing: "0.14em",
                     textTransform: "uppercase",
                   }}
                 >
-                  Signer Email
+                  Program Choices
                 </span>
-                <input
+                <div
                   style={{
-                    width: "100%",
-                    minHeight: "3.2rem",
-                    border: "1px solid rgba(245, 240, 232, 0.14)",
-                    background: "rgba(255, 255, 255, 0.04)",
-                    color: "var(--white)",
-                    padding: "0.85rem 1rem",
-                    fontSize: "0.98rem",
+                    display: "grid",
+                    gap: "0.85rem",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
                   }}
-                  name="signerEmail"
-                  type="email"
-                  value={signingForm.signerEmail}
-                  onChange={handleSigningInputChange}
-                  disabled={checkoutState.payment.isPaid}
-                  required
-                />
-              </label>
+                >
+                  <label style={{ display: "grid", gap: "0.45rem" }}>
+                    <span style={FIELD_LABEL_STYLE}>Additional Orienteer Package</span>
+                    <select
+                      style={FIELD_INPUT_STYLE}
+                      name="additionalPlanTier"
+                      value={signingForm.additionalPlanTier}
+                      onChange={handleSigningInputChange}
+                      disabled={checkoutState.payment.isPaid}
+                    >
+                      <option value="none">No Additional Orienteers</option>
+                      <option value="basic">Basic FOP</option>
+                      <option value="premium">Premium FOP</option>
+                    </select>
+                  </label>
+
+                  <label style={{ display: "grid", gap: "0.45rem" }}>
+                    <span style={FIELD_LABEL_STYLE}>Additional Orienteer Count</span>
+                    <input
+                      style={FIELD_INPUT_STYLE}
+                      name="additionalCount"
+                      type="number"
+                      min="0"
+                      max="9"
+                      value={signingForm.additionalCount}
+                      onChange={handleSigningInputChange}
+                      disabled={
+                        checkoutState.payment.isPaid ||
+                        signingForm.additionalPlanTier === "none"
+                      }
+                    />
+                  </label>
+                </div>
+                <p style={{ margin: 0, color: "rgba(245, 240, 232, 0.7)", lineHeight: 1.7 }}>
+                  The selected package card controls the first Orienteer tier. Any additional
+                  Orienteers you add here will be written into page 2 of the agreement and rolled
+                  into the PayPal total automatically.
+                </p>
+              </div>
+
+              <div
+                style={{
+                  border: "1px solid rgba(245, 240, 232, 0.12)",
+                  background: "rgba(255, 255, 255, 0.03)",
+                  padding: "1rem",
+                  display: "grid",
+                  gap: "0.9rem",
+                }}
+              >
+                <span
+                  style={{
+                    color: "rgba(245, 240, 232, 0.6)",
+                    fontFamily: "'Space Mono', monospace",
+                    fontSize: "0.68rem",
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Orienteers
+                </span>
+                <div
+                  style={{
+                    display: "grid",
+                    gap: "0.85rem",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+                  }}
+                >
+                  <label style={{ display: "grid", gap: "0.45rem" }}>
+                    <span style={FIELD_LABEL_STYLE}>Orienteer 1 Name</span>
+                    <input
+                      style={FIELD_INPUT_STYLE}
+                      name="primaryOrienteerName"
+                      type="text"
+                      value={signingForm.primaryOrienteerName}
+                      onChange={handleSigningInputChange}
+                      disabled={checkoutState.payment.isPaid}
+                    />
+                  </label>
+
+                  <label style={{ display: "grid", gap: "0.45rem" }}>
+                    <span style={FIELD_LABEL_STYLE}>Orienteer 1 Phone</span>
+                    <input
+                      style={FIELD_INPUT_STYLE}
+                      name="primaryOrienteerPhone"
+                      type="text"
+                      value={signingForm.primaryOrienteerPhone}
+                      onChange={handleSigningInputChange}
+                      disabled={checkoutState.payment.isPaid}
+                    />
+                  </label>
+
+                  <label style={{ display: "grid", gap: "0.45rem" }}>
+                    <span style={FIELD_LABEL_STYLE}>Orienteer 1 Email</span>
+                    <input
+                      style={FIELD_INPUT_STYLE}
+                      name="primaryOrienteerEmail"
+                      type="email"
+                      value={signingForm.primaryOrienteerEmail}
+                      onChange={handleSigningInputChange}
+                      disabled={checkoutState.payment.isPaid}
+                    />
+                  </label>
+
+                  <label style={{ display: "grid", gap: "0.45rem" }}>
+                    <span style={FIELD_LABEL_STYLE}>Orienteer 2 Name</span>
+                    <input
+                      style={FIELD_INPUT_STYLE}
+                      name="secondaryOrienteerName"
+                      type="text"
+                      value={signingForm.secondaryOrienteerName}
+                      onChange={handleSigningInputChange}
+                      disabled={checkoutState.payment.isPaid}
+                    />
+                  </label>
+
+                  <label style={{ display: "grid", gap: "0.45rem" }}>
+                    <span style={FIELD_LABEL_STYLE}>Orienteer 2 Phone</span>
+                    <input
+                      style={FIELD_INPUT_STYLE}
+                      name="secondaryOrienteerPhone"
+                      type="text"
+                      value={signingForm.secondaryOrienteerPhone}
+                      onChange={handleSigningInputChange}
+                      disabled={checkoutState.payment.isPaid}
+                    />
+                  </label>
+
+                  <label style={{ display: "grid", gap: "0.45rem" }}>
+                    <span style={FIELD_LABEL_STYLE}>Orienteer 2 Email</span>
+                    <input
+                      style={FIELD_INPUT_STYLE}
+                      name="secondaryOrienteerEmail"
+                      type="email"
+                      value={signingForm.secondaryOrienteerEmail}
+                      onChange={handleSigningInputChange}
+                      disabled={checkoutState.payment.isPaid}
+                    />
+                  </label>
+                </div>
+                <p style={{ margin: 0, color: "rgba(245, 240, 232, 0.7)", lineHeight: 1.7 }}>
+                  Leave the Orienteer lines blank when the payor and the first Orienteer are the
+                  same person. The agreement will only fill these rows when you provide values.
+                </p>
+              </div>
             </div>
 
             <div
@@ -1141,7 +1446,21 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
                 >
                   Package
                 </span>
-                <strong>{selectedPurchase.displayName}</strong>
+                <strong>{activePurchase?.displayName || selectedPurchase.displayName}</strong>
+              </div>
+              <div style={{ display: "grid", gap: "0.25rem" }}>
+                <span
+                  style={{
+                    color: "rgba(245, 240, 232, 0.6)",
+                    fontFamily: "'Space Mono', monospace",
+                    fontSize: "0.68rem",
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Pricing Breakdown
+                </span>
+                <strong>{activePurchase?.pricingBreakdown || activePurchase?.priceLabel}</strong>
               </div>
               <div style={{ display: "grid", gap: "0.25rem" }}>
                 <span
@@ -1155,7 +1474,21 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
                 >
                   Price
                 </span>
-                <strong>{selectedPurchase.priceLabel}</strong>
+                <strong>{activePurchase?.priceLabel || selectedPurchase.priceLabel}</strong>
+              </div>
+              <div style={{ display: "grid", gap: "0.25rem" }}>
+                <span
+                  style={{
+                    color: "rgba(245, 240, 232, 0.6)",
+                    fontFamily: "'Space Mono', monospace",
+                    fontSize: "0.68rem",
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Agreement PDF
+                </span>
+                <strong>Page 2 choices + page 5 payor lines will be prefilled</strong>
               </div>
             </div>
           </div>
@@ -1363,7 +1696,7 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
               >
                 Package
               </span>
-              <strong>{selectedPurchase.displayName}</strong>
+              <strong>{activePurchase?.displayName || selectedPurchase.displayName}</strong>
             </div>
             <div
               style={{
@@ -1407,7 +1740,7 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
               >
                 Amount
               </span>
-              <strong>{selectedPurchase.priceLabel}</strong>
+              <strong>{activePurchase?.priceLabel || selectedPurchase.priceLabel}</strong>
             </div>
           </div>
 

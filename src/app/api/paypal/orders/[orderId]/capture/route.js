@@ -10,7 +10,7 @@ import {
   getUserPayPalOrder,
   storeCapturedPayPalOrder,
 } from "@/lib/paypal/firestore";
-import { getPurchaseBySlug } from "@/lib/purchases";
+import { buildPurchaseFromStoredRecord, getPurchaseBySlug } from "@/lib/purchases";
 
 export const runtime = "nodejs";
 
@@ -40,7 +40,9 @@ export async function POST(request, { params }) {
       });
     }
 
-    const purchase = getPurchaseBySlug(existingOrder.agreementSlug);
+    const purchase =
+      buildPurchaseFromStoredRecord(existingOrder) ||
+      getPurchaseBySlug(existingOrder.agreementSlug);
 
     if (!purchase) {
       return NextResponse.json(

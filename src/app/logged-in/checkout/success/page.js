@@ -7,8 +7,16 @@ export const metadata = {
 
 export default async function CheckoutSuccessPage({ searchParams }) {
   const resolvedSearchParams = await searchParams;
-  const purchase =
+  const fallbackPurchase =
     getPurchaseBySlug(resolvedSearchParams?.agreement) || listPurchases()[0] || null;
+  const packageLabel =
+    typeof resolvedSearchParams?.package === "string" && resolvedSearchParams.package.trim()
+      ? resolvedSearchParams.package.trim()
+      : fallbackPurchase?.displayName || "this package";
+  const amountLabel =
+    typeof resolvedSearchParams?.amount === "string" && resolvedSearchParams.amount.trim()
+      ? resolvedSearchParams.amount.trim()
+      : fallbackPurchase?.priceLabel || "";
   const orderId =
     typeof resolvedSearchParams?.orderId === "string"
       ? resolvedSearchParams.orderId
@@ -58,7 +66,7 @@ export default async function CheckoutSuccessPage({ searchParams }) {
             margin: 0,
           }}
         >
-          {purchase?.successTitle || "Checkout Complete"}
+          {fallbackPurchase?.successTitle || "Checkout Complete"}
         </h1>
         <p
           style={{
@@ -69,10 +77,8 @@ export default async function CheckoutSuccessPage({ searchParams }) {
           }}
         >
           Your agreement has been signed and your PayPal payment has been captured for{" "}
-          <strong style={{ color: "var(--white)" }}>
-            {purchase?.displayName || "this package"}
-          </strong>
-          .
+          <strong style={{ color: "var(--white)" }}>{packageLabel}</strong>
+          {amountLabel ? ` (${amountLabel})` : ""}.
         </p>
         {orderId ? (
           <p
