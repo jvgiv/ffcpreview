@@ -52,7 +52,8 @@
 }
 
 :global(.reveal.visible).revealCard {
-  border-color: rgba(231, 76, 60, 0.28);
+  /* border-color: rgba(231, 76, 60, 0.28); */
+  border-color: var(--red);
   box-shadow: 0 1.2rem 3rem rgba(0, 0, 0, 0.22);
   filter: saturate(1);
 }
@@ -82,7 +83,7 @@
   font-size: 0.92rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--red-hot);
+  color: var(--red);
   margin-bottom: 1rem;
 }
 
@@ -168,7 +169,7 @@
   margin: 0.75rem 0 1rem;
   font-size: clamp(2rem, 4vw, 3rem);
   line-height: 1;
-  color: var(--red-hot);
+  color: var(--red);
 }
 
 .planCard p {
