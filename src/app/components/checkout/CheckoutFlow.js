@@ -9,6 +9,7 @@ import {
   formatPaymentStatus,
   listPurchases,
 } from "@/lib/purchases";
+import styles from "./CheckoutFlow.module.css";
 
 const EMPTY_MESSAGE = {
   type: "",
@@ -105,9 +106,6 @@ const FIELD_LABEL_STYLE = {
 const FIELD_INPUT_STYLE = {
   width: "100%",
   minHeight: "3.2rem",
-  border: "1px solid rgba(245, 240, 232, 0.14)",
-  background: "rgba(255, 255, 255, 0.04)",
-  color: "var(--white)",
   padding: "0.85rem 1rem",
   fontSize: "0.98rem",
 };
@@ -264,7 +262,7 @@ function PackageOption({ purchase, isActive }) {
 
 export default function CheckoutFlow({ initialAgreementSlug }) {
   const router = useRouter();
-  const { authUser, profile, isLoading: isAuthLoading } = useAuth();
+  const { authUser, profile, isLoading: isAuthLoading, refreshProfile } = useAuth();
   const selectedPurchase =
     PURCHASE_OPTIONS.find((purchase) => purchase.agreementSlug === initialAgreementSlug) ||
     PURCHASE_OPTIONS[0] ||
@@ -326,6 +324,7 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
 
   useEffect(() => {
     setSigningForm((currentForm) => ({
+      ...currentForm,
       signerName:
         currentForm.signerName ||
         profile?.displayName ||
@@ -811,16 +810,12 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
               completedAt: new Date().toISOString(),
             },
           }));
-          router.push(
-            `/logged-in/checkout/success?agreement=${selectedPurchase.agreementSlug}&orderId=${encodeURIComponent(
-              data.orderID
-            )}&package=${encodeURIComponent(
-              activePurchase?.displayName || selectedPurchase.displayName
-            )}&amount=${encodeURIComponent(
-              activePurchase?.priceLabel || selectedPurchase.priceLabel
-            )}`
-          );
-          router.refresh();
+          setPaymentMessage({
+            type: "success",
+            text: "Payment captured. Updating your member homepage now...",
+          });
+          await refreshProfile();
+          router.replace("/logged-in");
         } catch (error) {
           setPaymentMessage({
             type: "error",
@@ -1138,13 +1133,7 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
           }
           statusTone={checkoutState.signing.isSigned ? "success" : "default"}
         >
-          <div
-            style={{
-              display: "grid",
-              gap: "1rem",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-            }}
-          >
+          <div className={styles.stepLayout}>
             <div style={{ display: "grid", gap: "1rem" }}>
               <div
                 style={{
@@ -1173,9 +1162,10 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
                     gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
                   }}
                 >
-                  <label style={{ display: "grid", gap: "0.45rem" }}>
+                  <label className={styles.fieldGroup}>
                     <span style={FIELD_LABEL_STYLE}>Signer Name</span>
                     <input
+                      className={styles.fieldInput}
                       style={FIELD_INPUT_STYLE}
                       name="signerName"
                       type="text"
@@ -1186,9 +1176,10 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
                     />
                   </label>
 
-                  <label style={{ display: "grid", gap: "0.45rem" }}>
+                  <label className={styles.fieldGroup}>
                     <span style={FIELD_LABEL_STYLE}>Signer Email</span>
                     <input
+                      className={styles.fieldInput}
                       style={FIELD_INPUT_STYLE}
                       name="signerEmail"
                       type="email"
@@ -1199,9 +1190,10 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
                     />
                   </label>
 
-                  <label style={{ display: "grid", gap: "0.45rem" }}>
+                  <label className={styles.fieldGroup}>
                     <span style={FIELD_LABEL_STYLE}>Client Street Address</span>
                     <input
+                      className={styles.fieldInput}
                       style={FIELD_INPUT_STYLE}
                       name="clientStreetAddress"
                       type="text"
@@ -1212,9 +1204,10 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
                     />
                   </label>
 
-                  <label style={{ display: "grid", gap: "0.45rem" }}>
+                  <label className={styles.fieldGroup}>
                     <span style={FIELD_LABEL_STYLE}>Client City, State & Zip</span>
                     <input
+                      className={styles.fieldInput}
                       style={FIELD_INPUT_STYLE}
                       name="clientCityStateZip"
                       type="text"
@@ -1225,9 +1218,10 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
                     />
                   </label>
 
-                  <label style={{ display: "grid", gap: "0.45rem" }}>
+                  <label className={styles.fieldGroup}>
                     <span style={FIELD_LABEL_STYLE}>Client Tax ID</span>
                     <input
+                      className={styles.fieldInput}
                       style={FIELD_INPUT_STYLE}
                       name="clientTaxId"
                       type="text"
@@ -1266,9 +1260,10 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
                     gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
                   }}
                 >
-                  <label style={{ display: "grid", gap: "0.45rem" }}>
+                  <label className={styles.fieldGroup}>
                     <span style={FIELD_LABEL_STYLE}>Additional Orienteer Package</span>
                     <select
+                      className={styles.fieldInput}
                       style={FIELD_INPUT_STYLE}
                       name="additionalPlanTier"
                       value={signingForm.additionalPlanTier}
@@ -1281,9 +1276,10 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
                     </select>
                   </label>
 
-                  <label style={{ display: "grid", gap: "0.45rem" }}>
+                  <label className={styles.fieldGroup}>
                     <span style={FIELD_LABEL_STYLE}>Additional Orienteer Count</span>
                     <input
+                      className={styles.fieldInput}
                       style={FIELD_INPUT_STYLE}
                       name="additionalCount"
                       type="number"
@@ -1325,84 +1321,88 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
                 >
                   Orienteers
                 </span>
-                <div
-                  style={{
-                    display: "grid",
-                    gap: "0.85rem",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-                  }}
-                >
-                  <label style={{ display: "grid", gap: "0.45rem" }}>
-                    <span style={FIELD_LABEL_STYLE}>Orienteer 1 Name</span>
-                    <input
-                      style={FIELD_INPUT_STYLE}
-                      name="primaryOrienteerName"
-                      type="text"
-                      value={signingForm.primaryOrienteerName}
-                      onChange={handleSigningInputChange}
-                      disabled={checkoutState.payment.isPaid}
-                    />
-                  </label>
+                <div className={styles.orienteerGrid}>
+                  <div className={styles.orienteerRow}>
+                    <label className={styles.fieldGroup}>
+                      <span style={FIELD_LABEL_STYLE}>Orienteer 1 Name</span>
+                      <input
+                        className={styles.fieldInput}
+                        style={FIELD_INPUT_STYLE}
+                        name="primaryOrienteerName"
+                        type="text"
+                        value={signingForm.primaryOrienteerName}
+                        onChange={handleSigningInputChange}
+                        disabled={checkoutState.payment.isPaid}
+                      />
+                    </label>
 
-                  <label style={{ display: "grid", gap: "0.45rem" }}>
-                    <span style={FIELD_LABEL_STYLE}>Orienteer 1 Phone</span>
-                    <input
-                      style={FIELD_INPUT_STYLE}
-                      name="primaryOrienteerPhone"
-                      type="text"
-                      value={signingForm.primaryOrienteerPhone}
-                      onChange={handleSigningInputChange}
-                      disabled={checkoutState.payment.isPaid}
-                    />
-                  </label>
+                    <label className={styles.fieldGroup}>
+                      <span style={FIELD_LABEL_STYLE}>Orienteer 1 Phone</span>
+                      <input
+                        className={styles.fieldInput}
+                        style={FIELD_INPUT_STYLE}
+                        name="primaryOrienteerPhone"
+                        type="text"
+                        value={signingForm.primaryOrienteerPhone}
+                        onChange={handleSigningInputChange}
+                        disabled={checkoutState.payment.isPaid}
+                      />
+                    </label>
 
-                  <label style={{ display: "grid", gap: "0.45rem" }}>
-                    <span style={FIELD_LABEL_STYLE}>Orienteer 1 Email</span>
-                    <input
-                      style={FIELD_INPUT_STYLE}
-                      name="primaryOrienteerEmail"
-                      type="email"
-                      value={signingForm.primaryOrienteerEmail}
-                      onChange={handleSigningInputChange}
-                      disabled={checkoutState.payment.isPaid}
-                    />
-                  </label>
+                    <label className={styles.fieldGroup}>
+                      <span style={FIELD_LABEL_STYLE}>Orienteer 1 Email</span>
+                      <input
+                        className={styles.fieldInput}
+                        style={FIELD_INPUT_STYLE}
+                        name="primaryOrienteerEmail"
+                        type="email"
+                        value={signingForm.primaryOrienteerEmail}
+                        onChange={handleSigningInputChange}
+                        disabled={checkoutState.payment.isPaid}
+                      />
+                    </label>
+                  </div>
 
-                  <label style={{ display: "grid", gap: "0.45rem" }}>
-                    <span style={FIELD_LABEL_STYLE}>Orienteer 2 Name</span>
-                    <input
-                      style={FIELD_INPUT_STYLE}
-                      name="secondaryOrienteerName"
-                      type="text"
-                      value={signingForm.secondaryOrienteerName}
-                      onChange={handleSigningInputChange}
-                      disabled={checkoutState.payment.isPaid}
-                    />
-                  </label>
+                  <div className={styles.orienteerRow}>
+                    <label className={styles.fieldGroup}>
+                      <span style={FIELD_LABEL_STYLE}>Orienteer 2 Name</span>
+                      <input
+                        className={styles.fieldInput}
+                        style={FIELD_INPUT_STYLE}
+                        name="secondaryOrienteerName"
+                        type="text"
+                        value={signingForm.secondaryOrienteerName}
+                        onChange={handleSigningInputChange}
+                        disabled={checkoutState.payment.isPaid}
+                      />
+                    </label>
 
-                  <label style={{ display: "grid", gap: "0.45rem" }}>
-                    <span style={FIELD_LABEL_STYLE}>Orienteer 2 Phone</span>
-                    <input
-                      style={FIELD_INPUT_STYLE}
-                      name="secondaryOrienteerPhone"
-                      type="text"
-                      value={signingForm.secondaryOrienteerPhone}
-                      onChange={handleSigningInputChange}
-                      disabled={checkoutState.payment.isPaid}
-                    />
-                  </label>
+                    <label className={styles.fieldGroup}>
+                      <span style={FIELD_LABEL_STYLE}>Orienteer 2 Phone</span>
+                      <input
+                        className={styles.fieldInput}
+                        style={FIELD_INPUT_STYLE}
+                        name="secondaryOrienteerPhone"
+                        type="text"
+                        value={signingForm.secondaryOrienteerPhone}
+                        onChange={handleSigningInputChange}
+                        disabled={checkoutState.payment.isPaid}
+                      />
+                    </label>
 
-                  <label style={{ display: "grid", gap: "0.45rem" }}>
-                    <span style={FIELD_LABEL_STYLE}>Orienteer 2 Email</span>
-                    <input
-                      style={FIELD_INPUT_STYLE}
-                      name="secondaryOrienteerEmail"
-                      type="email"
-                      value={signingForm.secondaryOrienteerEmail}
-                      onChange={handleSigningInputChange}
-                      disabled={checkoutState.payment.isPaid}
-                    />
-                  </label>
+                    <label className={styles.fieldGroup}>
+                      <span style={FIELD_LABEL_STYLE}>Orienteer 2 Email</span>
+                      <input
+                        className={styles.fieldInput}
+                        style={FIELD_INPUT_STYLE}
+                        name="secondaryOrienteerEmail"
+                        type="email"
+                        value={signingForm.secondaryOrienteerEmail}
+                        onChange={handleSigningInputChange}
+                        disabled={checkoutState.payment.isPaid}
+                      />
+                    </label>
+                  </div>
                 </div>
                 <p style={{ margin: 0, color: "rgba(245, 240, 232, 0.7)", lineHeight: 1.7 }}>
                   Leave the Orienteer lines blank when the payor and the first Orienteer are the
@@ -1747,11 +1747,7 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
           {checkoutState.payment.isPaid ? (
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.85rem" }}>
               <Link
-                href={`/logged-in/checkout/success?agreement=${selectedPurchase.agreementSlug}${
-                  checkoutState.payment.lastOrderId
-                    ? `&orderId=${encodeURIComponent(checkoutState.payment.lastOrderId)}`
-                    : ""
-                }`}
+                href="/logged-in"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -1768,7 +1764,7 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
                   textTransform: "uppercase",
                 }}
               >
-                View Success Page
+                Go To Member Homepage
               </Link>
               <Link
                 href="/logged-in"

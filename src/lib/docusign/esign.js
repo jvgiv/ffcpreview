@@ -10,6 +10,64 @@ import { getAgreementBySlug } from "@/lib/agreements";
 
 const AGREEMENT_PDF_PATH = path.join(process.cwd(), "public", "files", "agreement.pdf");
 const AGREEMENT_DOCUMENT_ID = "1";
+// These coordinates are matched to the static agreement.pdf layout so the
+// visual check marks and signature widgets stay aligned with the printed form.
+const AGREEMENT_LAYOUT = {
+  selectionMarks: {
+    firstOrienteerBasic: {
+      pageNumber: "2",
+      xPosition: "67",
+      yPosition: "221",
+    },
+    firstOrienteerPremium: {
+      pageNumber: "2",
+      xPosition: "67",
+      yPosition: "379",
+    },
+    additionalOrienteerBasic: {
+      pageNumber: "2",
+      xPosition: "67",
+      yPosition: "468",
+    },
+    additionalOrienteerPremium: {
+      pageNumber: "2",
+      xPosition: "67",
+      yPosition: "490",
+    },
+  },
+  orienteerFields: {
+    firstPhone: {
+      pageNumber: "5",
+      xPosition: "310",
+      yPosition: "455",
+    },
+    firstEmail: {
+      pageNumber: "5",
+      xPosition: "448",
+      yPosition: "455",
+    },
+    secondPhone: {
+      pageNumber: "5",
+      xPosition: "310",
+      yPosition: "495",
+    },
+    secondEmail: {
+      pageNumber: "5",
+      xPosition: "448",
+      yPosition: "495",
+    },
+  },
+  signHere: {
+    pageNumber: "5",
+    xPosition: "76",
+    yPosition: "396",
+  },
+  dateSigned: {
+    pageNumber: "5",
+    xPosition: "350",
+    yPosition: "396",
+  },
+};
 
 let agreementPdfBase64Promise;
 
@@ -54,6 +112,21 @@ function buildAnchorTabBase({
   };
 }
 
+function buildPositionTabBase({
+  tabLabel,
+  pageNumber,
+  xPosition,
+  yPosition,
+}) {
+  return {
+    tabLabel,
+    documentId: AGREEMENT_DOCUMENT_ID,
+    pageNumber: String(pageNumber),
+    xPosition: String(xPosition),
+    yPosition: String(yPosition),
+  };
+}
+
 function buildPrefilledTextTab({
   tabLabel,
   value,
@@ -89,23 +162,61 @@ function buildPrefilledTextTab({
   };
 }
 
+function buildPrefilledPositionTab({
+  tabLabel,
+  value,
+  pageNumber,
+  xPosition,
+  yPosition,
+  width = "200",
+  height = "18",
+  fontSize = "size10",
+  bold = "false",
+}) {
+  if (!value) {
+    return null;
+  }
+
+  return {
+    ...buildPositionTabBase({
+      tabLabel,
+      pageNumber,
+      xPosition,
+      yPosition,
+    }),
+    value,
+    width: String(width),
+    height: String(height),
+    font: "helvetica",
+    fontSize,
+    bold,
+    required: "false",
+    locked: "true",
+  };
+}
+
 function buildSelectionMarkTab({
   tabLabel,
-  anchorString,
-  anchorOccurrence = "1",
+  pageNumber,
+  xPosition,
+  yPosition,
 }) {
-  return buildPrefilledTextTab({
-    tabLabel,
+  return {
+    ...buildPositionTabBase({
+      tabLabel,
+      pageNumber,
+      xPosition,
+      yPosition,
+    }),
     value: "X",
-    anchorString,
-    anchorOccurrence,
-    anchorXOffset: "-48",
-    anchorYOffset: "-4",
-    width: "16",
-    height: "16",
-    fontSize: "size12",
+    width: "12",
+    height: "12",
+    font: "helvetica",
+    fontSize: "size10",
     bold: "true",
-  });
+    required: "false",
+    locked: "true",
+  };
 }
 
 function buildAgreementTabs({ checkout, signerName }) {
@@ -113,25 +224,25 @@ function buildAgreementTabs({ checkout, signerName }) {
     checkout.basePlanTier === "basic"
       ? buildSelectionMarkTab({
           tabLabel: "first-orienteer-basic",
-          anchorString: "$500",
+          ...AGREEMENT_LAYOUT.selectionMarks.firstOrienteerBasic,
         })
       : null,
     checkout.basePlanTier === "premium"
       ? buildSelectionMarkTab({
           tabLabel: "first-orienteer-premium",
-          anchorString: "$750",
+          ...AGREEMENT_LAYOUT.selectionMarks.firstOrienteerPremium,
         })
       : null,
     checkout.additionalPlanTier === "basic" && checkout.additionalCount > 0
       ? buildSelectionMarkTab({
           tabLabel: "additional-orienteer-basic",
-          anchorString: "$250",
+          ...AGREEMENT_LAYOUT.selectionMarks.additionalOrienteerBasic,
         })
       : null,
     checkout.additionalPlanTier === "premium" && checkout.additionalCount > 0
       ? buildSelectionMarkTab({
           tabLabel: "additional-orienteer-premium",
-          anchorString: "$375",
+          ...AGREEMENT_LAYOUT.selectionMarks.additionalOrienteerPremium,
         })
       : null,
     checkout.additionalCount > 0
@@ -142,7 +253,7 @@ function buildAgreementTabs({ checkout, signerName }) {
           anchorOccurrence:
             checkout.additionalPlanTier === "premium" ? "2" : "1",
           anchorXOffset: "132",
-          anchorYOffset: "-2",
+          anchorYOffset: "-7",
           width: "20",
           height: "14",
           fontSize: "size10",
@@ -185,20 +296,16 @@ function buildAgreementTabs({ checkout, signerName }) {
       anchorYOffset: "-24",
       width: "235",
     }),
-    buildPrefilledTextTab({
+    buildPrefilledPositionTab({
       tabLabel: "orienteer-phone-1",
       value: checkout.orienteers?.[0]?.phone,
-      anchorString: "Telephone No.",
-      anchorOccurrence: "1",
-      anchorYOffset: "-24",
-      width: "110",
+      ...AGREEMENT_LAYOUT.orienteerFields.firstPhone,
+      width: "126",
     }),
-    buildPrefilledTextTab({
+    buildPrefilledPositionTab({
       tabLabel: "orienteer-email-1",
       value: checkout.orienteers?.[0]?.email,
-      anchorString: "eMail Address",
-      anchorOccurrence: "1",
-      anchorYOffset: "-24",
+      ...AGREEMENT_LAYOUT.orienteerFields.firstEmail,
       width: "110",
     }),
     buildPrefilledTextTab({
@@ -209,20 +316,16 @@ function buildAgreementTabs({ checkout, signerName }) {
       anchorYOffset: "-24",
       width: "235",
     }),
-    buildPrefilledTextTab({
+    buildPrefilledPositionTab({
       tabLabel: "orienteer-phone-2",
       value: checkout.orienteers?.[1]?.phone,
-      anchorString: "Telephone No.",
-      anchorOccurrence: "2",
-      anchorYOffset: "-24",
-      width: "110",
+      ...AGREEMENT_LAYOUT.orienteerFields.secondPhone,
+      width: "126",
     }),
-    buildPrefilledTextTab({
+    buildPrefilledPositionTab({
       tabLabel: "orienteer-email-2",
       value: checkout.orienteers?.[1]?.email,
-      anchorString: "eMail Address",
-      anchorOccurrence: "2",
-      anchorYOffset: "-24",
+      ...AGREEMENT_LAYOUT.orienteerFields.secondEmail,
       width: "110",
     }),
   ].filter(Boolean);
@@ -230,21 +333,17 @@ function buildAgreementTabs({ checkout, signerName }) {
   return {
     signHereTabs: [
       {
-        ...buildAnchorTabBase({
+        ...buildPositionTabBase({
           tabLabel: "payor-signature",
-          anchorString: "Payor Signature",
-          anchorXOffset: "78",
-          anchorYOffset: "-32",
+          ...AGREEMENT_LAYOUT.signHere,
         }),
       },
     ],
     dateSignedTabs: [
       {
-        ...buildAnchorTabBase({
+        ...buildPositionTabBase({
           tabLabel: "payor-date-signed",
-          anchorString: "Payor Signature",
-          anchorXOffset: "270",
-          anchorYOffset: "-26",
+          ...AGREEMENT_LAYOUT.dateSigned,
         }),
       },
     ],
