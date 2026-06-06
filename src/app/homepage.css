@@ -44,7 +44,7 @@
   font-size: 0.7rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--red-hot);
+  color: var(--red);
   margin-bottom: 2rem;
   opacity: 0;
   animation: fadeUp 0.7s 0.2s forwards;
@@ -55,7 +55,7 @@
   font-size: 1.2rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--red-hot);
+  color: var(--red);
   margin-bottom: 2rem;
   opacity: 0;
   animation: fadeUp 0.7s 0.2s forwards;
@@ -109,7 +109,7 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--red-hot);
+  background: var(--red);
 }
 
 .hero-title {
@@ -123,7 +123,7 @@
   font-style: italic;
   font-family: 'Playfair Display', serif;
   font-size: clamp(2rem, 6vw, 4rem);
-  color: var(--red-hot);
+  color: var(--red);
   display: block;
   letter-spacing: 0.01em;
 }
@@ -317,7 +317,7 @@
   font-size: 0.9rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--red-hot);
+  color: var(--red);
   margin-bottom: 1rem;
   display: block;
 }
@@ -334,7 +334,7 @@
   font-size: 0.9rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--red-hot);
+  color: var(--red);
   margin-bottom: 1rem;
   display: block;
 }
@@ -422,7 +422,7 @@
 .stat-num {
   font-family: var(--font-bebas-neue), sans-serif;
   font-size: 4rem;
-  color: var(--red-hot);
+  color: var(--red);
   line-height: 1;
   margin-bottom: 0.25rem;
   padding-top: 3%;
@@ -720,7 +720,7 @@
   letter-spacing: 0.2em;
   background: var(--offblack);
   padding: 0 0.5rem;
-  color: var(--red-hot);
+  color: var(--red);
 }
 
 .scorecard-visual>p {
@@ -728,7 +728,7 @@
   font-size: 0.7rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--red-hot);
+  color: var(--red);
   text-align: center;
 }
 
@@ -771,7 +771,7 @@
   letter-spacing: 0.2em;
   background: var(--offblack);
   padding: 0 0.5rem;
-  color: var(--red-hot);
+  color: var(--red);
 }
 
 

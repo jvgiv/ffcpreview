@@ -39,6 +39,14 @@ export default function Pricing() {
         {/* <div className="pricing-title">
           <span className="section-label-pric reveal">Best value</span>
         </div> */}
+        <br />
+        <a
+              href="/files/agreement.pdf"
+              target="_blank"
+              className="btn-ghost reveal"
+            >
+              View Agreement -&gt;
+            </a>
         <div
           className="pricing-grid reveal"
           style={{ transitionDelay: "0.1s" }}
@@ -118,13 +126,7 @@ export default function Pricing() {
           </div>
         </div>
         <br />
-        <a
-              href="/files/agreement.pdf"
-              target="_blank"
-              className="btn-ghost"
-            >
-              View Agreement -&gt;
-            </a>
+        
       </div>
     </section>
   );
