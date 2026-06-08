@@ -21,15 +21,7 @@ export default function Home() {
             First Financial Advisory
             <br />- Est. 1974 -{" "}
           </p>
-          <div className="hero-logo-ring">
-            <Image
-              className="hero-logo-image"
-              src="/FFLogo.png"
-              alt="FFC Logo"
-              width={250}
-              height={280}
-            />
-          </div>
+          
           {/* <h1 className="hero-title">
             <em>practical financial</em>
             <span className="hero-title-main">ORIENTATION</span>
@@ -122,6 +114,18 @@ export default function Home() {
               Welcome to Far Flung Change
             </span> */}
             {/* <p>practical financial orientation</p> */}
+            <p
+              style={{
+                color: "var(--gray)",
+                fontSize: "clamp(1.8rem, 2vw, 1.2rem)",
+                lineHeight: "1.3",
+                fontFamily: "var(--font-playfair)",
+                fontStyle: "italic",
+                fontWeight: 'bold'
+              }}
+            >
+              For people who want clarity. Not complexity.
+            </p>
             <Image
               src="/pfo.png"
               alt="practical financial orientation"
@@ -129,18 +133,30 @@ export default function Home() {
               height={104}
               style={{ width: "100%", height: "auto", maxWidth: "599px" }}
             />
-            <p
-              style={{
-                color: "var(--gray)",
-                fontSize: "clamp(1.8rem, 2vw, 1.2rem)",
-                lineHeight: "1.3",
-                fontStyle: "italic"
-              }}
-            >
-              For people who want clarity. Not complexity.
-            </p>
+            <div className="hero-logo-ring">
+            <Image
+              className="hero-logo-image"
+              src="/FFLogo.png"
+              alt="FFC Logo"
+              width={250}
+              height={280}
+            />
+          </div>
           </div>
           {/* <p className="hero-sub">Welcome to FinancialOrientation</p> */}
+          <div className="brand-signature">
+            <Image
+              src="/ffcfgus.png"
+              alt="for Growin'up's sake"
+              width={358}
+              height={100}
+            />
+            {/* <span className="sig-for">for</span>
+            <span className="sig-main">
+              <span className="red-word">growin'up's</span>{" "}
+              <span className="white-word">sake</span>
+            </span> */}
+          </div>
           <div className="hero-actions">
             <Link
               href="#pricing-card"
@@ -157,19 +173,7 @@ export default function Home() {
               FREE Caddy Book + Scorecard
             </Link>
           </div>
-          <div className="brand-signature">
-            <Image
-              src="/ffcfgus.png"
-              alt="for Growin'up's sake"
-              width={358}
-              height={100}
-            />
-            {/* <span className="sig-for">for</span>
-            <span className="sig-main">
-              <span className="red-word">growin'up's</span>{" "}
-              <span className="white-word">sake</span>
-            </span> */}
-          </div>
+          
           <div className="scroll-hint">
             <span>scroll</span>
             <div className="scroll-line"></div>
