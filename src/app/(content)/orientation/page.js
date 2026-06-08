@@ -8,7 +8,7 @@ export default function Orientation() {
     <main className={styles.page}>
       <section className={`${styles.hero} ${styles.revealCard} reveal`}>
         <div>
-          <h1 className={styles.heroTitle}>Guided Orientation</h1>
+          <h1 className={styles.heroTitle}>Guided <span style={{color: "var(--red)"}}>Orientation</span></h1>
           <p className={styles.heroSubtitle}>
             Practical Financial Orientation for Growin&apos;Up&apos;s Sake.
           </p>
