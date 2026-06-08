@@ -69,7 +69,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto .5rem;
+  margin: 0 auto 0rem;
   position: relative;
   padding: 8px;
   opacity: 0;
@@ -90,7 +90,7 @@
   height: auto;
   display: block;
   object-fit: contain;
-  transform: translateY(-4px);
+  /* transform: translateY(-2px); */
 }
 
 .logo-c {
@@ -1139,6 +1139,7 @@
   border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
   width: 100%;
   margin-bottom: 2rem;
+  transform: translateY(-15px);
 }
 
 .sig-for {
