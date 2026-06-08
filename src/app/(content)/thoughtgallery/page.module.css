@@ -102,7 +102,7 @@
   font-style: italic;
   font-weight: 600;
   line-height: 1.06;
-  color: #f2c3bb;
+  color: var(--red);
   text-transform: none;
 }
 
@@ -212,17 +212,37 @@
     rgba(12, 12, 12, 0.92);
   backdrop-filter: blur(10px);
   display: flex;
+  align-items: center;
   gap: 0.5rem;
   flex-wrap: wrap;
   justify-content: center;
 }
 
+.navTitle {
+  flex: 0 0 100%;
+  width: 100%;
+  min-width: 100%;
+  margin: 0 auto 0.5rem;
+  padding: 0 0.35rem 0.85rem;
+  border-bottom: 1px solid var(--border);
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(0.68rem, 1vw, 0.82rem);
+  line-height: 1.65;
+  letter-spacing: 0.14em;
+  text-align: center;
+  text-transform: uppercase;
+  color: rgba(245, 240, 232, 0.66);
+}
+
 .navButton {
+  flex: 1 1 0;
+  min-width: 0;
   padding: 0.5rem 1rem;
   font-family: 'Space Mono', monospace;
   font-size: 1rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  white-space: nowrap;
   color: rgba(245, 240, 232, 0.7);
   background: none;
   border: 2px solid var(--border);
@@ -239,4 +259,38 @@
   color: var(--red);
   border-color: var(--red);
   background: rgba(231, 76, 60, 0.1);
+}
+
+@media (max-width: 600px) {
+  .navBar {
+    padding: 0.85rem;
+  }
+
+  .navTitle {
+    margin-bottom: 0.35rem;
+    padding-bottom: 0.75rem;
+    font-size: 0.66rem;
+    line-height: 1.55;
+    letter-spacing: 0.08em;
+  }
+
+  .navButton {
+    padding: 0.55rem 0.5rem;
+    font-size: 0.76rem;
+    letter-spacing: 0.06em;
+    text-align: center;
+  }
+}
+
+@media (max-width: 420px) {
+  .navBar {
+    gap: 0.25rem;
+    padding: 0.65rem;
+  }
+
+  .navButton {
+    padding: 0.45rem 0.15rem;
+    font-size: clamp(0.48rem, 2.4vw, 0.62rem);
+    letter-spacing: 0;
+  }
 }
