@@ -7,7 +7,7 @@ export default function Plan() {
       <div className="container">
         <div className="reveal">
           <span className="section-label">The Process</span>
-          <h2 className="section-title">Five moves. Zero mystery.</h2>
+          <h2 className="section-title">Five moves. Zero <span style={{ color: "var(--red)"}}>mystery</span>.</h2>
         </div>
         <div className="plan-steps reveal" style={{ transitionDelay: "0.1s" }}>
           <div className="plan-step">

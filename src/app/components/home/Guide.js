@@ -9,7 +9,7 @@ export default function Guide() {
         <div className="guide-intro reveal">
           <span className="section-label">The Solution</span>
           <h2 className="section-title">
-            You don&apos;t need another product. You need a bearing.
+            You don&apos;t need another product. You need a <span style={{ color: "var(--red)"}}>bearing</span>.
           </h2>
           <p>
             Far Flung Change provides practical financial{" "}

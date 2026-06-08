@@ -10,7 +10,7 @@ export default function Problem() {
             <span className="section-label">THE PROBLEM</span>
             {/* <h2 className="section-title">YOU ARE DECIDING WITHOUT A MAP.</h2> */}
             <h2 className="section-title">
-              MONEY MATTERS ARE MURKY. FINANCE FEELS FOREIGN.
+              MONEY MATTERS ARE <span style={{ color: "var(--red)"}}>MURKY</span>. FINANCE FEELS <span style={{ color: "var(--red)"}}>FOREIGN</span>.
             </h2>
 
             <p>Most people feel the pressure. Very few say it out loud.</p>

@@ -10,7 +10,7 @@ export default function PunchTheClock() {
           <h2 className="section-title display">
             Punch
             <br />
-            <span className="red">The Clock.</span>
+            <span className="red">The <span style={{ color: "var(--red)"}}>Clock</span>.</span>
           </h2>
           <p>
             Your round is not over. Yet. <br />

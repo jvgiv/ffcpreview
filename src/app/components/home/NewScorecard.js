@@ -15,7 +15,7 @@ export default function NewScorecard() {
         <div className="scorecard-inner">
           <div className="scorecard-copy reveal">
             <span className="section-label">Start Here - Free</span>
-            <h2 className="section-title">Your Orientation ScoreCard</h2>
+            <h2 className="section-title">Your <span style={{ color: "var(--red)"}}>Orientation</span> ScoreCard</h2>
             <p>
               Establish your baseline across 18 essential areas of financial
               life, from Cash Flow to Investing.

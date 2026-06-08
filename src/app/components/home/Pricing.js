@@ -17,7 +17,7 @@ export default function Pricing() {
       <div className="container">
         <div className="reveal">
           <span className="section-label">The MenuBoard</span>
-          <h2 className="section-title">Flat-fee. No products. No pressure.</h2>
+          <h2 className="section-title">Flat-fee. <span style={{ color: "var(--red)"}}>No</span> products. <span style={{ color: "var(--red)"}}>No</span> pressure.</h2>
           <ul className="pricing-features reveal">
             <li>Learn core financial concepts and trade-offs</li>
             <li>

@@ -9,7 +9,7 @@ export default function HomePageDefs() {
         <div className="scorecard-inner defs-homepage-inner">
           <div className="scorecard-copy defs-homepage-copy reveal">
             <span className="section-label">DogStar Definitions</span>
-            <h2 className="section-title">Your Financial Field Guide</h2>
+            <h2 className="section-title">Your Financial <span style={{ color: "var(--red)"}}>Field Guide</span></h2>
             <p>
               Stop guessing at terms designed to confuse you. This is your
               personal field guide:{" "}
