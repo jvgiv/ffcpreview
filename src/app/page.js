@@ -116,16 +116,18 @@ export default function Home() {
             {/* <p>practical financial orientation</p> */}
             <p
               style={{
-                color: "var(--gray)",
+                color: "var(--homepage-gray)",
                 fontSize: "clamp(1.8rem, 2vw, 1.2rem)",
                 lineHeight: "1.3",
                 fontFamily: "var(--font-playfair)",
                 fontStyle: "italic",
-                fontWeight: 'bold'
+                fontWeight: 'bold',
+                paddingBottom: "1rem"
               }}
             >
               For people who want clarity. Not complexity.
             </p>
+
             <Image
               src="/pfo.png"
               alt="practical financial orientation"
