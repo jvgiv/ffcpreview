@@ -231,7 +231,6 @@ export default function AuthForm({ mode }) {
   const [successMessage, setSuccessMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const redirectTarget =
     currentSearchParams === null
       ? "/logged-in"
@@ -524,7 +523,7 @@ export default function AuthForm({ mode }) {
                       id="confirmPassword"
                       className={styles.fieldInput}
                       name="confirmPassword"
-                      type={showConfirmPassword ? "text" : "password"}
+                      type={showPassword ? "text" : "password"}
                       placeholder="Repeat your password"
                       value={formData.confirmPassword}
                       onChange={handleChange}
@@ -535,17 +534,17 @@ export default function AuthForm({ mode }) {
                     <button
                       className={styles.passwordToggle}
                       type="button"
-                      onClick={() => setShowConfirmPassword((isVisible) => !isVisible)}
+                      onClick={() => setShowPassword((isVisible) => !isVisible)}
                       aria-controls="confirmPassword"
                       aria-label={
-                        showConfirmPassword
+                        showPassword
                           ? "Hide confirmed password"
                           : "Show confirmed password"
                       }
-                      aria-pressed={showConfirmPassword}
+                      aria-pressed={showPassword}
                     >
                       <FontAwesomeIcon
-                        icon={showConfirmPassword ? faEyeSlash : faEye}
+                        icon={showPassword ? faEyeSlash : faEye}
                         aria-hidden="true"
                       />
                     </button>
