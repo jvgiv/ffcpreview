@@ -56,15 +56,19 @@ export default function About() {
         </div>
 
         <aside
-          className={`${styles.heroPanelWhat} ${styles.revealCard} reveal`}
+          className={`${styles.heroPanelWhatThisIs} ${styles.revealCard} reveal`}
           style={{ transitionDelay: "0.12s" }}
         >
           <p className={styles.panelLabel}>What this is</p>
           <p className={styles.panelBody}>
             A grounded starting point for understanding money decisions,
-            financial systems, and the next right move. No jargon. No agenda.
-            Just orientation.
+            financial systems, and the next right move.
+            <br />
+            No jargon. No agenda. Just orientation.
           </p>
+          
+          <p className={styles.panelLabel}>Who this is for</p>
+          <p className={styles.panelBody}>For people who want Clarity.  Not Complexity.</p>
         </aside>
       </section>
 
@@ -99,16 +103,16 @@ export default function About() {
         <article className={`${styles.storyCard} ${styles.revealCard} reveal`}>
           <p className={styles.sectionLabel}>Captaining our roster</p>
           <h3 className={styles.titleRoster}>
+              ATTENTIVE{" "}
             <span
               style={{
                 color: "var(--red)",
-                fontStyle: "italic",
+                // fontStyle: "italic",
                 letterSpacing: "0.04em",
               }}
             >
-              ATTENTIVE
-            </span>{" "}
             COURSE PROS
+            </span>
           </h3>
           <p className={styles.storyText}>
             At <span style={{ fontWeight: "bold" }}>FAR FLUNG CHANGE</span>, you
@@ -180,7 +184,9 @@ export default function About() {
         <div className={`${styles.finalCta} ${styles.revealCard} reveal`}>
           <p className={styles.sectionLabel}>Try Far Flung Change</p>
           <h2 className={styles.finalCtaTitle}>Your round is not over. Yet.</h2>
-          <p className={styles.finalCtaBody}>See what orientation looks like before you commit to anything.</p>
+          <p className={styles.finalCtaBody}>
+            See what orientation looks like before you commit to anything.
+          </p>
           <div className={styles.finalCtaActions}>
             <a
               href="/files/agreement.pdf"
@@ -189,10 +195,7 @@ export default function About() {
             >
               View Agreement -&gt;
             </a>
-            <Link
-              href="/#scorecard"
-              className={styles.ctaGhost}
-            >
+            <Link href="/#scorecard" className={styles.ctaGhost}>
               Free ScoreCard First
             </Link>
           </div>

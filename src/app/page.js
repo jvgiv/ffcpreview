@@ -140,8 +140,8 @@ export default function Home() {
               className="hero-logo-image"
               src="/FFLogo.png"
               alt="FFC Logo"
-              width={250}
-              height={280}
+              width={500}
+              height={560}
             />
           </div>
           </div>
