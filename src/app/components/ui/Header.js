@@ -118,7 +118,7 @@ export default function Header() {
             ))}
           </ul>
         </li>
-        <li className="ffc-nav-item">
+        {/* <li className="ffc-nav-item">
           <Link
             className={`ffc-nav-link ${pathName === "/caddybook" ? "active" : "" }`}
             href="/caddybook"
@@ -126,16 +126,21 @@ export default function Header() {
           >
             CADDY BOOK + SCORECARD
           </Link>
-        </li>
+        </li> */}
         <li className="ffc-nav-item ffc-nav-item-orientation">
           <Link
             className={`ffc-nav-link ${pathName === "/orientation" ? "active" : "" }`}
             href="/orientation"
             onClick={handleNavClose}
           >
-            GUIDED ORIENTATION
+            THE PROGRAM
           </Link>
           <ul className="ffc-home-menu" aria-label="Guided Orientation section links">
+            <li>
+              <Link className="ffc-home-menu-link" href="/orientation#guided-orientation">
+                Guided Orientation
+              </Link>
+            </li>
             <li>
               <Link className="ffc-home-menu-link" href="/orientation#how-it-works">
                 View The Agreement
@@ -146,11 +151,11 @@ export default function Header() {
                 Submit Your OQ
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link className="ffc-home-menu-link" href="/orientation/definitions">
                 DogStar Definitions
               </Link>
-            </li>
+            </li> */}
           </ul>
         </li>
         <li className="ffc-nav-item">
@@ -228,9 +233,14 @@ export default function Header() {
               href="/orientation"
               onClick={handleNavClose}
             >
-              GUIDED ORIENTATION
+              THE PROGRAM
             </Link>
             <ul className="ffc-home-mobile-menu" aria-label="Guided Orientation section links">
+              <li>
+                <Link className="ffc-home-menu-link" href="/orientation#guided-orientation" onClick={handleNavClose}>
+                  GUIDED ORIENTATION
+                </Link>
+              </li>
               <li>
                 <Link className="ffc-home-menu-link" href="/orientation#how-it-works" onClick={handleNavClose}>
                   How it Works
@@ -241,11 +251,11 @@ export default function Header() {
                   Submit Your OQ
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link className="ffc-home-menu-link" href="/orientation/definitions" onClick={handleNavClose}>
                   DogStar Definitions
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </li>
           <li className="ffc-nav-mobile-item">

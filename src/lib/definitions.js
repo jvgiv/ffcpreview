@@ -10,13 +10,13 @@ const chapterIdByTitle = chapters.reduce((lookup, chapter) => {
 }, {})
 
 export function getDefinitionHref(label) {
-  if (!label) return '/definitions'
+  if (!label) return '/orientation/definitions'
 
   if (normalizeLabel(label) === normalizeLabel('All: Fair Game')) {
-    return '/definitions'
+    return '/orientation/definitions'
   }
 
   const chapterId = chapterIdByTitle[normalizeLabel(label)]
 
-  return chapterId ? `/definitions/${chapterId}` : '/definitions'
+  return chapterId ? `/orientation/definitions/${chapterId}` : '/orientation/definitions'
 }

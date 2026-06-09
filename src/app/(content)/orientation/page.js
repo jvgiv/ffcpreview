@@ -6,7 +6,7 @@ import "../../homepage.css";
 export default function Orientation() {
   return (
     <main className={styles.page}>
-      <section className={`${styles.hero} ${styles.revealCard} reveal`}>
+      <section id="guided-orientation" className={`${styles.hero} ${styles.revealCard} reveal`}>
         <div>
           <h1 className={styles.heroTitle}>Guided <span style={{color: "var(--red)"}}>Orientation</span></h1>
           <p className={styles.heroSubtitle}>
