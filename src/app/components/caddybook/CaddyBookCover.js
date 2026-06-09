@@ -20,7 +20,7 @@ export default function CaddyBookCover({ memberProfile }) {
             />
         </div>
         <div className="cover-mid">
-            <p className="cover-eyebrow">· A Practical Field Guide · Identify Where You Are Now ·</p>
+            <p className="cover-eyebrow">· <span style={{ color: "var(--red)", fontStyle: "normal"}}>A Practical Field Guide</span> · <span style={{ fontFamily: "var(--font-playfair", fontSize: '1rem'}}>IDENTIFY WHERE YOU ARE NOW</span> ·</p>
             <div className="cover-rule"></div>
             <p className="cover-caddy">the Caddy Book of</p>
             <h1 className="cover-title">Orientation</h1>

@@ -104,11 +104,13 @@ body {
   margin-bottom: 24px;
 }
 .cover-caddy {
-  font-family: "EB Garamond", serif;
+  font-family: "Playfair Display, serif";
   font-style: italic;
   font-size: 26px;
   color: var(--white);
   margin-bottom: 4px;
+  display: flex;
+  justify-content: flex-start;
 }
 .cover-title {
   font-family: "Oswald", sans-serif;
@@ -136,7 +138,7 @@ body {
   margin-bottom: 6px;
 }
 .cover-sub {
-  font-family: "EB Garamond", serif;
+  font-family: "Playfair Display", serif;
   font-style: italic;
   font-size: 16px;
   color: rgba(255, 255, 255, 0.56);
@@ -390,7 +392,7 @@ body {
 }
 .toc-name span {
   display: block;
-  font-family: "EB Garamond", serif;
+  font-family: "Playfair Display", serif;
   font-style: italic;
   font-size: 13px;
   font-weight: 400;
@@ -478,7 +480,7 @@ body {
   line-height: 1;
 }
 .element-title-block .el-sub {
-  font-family: "EB Garamond", serif;
+  font-family: "Playfair Display", serif;
   font-style: italic;
   font-size: 16px;
   color: rgba(255, 255, 255, 0.4);
