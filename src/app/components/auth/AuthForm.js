@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -228,6 +230,8 @@ export default function AuthForm({ mode }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const redirectTarget =
     currentSearchParams === null
       ? "/logged-in"
@@ -473,18 +477,33 @@ export default function AuthForm({ mode }) {
                 <label className={styles.fieldLabel} htmlFor="password">
                   Password
                 </label>
-                <input
-                  id="password"
-                  className={styles.fieldInput}
-                  name="password"
-                  type="password"
-                  placeholder="Minimum 6 characters"
-                  value={formData.password}
-                  onChange={handleChange}
-                  autoComplete={isRegister ? "new-password" : "current-password"}
-                  minLength={6}
-                  required
-                />
+                <div className={styles.passwordField}>
+                  <input
+                    id="password"
+                    className={styles.fieldInput}
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Minimum 6 characters"
+                    value={formData.password}
+                    onChange={handleChange}
+                    autoComplete={isRegister ? "new-password" : "current-password"}
+                    minLength={6}
+                    required
+                  />
+                  <button
+                    className={styles.passwordToggle}
+                    type="button"
+                    onClick={() => setShowPassword((isVisible) => !isVisible)}
+                    aria-controls="password"
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    aria-pressed={showPassword}
+                  >
+                    <FontAwesomeIcon
+                      icon={showPassword ? faEyeSlash : faEye}
+                      aria-hidden="true"
+                    />
+                  </button>
+                </div>
               </div>
 
               {!isRegister ? (
@@ -500,18 +519,37 @@ export default function AuthForm({ mode }) {
                   <label className={styles.fieldLabel} htmlFor="confirmPassword">
                     Confirm Password
                   </label>
-                  <input
-                    id="confirmPassword"
-                    className={styles.fieldInput}
-                    name="confirmPassword"
-                    type="password"
-                    placeholder="Repeat your password"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                    autoComplete="new-password"
-                    minLength={6}
-                    required
-                  />
+                  <div className={styles.passwordField}>
+                    <input
+                      id="confirmPassword"
+                      className={styles.fieldInput}
+                      name="confirmPassword"
+                      type={showConfirmPassword ? "text" : "password"}
+                      placeholder="Repeat your password"
+                      value={formData.confirmPassword}
+                      onChange={handleChange}
+                      autoComplete="new-password"
+                      minLength={6}
+                      required
+                    />
+                    <button
+                      className={styles.passwordToggle}
+                      type="button"
+                      onClick={() => setShowConfirmPassword((isVisible) => !isVisible)}
+                      aria-controls="confirmPassword"
+                      aria-label={
+                        showConfirmPassword
+                          ? "Hide confirmed password"
+                          : "Show confirmed password"
+                      }
+                      aria-pressed={showConfirmPassword}
+                    >
+                      <FontAwesomeIcon
+                        icon={showConfirmPassword ? faEyeSlash : faEye}
+                        aria-hidden="true"
+                      />
+                    </button>
+                  </div>
                 </div>
               ) : null}
 
