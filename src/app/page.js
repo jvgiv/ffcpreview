@@ -44,7 +44,7 @@ export default function Home() {
             </span>{" "}
             of money matters! */}
           </div>
-          <p className="hero-sub-title-text">
+          <p className="hero-sub-title-text reveal">
             Financial orientation is simply knowing where you stand...and what's
             around. 
             <br />
