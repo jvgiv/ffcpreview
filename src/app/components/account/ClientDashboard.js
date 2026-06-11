@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
+import { hasDefinitionsAccess } from "@/lib/access";
 import { getFirebaseAuth } from "@/lib/firebase/auth";
 import { AGE_RANGE_OPTIONS } from "@/lib/firebase/profileOptions";
 import { getPurchaseBySlug, isPaymentComplete } from "@/lib/purchases";
@@ -301,6 +302,7 @@ export default function ClientDashboard({
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const paymentSummary = profile?.paymentSummary || {};
+  const canOpenDefinitions = hasDefinitionsAccess({ paymentSummary });
   const purchasedProgramCount = PROGRAM_ACCESS.filter((purchase) =>
     isPaymentComplete(paymentSummary?.[purchase.agreementSlug]?.status)
   ).length;
@@ -328,14 +330,19 @@ export default function ClientDashboard({
     }),
     {
       title: "DogStar Definitions",
-      description:
-        "Browse the definitions library so concepts, terms, and trade-offs stay within easy reach.",
-      meta: "Included member resource",
-      href: "/orientation/definitions",
-      ctaLabel: "Open Definitions",
-      badgeLabel: "Included",
-      badgeTone: "success",
-      isPrimary: false,
+      description: canOpenDefinitions
+        ? "Browse the definitions library so concepts, terms, and trade-offs stay within easy reach."
+        : "Unlock the compendium through a paid Orientation package before opening the definitions library.",
+      meta: canOpenDefinitions
+        ? "Unlocked through your paid orientation package"
+        : "Purchase required",
+      href: canOpenDefinitions
+        ? "/orientation/definitions"
+        : "/logged-in/checkout?agreement=financial-orientation",
+      ctaLabel: canOpenDefinitions ? "Open Definitions" : "Unlock With Orientation",
+      badgeLabel: canOpenDefinitions ? "Unlocked" : "Purchase Required",
+      badgeTone: canOpenDefinitions ? "success" : "accent",
+      isPrimary: !canOpenDefinitions,
     },
     {
       title: "Thought Gallery",
@@ -585,8 +592,8 @@ export default function ClientDashboard({
             Your Member Access
           </h2>
           <p style={{ color: "rgba(245, 240, 232, 0.72)", lineHeight: 1.7, margin: "0 0 1.25rem" }}>
-            Everything below is reachable because you are signed in. Use this page as the single
-            jump-off point for what your account includes right now.
+            Everything below is organized around your account. Open what is already unlocked, or
+            jump straight into checkout where access still needs to be activated.
           </p>
 
           <div

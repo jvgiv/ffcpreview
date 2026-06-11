@@ -23,10 +23,13 @@ export default function AuthGate({
   children,
   allowedRoles = [USER_ROLES.CLIENT, USER_ROLES.ADMIN],
   unauthorizedHref = "/logged-in",
+  allow = null,
 }) {
   const router = useRouter();
-  const { isLoading, isAuthenticated, role } = useAuth();
+  const auth = useAuth();
+  const { isLoading, isAuthenticated, role } = auth;
   const hasRequiredRole = isAllowedUserRole(role, allowedRoles);
+  const hasAllowedAccess = typeof allow === "function" ? Boolean(allow(auth)) : true;
 
   useEffect(() => {
     if (isLoading) {
@@ -38,16 +41,23 @@ export default function AuthGate({
       return;
     }
 
-    if (!hasRequiredRole) {
+    if (!hasRequiredRole || !hasAllowedAccess) {
       router.replace(unauthorizedHref);
     }
-  }, [hasRequiredRole, isAuthenticated, isLoading, router, unauthorizedHref]);
+  }, [
+    hasAllowedAccess,
+    hasRequiredRole,
+    isAuthenticated,
+    isLoading,
+    router,
+    unauthorizedHref,
+  ]);
 
   if (isLoading) {
     return <div style={{ minHeight: "100vh" }} />;
   }
 
-  if (!isAuthenticated || !hasRequiredRole) {
+  if (!isAuthenticated || !hasRequiredRole || !hasAllowedAccess) {
     return null;
   }
 
