@@ -21,7 +21,7 @@ export default function Home() {
             First Financial Advisory
             <br />- Est. 1974 -{" "}
           </p>
-          
+
           {/* <h1 className="hero-title">
             <em>practical financial</em>
             <span className="hero-title-main">ORIENTATION</span>
@@ -29,7 +29,8 @@ export default function Home() {
           <div className="hero-sub-changes-top">
             {/* Financial stress isn&apos;t mostly a money problem. It&apos;s mostly a fog problem. Far Flung Change clears the fog.  - {" "}
             <strong style={{ color: "var(--white)" }}>Before you reach the Clubhouse.</strong> */}
-            Facing your finances <br /> doesn&apos;t have to feel <br /> like roaming a{" "}
+            Facing your finances <br /> doesn&apos;t have to feel <br /> like
+            roaming a{" "}
             <span style={{ color: "var(--red)" }}>
               <span style={{ fontWeight: "bold" }}>foreign</span>
             </span>{" "}
@@ -43,6 +44,13 @@ export default function Home() {
             </span>{" "}
             of money matters! */}
           </div>
+          <p className="hero-sub-title-text">
+            Financial orientation is simply knowing where you stand...and what's
+            around. 
+            <br />
+            So you&apos;re confident the next move you make is the clear
+            choice.
+          </p>
           <ul style={{ listStyleType: "none" }} className="hero-sub-list">
             <li className="hero-sub-item">
               <div className="bullet-icon">
@@ -121,8 +129,8 @@ export default function Home() {
                 lineHeight: "1.3",
                 fontFamily: "var(--font-playfair)",
                 fontStyle: "italic",
-                fontWeight: 'bold',
-                paddingBottom: "1rem"
+                fontWeight: "bold",
+                paddingBottom: "1rem",
               }}
             >
               For people who want clarity. Not complexity.
@@ -136,14 +144,14 @@ export default function Home() {
               style={{ width: "100%", height: "auto", maxWidth: "599px" }}
             />
             <div className="hero-logo-ring">
-            <Image
-              className="hero-logo-image"
-              src="/FFLogo.png"
-              alt="FFC Logo"
-              width={500}
-              height={560}
-            />
-          </div>
+              <Image
+                className="hero-logo-image"
+                src="/FFLogo.png"
+                alt="FFC Logo"
+                width={500}
+                height={560}
+              />
+            </div>
           </div>
           {/* <p className="hero-sub">Welcome to FinancialOrientation</p> */}
           <div className="brand-signature">
@@ -165,7 +173,7 @@ export default function Home() {
               className="btn-primary"
               style={{ fontSize: "1.3em" }}
             >
-              BE ORIENTED &gt;
+              REVIEW THE OFFER &gt;
             </Link>
             <Link
               href="/logged-in/#member-access"
@@ -175,7 +183,7 @@ export default function Home() {
               FREE Caddy Book + Scorecard
             </Link>
           </div>
-          
+
           <div className="scroll-hint">
             <span>scroll</span>
             <div className="scroll-line"></div>
