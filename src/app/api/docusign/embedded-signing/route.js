@@ -77,7 +77,6 @@ function validatePayload(body) {
     additionalCount: purchase.additionalCount,
     purchase,
     client: {
-      taxId: normalizeText(body?.clientTaxId),
       streetAddress: clientStreetAddress,
       cityStateZip: clientCityStateZip,
     },

@@ -86,6 +86,11 @@ const fieldInputStyle = {
   fontSize: "0.98rem",
 };
 
+const fieldInputActiveStyle = {
+  background: "rgba(8, 8, 8, 0.96)",
+  color: "var(--white)",
+};
+
 const inlineButtonStyle = {
   ...primaryButtonStyle,
   cursor: "pointer",
@@ -301,6 +306,7 @@ export default function ClientDashboard({
   const [successMessage, setSuccessMessage] = useState("");
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isAgeRangeFocused, setIsAgeRangeFocused] = useState(false);
   const paymentSummary = profile?.paymentSummary || {};
   const canOpenDefinitions = hasDefinitionsAccess({ paymentSummary });
   const purchasedProgramCount = PROGRAM_ACCESS.filter((purchase) =>
@@ -754,10 +760,16 @@ export default function ClientDashboard({
               <label>
                 <span style={fieldLabelStyle}>Age Range</span>
                 <select
-                  style={fieldInputStyle}
+                  style={
+                    isAgeRangeFocused
+                      ? { ...fieldInputStyle, ...fieldInputActiveStyle }
+                      : fieldInputStyle
+                  }
                   name="ageRange"
                   value={formData.ageRange}
                   onChange={handleChange}
+                  onFocus={() => setIsAgeRangeFocused(true)}
+                  onBlur={() => setIsAgeRangeFocused(false)}
                   required
                 >
                   <option value="">Select an age range</option>

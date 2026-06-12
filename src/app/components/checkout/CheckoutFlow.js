@@ -19,6 +19,7 @@ const EMPTY_MESSAGE = {
 const PURCHASE_OPTIONS = listPurchases();
 const FOCUSED_VIEW_MOUNT_ID = "checkout-docusign-focused-view";
 const PAYPAL_BUTTON_MOUNT_ID = "checkout-paypal-button-mount";
+const SIGNING_DRAFT_STORAGE_PREFIX = "ffc-checkout-signing-draft";
 
 function formatDate(value) {
   if (!value) {
@@ -60,7 +61,6 @@ function buildInitialSigningForm() {
   return {
     signerName: "",
     signerEmail: "",
-    clientTaxId: "",
     clientStreetAddress: "",
     clientCityStateZip: "",
     additionalPlanTier: "none",
@@ -74,25 +74,127 @@ function buildInitialSigningForm() {
   };
 }
 
-function buildSigningFormFromCheckout(checkout, fallback = {}) {
-  const baseForm = buildInitialSigningForm();
+function buildNormalizedSigningForm(partial = {}) {
+  const initialForm = buildInitialSigningForm();
+
+  return Object.fromEntries(
+    Object.keys(initialForm).map((key) => [
+      key,
+      typeof partial?.[key] === "string" ? partial[key] : initialForm[key],
+    ])
+  );
+}
+
+function buildPayorProfileSigningPrefill(profile, authUser) {
+  return {
+    signerName: profile?.displayName || authUser?.displayName || authUser?.email || "",
+    signerEmail: profile?.email || authUser?.email || "",
+  };
+}
+
+function buildUserProfileSigningPrefill(profile, authUser) {
+  return {
+    ...buildPayorProfileSigningPrefill(profile, authUser),
+    primaryOrienteerName: profile?.displayName || authUser?.displayName || "",
+    primaryOrienteerPhone: profile?.phoneNumber || authUser?.phoneNumber || "",
+    primaryOrienteerEmail: profile?.email || authUser?.email || "",
+  };
+}
+
+function buildSigningFormPatchFromCheckout(checkout) {
+  if (!checkout || typeof checkout !== "object") {
+    return {};
+  }
 
   return {
-    ...baseForm,
-    signerName: fallback.signerName || "",
-    signerEmail: fallback.signerEmail || "",
-    clientTaxId: checkout?.client?.taxId || "",
-    clientStreetAddress: checkout?.client?.streetAddress || "",
-    clientCityStateZip: checkout?.client?.cityStateZip || "",
-    additionalPlanTier: checkout?.additionalPlanTier || "none",
-    additionalCount: String(checkout?.additionalCount || 0),
-    primaryOrienteerName: checkout?.orienteers?.[0]?.name || "",
-    primaryOrienteerPhone: checkout?.orienteers?.[0]?.phone || "",
-    primaryOrienteerEmail: checkout?.orienteers?.[0]?.email || "",
-    secondaryOrienteerName: checkout?.orienteers?.[1]?.name || "",
-    secondaryOrienteerPhone: checkout?.orienteers?.[1]?.phone || "",
-    secondaryOrienteerEmail: checkout?.orienteers?.[1]?.email || "",
+    clientStreetAddress: checkout.client?.streetAddress || "",
+    clientCityStateZip: checkout.client?.cityStateZip || "",
+    additionalPlanTier: checkout.additionalPlanTier || "none",
+    additionalCount: String(checkout.additionalCount || 0),
+    primaryOrienteerName: checkout.orienteers?.[0]?.name || "",
+    primaryOrienteerPhone: checkout.orienteers?.[0]?.phone || "",
+    primaryOrienteerEmail: checkout.orienteers?.[0]?.email || "",
+    secondaryOrienteerName: checkout.orienteers?.[1]?.name || "",
+    secondaryOrienteerPhone: checkout.orienteers?.[1]?.phone || "",
+    secondaryOrienteerEmail: checkout.orienteers?.[1]?.email || "",
   };
+}
+
+function mergeSigningFormPatch(baseForm, patch) {
+  const nextForm = buildNormalizedSigningForm(baseForm);
+
+  if (!patch || typeof patch !== "object") {
+    return nextForm;
+  }
+
+  for (const key of Object.keys(nextForm)) {
+    const value = patch[key];
+
+    if (typeof value === "string" && value !== "") {
+      nextForm[key] = value;
+    }
+  }
+
+  return nextForm;
+}
+
+function buildSigningDraftStorageKey(uid, agreementSlug) {
+  if (!uid || !agreementSlug) {
+    return "";
+  }
+
+  return `${SIGNING_DRAFT_STORAGE_PREFIX}:${uid}:${agreementSlug}`;
+}
+
+function readSigningFormDraft(storageKey) {
+  if (typeof window === "undefined" || !storageKey) {
+    return null;
+  }
+
+  try {
+    const storedValue = window.localStorage.getItem(storageKey);
+
+    if (!storedValue) {
+      return null;
+    }
+
+    const parsedValue = JSON.parse(storedValue);
+
+    return buildNormalizedSigningForm(parsedValue?.form || parsedValue);
+  } catch (error) {
+    console.error("Unable to read the saved signing draft.", error);
+    return null;
+  }
+}
+
+function writeSigningFormDraft(storageKey, signingForm) {
+  if (typeof window === "undefined" || !storageKey) {
+    return;
+  }
+
+  try {
+    window.localStorage.setItem(
+      storageKey,
+      JSON.stringify({
+        form: buildNormalizedSigningForm(signingForm),
+        updatedAt: new Date().toISOString(),
+      })
+    );
+  } catch (error) {
+    console.error("Unable to save the signing draft.", error);
+  }
+}
+
+function clearSigningFormDraft(storageKey) {
+  if (typeof window === "undefined" || !storageKey) {
+    return;
+  }
+
+  try {
+    window.localStorage.removeItem(storageKey);
+  } catch (error) {
+    console.error("Unable to clear the saved signing draft.", error);
+  }
 }
 
 const FIELD_LABEL_STYLE = {
@@ -301,6 +403,11 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
   const [isCapturingPayment, setIsCapturingPayment] = useState(false);
 
   const payPalClientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "";
+  const signingDraftStorageKey = buildSigningDraftStorageKey(
+    authUser?.uid,
+    selectedPurchase?.agreementSlug
+  );
+  const [hasHydratedSigningDraft, setHasHydratedSigningDraft] = useState(false);
 
   useEffect(() => {
     setCheckoutState((currentState) => ({
@@ -323,17 +430,48 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
   }, [selectedPurchase]);
 
   useEffect(() => {
-    setSigningForm((currentForm) => ({
-      ...currentForm,
-      signerName:
-        currentForm.signerName ||
-        profile?.displayName ||
-        authUser?.displayName ||
-        authUser?.email ||
-        "",
-      signerEmail: currentForm.signerEmail || profile?.email || authUser?.email || "",
-    }));
-  }, [authUser, profile]);
+    setHasHydratedSigningDraft(false);
+  }, [signingDraftStorageKey]);
+
+  useEffect(() => {
+    if (isAuthLoading || !selectedPurchase) {
+      return;
+    }
+
+    let nextForm = buildInitialSigningForm();
+
+    nextForm = mergeSigningFormPatch(nextForm, buildUserProfileSigningPrefill(profile, authUser));
+
+    const savedDraft = readSigningFormDraft(signingDraftStorageKey);
+
+    if (savedDraft) {
+      nextForm = {
+        ...nextForm,
+        ...savedDraft,
+      };
+    }
+
+    setSigningForm(nextForm);
+    setHasHydratedSigningDraft(true);
+  }, [authUser, isAuthLoading, profile, selectedPurchase, signingDraftStorageKey]);
+
+  useEffect(() => {
+    if (!hasHydratedSigningDraft || !signingDraftStorageKey) {
+      return;
+    }
+
+    if (checkoutState.payment.isPaid) {
+      clearSigningFormDraft(signingDraftStorageKey);
+      return;
+    }
+
+    writeSigningFormDraft(signingDraftStorageKey, signingForm);
+  }, [
+    checkoutState.payment.isPaid,
+    hasHydratedSigningDraft,
+    signingDraftStorageKey,
+    signingForm,
+  ]);
 
   const loadCheckoutState = useEffectEvent(async () => {
     if (!authUser || !selectedPurchase) {
@@ -357,6 +495,26 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
         throw new Error(data.error || "Unable to load the checkout state.");
       }
 
+      const isPaymentPaid = Boolean(data.payment?.isPaid);
+      const checkoutFormPatch = buildSigningFormPatchFromCheckout(data.signing?.checkout);
+      const savedDraft = readSigningFormDraft(signingDraftStorageKey);
+      let nextForm = buildInitialSigningForm();
+
+      nextForm = mergeSigningFormPatch(
+        nextForm,
+        isPaymentPaid
+          ? buildPayorProfileSigningPrefill(profile, authUser)
+          : buildUserProfileSigningPrefill(profile, authUser)
+      );
+      nextForm = mergeSigningFormPatch(nextForm, checkoutFormPatch);
+
+      if (savedDraft && !isPaymentPaid) {
+        nextForm = {
+          ...nextForm,
+          ...savedDraft,
+        };
+      }
+
       setCheckoutState({
         isLoading: false,
         errorMessage: "",
@@ -371,18 +529,17 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
         payment: {
           ...(data.payment || {}),
           status: data.payment?.status || "",
-          isPaid: Boolean(data.payment?.isPaid),
+          isPaid: isPaymentPaid,
           lastOrderId: data.payment?.lastOrderId || "",
           payerEmail: data.payment?.payerEmail || "",
           completedAt: data.payment?.completedAt || null,
         },
       });
-      setSigningForm((currentForm) =>
-        buildSigningFormFromCheckout(data.signing?.checkout, {
-          signerName: currentForm.signerName,
-          signerEmail: currentForm.signerEmail,
-        })
-      );
+      setSigningForm(nextForm);
+
+      if (isPaymentPaid) {
+        clearSigningFormDraft(signingDraftStorageKey);
+      }
     } catch (error) {
       setCheckoutState((currentState) => ({
         ...currentState,
@@ -814,6 +971,7 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
             type: "success",
             text: "Payment captured. Updating your member homepage now...",
           });
+          clearSigningFormDraft(signingDraftStorageKey);
           await refreshProfile();
           router.replace("/logged-in");
         } catch (error) {
@@ -907,7 +1065,6 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
           signerName: signingForm.signerName.trim(),
           signerEmail: signingForm.signerEmail.trim(),
           agreementSlug: selectedPurchase.agreementSlug,
-          clientTaxId: signingForm.clientTaxId.trim(),
           clientStreetAddress: signingForm.clientStreetAddress.trim(),
           clientCityStateZip: signingForm.clientCityStateZip.trim(),
           additionalPlanTier: signingForm.additionalPlanTier,
@@ -1123,7 +1280,7 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
         <StepCard
           eyebrow="Step 1"
           title="Review And Sign"
-          copy="Capture the payor details and program selections first, then sign the agreement. Once the signed DocuSign event is saved, the PayPal section below unlocks automatically."
+          copy="Capture the payor details and program selections first, then sign the agreement. Available profile details prefill the form, and your edits stay saved in this browser while you work."
           statusLabel={
             checkoutState.signing.isSigned
               ? `Signed ${formatDate(checkoutState.signing.completedAt)}`
@@ -1217,19 +1374,6 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
                       required
                     />
                   </label>
-
-                  <label className={styles.fieldGroup}>
-                    <span style={FIELD_LABEL_STYLE}>Client Tax ID</span>
-                    <input
-                      className={styles.fieldInput}
-                      style={FIELD_INPUT_STYLE}
-                      name="clientTaxId"
-                      type="text"
-                      value={signingForm.clientTaxId}
-                      onChange={handleSigningInputChange}
-                      disabled={checkoutState.payment.isPaid}
-                    />
-                  </label>
                 </div>
               </div>
 
@@ -1271,8 +1415,8 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
                       disabled={checkoutState.payment.isPaid}
                     >
                       <option value="none">No Additional Orienteers</option>
-                      <option value="basic">Basic FOP</option>
-                      <option value="premium">Premium FOP</option>
+                      <option value="basic">Basic Financial Orientation Package</option>
+                      <option value="premium">Premium Financial Orientation Package</option>
                     </select>
                   </label>
 
@@ -1405,8 +1549,8 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
                   </div>
                 </div>
                 <p style={{ margin: 0, color: "rgba(245, 240, 232, 0.7)", lineHeight: 1.7 }}>
-                  Leave the Orienteer lines blank when the payor and the first Orienteer are the
-                  same person. The agreement will only fill these rows when you provide values.
+                  These lines start with your saved profile details when available. Edit or clear
+                  them before signing so the agreement reflects the right Orienteer information.
                 </p>
               </div>
             </div>
@@ -1488,7 +1632,7 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
                 >
                   Agreement PDF
                 </span>
-                <strong>Page 2 choices + page 5 payor lines will be prefilled</strong>
+                <strong>Page 2 choices + page 5 payor and Orienteer lines will be prefilled</strong>
               </div>
             </div>
           </div>
@@ -1563,7 +1707,7 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
                   : "Start Agreement Signing"}
             </button>
             <Link
-              href={`/agreements/${selectedPurchase.agreementSlug}`}
+              href="/orientation"
               style={{
                 display: "inline-flex",
                 alignItems: "center",

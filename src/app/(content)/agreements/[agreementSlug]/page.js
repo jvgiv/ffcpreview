@@ -153,7 +153,7 @@ export default async function AgreementPage({ params }) {
           ) : null}
           {showOrientationLink ? (
             <Link
-              href={`/agreements/${orientationAgreement.slug}`}
+              href="/orientation"
               style={{
                 display: "inline-block",
                 padding: "0.95rem 1.25rem",

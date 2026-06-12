@@ -36,6 +36,11 @@ const AGREEMENT_LAYOUT = {
     },
   },
   orienteerFields: {
+    firstName: {
+      pageNumber: "5",
+      xPosition: "76",
+      yPosition: "455",
+    },
     firstPhone: {
       pageNumber: "5",
       xPosition: "310",
@@ -49,6 +54,11 @@ const AGREEMENT_LAYOUT = {
     secondPhone: {
       pageNumber: "5",
       xPosition: "310",
+      yPosition: "495",
+    },
+    secondName: {
+      pageNumber: "5",
+      xPosition: "76",
       yPosition: "495",
     },
     secondEmail: {
@@ -268,13 +278,6 @@ function buildAgreementTabs({ checkout, signerName }) {
       width: "220",
     }),
     buildPrefilledTextTab({
-      tabLabel: "client-tax-id",
-      value: checkout.client?.taxId,
-      anchorString: "Client Tax Identification Number",
-      anchorYOffset: "-24",
-      width: "190",
-    }),
-    buildPrefilledTextTab({
       tabLabel: "client-street-address",
       value: checkout.client?.streetAddress,
       anchorString: "Client Street Address",
@@ -288,13 +291,12 @@ function buildAgreementTabs({ checkout, signerName }) {
       anchorYOffset: "-24",
       width: "190",
     }),
-    buildPrefilledTextTab({
+    buildPrefilledPositionTab({
       tabLabel: "orienteer-name-1",
       value: checkout.orienteers?.[0]?.name,
-      anchorString: "Orienteer Name (if different)",
-      anchorOccurrence: "1",
-      anchorYOffset: "-24",
-      width: "235",
+      ...AGREEMENT_LAYOUT.orienteerFields.firstName,
+      width: "220",
+      fontSize: "size9",
     }),
     buildPrefilledPositionTab({
       tabLabel: "orienteer-phone-1",
@@ -308,13 +310,12 @@ function buildAgreementTabs({ checkout, signerName }) {
       ...AGREEMENT_LAYOUT.orienteerFields.firstEmail,
       width: "110",
     }),
-    buildPrefilledTextTab({
+    buildPrefilledPositionTab({
       tabLabel: "orienteer-name-2",
       value: checkout.orienteers?.[1]?.name,
-      anchorString: "Orienteer Name (if different)",
-      anchorOccurrence: "2",
-      anchorYOffset: "-24",
-      width: "235",
+      ...AGREEMENT_LAYOUT.orienteerFields.secondName,
+      width: "220",
+      fontSize: "size9",
     }),
     buildPrefilledPositionTab({
       tabLabel: "orienteer-phone-2",

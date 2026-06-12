@@ -15,13 +15,13 @@ const ADDITIONAL_PLAN_DEFINITIONS = {
   },
   basic: {
     tier: "basic",
-    displayName: "Additional Basic FOP",
+    displayName: "Additional Basic Financial Orientation Package",
     shortLabel: "Basic Add-On",
     amountInCents: 25000,
   },
   premium: {
     tier: "premium",
-    displayName: "Additional Premium FOP",
+    displayName: "Additional Premium Financial Orientation Package",
     shortLabel: "Premium Add-On",
     amountInCents: 37500,
   },
