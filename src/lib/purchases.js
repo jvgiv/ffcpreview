@@ -27,6 +27,30 @@ const ADDITIONAL_PLAN_DEFINITIONS = {
   },
 };
 
+function formatAdditionalSummary(additionalPlan, additionalCount) {
+  if (!additionalPlan || additionalPlan.tier === "none" || additionalCount <= 0) {
+    return "";
+  }
+
+  return `${additionalCount} ${additionalPlan.displayName}${
+    additionalCount === 1 ? "" : "s"
+  }`;
+}
+
+function formatPricingBreakdown(basePurchase, additionalPlan, additionalCount) {
+  if (!basePurchase) {
+    return "";
+  }
+
+  if (!additionalPlan || additionalPlan.tier === "none" || additionalCount <= 0) {
+    return basePurchase.priceLabel;
+  }
+
+  return `${basePurchase.priceLabel} + ${formatUsdFromCents(
+    additionalPlan.amountInCents
+  )} per ${additionalPlan.shortLabel.toLowerCase()}`;
+}
+
 export const PURCHASE_DEFINITIONS = {
   "financial-orientation": {
     agreementSlug: "financial-orientation",
@@ -147,12 +171,7 @@ export function buildCheckoutPurchase({
     basePurchase.amount.valueInCents +
     additionalPlan.amountInCents * effectiveAdditionalCount;
   const amount = buildAmount(totalValueInCents);
-  const additionalSummary =
-    effectiveAdditionalCount > 0
-      ? `${effectiveAdditionalCount} ${additionalPlan.displayName}${
-          effectiveAdditionalCount === 1 ? "" : "s"
-        }`
-      : "";
+  const additionalSummary = formatAdditionalSummary(additionalPlan, effectiveAdditionalCount);
 
   return {
     ...basePurchase,
@@ -161,12 +180,11 @@ export function buildCheckoutPurchase({
     additionalCount: effectiveAdditionalCount,
     amount,
     priceLabel: formatUsdFromCents(totalValueInCents),
-    pricingBreakdown:
-      effectiveAdditionalCount > 0
-        ? `${basePurchase.priceLabel} + ${effectiveAdditionalCount} x ${formatUsdFromCents(
-            additionalPlan.amountInCents
-          )}`
-        : basePurchase.priceLabel,
+    pricingBreakdown: formatPricingBreakdown(
+      basePurchase,
+      additionalPlan,
+      effectiveAdditionalCount
+    ),
     displayName: additionalSummary
       ? `${basePurchase.displayName} + ${additionalSummary}`
       : basePurchase.displayName,

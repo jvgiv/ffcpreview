@@ -101,6 +101,18 @@ function buildUserProfileSigningPrefill(profile, authUser) {
   };
 }
 
+function getAdditionalPlanSelectionLabel(planTier) {
+  if (planTier === "basic") {
+    return "Basic Financial Orientation Package";
+  }
+
+  if (planTier === "premium") {
+    return "Premium Financial Orientation Package";
+  }
+
+  return "";
+}
+
 function buildSigningFormPatchFromCheckout(checkout) {
   if (!checkout || typeof checkout !== "object") {
     return {};
@@ -558,6 +570,9 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
   const activePurchase = checkoutState.payment.isPaid
     ? checkoutState.purchase || formPurchase || selectedPurchase
     : formPurchase || checkoutState.purchase || selectedPurchase;
+  const selectedAdditionalPlanLabel = getAdditionalPlanSelectionLabel(
+    signingForm.additionalPlanTier
+  );
 
   useEffect(() => {
     if (isAuthLoading || !authUser || !selectedPurchase) {
@@ -1421,7 +1436,11 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
                   </label>
 
                   <label className={styles.fieldGroup}>
-                    <span style={FIELD_LABEL_STYLE}>Additional Orienteer Count</span>
+                    <span style={FIELD_LABEL_STYLE}>
+                      {selectedAdditionalPlanLabel
+                        ? `${selectedAdditionalPlanLabel} Count`
+                        : "Additional Orienteer Count"}
+                    </span>
                     <input
                       className={styles.fieldInput}
                       style={FIELD_INPUT_STYLE}
@@ -1707,7 +1726,7 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
                   : "Start Agreement Signing"}
             </button>
             <Link
-              href="/orientation"
+              href="/files/agreement.pdf"
               style={{
                 display: "inline-flex",
                 alignItems: "center",

@@ -35,6 +35,18 @@ const AGREEMENT_LAYOUT = {
       yPosition: "490",
     },
   },
+  additionalOrienteerCounts: {
+    basic: {
+      pageNumber: "2",
+      xPosition: "534",
+      yPosition: "465",
+    },
+    premium: {
+      pageNumber: "2",
+      xPosition: "535",
+      yPosition: "487",
+    },
+  },
   orienteerFields: {
     firstName: {
       pageNumber: "5",
@@ -255,15 +267,11 @@ function buildAgreementTabs({ checkout, signerName }) {
           ...AGREEMENT_LAYOUT.selectionMarks.additionalOrienteerPremium,
         })
       : null,
-    checkout.additionalCount > 0
-      ? buildPrefilledTextTab({
+    checkout.additionalCount > 0 && checkout.additionalPlanTier !== "none"
+      ? buildPrefilledPositionTab({
           tabLabel: "additional-orienteer-count",
           value: String(checkout.additionalCount),
-          anchorString: "TOTAL # of Additional Orienteers ____",
-          anchorOccurrence:
-            checkout.additionalPlanTier === "premium" ? "2" : "1",
-          anchorXOffset: "132",
-          anchorYOffset: "-7",
+          ...AGREEMENT_LAYOUT.additionalOrienteerCounts[checkout.additionalPlanTier],
           width: "20",
           height: "14",
           fontSize: "size10",
