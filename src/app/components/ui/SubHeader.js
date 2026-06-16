@@ -4,9 +4,9 @@ import Link from "next/link";
 export default function SubHeader() {
   return (
     <div className="utility-bar">
-      <Link href="/caddybook">CADDY BOOK</Link>
-      <a href="/scorecard.pdf" target="_blank">SCORECARD</a>
-      <Link href="/orientation/definitions">DOGSTAR DEFINITIONS</Link>
+      <Link className="utility-links" href="/caddybook">CADDY BOOK</Link>
+      <a className="utility-links" href="/scorecard.pdf" target="_blank">SCORECARD</a>
+      <Link className="utility-links third-link" href="/orientation/definitions">DOGSTAR DEFINITIONS</Link>
     </div>
   );
 }

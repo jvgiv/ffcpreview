@@ -36,7 +36,7 @@ export default function PunchTheClock() {
               className="btn-primary"
               style={{ fontSize: "0.85rem", padding: "1.1rem 2.5rem" }}
             >
-              Get Oriented - $500 / Year -&gt;
+              Enroll Today
             </Link>
             <Link
               href="/#scorecard"

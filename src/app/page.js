@@ -48,8 +48,8 @@ export default function Home() {
             Financial orientation is simply knowing where you stand...and what's
             around. 
             <br />
-            So you&apos;re confident the next move you make is the clear
-            choice.
+            So you&apos;re confident the next move you make is <span style={{color: "var(--red)"}}>the clear
+            choice</span>.
           </p>
           <ul style={{ listStyleType: "none" }} className="hero-sub-list">
             <li className="hero-sub-item">
@@ -131,6 +131,7 @@ export default function Home() {
                 fontStyle: "italic",
                 fontWeight: "bold",
                 paddingBottom: "1rem",
+                marginBottom: "5rem"
               }}
             >
               For people who want clarity. Not complexity.

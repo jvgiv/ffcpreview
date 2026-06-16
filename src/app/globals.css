@@ -384,17 +384,21 @@ button.ffc-nav-cta {
   top: var(--main-header-height);
   left: 0;
   right: 0;
+  width: 100%;
   z-index: 119;
   background: #c0392b;
   padding: 0 1.5rem;
   height: var(--subheader-height);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 
-.utility-bar,
-.utility-bar a {
+.utility-links {
+  /* border: 1px solid blue; */
+  width: 20%;
+  display: flex;
+  justify-content: center;
   font-size: 9.5px;
   font-weight: 600;
   letter-spacing: 0.12em;
@@ -403,6 +407,21 @@ button.ffc-nav-cta {
   text-decoration: none;
   transition: color 0.15s;
   line-height: var(--subheader-height);
+}
+
+@media (max-width: 768px) {
+  .utility-bar {
+    justify-content: space-between;
+  }
+  
+  .utility-links {
+    width: 33%;
+    font-size: 8.85px;
+  }
+  
+  .third-link {
+    font-size: 8.35px
+  }
 }
 
 .utility-bar a:hover {
