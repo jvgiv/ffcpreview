@@ -86,6 +86,7 @@ export async function GET(request, { params }) {
         envelopeId: signedEnvelope?.envelopeId || "",
         status: signedEnvelope?.status || "",
         completedAt: signedEnvelope?.completedAt || null,
+        signer: signedEnvelope?.signer || null,
         checkout: signedEnvelope?.checkout || null,
       },
       payment: {

@@ -242,6 +242,8 @@ function buildSelectionMarkTab({
 }
 
 function buildAgreementTabs({ checkout, signerName }) {
+  const includesAdditionalOrienteers = checkout.additionalCount > 0;
+
   const textTabs = [
     checkout.basePlanTier === "basic"
       ? buildSelectionMarkTab({
@@ -318,25 +320,31 @@ function buildAgreementTabs({ checkout, signerName }) {
       ...AGREEMENT_LAYOUT.orienteerFields.firstEmail,
       width: "110",
     }),
-    buildPrefilledPositionTab({
-      tabLabel: "orienteer-name-2",
-      value: checkout.orienteers?.[1]?.name,
-      ...AGREEMENT_LAYOUT.orienteerFields.secondName,
-      width: "220",
-      fontSize: "size9",
-    }),
-    buildPrefilledPositionTab({
-      tabLabel: "orienteer-phone-2",
-      value: checkout.orienteers?.[1]?.phone,
-      ...AGREEMENT_LAYOUT.orienteerFields.secondPhone,
-      width: "126",
-    }),
-    buildPrefilledPositionTab({
-      tabLabel: "orienteer-email-2",
-      value: checkout.orienteers?.[1]?.email,
-      ...AGREEMENT_LAYOUT.orienteerFields.secondEmail,
-      width: "110",
-    }),
+    includesAdditionalOrienteers
+      ? buildPrefilledPositionTab({
+          tabLabel: "orienteer-name-2",
+          value: checkout.orienteers?.[1]?.name,
+          ...AGREEMENT_LAYOUT.orienteerFields.secondName,
+          width: "220",
+          fontSize: "size9",
+        })
+      : null,
+    includesAdditionalOrienteers
+      ? buildPrefilledPositionTab({
+          tabLabel: "orienteer-phone-2",
+          value: checkout.orienteers?.[1]?.phone,
+          ...AGREEMENT_LAYOUT.orienteerFields.secondPhone,
+          width: "126",
+        })
+      : null,
+    includesAdditionalOrienteers
+      ? buildPrefilledPositionTab({
+          tabLabel: "orienteer-email-2",
+          value: checkout.orienteers?.[1]?.email,
+          ...AGREEMENT_LAYOUT.orienteerFields.secondEmail,
+          width: "110",
+        })
+      : null,
   ].filter(Boolean);
 
   return {

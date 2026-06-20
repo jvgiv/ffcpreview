@@ -8,6 +8,8 @@ import {
   buildCheckoutPurchase,
   formatPaymentStatus,
   listPurchases,
+  normalizeAdditionalOrienteerCount,
+  normalizeAdditionalPlanTier,
 } from "@/lib/purchases";
 import styles from "./CheckoutFlow.module.css";
 
@@ -74,6 +76,14 @@ function buildInitialSigningForm() {
   };
 }
 
+function normalizeSigningFormText(value) {
+  return typeof value === "string" ? value.trim() : "";
+}
+
+function normalizeSigningFormEmail(value) {
+  return normalizeSigningFormText(value).toLowerCase();
+}
+
 function buildNormalizedSigningForm(partial = {}) {
   const initialForm = buildInitialSigningForm();
 
@@ -83,6 +93,43 @@ function buildNormalizedSigningForm(partial = {}) {
       typeof partial?.[key] === "string" ? partial[key] : initialForm[key],
     ])
   );
+}
+
+function buildComparableAgreementForm(partial = {}) {
+  const normalizedForm = buildNormalizedSigningForm(partial);
+  const normalizedAdditionalPlanTier = normalizeAdditionalPlanTier(
+    normalizedForm.additionalPlanTier
+  );
+  const normalizedAdditionalCount =
+    normalizedAdditionalPlanTier === "none"
+      ? 0
+      : normalizeAdditionalOrienteerCount(normalizedForm.additionalCount);
+  const includesAdditionalOrienteers = normalizedAdditionalCount > 0;
+
+  return {
+    signerName: normalizeSigningFormText(normalizedForm.signerName),
+    signerEmail: normalizeSigningFormEmail(normalizedForm.signerEmail),
+    clientStreetAddress: normalizeSigningFormText(normalizedForm.clientStreetAddress),
+    clientCityStateZip: normalizeSigningFormText(normalizedForm.clientCityStateZip),
+    additionalPlanTier: includesAdditionalOrienteers ? normalizedAdditionalPlanTier : "none",
+    additionalCount: String(normalizedAdditionalCount),
+    primaryOrienteerName: normalizeSigningFormText(normalizedForm.primaryOrienteerName),
+    primaryOrienteerPhone: normalizeSigningFormText(normalizedForm.primaryOrienteerPhone),
+    primaryOrienteerEmail: normalizeSigningFormEmail(normalizedForm.primaryOrienteerEmail),
+    secondaryOrienteerName: includesAdditionalOrienteers
+      ? normalizeSigningFormText(normalizedForm.secondaryOrienteerName)
+      : "",
+    secondaryOrienteerPhone: includesAdditionalOrienteers
+      ? normalizeSigningFormText(normalizedForm.secondaryOrienteerPhone)
+      : "",
+    secondaryOrienteerEmail: includesAdditionalOrienteers
+      ? normalizeSigningFormEmail(normalizedForm.secondaryOrienteerEmail)
+      : "",
+  };
+}
+
+function buildAgreementFormSnapshot(partial = {}) {
+  return JSON.stringify(buildComparableAgreementForm(partial));
 }
 
 function buildPayorProfileSigningPrefill(profile, authUser) {
@@ -129,6 +176,18 @@ function buildSigningFormPatchFromCheckout(checkout) {
     secondaryOrienteerName: checkout.orienteers?.[1]?.name || "",
     secondaryOrienteerPhone: checkout.orienteers?.[1]?.phone || "",
     secondaryOrienteerEmail: checkout.orienteers?.[1]?.email || "",
+  };
+}
+
+function buildSigningFormPatchFromStoredSigning(signing) {
+  if (!signing || typeof signing !== "object") {
+    return {};
+  }
+
+  return {
+    signerName: signing.signer?.name || "",
+    signerEmail: signing.signer?.email || "",
+    ...buildSigningFormPatchFromCheckout(signing.checkout),
   };
 }
 
@@ -413,6 +472,7 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
   const [isPayPalScriptReady, setIsPayPalScriptReady] = useState(false);
   const [payPalError, setPayPalError] = useState("");
   const [isCapturingPayment, setIsCapturingPayment] = useState(false);
+  const [agreementFormSnapshot, setAgreementFormSnapshot] = useState("");
 
   const payPalClientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "";
   const signingDraftStorageKey = buildSigningDraftStorageKey(
@@ -434,6 +494,7 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
     setPaymentMessage(EMPTY_MESSAGE);
     setDocuSignJsError("");
     setPayPalError("");
+    setAgreementFormSnapshot("");
     setSigningForm((currentForm) => ({
       ...currentForm,
       additionalPlanTier: "none",
@@ -508,8 +569,11 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
       }
 
       const isPaymentPaid = Boolean(data.payment?.isPaid);
-      const checkoutFormPatch = buildSigningFormPatchFromCheckout(data.signing?.checkout);
+      const checkoutFormPatch = buildSigningFormPatchFromStoredSigning(data.signing);
       const savedDraft = readSigningFormDraft(signingDraftStorageKey);
+      const nextAgreementFormSnapshot = data.signing?.isSigned
+        ? buildAgreementFormSnapshot(checkoutFormPatch)
+        : "";
       let nextForm = buildInitialSigningForm();
 
       nextForm = mergeSigningFormPatch(
@@ -547,6 +611,7 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
           completedAt: data.payment?.completedAt || null,
         },
       });
+      setAgreementFormSnapshot(nextAgreementFormSnapshot);
       setSigningForm(nextForm);
 
       if (isPaymentPaid) {
@@ -567,12 +632,40 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
       additionalPlanTier: signingForm.additionalPlanTier,
       additionalCount: signingForm.additionalCount,
     }) || null;
+  const hasAgreementFormChanges =
+    Boolean(agreementFormSnapshot) &&
+    buildAgreementFormSnapshot(signingForm) !== agreementFormSnapshot;
   const activePurchase = checkoutState.payment.isPaid
     ? checkoutState.purchase || formPurchase || selectedPurchase
     : formPurchase || checkoutState.purchase || selectedPurchase;
+  const hasAdditionalOrienteers = activePurchase?.additionalCount > 0;
   const selectedAdditionalPlanLabel = getAdditionalPlanSelectionLabel(
     signingForm.additionalPlanTier
   );
+
+  useEffect(() => {
+    if (!hasAgreementFormChanges || checkoutState.payment.isPaid) {
+      return;
+    }
+
+    setRecipientViewUrl("");
+    setEnvelopeId("");
+    setDocuSignJsError("");
+    setPaymentMessage(EMPTY_MESSAGE);
+    setCheckoutState((currentState) => ({
+      ...currentState,
+      signing: {
+        isSigned: false,
+        envelopeId: "",
+        status: "",
+        completedAt: null,
+      },
+    }));
+    setSigningMessage({
+      type: "success",
+      text: "Form changes removed the current agreement session. Start Agreement Signing again to render the updated agreement before payment.",
+    });
+  }, [checkoutState.payment.isPaid, hasAgreementFormChanges]);
 
   useEffect(() => {
     if (isAuthLoading || !authUser || !selectedPurchase) {
@@ -1071,6 +1164,7 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
     setSigningMessage(EMPTY_MESSAGE);
     setRecipientViewUrl("");
     setEnvelopeId("");
+    const submittedAgreementFormSnapshot = buildAgreementFormSnapshot(signingForm);
 
     try {
       const response = await fetch("/api/docusign/embedded-signing", {
@@ -1112,6 +1206,7 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
 
       setEnvelopeId(data.envelopeId || "");
       setRecipientViewUrl(data.recipientViewUrl || "");
+      setAgreementFormSnapshot(submittedAgreementFormSnapshot);
       setCheckoutState((currentState) => ({
         ...currentState,
         purchase: data.purchase || currentState.purchase,
@@ -1526,50 +1621,53 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
                     </label>
                   </div>
 
-                  <div className={styles.orienteerRow}>
-                    <label className={styles.fieldGroup}>
-                      <span style={FIELD_LABEL_STYLE}>Orienteer 2 Name</span>
-                      <input
-                        className={styles.fieldInput}
-                        style={FIELD_INPUT_STYLE}
-                        name="secondaryOrienteerName"
-                        type="text"
-                        value={signingForm.secondaryOrienteerName}
-                        onChange={handleSigningInputChange}
-                        disabled={checkoutState.payment.isPaid}
-                      />
-                    </label>
+                  {hasAdditionalOrienteers ? (
+                    <div className={styles.orienteerRow}>
+                      <label className={styles.fieldGroup}>
+                        <span style={FIELD_LABEL_STYLE}>Orienteer 2 Name</span>
+                        <input
+                          className={styles.fieldInput}
+                          style={FIELD_INPUT_STYLE}
+                          name="secondaryOrienteerName"
+                          type="text"
+                          value={signingForm.secondaryOrienteerName}
+                          onChange={handleSigningInputChange}
+                          disabled={checkoutState.payment.isPaid}
+                        />
+                      </label>
 
-                    <label className={styles.fieldGroup}>
-                      <span style={FIELD_LABEL_STYLE}>Orienteer 2 Phone</span>
-                      <input
-                        className={styles.fieldInput}
-                        style={FIELD_INPUT_STYLE}
-                        name="secondaryOrienteerPhone"
-                        type="text"
-                        value={signingForm.secondaryOrienteerPhone}
-                        onChange={handleSigningInputChange}
-                        disabled={checkoutState.payment.isPaid}
-                      />
-                    </label>
+                      <label className={styles.fieldGroup}>
+                        <span style={FIELD_LABEL_STYLE}>Orienteer 2 Phone</span>
+                        <input
+                          className={styles.fieldInput}
+                          style={FIELD_INPUT_STYLE}
+                          name="secondaryOrienteerPhone"
+                          type="text"
+                          value={signingForm.secondaryOrienteerPhone}
+                          onChange={handleSigningInputChange}
+                          disabled={checkoutState.payment.isPaid}
+                        />
+                      </label>
 
-                    <label className={styles.fieldGroup}>
-                      <span style={FIELD_LABEL_STYLE}>Orienteer 2 Email</span>
-                      <input
-                        className={styles.fieldInput}
-                        style={FIELD_INPUT_STYLE}
-                        name="secondaryOrienteerEmail"
-                        type="email"
-                        value={signingForm.secondaryOrienteerEmail}
-                        onChange={handleSigningInputChange}
-                        disabled={checkoutState.payment.isPaid}
-                      />
-                    </label>
-                  </div>
+                      <label className={styles.fieldGroup}>
+                        <span style={FIELD_LABEL_STYLE}>Orienteer 2 Email</span>
+                        <input
+                          className={styles.fieldInput}
+                          style={FIELD_INPUT_STYLE}
+                          name="secondaryOrienteerEmail"
+                          type="email"
+                          value={signingForm.secondaryOrienteerEmail}
+                          onChange={handleSigningInputChange}
+                          disabled={checkoutState.payment.isPaid}
+                        />
+                      </label>
+                    </div>
+                  ) : null}
                 </div>
                 <p style={{ margin: 0, color: "rgba(245, 240, 232, 0.7)", lineHeight: 1.7 }}>
-                  These lines start with your saved profile details when available. Edit or clear
-                  them before signing so the agreement reflects the right Orienteer information.
+                  {hasAdditionalOrienteers
+                    ? "These lines start with your saved profile details when available. Edit or clear them before signing so the agreement reflects the right Orienteer information."
+                    : "The primary Orienteer line starts with your saved profile details when available. Increase the additional count above to include more Orienteers in the agreement."}
                 </p>
               </div>
             </div>
@@ -1727,6 +1825,8 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
             </button>
             <Link
               href="/files/agreement.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
                 display: "inline-flex",
                 alignItems: "center",

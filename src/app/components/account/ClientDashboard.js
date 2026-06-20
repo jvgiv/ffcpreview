@@ -61,6 +61,14 @@ const secondaryButtonStyle = {
   textTransform: "uppercase",
 };
 
+const disabledButtonStyle = {
+  ...secondaryButtonStyle,
+  border: "1px solid rgba(245, 240, 232, 0.12)",
+  background: "rgba(245, 240, 232, 0.05)",
+  color: "rgba(245, 240, 232, 0.5)",
+  cursor: "not-allowed",
+};
+
 const fieldStackStyle = {
   display: "grid",
   gap: "1rem",
@@ -230,16 +238,21 @@ function getAccessBadgeStyles(tone) {
 
 function AccessCard({ item }) {
   const badgeStyles = getAccessBadgeStyles(item.badgeTone);
-  const actionStyle = item.isPrimary ? primaryButtonStyle : secondaryButtonStyle;
+  const actionStyle = item.isDisabled
+    ? disabledButtonStyle
+    : item.isPrimary
+      ? primaryButtonStyle
+      : secondaryButtonStyle;
 
   return (
     <article
       style={{
         border: "1px solid rgba(245, 240, 232, 0.12)",
-        background: "rgba(12, 12, 12, 0.9)",
+        background: item.isDisabled ? "rgba(22, 22, 22, 0.88)" : "rgba(12, 12, 12, 0.9)",
         padding: "1.2rem",
         display: "grid",
         gap: "0.9rem",
+        opacity: item.isDisabled ? 0.58 : 1,
       }}
     >
       <div
@@ -279,7 +292,11 @@ function AccessCard({ item }) {
         {item.meta}
       </p>
 
-      {item.isDownload ? (
+      {item.isDisabled ? (
+        <span style={actionStyle} aria-disabled="true">
+          {item.ctaLabel}
+        </span>
+      ) : item.isDownload ? (
         <a href={item.href} download style={actionStyle}>
           {item.ctaLabel}
         </a>
@@ -309,6 +326,7 @@ export default function ClientDashboard({
   const [isAgeRangeFocused, setIsAgeRangeFocused] = useState(false);
   const paymentSummary = profile?.paymentSummary || {};
   const canOpenDefinitions = hasDefinitionsAccess({ paymentSummary });
+  const hasPremiumProgram = isPaymentComplete(paymentSummary?.["premium-expansion-pack"]?.status);
   const purchasedProgramCount = PROGRAM_ACCESS.filter((purchase) =>
     isPaymentComplete(paymentSummary?.[purchase.agreementSlug]?.status)
   ).length;
@@ -316,22 +334,35 @@ export default function ClientDashboard({
     ...PROGRAM_ACCESS.map((purchase) => {
       const summary = paymentSummary?.[purchase.agreementSlug] || null;
       const isPurchased = isPaymentComplete(summary?.status);
+      const isSupersededByPremium =
+        purchase.agreementSlug === "financial-orientation" &&
+        hasPremiumProgram &&
+        !isPurchased;
 
       return {
         title: purchase.displayName,
         description: isPurchased
           ? "Your agreement and payment are already tied to this program. Reopen the checkout page any time to review status."
+          : isSupersededByPremium
+            ? "Your $750 premium plan is already active, so the $500 base plan is no longer needed from this dashboard."
           : "Available from your member account whenever you are ready to start the sign-and-pay flow.",
         meta: isPurchased
           ? summary?.completedAt
             ? `Purchased on ${new Date(summary.completedAt).toLocaleDateString("en-US")}`
             : "Purchased and active"
+          : isSupersededByPremium
+            ? "Covered by your premium purchase"
           : `${purchase.priceLabel} flat-fee access`,
         href: `/logged-in/checkout?agreement=${purchase.agreementSlug}`,
-        ctaLabel: isPurchased ? "View Program Status" : "Start Checkout",
-        badgeLabel: isPurchased ? "Purchased" : "Available",
-        badgeTone: isPurchased ? "success" : "accent",
-        isPrimary: !isPurchased,
+        ctaLabel: isPurchased
+          ? "View Program Status"
+          : isSupersededByPremium
+            ? "Premium Already Active"
+          : "Start Checkout",
+        badgeLabel: isPurchased ? "Purchased" : isSupersededByPremium ? "Unavailable" : "Available",
+        badgeTone: isPurchased ? "success" : isSupersededByPremium ? "default" : "accent",
+        isPrimary: !isPurchased && !isSupersededByPremium,
+        isDisabled: isSupersededByPremium,
       };
     }),
     {

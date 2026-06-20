@@ -27,6 +27,29 @@ function normalizeEmail(value) {
   return normalizeText(value).toLowerCase();
 }
 
+function buildCheckoutOrienteers(body, additionalCount) {
+  const primaryOrienteer = {
+    name: normalizeText(body?.primaryOrienteerName),
+    phone: normalizeText(body?.primaryOrienteerPhone),
+    email: normalizeEmail(body?.primaryOrienteerEmail),
+  };
+
+  const secondaryOrienteer =
+    additionalCount > 0
+      ? {
+          name: normalizeText(body?.secondaryOrienteerName),
+          phone: normalizeText(body?.secondaryOrienteerPhone),
+          email: normalizeEmail(body?.secondaryOrienteerEmail),
+        }
+      : {
+          name: "",
+          phone: "",
+          email: "",
+        };
+
+  return [primaryOrienteer, secondaryOrienteer];
+}
+
 function validatePayload(body) {
   const signerName = normalizeText(body?.signerName);
   const signerEmail = normalizeEmail(body?.signerEmail);
@@ -80,18 +103,7 @@ function validatePayload(body) {
       streetAddress: clientStreetAddress,
       cityStateZip: clientCityStateZip,
     },
-    orienteers: [
-      {
-        name: normalizeText(body?.primaryOrienteerName),
-        phone: normalizeText(body?.primaryOrienteerPhone),
-        email: normalizeEmail(body?.primaryOrienteerEmail),
-      },
-      {
-        name: normalizeText(body?.secondaryOrienteerName),
-        phone: normalizeText(body?.secondaryOrienteerPhone),
-        email: normalizeEmail(body?.secondaryOrienteerEmail),
-      },
-    ],
+    orienteers: buildCheckoutOrienteers(body, purchase.additionalCount),
   };
 
   return {

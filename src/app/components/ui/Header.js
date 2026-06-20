@@ -328,7 +328,7 @@ export default function Header() {
                 role="menuitem"
                 onClick={handleNavClose}
               >
-                Home
+                Dashboard
               </Link>
             </li>
             <li role="none">
