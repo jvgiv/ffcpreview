@@ -9,7 +9,7 @@ export default function SubHeader() {
   return (
     <div className="utility-bar">
       {isAuthenticated ? (
-        <Link className="utility-links" href="/caddybook" target="_blank">
+        <Link className="utility-links" href="/caddybook">
           CADDY BOOK
         </Link>
       ) : (
