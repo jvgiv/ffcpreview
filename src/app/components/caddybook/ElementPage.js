@@ -53,6 +53,16 @@ export default function ElementPage({ element, note, handleChange }) {
             onChange={handleChange}
           />
         </div>
+        <a
+              href={`mailto:deliberate@FarFlungChange.com?subject=${encodeURIComponent(`Caddybook Question for ${title}`)}`}
+              id="btnEmail"
+              className="nav-btn-from-def"
+              rel="noreferrer"
+              target="_blank"
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+              Have a question? Submit here
+            </a>
       </div>
     </div>
   )

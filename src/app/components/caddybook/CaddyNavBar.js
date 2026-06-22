@@ -1,6 +1,6 @@
 import "../../(content)/caddybook/caddybook.css";
 
-export default function NavBar({ pages, current, onPrev, onNext }) {
+export default function NavBar({ pages, current, onPrev, onNext, notes }) {
   const prev = pages[current - 1];
   const next = pages[current + 1];
 

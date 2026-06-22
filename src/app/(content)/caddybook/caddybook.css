@@ -1527,3 +1527,25 @@ body {
   text-align: center;
   padding: 12px 0 0;
 }
+
+
+.nav-btn-from-def {
+  width: 40%;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.7rem 1.25rem;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--lgray);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .nav-btn-from-def {
+    width: 100%;
+  }
+}
