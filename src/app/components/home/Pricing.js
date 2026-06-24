@@ -17,7 +17,10 @@ export default function Pricing() {
       <div className="container">
         <div className="reveal">
           <span className="section-label">The MenuBoard</span>
-          <h2 className="section-title">Flat-fee. <span style={{ color: "var(--red)"}}>No</span> products. <span style={{ color: "var(--red)"}}>No</span> pressure.</h2>
+          <h2 className="section-title">
+            Flat-fee. <span style={{ color: "var(--red)" }}>No</span> products.{" "}
+            <span style={{ color: "var(--red)" }}>No</span> pressure.
+          </h2>
           <ul className="pricing-features reveal">
             <li>Learn core financial concepts and trade-offs</li>
             <li>
@@ -41,12 +44,12 @@ export default function Pricing() {
         </div> */}
         <br />
         <a
-              href="/files/agreement.pdf"
-              target="_blank"
-              className="btn-ghost reveal"
-            >
-              View Agreement -&gt;
-            </a>
+          href="/files/agreement.pdf"
+          target="_blank"
+          className="btn-ghost reveal"
+        >
+          View Agreement -&gt;
+        </a>
         <div
           className="pricing-grid reveal"
           style={{ transitionDelay: "0.1s" }}
@@ -55,11 +58,11 @@ export default function Pricing() {
             <div className="pricing-badge">Core Program</div>
             <div className="pricing-name">
               {/* {financialServices?.displayName ||  */}
-              Guided Orientation
+              WHATS INCLUDED
               {/* } */}
             </div>
             <div className="pricing-price">
-              {financialServices?.priceLabel || "$500"} <span>/ 1 year</span>
+              {financialServices?.priceLabel || "$500"} <span>/ 1 year Caddy Service</span>
             </div>
             <div className="pricing-desc">
               Your foundational toolkit for financial clarity. No sales pitches,
@@ -67,9 +70,15 @@ export default function Pricing() {
               into focus.
             </div>
             <ul className="pricing-features">
-              <li><span style={{ fontWeight: "bold" }}>No</span> recommendations</li>
-              <li><span style={{ fontWeight: "bold" }}>No</span> investment advice</li>
-              <li><span style={{ fontWeight: "bold" }}>No</span> asset management</li>
+              <li>
+                <span style={{ fontWeight: "bold" }}>No</span> recommendations
+              </li>
+              <li>
+                <span style={{ fontWeight: "bold" }}>No</span> investment advice
+              </li>
+              <li>
+                <span style={{ fontWeight: "bold" }}>No</span> asset management
+              </li>
             </ul>
             <div className="pricing-cta">
               <Link
@@ -79,7 +88,7 @@ export default function Pricing() {
                 className="btn-primary"
                 style={{ width: "100%", textAlign: "center", display: "block" }}
               >
-                Start Guided Orientation -&gt;
+                Start Core Program
               </Link>
             </div>
           </div>
@@ -95,18 +104,24 @@ export default function Pricing() {
               Premium Program
             </div>
             <div className="pricing-name">
-              {premiumExpansionPack?.displayName || "Premium Expansion Pack"}
+              {/* {premiumExpansionPack?.displayName ||  */}
+              WHATS INCLUDED
+              {/* } */}
             </div>
             <div className="pricing-price">
-              {premiumExpansionPack?.priceLabel || "$750"} <span>/ 1 year</span>
+              {premiumExpansionPack?.priceLabel || "$750"} <span>/ 1 year Caddy Service</span>
             </div>
             <div className="pricing-desc">
-              Built for those who want real-time structure, interactive tools, and direct accountability from day one.
+              Built for those who want real-time structure, interactive tools,
+              and direct accountability from day one.
             </div>
             <ul className="pricing-features">
               <li>Visual tracking to see exactly where you stand</li>
               <li>Scheduled check-ins & follow ups</li>
-              <li>A single secure dashboard to sync your assets, master your budget, and track real-time spending</li>
+              <li>
+                A single secure dashboard to sync your assets, master your
+                budget, and track real-time spending
+              </li>
               {/* <li>View assets + debts</li>
               <li>Track Spending</li>
               <li>Build budgets</li>
@@ -120,13 +135,12 @@ export default function Pricing() {
                 className="btn-primary"
                 style={{ width: "100%", textAlign: "center", display: "block" }}
               >
-                Start Premium Expansion -&gt;
+                Start Premium Program
               </Link>
             </div>
           </div>
         </div>
         <br />
-        
       </div>
     </section>
   );

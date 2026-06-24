@@ -174,7 +174,7 @@ export default function Home() {
               className="btn-primary"
               style={{ fontSize: "1.3em" }}
             >
-              REVIEW THE OFFER &gt;
+              REVIEW THE OFFER
             </Link>
             <Link
               href="/logged-in/#member-access"

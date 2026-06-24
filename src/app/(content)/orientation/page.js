@@ -6,9 +6,14 @@ import "../../homepage.css";
 export default function Orientation() {
   return (
     <main className={styles.page}>
-      <section id="guided-orientation" className={`${styles.hero} ${styles.revealCard} reveal`}>
+      <section
+        id="guided-orientation"
+        className={`${styles.hero} ${styles.revealCard} reveal`}
+      >
         <div>
-          <h1 className={styles.heroTitle}>Guided <span style={{color: "var(--red)"}}>Orientation</span></h1>
+          <h1 className={styles.heroTitle}>
+            Guided <span style={{ color: "var(--red)" }}>Orientation</span>
+          </h1>
           <p className={styles.heroSubtitle}>
             Practical Financial Orientation for Growin&apos;Up&apos;s Sake.
           </p>
@@ -141,6 +146,48 @@ export default function Orientation() {
               target="_blank"
             >
               SUBMIT YOUR ORIENTATION QUESTION -&gt;
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="continue-conversation"
+        className={`${styles.callout} ${styles.revealCard} reveal`}
+        style={{ transitionDelay: "0.08s" }}
+      >
+        <p className={styles.sectionHeading}>Continue the Conversation</p>
+        <span className="orientation-line"></span>
+        <div className={styles.definitionBlock}>
+          <div className={styles.sectionCopy}>
+            <p>
+              This is filler text. This is filler text. This is filler text.
+            </p>
+            <p>
+              This is filler text. This is filler text. This is filler text.
+              This is filler text. This is filler text. This is filler text.
+              This is filler text. This is filler text. This is filler text.
+              This is filler text. This is filler text. This is filler text.
+            </p>
+            <p>
+              This is filler text. This is filler text. This is filler text.
+              This is filler text. This is filler text. This is filler text.
+              This is filler text. This is filler text. This is filler text.
+              This is filler text. This is filler text. This is filler text.
+              This is filler text. This is filler text. This is filler text.
+              This is filler text. This is filler text. This is filler text.
+              This is filler text. This is filler text. This is filler text.
+              This is filler text. This is filler text. This is filler text.
+            </p>
+          </div>
+          <div className={styles.definitionAction}>
+            <a
+              // href="mailto:deliberate@FarFlungChange.com"
+              className="btn-ghost"
+              rel="noreferrer"
+              // target="_blank"
+            >
+              WHAT SHOULD THIS BUTTON DO?
             </a>
           </div>
         </div>

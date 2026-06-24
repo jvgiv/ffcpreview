@@ -61,7 +61,7 @@ export default async function SupplementTermDetailPage({ params }) {
             <a
               href={`mailto:deliberate@FarFlungChange.com?subject=${encodeURIComponent(`Question about ${title}`)}`}
               id="btnEmail"
-              className="nav-btn"
+              className="nav-btn-def"
               rel="noreferrer"
               target="_blank"
               style={{ textDecoration: 'none', color: 'inherit' }}
@@ -79,15 +79,15 @@ export default async function SupplementTermDetailPage({ params }) {
                         color: 'inherit',
                     }}    
                     id="btnPrev" 
-                    className="nav-btn"
+                    className="nav-btn-def"
                 >
                     ← Previous
                 </Link>
-                ) : <button id="btnPrev" className="nav-btn" style={{cursor: 'none'}}>← Previous</button> }
+                ) : <button id="btnPrev" className="nav-btn-def" style={{cursor: 'none'}}>← Previous</button> }
                 
                 <Link
                     href={`/orientation/definitions/${chapter.id}`}
-                    id="btnIndex" className="nav-btn"
+                    id="btnIndex" className="nav-btn-def"
                     style={{
                         textDecoration: 'none',
                         color: 'inherit',
@@ -104,15 +104,15 @@ export default async function SupplementTermDetailPage({ params }) {
                         color: 'inherit'
                     }}    
                     id="btnNext" 
-                    className="nav-btn primary"
+                    className="nav-btn-def primary"
                     >
                     Next →
                 </Link>
-                ) : <button id="btnNext" className="nav-btn primary" style={{cursor: 'none'}}>Next →</button> }
+                ) : <Link href="/orientation/definitions" id="btnNext" className="nav-btn-def primary">Back to Index →</Link> }
                 </div>
 
             <div className="entry-nav-bottom">
-              <Link href={`/orientation/definitions/${chapter.id}/supplement/terms`} id="btnIndex" className="nav-btn" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href={`/orientation/definitions/${chapter.id}/supplement/terms`} id="btnIndex" className="nav-btn-def" style={{ textDecoration: 'none', color: 'inherit' }}>
                 ← Supplement terms
               </Link>
               {/* <Link href={`/definitions/${chapter.id}`} id="btnChapter" className="nav-btn" style={{ textDecoration: 'none', color: 'inherit' }}>

@@ -48,15 +48,15 @@ export default async function ChapterPage({ params }) {
         ) : null} */}
         <div className="ch-nav-top">
           {chapter.id > 1 ? (
-            <Link href={`/orientation/definitions/${chapterNav - 1}`} className="nav-btn">
+            <Link href={`/orientation/definitions/${chapterNav - 1}`} className="nav-btn-def">
               ← Previous Chapter
             </Link>
           ) : null}
-          <Link href="/orientation/definitions" className="nav-btn">
+          <Link href="/orientation/definitions" className="nav-btn-def">
             ← Back to Compendium Index
           </Link>
           {chapter.id < chapters.length ? (
-            <Link href={`/orientation/definitions/${chapterNav + 1}`} className="nav-btn">
+            <Link href={`/orientation/definitions/${chapterNav + 1}`} className="nav-btn-def">
               Next Chapter →
             </Link>
           ) : null}

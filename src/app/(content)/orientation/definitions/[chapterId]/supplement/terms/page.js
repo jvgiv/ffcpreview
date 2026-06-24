@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import chapters from "@/data/def";
 import "../../../definitions.css";
+import TermSearch from "../../../TermSearch";
 
 export default async function SupplementTermsPage({ params }) {
   const { chapterId } = await params;
@@ -29,8 +30,8 @@ export default async function SupplementTermsPage({ params }) {
           <Link href={`/orientation/definitions/${chapter.id}`} className="nav-btn-supp">
             ← Back to chapter
           </Link>
-          <p>Search for a term here:</p>
         </div>
+          <TermSearch />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

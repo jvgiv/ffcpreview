@@ -35,7 +35,7 @@ export default async function SupplementPage({ params }) {
         </Link>
         <div className="cover-hint">Tap any term to read its definition</div>
         <div className="ch-nav-top">
-          <Link href={`/orientation/definitions/${chapter.id}`} className="nav-btn">
+          <Link href={`/orientation/definitions/${chapter.id}`} className="nav-btn-def">
             ← Back to {chapter.title}
           </Link>
         </div>

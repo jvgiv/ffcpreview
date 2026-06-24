@@ -561,7 +561,7 @@ header {
   margin-top: 1rem;
 }
 
-.nav-btn {
+.nav-btn-def {
   font-family: 'Space Mono', monospace;
   font-size: 0.8rem;
   letter-spacing: 0.1em;
@@ -575,23 +575,23 @@ header {
   text-decoration: none;
 }
 
-.nav-btn:hover {
+.nav-btn-def:hover {
   border-color: var(--orange);
   color: var(--orange)
 }
 
-.nav-btn:disabled {
+.nav-btn-def:disabled {
   opacity: 0.2;
   cursor: default
 }
 
-.nav-btn.primary {
+.nav-btn-def.primary {
   background: var(--orange);
   border-color: var(--orange);
   color: var(--black)
 }
 
-.nav-btn.primary:hover {
+.nav-btn-def.primary:hover {
   background: #ff8c2a;
   border-color: #ff8c2a
 }

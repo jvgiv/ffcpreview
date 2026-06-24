@@ -77,7 +77,7 @@ export default async function Subpage({ params }) {
             <a
                     href={`mailto:deliberate@FarFlungChange.com?subject=${encodeURIComponent(`Question about ${title}`)}`}
                     id="btnEmail"
-                    className="nav-btn"
+                    className="nav-btn-def"
                     rel="noreferrer"
                     target="_blank"
                     style={{
@@ -101,15 +101,15 @@ export default async function Subpage({ params }) {
                         color: 'inherit',
                     }}    
                     id="btnPrev" 
-                    className="nav-btn"
+                    className="nav-btn-def"
                 >
                     ← Previous
                 </Link>
-                ) : <button id="btnPrev" className="nav-btn" style={{cursor: 'none'}}>← Previous</button> }
+                ) : <button id="btnPrev" className="nav-btn-def" style={{cursor: 'none'}}>← Previous</button> }
                 
                 <Link
                     href={`/orientation/definitions/${chapter.id}`}
-                    id="btnIndex" className="nav-btn"
+                    id="btnIndex" className="nav-btn-def"
                     style={{
                         textDecoration: 'none',
                         color: 'inherit',
@@ -127,11 +127,11 @@ export default async function Subpage({ params }) {
                         color: 'inherit'
                     }}    
                     id="btnNext" 
-                    className="nav-btn primary"
+                    className="nav-btn-def primary"
                     >
                     Next →
                 </Link>
-                ) : <button id="btnNext" className="nav-btn primary" style={{cursor: 'none'}}>Next →</button> }
+                ) : <Link href="/orientation/definitions" id="btnNext" className="nav-btn-def primary">Back to Index →</Link> }
             </div>
                 
         </div>

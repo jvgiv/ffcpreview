@@ -386,7 +386,7 @@ button.ffc-nav-cta {
   right: 0;
   width: 100%;
   z-index: 119;
-  background: #c0392b;
+  background: var(--red);
   padding: 0 1.5rem;
   height: var(--subheader-height);
   display: flex;
