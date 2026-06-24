@@ -15,7 +15,7 @@ export default function Definitions() {
       </div>
 
       <div id="view-master" className="view active">
-        <p className="master-sub">A FINANCIAL ORIENTATION COMPENDIUM of</p>
+        <p className="master-sub">A Financial Orientation Compendium of</p>
         <h1 className="master-title">
           DogStar <span>Definitions</span>
         </h1>
