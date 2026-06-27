@@ -62,8 +62,9 @@
 }
 
 .hero-logo-ring {
-  width: 520px;
-  height: 520px;
+  width: min(100%, 760px);
+  aspect-ratio: 1031 / 985;
+  height: auto;
   /* border-radius: 50%; */
   /* border: 2px solid rgba(245,240,232,0.15); */
   display: flex;
@@ -85,8 +86,9 @@
 }
 
 .hero-logo-image {
-  /* width: 100%; */
-  /* max-width: 124px; */
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
   height: auto;
   display: block;
   object-fit: contain;
@@ -152,7 +154,7 @@
   font-size: clamp(1.3rem, 2vw, 1.2rem);
   font-family: "Oswald", sans-serif;
   color: white;
-  max-width: 620px;
+  max-width: 860px;
   line-height: 1.5;
   text-align: center;
   margin: 0 auto 2.2rem;
@@ -1041,15 +1043,14 @@
   }
 
   .hero-logo-ring {
-    width: 146px;
-    height: 146px;
+    width: min(82vw, 360px);
+    height: auto;
     margin-bottom: 2rem;
-    padding: 12px;
+    padding: 0;
   }
 
   .hero-logo-image {
-    max-width: 180px;
-    transform: translateY(-3px);
+    max-width: 100%;
   }
 
   .scroll-hint {

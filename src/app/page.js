@@ -137,31 +137,31 @@ export default function Home() {
               For people who want clarity. Not complexity.
             </p>
 
-            <Image
+            {/* <Image
               src="/pfo.png"
               alt="practical financial orientation"
               width={599}
               height={104}
               style={{ width: "100%", height: "auto", maxWidth: "599px" }}
-            />
+            /> */}
             <div className="hero-logo-ring">
               <Image
                 className="hero-logo-image"
-                src="/FFLogo.png"
+                src="/svg/lgs.png"
                 alt="FFC Logo"
-                width={500}
-                height={560}
+                width={1031}
+                height={985}
               />
             </div>
           </div>
           {/* <p className="hero-sub">Welcome to FinancialOrientation</p> */}
           <div className="brand-signature">
-            <Image
+            {/* <Image
               src="/ffcfgus.png"
               alt="for Growin'up's sake"
               width={358}
               height={100}
-            />
+            /> */}
             {/* <span className="sig-for">for</span>
             <span className="sig-main">
               <span className="red-word">growin'up's</span>{" "}
