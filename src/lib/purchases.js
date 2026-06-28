@@ -6,6 +6,8 @@ const USD_FORMATTER = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 0,
 });
 
+export const MAX_ADDITIONAL_ORIENTEERS = 4;
+
 const ADDITIONAL_PLAN_DEFINITIONS = {
   none: {
     tier: "none",
@@ -112,7 +114,7 @@ export function normalizeAdditionalOrienteerCount(value) {
     return 0;
   }
 
-  return Math.min(normalizedValue, 9);
+  return Math.min(normalizedValue, MAX_ADDITIONAL_ORIENTEERS);
 }
 
 function buildResolvedPurchase(purchase) {

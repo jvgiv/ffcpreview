@@ -16,78 +16,138 @@ const AGREEMENT_LAYOUT = {
   selectionMarks: {
     firstOrienteerBasic: {
       pageNumber: "2",
-      xPosition: "67",
+      xPosition: "65",
       yPosition: "221",
     },
     firstOrienteerPremium: {
       pageNumber: "2",
-      xPosition: "67",
+      xPosition: "65",
       yPosition: "379",
     },
     additionalOrienteerBasic: {
       pageNumber: "2",
-      xPosition: "67",
+      xPosition: "65",
       yPosition: "468",
     },
     additionalOrienteerPremium: {
       pageNumber: "2",
-      xPosition: "67",
+      xPosition: "65",
       yPosition: "490",
     },
   },
   additionalOrienteerCounts: {
     basic: {
       pageNumber: "2",
-      xPosition: "534",
-      yPosition: "465",
+      xPosition: "541",
+      yPosition: "470",
     },
     premium: {
       pageNumber: "2",
-      xPosition: "535",
-      yPosition: "487",
+      xPosition: "541",
+      yPosition: "491",
     },
   },
-  orienteerFields: {
-    firstName: {
-      pageNumber: "5",
-      xPosition: "76",
-      yPosition: "455",
+  additionalOrienteerRows: [
+    {
+      name: {
+        pageNumber: "2",
+        xPosition: "43",
+        yPosition: "644",
+      },
+      phone: {
+        pageNumber: "2",
+        xPosition: "231",
+        yPosition: "644",
+      },
+      email: {
+        pageNumber: "2",
+        xPosition: "357",
+        yPosition: "644",
+      },
     },
-    firstPhone: {
-      pageNumber: "5",
-      xPosition: "310",
-      yPosition: "455",
+    {
+      name: {
+        pageNumber: "2",
+        xPosition: "43",
+        yPosition: "657",
+      },
+      phone: {
+        pageNumber: "2",
+        xPosition: "231",
+        yPosition: "657",
+      },
+      email: {
+        pageNumber: "2",
+        xPosition: "357",
+        yPosition: "657",
+      },
     },
-    firstEmail: {
-      pageNumber: "5",
-      xPosition: "448",
-      yPosition: "455",
+    {
+      name: {
+        pageNumber: "2",
+        xPosition: "43",
+        yPosition: "670",
+      },
+      phone: {
+        pageNumber: "2",
+        xPosition: "231",
+        yPosition: "670",
+      },
+      email: {
+        pageNumber: "2",
+        xPosition: "357",
+        yPosition: "670",
+      },
     },
-    secondPhone: {
-      pageNumber: "5",
-      xPosition: "310",
-      yPosition: "495",
+    {
+      name: {
+        pageNumber: "2",
+        xPosition: "43",
+        yPosition: "683",
+      },
+      phone: {
+        pageNumber: "2",
+        xPosition: "231",
+        yPosition: "683",
+      },
+      email: {
+        pageNumber: "2",
+        xPosition: "357",
+        yPosition: "683",
+      },
     },
-    secondName: {
-      pageNumber: "5",
-      xPosition: "76",
-      yPosition: "495",
-    },
-    secondEmail: {
-      pageNumber: "5",
-      xPosition: "448",
-      yPosition: "495",
-    },
-  },
+  ],
   signHere: {
-    pageNumber: "5",
-    xPosition: "76",
-    yPosition: "396",
+    anchorString: "Payor Signature",
+    anchorYOffset: "-30",
+    anchorXOffset: "24",
   },
   dateSigned: {
     pageNumber: "5",
-    xPosition: "350",
-    yPosition: "396",
+    xPosition: "319",
+    yPosition: "406",
+  },
+  payorFields: {
+    name: {
+      anchorString: "Payor Name (Printed)",
+      anchorYOffset: "-18",
+      width: "250",
+    },
+    email: {
+      anchorString: "Payor Email",
+      anchorYOffset: "-18",
+      width: "220",
+    },
+    streetAddress: {
+      anchorString: "Payor Street Address",
+      anchorYOffset: "-18",
+      width: "250",
+    },
+    cityStateZip: {
+      anchorString: "Payor City, State & Zip Code",
+      anchorYOffset: "-18",
+      width: "220",
+    },
   },
 };
 
@@ -147,6 +207,12 @@ function buildPositionTabBase({
     xPosition: String(xPosition),
     yPosition: String(yPosition),
   };
+}
+
+function buildTabBase(config) {
+  return config.anchorString
+    ? buildAnchorTabBase(config)
+    : buildPositionTabBase(config);
 }
 
 function buildPrefilledTextTab({
@@ -241,8 +307,45 @@ function buildSelectionMarkTab({
   };
 }
 
-function buildAgreementTabs({ checkout, signerName }) {
+function buildAgreementTabs({ checkout, signerName, signerEmail }) {
   const includesAdditionalOrienteers = checkout.additionalCount > 0;
+  const additionalOrienteerTabs = AGREEMENT_LAYOUT.additionalOrienteerRows.flatMap(
+    (row, index) => {
+      if (!includesAdditionalOrienteers || index >= checkout.additionalCount) {
+        return [];
+      }
+
+      const orienteer = checkout.orienteers?.[index + 1] || null;
+      const rowNumber = index + 1;
+
+      return [
+        buildPrefilledPositionTab({
+          tabLabel: `additional-orienteer-name-${rowNumber}`,
+          value: orienteer?.name,
+          ...row.name,
+          width: "176",
+          height: "9",
+          fontSize: "size8",
+        }),
+        buildPrefilledPositionTab({
+          tabLabel: `additional-orienteer-phone-${rowNumber}`,
+          value: orienteer?.phone,
+          ...row.phone,
+          width: "116",
+          height: "9",
+          fontSize: "size8",
+        }),
+        buildPrefilledPositionTab({
+          tabLabel: `additional-orienteer-email-${rowNumber}`,
+          value: orienteer?.email,
+          ...row.email,
+          width: "214",
+          height: "9",
+          fontSize: "size8",
+        }),
+      ].filter(Boolean);
+    }
+  );
 
   const textTabs = [
     checkout.basePlanTier === "basic"
@@ -274,83 +377,39 @@ function buildAgreementTabs({ checkout, signerName }) {
           tabLabel: "additional-orienteer-count",
           value: String(checkout.additionalCount),
           ...AGREEMENT_LAYOUT.additionalOrienteerCounts[checkout.additionalPlanTier],
-          width: "20",
-          height: "14",
-          fontSize: "size10",
+          width: "18",
+          height: "12",
+          fontSize: "size9",
           bold: "true",
         })
       : null,
     buildPrefilledTextTab({
-      tabLabel: "client-name",
+      tabLabel: "payor-name",
       value: signerName,
-      anchorString: "Client Name (printed)",
-      anchorYOffset: "-24",
-      width: "220",
+      ...AGREEMENT_LAYOUT.payorFields.name,
     }),
     buildPrefilledTextTab({
-      tabLabel: "client-street-address",
+      tabLabel: "payor-email",
+      value: signerEmail,
+      ...AGREEMENT_LAYOUT.payorFields.email,
+    }),
+    buildPrefilledTextTab({
+      tabLabel: "payor-street-address",
       value: checkout.client?.streetAddress,
-      anchorString: "Client Street Address",
-      anchorYOffset: "-24",
-      width: "220",
+      ...AGREEMENT_LAYOUT.payorFields.streetAddress,
     }),
     buildPrefilledTextTab({
-      tabLabel: "client-city-state-zip",
+      tabLabel: "payor-city-state-zip",
       value: checkout.client?.cityStateZip,
-      anchorString: "Client City, State & Zip Code",
-      anchorYOffset: "-24",
-      width: "190",
+      ...AGREEMENT_LAYOUT.payorFields.cityStateZip,
     }),
-    buildPrefilledPositionTab({
-      tabLabel: "orienteer-name-1",
-      value: checkout.orienteers?.[0]?.name,
-      ...AGREEMENT_LAYOUT.orienteerFields.firstName,
-      width: "220",
-      fontSize: "size9",
-    }),
-    buildPrefilledPositionTab({
-      tabLabel: "orienteer-phone-1",
-      value: checkout.orienteers?.[0]?.phone,
-      ...AGREEMENT_LAYOUT.orienteerFields.firstPhone,
-      width: "126",
-    }),
-    buildPrefilledPositionTab({
-      tabLabel: "orienteer-email-1",
-      value: checkout.orienteers?.[0]?.email,
-      ...AGREEMENT_LAYOUT.orienteerFields.firstEmail,
-      width: "110",
-    }),
-    includesAdditionalOrienteers
-      ? buildPrefilledPositionTab({
-          tabLabel: "orienteer-name-2",
-          value: checkout.orienteers?.[1]?.name,
-          ...AGREEMENT_LAYOUT.orienteerFields.secondName,
-          width: "220",
-          fontSize: "size9",
-        })
-      : null,
-    includesAdditionalOrienteers
-      ? buildPrefilledPositionTab({
-          tabLabel: "orienteer-phone-2",
-          value: checkout.orienteers?.[1]?.phone,
-          ...AGREEMENT_LAYOUT.orienteerFields.secondPhone,
-          width: "126",
-        })
-      : null,
-    includesAdditionalOrienteers
-      ? buildPrefilledPositionTab({
-          tabLabel: "orienteer-email-2",
-          value: checkout.orienteers?.[1]?.email,
-          ...AGREEMENT_LAYOUT.orienteerFields.secondEmail,
-          width: "110",
-        })
-      : null,
+    ...additionalOrienteerTabs,
   ].filter(Boolean);
 
   return {
     signHereTabs: [
       {
-        ...buildPositionTabBase({
+        ...buildTabBase({
           tabLabel: "payor-signature",
           ...AGREEMENT_LAYOUT.signHere,
         }),
@@ -358,7 +417,7 @@ function buildAgreementTabs({ checkout, signerName }) {
     ],
     dateSignedTabs: [
       {
-        ...buildPositionTabBase({
+        ...buildTabBase({
           tabLabel: "payor-date-signed",
           ...AGREEMENT_LAYOUT.dateSigned,
         }),
@@ -421,6 +480,7 @@ async function createEnvelope({
           tabs: buildAgreementTabs({
             checkout,
             signerName,
+            signerEmail,
           }),
         },
       ],

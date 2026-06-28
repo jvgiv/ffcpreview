@@ -15,7 +15,10 @@ import {
   requireVerifiedFirebaseUser,
 } from "@/lib/firebase/serverAuth";
 import { getAgreementBySlug } from "@/lib/agreements";
-import { buildCheckoutPurchase } from "@/lib/purchases";
+import {
+  MAX_ADDITIONAL_ORIENTEERS,
+  buildCheckoutPurchase,
+} from "@/lib/purchases";
 
 export const runtime = "nodejs";
 
@@ -27,27 +30,35 @@ function normalizeEmail(value) {
   return normalizeText(value).toLowerCase();
 }
 
+const ADDITIONAL_ORIENTEER_FIELDS = Array.from(
+  { length: MAX_ADDITIONAL_ORIENTEERS },
+  (_, index) => {
+    const number = index + 1;
+
+    return {
+      number,
+      nameKey: `additionalOrienteer${number}Name`,
+      phoneKey: `additionalOrienteer${number}Phone`,
+      emailKey: `additionalOrienteer${number}Email`,
+    };
+  }
+);
+
 function buildCheckoutOrienteers(body, additionalCount) {
   const primaryOrienteer = {
     name: normalizeText(body?.primaryOrienteerName),
     phone: normalizeText(body?.primaryOrienteerPhone),
     email: normalizeEmail(body?.primaryOrienteerEmail),
   };
+  const additionalOrienteers = ADDITIONAL_ORIENTEER_FIELDS.slice(0, additionalCount).map(
+    ({ nameKey, phoneKey, emailKey }) => ({
+      name: normalizeText(body?.[nameKey]),
+      phone: normalizeText(body?.[phoneKey]),
+      email: normalizeEmail(body?.[emailKey]),
+    })
+  );
 
-  const secondaryOrienteer =
-    additionalCount > 0
-      ? {
-          name: normalizeText(body?.secondaryOrienteerName),
-          phone: normalizeText(body?.secondaryOrienteerPhone),
-          email: normalizeEmail(body?.secondaryOrienteerEmail),
-        }
-      : {
-          name: "",
-          phone: "",
-          email: "",
-        };
-
-  return [primaryOrienteer, secondaryOrienteer];
+  return [primaryOrienteer, ...additionalOrienteers];
 }
 
 function validatePayload(body) {
