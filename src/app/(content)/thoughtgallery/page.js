@@ -99,15 +99,17 @@ export default function ThoughtGallery() {
           The more angles you see wealth from, the less foreign the landscape
           feels. Pick a chamber.
         </p>
-        {galleries.map((gal, index) => (
-          <button
-            key={index}
-            className={`${styles.navButton} ${gallery === index ? styles.active : ""}`}
-            onClick={() => setGallery(index)}
-          >
-            {gal.title}
-          </button>
-        ))}
+        <div className={styles.navButtonRow}>
+          {galleries.map((gal, index) => (
+            <button
+              key={index}
+              className={`${styles.navButton} ${gallery === index ? styles.active : ""}`}
+              onClick={() => setGallery(index)}
+            >
+              {gal.title}
+            </button>
+          ))}
+        </div>
       </nav>
 
       {gallery === -1 ? null : (<section
