@@ -147,7 +147,7 @@ export default function Home() {
                 // style={{marginTop: "-22rem", marginBottom: "-22rem"}}
                 src="/home/final.png"
                 width={750}
-                height={1532}
+                height={1200}
                 // sizes="(max-width: 768px) 347px, 700px"
                 alt="Flight Path"
               />
