@@ -197,16 +197,13 @@
   padding-bottom: 0;
   width: min(78vw, 700px);
   max-width: 700px;
-  overflow: hidden;
   line-height: 0;
 }
 
 .hero-final-image {
   margin-top: 0;
   width: 100%;
-  height: clamp(18rem, 31vw, 25rem);
-  object-fit: cover;
-  object-position: center 30%;
+  height: auto;
   display: block;
 }
 
@@ -1120,6 +1117,7 @@
 
   .hero-final-block {
     margin-top: 0;
+    width: min(70vw, 320px);
   }
 
   .hero-logo-block .hero-graphic-image {
@@ -1128,8 +1126,7 @@
 
   .hero-final-image {
     width: 100%;
-    height: clamp(14rem, 44vw, 18rem);
-    object-position: center 32%;
+    height: auto;
   }
 
   .hero-logo-ring {

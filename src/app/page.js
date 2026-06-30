@@ -141,17 +141,16 @@ export default function Home() {
             {/* </div> */}
             {/* </div> */}
 
-            {/* <div className="hero-image-block hero-final-block"> */}
+            <div className="hero-image-block hero-final-block">
               <Image
-                // className="hero-graphic-image hero-final-image"
-                // style={{marginTop: "-22rem", marginBottom: "-22rem"}}
+                className="hero-final-image"
                 src="/home/final.png"
                 width={750}
                 height={766}
-                // sizes="(max-width: 768px) 347px, 700px"
+                sizes="(max-width: 768px) 70vw, 700px"
                 alt="Flight Path"
               />
-            {/* </div> */}
+            </div>
             {/* <div className="mobile-hidden" style={{  }}>
               <Image
                 src="/home/homebox.png"
