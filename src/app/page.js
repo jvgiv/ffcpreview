@@ -144,7 +144,7 @@ export default function Home() {
             {/* <div className="hero-image-block hero-final-block"> */}
               <Image
                 // className="hero-graphic-image hero-final-image"
-                style={{marginTop: "-22rem", marginBottom: "-22rem"}}
+                // style={{marginTop: "-22rem", marginBottom: "-22rem"}}
                 src="/home/final.png"
                 width={750}
                 height={1532}
