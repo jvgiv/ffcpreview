@@ -73,6 +73,17 @@ export default function Header() {
     setIsProfileMenuOpen(false)
   }
 
+  const handleHomeClick = () => {
+    handleNavClose()
+
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'auto' })
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: 0, behavior: 'auto' })
+      })
+    }
+  }
+
   const handleProfileMenuToggle = () => {
     setIsMenuOpen(false)
     setIsProfileMenuOpen((current) => !current)
@@ -104,7 +115,7 @@ export default function Header() {
           <Link
             className={`ffc-nav-link ${pathName === "/" ? "active" : "" }`}
             href="/"
-            onClick={handleNavClose}
+            onClick={handleHomeClick}
           >
             HOME
           </Link>
@@ -185,7 +196,7 @@ export default function Header() {
             <Link
               className={`ffc-nav-link ${pathName === "/" ? "active" : "" }`}
               href="/"
-              onClick={handleNavClose}
+              onClick={handleHomeClick}
             >
               HOME
             </Link>
@@ -299,7 +310,7 @@ export default function Header() {
         </ul>
       </div>
 
-      <Link className="ffc-nav-brand" href="/">
+      <Link className="ffc-nav-brand" href="/" onClick={handleHomeClick}>
         FAR FLUNG CHANGE
       </Link>
       {authUser ? (
