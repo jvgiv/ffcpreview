@@ -29,7 +29,7 @@ export default function Home() {
           <div className="hero-sub-changes-top">
             {/* Financial stress isn&apos;t mostly a money problem. It&apos;s mostly a fog problem. Far Flung Change clears the fog.  - {" "}
             <strong style={{ color: "var(--white)" }}>Before you reach the Clubhouse.</strong> */}
-            Facing your finances <br /> doesn&apos;t have to feel <br /> like
+            Facing your finances <br /> doesn&apos;t <span style={{fontStyle: 'italic'}}>have to</span> feel <br /> like
             roaming a{" "}
             <span style={{ color: "var(--red)" }}>
               <span style={{ fontWeight: "bold" }}>foreign</span>
@@ -45,11 +45,13 @@ export default function Home() {
             of money matters! */}
           </div>
           <p className="hero-sub-title-text reveal">
-            Financial orientation is simply knowing where you stand...and what's
+            {/* Financial orientation is simply knowing where you stand...and what's
             around. 
             <br />
             So you&apos;re confident the next move you make is <span style={{color: "var(--red)"}}>the clear
-            choice</span>.
+            choice</span>. */}
+            read your terrain right with financial orientation 
+            <br /> so your next step is on <span style={{fontWeight: 'bold'}}>purpose</span>
           </p>
           <ul style={{ listStyleType: "none" }} className="hero-sub-list">
             <li className="hero-sub-item">
