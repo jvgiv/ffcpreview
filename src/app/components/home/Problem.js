@@ -63,31 +63,35 @@ export default function Problem() {
 
           <div className="friction-stat reveal">
             <div className="stat-item">
-              <p className="stat-num">
-                88
-                <span>%</span>
-              </p>
-              <p className="stat-label">
-                of Americans say high school did not leave them fully prepared
-                for handling money in the real world.
-              </p>
-              <div className="stat-divider" />
-              <p className="stat-num">
-                23<span>%</span>
-              </p>
-              <p className="stat-label">
-                say their income would be sufficient if they understood how to
-                manage it more effectively.
-                {/* <br /> Another 19% indicate their financial situation is best described by <i>both – my income is limited and I struggle with money management.</i> */}
-              </p>
-              <div className="stat-divider" />
-              <p className="stat-num">
-                388 <span>$BILLION</span>
-              </p>
-              <p className="stat-label">
-                is the estimated cost of financial illiteracy in the United
-                States in 2023.
-              </p>
+              <div className="stat-block stat-block-top">
+                <p className="stat-num">
+                  88 <span>PERCENT</span>
+                </p>
+                <p className="stat-label">
+                  of Americans say high school did not leave them fully prepared
+                  for handling money in the real world.
+                </p>
+                <div className="stat-divider" />
+              </div>
+              <div className="stat-block stat-block-middle">
+                <p className="stat-num">
+                  1,506 <span>DOLLARS</span>
+                </p>
+                <p className="stat-label">
+                  is the estimated amount that financial illiteracy cost the average American in 2023.
+                  {/* <br /> Another 19% indicate their financial situation is best described by <i>both – my income is limited and I struggle with money management.</i> */}
+                </p>
+                <div className="stat-divider" />
+              </div>
+              <div className="stat-block stat-block-bottom">
+                <p className="stat-num">
+                  388 <span>BILLION</span>
+                </p>
+                <p className="stat-label">
+                  is the estimated cost of financial illiteracy in the United
+                  States in 2023.
+                </p>
+              </div>
             </div>
           </div>
         </div>

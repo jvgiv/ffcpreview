@@ -29,35 +29,23 @@ export default function Home() {
           <div className="hero-sub-changes-top">
             {/* Financial stress isn&apos;t mostly a money problem. It&apos;s mostly a fog problem. Far Flung Change clears the fog.  - {" "}
             <strong style={{ color: "var(--white)" }}>Before you reach the Clubhouse.</strong> */}
-            Facing your finances <br /> doesn&apos;t <span style={{fontStyle: 'italic'}}>have to</span> feel <br /> like
-            roaming a{" "}
+            Facing your finances <br /> doesn&apos;t{" "}
+            <span style={{ fontStyle: "italic", color: "#888" }}>have to</span>
+            &nbsp;&nbsp;feel <br /> like roaming a{" "}
             <span style={{ color: "var(--red)" }}>
               <span style={{ fontWeight: "bold" }}>foreign</span>
             </span>{" "}
-            {/* <span style={{ fontStyle: "italic" }}> */}
             land
-            {/* </span> */}
-            {/* <br />
-            You don&apos;t have to be an expert to{" "}
-            <span style={{ color: "var(--red)", fontStyle: "italic" }}>
-              make <span style={{ fontWeight: "bold" }}>sense</span>
-            </span>{" "}
-            of money matters! */}
           </div>
           <p className="hero-sub-title-text reveal">
-            {/* Financial orientation is simply knowing where you stand...and what's
-            around. 
-            <br />
-            So you&apos;re confident the next move you make is <span style={{color: "var(--red)"}}>the clear
-            choice</span>. */}
-            read your terrain right with financial orientation 
-            <br /> so your next step is on <span style={{fontWeight: 'bold'}}>purpose</span>
+            read your terrain right with financial orientation
+            <br /> so your next step is on{" "}
+            <span style={{ fontWeight: "bold" }}>purpose</span>
           </p>
-          <ul style={{ listStyleType: "none" }} className="hero-sub-list">
+          {/* <ul style={{ listStyleType: "none" }} className="hero-sub-list">
             <li className="hero-sub-item">
               <div className="bullet-icon">
                 <span style={{ color: "var(--white)" }}>POSITION</span>
-                {/* <div className="bullet-dot"></div> */}
               </div>
               <div className="hero-sub-item-text">
                 <span style={{ color: "var(--gray)" }}>
@@ -73,20 +61,16 @@ export default function Home() {
                   style={{ marginLeft: "0.5rem" }}
                 />
               </div>
-              {/* </span> */}
             </li>
             <li className="hero-sub-item">
               <div className="bullet-icon">
                 <span style={{ color: "var(--white)" }}>QUESTIONS</span>
-                {/* <div className="bullet-dot"></div> */}
               </div>
               <div className="hero-sub-item-text">
                 <span style={{ color: "var(--gray)" }}>
                   Clarify what matters most to you{" "}
-                  {/* <span style={{ fontStyle: "italic", color: "var(--gray)" }}> */}
                   right now
                 </span>
-                {/* </span> */}
               </div>
               <div className="hero-sub-icon">
                 <Image
@@ -101,7 +85,6 @@ export default function Home() {
             <li className="hero-sub-item">
               <div className="bullet-icon">
                 READINESS
-                {/* <div className="bullet-dot"></div> */}
               </div>
               <div className="hero-sub-item-text">
                 <span style={{ color: "var(--white)" }}>
@@ -118,13 +101,13 @@ export default function Home() {
                 />
               </div>
             </li>
-          </ul>
+          </ul> */}
           <div className="hero-sub-changes">
             {/* <span style={{ color: "var(--red)" }}>
               Welcome to Far Flung Change
             </span> */}
             {/* <p>practical financial orientation</p> */}
-            <p
+            {/* <p
               style={{
                 color: "var(--homepage-gray)",
                 fontSize: "clamp(1.8rem, 2vw, 1.2rem)",
@@ -133,11 +116,11 @@ export default function Home() {
                 fontStyle: "italic",
                 fontWeight: "bold",
                 paddingBottom: "1rem",
-                marginBottom: "5rem"
+                marginBottom: "5rem",
               }}
             >
               For people who want clarity. Not complexity.
-            </p>
+            </p> */}
 
             {/* <Image
               src="/pfo.png"
@@ -146,15 +129,37 @@ export default function Home() {
               height={104}
               style={{ width: "100%", height: "auto", maxWidth: "599px" }}
             /> */}
-            <div className="hero-logo-ring">
+            {/* <div className="hero-logo-ring"> */}
+            {/* <div className="hero-image-block hero-logo-block"> */}
               <Image
-                className="hero-logo-image"
+                className="hero-graphic-image"
                 src="/svg/lgs.png"
                 alt="FFC Logo"
-                width={1031}
-                height={985}
+                width={412}
+                height={394}
               />
-            </div>
+            {/* </div> */}
+            {/* </div> */}
+
+            {/* <div className="hero-image-block hero-final-block"> */}
+              <Image
+                // className="hero-graphic-image hero-final-image"
+                style={{marginTop: "-22rem", marginBottom: "-22rem"}}
+                src="/home/final.png"
+                width={750}
+                height={1532}
+                // sizes="(max-width: 768px) 347px, 700px"
+                alt="Flight Path"
+              />
+            {/* </div> */}
+            {/* <div className="mobile-hidden" style={{  }}>
+              <Image
+                src="/home/homebox.png"
+                width={870}
+                height={830}
+                alt="flight path"
+              />
+            </div> */}
           </div>
           {/* <p className="hero-sub">Welcome to FinancialOrientation</p> */}
           <div className="brand-signature">

@@ -44,6 +44,29 @@ body {
   width: 100%;
 }
 
+
+.shown-mobile {
+  display: none;
+}
+
+.mobile-hidden {
+  display: block;
+  border: 3px solid var(--red);
+  margin-top: 4rem;
+}
+
+@media(max-width: 768px) {
+  .shown-mobile {
+    display: block;
+    border: none;
+    margin-top: none;
+  }
+
+  .mobile-hidden {
+    display: none;
+  }
+}
+
 /* Far Flung nav */
 .ffc-nav {
   position: fixed;
