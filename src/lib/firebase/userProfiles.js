@@ -42,6 +42,14 @@ function serializeTimestamp(value) {
   return typeof value === "string" ? value : null;
 }
 
+function normalizeFavoriteTerms(value) {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value.filter((item) => typeof item === "string" || typeof item === "number").map((item) => String(item));
+}
+
 function buildResolvedPaymentSummary(paymentSummary) {
   if (!paymentSummary || typeof paymentSummary !== "object") {
     return {};
@@ -74,6 +82,8 @@ function buildUserProfileRecord(user, profile = {}, existingProfile = null) {
   const zipCode = firstAvailableText(profile.zipCode, existingProfile?.zipCode);
   const ageRange = firstAvailableText(profile.ageRange, existingProfile?.ageRange);
 
+  const favoriteTerms = normalizeFavoriteTerms(profile.favoriteTerms ?? existingProfile?.favoriteTerms);
+
   return {
     uid: user.uid,
     email: firstAvailableText(user.email, profile.email, existingProfile?.email),
@@ -82,6 +92,7 @@ function buildUserProfileRecord(user, profile = {}, existingProfile = null) {
     ...(phoneNumber ? { phoneNumber } : {}),
     ...(zipCode ? { zipCode } : {}),
     ...(ageRange ? { ageRange } : {}),
+    favoriteTerms,
     updatedAt: serverTimestamp(),
   };
 }
@@ -95,6 +106,8 @@ export function buildResolvedFirebaseUserProfile(user, ...profiles) {
     {}
   );
 
+  const favoriteTerms = normalizeFavoriteTerms(resolvedProfile.favoriteTerms);
+
   return {
     uid: user.uid,
     email: firstAvailableText(resolvedProfile.email, user.email),
@@ -103,6 +116,7 @@ export function buildResolvedFirebaseUserProfile(user, ...profiles) {
     zipCode: firstAvailableText(resolvedProfile.zipCode),
     ageRange: firstAvailableText(resolvedProfile.ageRange),
     role: normalizeUserRole(resolvedProfile.role || DEFAULT_USER_ROLE),
+    favoriteTerms,
     paymentSummary: buildResolvedPaymentSummary(resolvedProfile.paymentSummary),
   };
 }

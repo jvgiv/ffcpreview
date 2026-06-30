@@ -332,6 +332,16 @@ export default function Header() {
               </Link>
             </li>
             <li role="none">
+              <Link
+                className="ffc-nav-profile-link"
+                href="/account/favorites"
+                role="menuitem"
+                onClick={handleNavClose}
+              >
+                View Definition Favorites
+              </Link>
+            </li>
+            <li role="none">
               <button
                 type="button"
                 className="ffc-nav-profile-link ffc-nav-profile-action"
