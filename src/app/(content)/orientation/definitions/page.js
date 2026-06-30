@@ -46,7 +46,12 @@ export default function Definitions() {
           </span>
         </p>
       </div>
-        <TermSearch />
+      <div style={{ display: "flex", justifyContent: "center", margin: "1.25rem 0" }}>
+        <Link href="/account/favorites" target="_blank" className="nav-btn-def primary">
+          View Favorites
+        </Link>
+      </div>
+      <TermSearch />
 
       <div id="chapterGrid" className="chapter-grid">
         {chapters.map((chapter) => (

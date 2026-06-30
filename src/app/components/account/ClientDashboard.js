@@ -716,6 +716,9 @@ export default function ClientDashboard({
               <Link href="/agreements" style={secondaryButtonStyle}>
                 Review Agreements
               </Link>
+              <Link href="/account/favorites" style={secondaryButtonStyle}>
+                View Definition Favorites
+              </Link>
               <Link href="/" style={secondaryButtonStyle}>
                 Back Home
               </Link>

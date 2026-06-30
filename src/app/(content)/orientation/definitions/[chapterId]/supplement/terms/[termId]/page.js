@@ -4,6 +4,7 @@ import chapters from "@/data/def";
 import SubSideNav from "@/app/components/SubSideNav";
 import "../../../../definitions.css";
 import TermSearch from "../../../../TermSearch";
+import FavoriteCheckbox from "@/lib/FavoriteCheckbox";
 
 export default async function SupplementTermDetailPage({ params }) {
   const { chapterId, termId } = await params;
@@ -20,6 +21,7 @@ export default async function SupplementTermDetailPage({ params }) {
   }
 
   const [number, title, pronunciation, partOfSpeech, definition, type, insight] = term;
+  const favoriteKey = `supplement:${chapter.id}:${termId}`;
 
   return (
       <div>
@@ -70,6 +72,7 @@ export default async function SupplementTermDetailPage({ params }) {
             </a>
             <div id="progressRow" className="entry-progress fade-up"></div>
             <TermSearch />
+            <FavoriteCheckbox termId={favoriteKey} />
             <div className="entry-nav-bottom">
                 {number > 1 ? (
                 <Link

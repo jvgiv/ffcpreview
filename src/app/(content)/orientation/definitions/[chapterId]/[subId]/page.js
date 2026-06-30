@@ -5,6 +5,7 @@ import chapters from '@/data/def';
 import SubSideNav from '@/app/components/SubSideNav';
 import '../../definitions.css';
 import TermSearch from '../../TermSearch.js';
+import FavoriteCheckbox from '@/lib/FavoriteCheckbox';
 
 export default async function Subpage({ params }) {
   const { chapterId, subId } = await params;
@@ -26,6 +27,8 @@ export default async function Subpage({ params }) {
   }
 
   const [number, title, pronunciation, partOfSpeech, definition, type, insight, time] = sub;
+  const favoriteKey = `chapter:${chapter.id}:${subId}`;
+
   return (
     <div>
 
@@ -92,6 +95,7 @@ export default async function Subpage({ params }) {
                 {/* <span id="progLabel" className="prog-label">Mark as in progress</span> */}
             </div>
                 <TermSearch />
+                <FavoriteCheckbox termId={favoriteKey} />
             <div className="entry-nav-bottom">
                 {number > 1 ? (
                 <Link
