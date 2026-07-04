@@ -151,7 +151,7 @@ export default function Orientation() {
         </div>
       </section>
 
-      <section
+      {/* <section
         id="continue-conversation"
         className={`${styles.callout} ${styles.revealCard} reveal`}
         style={{ transitionDelay: "0.08s" }}
@@ -191,7 +191,7 @@ export default function Orientation() {
             </a>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section
         className={`${styles.section} ${styles.revealCard} reveal`}
