@@ -151,47 +151,33 @@ export default function Orientation() {
         </div>
       </section>
 
-      {/* <section
+      <section
         id="continue-conversation"
         className={`${styles.callout} ${styles.revealCard} reveal`}
         style={{ transitionDelay: "0.08s" }}
       >
-        <p className={styles.sectionHeading}>Continue the Conversation</p>
+        <p className={styles.sectionHeading}>Call your Flight Crew</p>
         <span className="orientation-line"></span>
         <div className={styles.definitionBlock}>
           <div className={styles.sectionCopy}>
             <p>
-              This is filler text. This is filler text. This is filler text.
-            </p>
-            <p>
-              This is filler text. This is filler text. This is filler text.
-              This is filler text. This is filler text. This is filler text.
-              This is filler text. This is filler text. This is filler text.
-              This is filler text. This is filler text. This is filler text.
-            </p>
-            <p>
-              This is filler text. This is filler text. This is filler text.
-              This is filler text. This is filler text. This is filler text.
-              This is filler text. This is filler text. This is filler text.
-              This is filler text. This is filler text. This is filler text.
-              This is filler text. This is filler text. This is filler text.
-              This is filler text. This is filler text. This is filler text.
-              This is filler text. This is filler text. This is filler text.
-              This is filler text. This is filler text. This is filler text.
+              Your questions don't have to wait for a written reply. Pick a time
+              and let's talk through where you are + what you see so we
+              can address what you want to know + where you want to go.
             </p>
           </div>
           <div className={styles.definitionAction}>
             <a
-              // href="mailto:deliberate@FarFlungChange.com"
-              className="btn-ghost"
+              href="https://calendly.com/its-about-time"
+              className="btn-primary"
               rel="noreferrer"
-              // target="_blank"
+              target="_blank"
             >
-              WHAT SHOULD THIS BUTTON DO?
+              LET'S CONNECT
             </a>
           </div>
         </div>
-      </section> */}
+      </section>
 
       <section
         className={`${styles.section} ${styles.revealCard} reveal`}
