@@ -14,13 +14,13 @@ export default function Header() {
   const [authUser, setAuthUser] = useState(null)
   const profileMenuRef = useRef(null)
   const homeSectionLinks = [
-    { href: '/#problem', label: 'The Problem' },
-    { href: '/#solution', label: 'The Solution' },
-    { href: '/#plan', label: 'The Process' },
-    { href: '/#definitions-preview', label: 'DogStar Definitions' },
-    { href: '/#scorecard', label: 'Orientation ScoreCard' },
-    { href: '/#pricing', label: 'MenuBoard' },
-    { href: '/#cta', label: 'Punch The Clock' },
+    { href: '/#problem', label: 'The Problem', element: "problem" },
+    { href: '/#solution', label: 'The Solution', element: "solution" },
+    { href: '/#plan', label: 'The Process', element: "plan" },
+    { href: '/#definitions-preview', label: 'DogStar Definitions', element: "definitions-preview" },
+    { href: '/#scorecard', label: 'Orientation ScoreCard', element: "scorecard" },
+    { href: '/#pricing', label: 'MenuBoard', element: "pricing" },
+    { href: '/#cta', label: 'Punch The Clock', element: "cta" },
   ]
 
   useEffect(() => {
@@ -95,6 +95,25 @@ export default function Header() {
     window.location.assign('/')
   }
 
+  const scrollToSection = (id, clearHash = true) => {
+    const element = document.getElementById(id);
+
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+
+      if (clearHash) {
+        setTimeout(() => {
+          window.history.replaceState(
+            null,
+            '',
+            window.location.pathname + window.location.search
+          )
+      }, 1200);
+  }}}
+
   return (
     <nav className={`ffc-nav ${isMenuOpen ? 'mobile-open' : ''}`}>
       <button
@@ -122,7 +141,13 @@ export default function Header() {
           <ul className="ffc-home-menu" aria-label="Home section links">
             {homeSectionLinks.map((item) => (
               <li key={item.href}>
-                <Link className="ffc-home-menu-link" href={item.href}>
+                <Link 
+                  onClick={e => {
+                    e.preventDefault();
+                    scrollToSection(item.element);
+                  }}
+                  className="ffc-home-menu-link" 
+                  href={item.href}>
                   {item.label}
                 </Link>
               </li>
@@ -148,25 +173,39 @@ export default function Header() {
           </Link>
           <ul className="ffc-home-menu" aria-label="Guided Orientation section links">
             <li>
-              <Link className="ffc-home-menu-link" href="/orientation#guided-orientation">
+              <Link 
+                onClick={e => {
+                e.preventDefault();
+                scrollToSection('guided-orientation');
+                }} 
+                className="ffc-home-menu-link"
+                href="#guided-orientation">
                 Guided Orientation
               </Link>
             </li>
             <li>
-              <Link className="ffc-home-menu-link" href="/orientation#how-it-works">
+              <Link
+                onClick={e => {
+                  e.preventDefault();
+                  scrollToSection('how-it-works');
+                }}
+                className="ffc-home-menu-link" 
+                href="#how-it-works"
+                >
                 View The Agreement
               </Link>
             </li>
             <li>
-              <Link className="ffc-home-menu-link" href="/orientation#submit-oq">
+              <Link 
+                onClick={e => {
+                  e.preventDefault();
+                  scrollToSection('submit-oq');
+                }}
+                className="ffc-home-menu-link" 
+                href="submit-oq">
                 Submit Your OQ
               </Link>
             </li>
-            {/* <li>
-              <Link className="ffc-home-menu-link" href="/orientation/definitions">
-                DogStar Definitions
-              </Link>
-            </li> */}
           </ul>
         </li>
         <li className="ffc-nav-item">
