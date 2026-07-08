@@ -2,6 +2,8 @@ import React from "react";
 import Link from "next/link";
 import styles from "./page.module.css";
 import "../../homepage.css";
+import Image from "next/image";
+import aboutStyles from "../about/page.module.css";
 
 export default function Orientation() {
   return (
@@ -160,6 +162,31 @@ export default function Orientation() {
         <span className="orientation-line"></span>
         <div className={styles.definitionBlock}>
           <div className={styles.sectionCopy}>
+            <div className={aboutStyles.rosterGrid}>
+            <div className={`${aboutStyles.memberCard} ${styles.revealCard} reveal`}>
+              <p className={aboutStyles.memberName}>Matty the Financial Caddy</p>
+              <Image
+                src="/headshots/matty.png"
+                alt="Matty the Financial Caddy"
+                width={107}
+                height={107}
+                style={{ width: "100%", height: "auto" }}
+              />
+            </div>
+            <div
+              className={`${aboutStyles.memberCard} ${styles.revealCard} reveal`}
+              style={{ transitionDelay: "0.1s" }}
+            >
+              <p className={aboutStyles.memberName}>Pete the GreensKeeper</p>
+              <Image
+                src="/headshots/pete.png"
+                alt="Pete the GreensKeeper"
+                width={107}
+                height={107}
+                style={{ width: "100%", height: "auto" }}
+              />
+            </div>
+          </div>
             <p>
               Your questions don't have to wait for a written reply. Pick a time
               and let's talk through where you are + what you see so we
