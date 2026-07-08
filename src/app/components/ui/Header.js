@@ -95,24 +95,34 @@ export default function Header() {
     window.location.assign('/')
   }
 
-  const scrollToSection = (id, clearHash = true) => {
-    const element = document.getElementById(id);
+  const scrollToSection = (id, targetPage, clearHash = true) => {
+    const currentPath = window.location.pathname;
 
-    if (element) {
-      element.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
+    if (
+      currentPath === targetPage ||
+      (targetPage === "/" && currentPath === "")
+    ) {
+      const element = document.getElementById(id);
 
-      if (clearHash) {
-        setTimeout(() => {
-          window.history.replaceState(
-            null,
-            '',
-            window.location.pathname + window.location.search
-          )
-      }, 1200);
-  }}}
+      if (element) {
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+
+        if (clearHash) {
+          setTimeout(() => {
+            window.history.replaceState(
+              null,
+              "",
+              window.location.pathname + window.location.search,
+            );
+          }, 1200);
+        }
+      } 
+    }
+    else {window.location.href = `${targetPage}#${id}`};
+  };
 
   return (
     <nav className={`ffc-nav ${isMenuOpen ? 'mobile-open' : ''}`}>
@@ -144,7 +154,7 @@ export default function Header() {
                 <Link 
                   onClick={e => {
                     e.preventDefault();
-                    scrollToSection(item.element);
+                    scrollToSection(item.element, '/');
                   }}
                   className="ffc-home-menu-link" 
                   href={item.href}>
@@ -176,10 +186,10 @@ export default function Header() {
               <Link 
                 onClick={e => {
                 e.preventDefault();
-                scrollToSection('guided-orientation');
+                scrollToSection('guided-orientation', '/orientation');
                 }} 
                 className="ffc-home-menu-link"
-                href="#guided-orientation">
+                href="/orientation#guided-orientation">
                 Guided Orientation
               </Link>
             </li>
@@ -187,7 +197,7 @@ export default function Header() {
               <Link
                 onClick={e => {
                   e.preventDefault();
-                  scrollToSection('how-it-works');
+                  scrollToSection('how-it-works', '/orientation');
                 }}
                 className="ffc-home-menu-link" 
                 href="#how-it-works"
@@ -199,7 +209,7 @@ export default function Header() {
               <Link 
                 onClick={e => {
                   e.preventDefault();
-                  scrollToSection('submit-oq');
+                  scrollToSection('submit-oq', '/orientation');
                 }}
                 className="ffc-home-menu-link" 
                 href="submit-oq">
