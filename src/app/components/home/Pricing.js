@@ -58,7 +58,7 @@ export default function Pricing() {
             <div className="pricing-badge">Core Program</div>
             <div className="pricing-name">
               {/* {financialServices?.displayName ||  */}
-              WHATS INCLUDED
+              WHAT'S INCLUDED
               {/* } */}
             </div>
             <div className="pricing-price">
@@ -105,7 +105,7 @@ export default function Pricing() {
             </div>
             <div className="pricing-name">
               {/* {premiumExpansionPack?.displayName ||  */}
-              WHATS INCLUDED
+              WHAT'S INCLUDED
               {/* } */}
             </div>
             <div className="pricing-price">
