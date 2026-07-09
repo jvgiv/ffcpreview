@@ -475,8 +475,8 @@
   flex-direction: column;
   border: 2px solid var(--border);
   padding: 5rem 2.5rem;
-  gap: 3rem;
-  height: 70%;
+  gap: 5rem;
+  height: 90%;
   
 }
 
@@ -520,6 +520,13 @@
   font-size: 1.05rem;
   color: var(--homepage-gray);
   line-height: 1.5;
+}
+
+.friction-stat .stat-label br,
+.friction-stat .stat-block > br {
+  display: block;
+  content: "";
+  margin-top: 0.85rem;
 }
 
 .stat-divider {
