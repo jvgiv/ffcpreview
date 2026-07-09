@@ -95,7 +95,7 @@ export default function Agreements() {
                   className="btn-primary"
                   style={{ width: "100%", textAlign: "center", display: "block" }}
                 >
-                  Review Agreement -&gt;
+                  Review Agreement
                 </Link>
               </div>
             </article>

@@ -145,6 +145,23 @@
   margin-top: 1rem;
 }
 
+.crewGrid {
+  width: min(100%, 34rem);
+}
+
+.crewImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+
+.peteCrewImage {
+  transform: scale(1.09);
+  transform-origin: center;
+}
+
 .pricingGrid {
   display: grid;
   grid-template-columns: repeat( auto-fit, minmax(240px, 1fr) );

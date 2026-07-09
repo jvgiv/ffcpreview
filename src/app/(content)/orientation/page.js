@@ -93,7 +93,7 @@ export default function Orientation() {
               className="btn-primary"
               style={{ fontSize: "0.85rem", padding: "1.1rem 2.5rem" }}
             >
-              Choose a Plan -&gt;
+              Choose a Plan
             </Link>
           </div>
         </div>
@@ -147,7 +147,7 @@ export default function Orientation() {
               rel="noreferrer"
               target="_blank"
             >
-              SUBMIT YOUR ORIENTATION QUESTION -&gt;
+              SUBMIT YOUR ORIENTATION QUESTION
             </a>
           </div>
         </div>
@@ -162,15 +162,15 @@ export default function Orientation() {
         <span className="orientation-line"></span>
         <div className={styles.definitionBlock}>
           <div className={styles.sectionCopy}>
-            <div className={aboutStyles.rosterGrid}>
+            <div className={`${aboutStyles.rosterGrid} ${styles.crewGrid}`}>
             <div className={`${aboutStyles.memberCard} ${styles.revealCard} reveal`}>
               <p className={aboutStyles.memberName}>Matty the Financial Caddy</p>
               <Image
                 src="/headshots/matty.png"
                 alt="Matty the Financial Caddy"
-                width={107}
-                height={107}
-                style={{ width: "100%", height: "auto" }}
+                width={2584}
+                height={2584}
+                className={styles.crewImage}
               />
             </div>
             <div
@@ -181,9 +181,9 @@ export default function Orientation() {
               <Image
                 src="/headshots/pete.png"
                 alt="Pete the GreensKeeper"
-                width={107}
-                height={107}
-                style={{ width: "100%", height: "auto" }}
+                width={2584}
+                height={2584}
+                className={`${styles.crewImage} ${styles.peteCrewImage}`}
               />
             </div>
           </div>
@@ -229,7 +229,7 @@ export default function Orientation() {
           </p>
           <div className={styles.definitionAction}>
             <Link href="/orientation/definitions" className="btn-ghost">
-              Explore DogStar Definitions -&gt;
+              Explore DogStar Definitions
             </Link>
           </div>
         </div>

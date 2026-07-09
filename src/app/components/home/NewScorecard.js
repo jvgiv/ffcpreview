@@ -29,7 +29,7 @@ export default function NewScorecard() {
               className="btn-ghost"
               style={{ marginTop: "1rem", display: "inline-block" }}
             >
-              Unlock ScoreCard -&gt;
+              Unlock ScoreCard
             </Link>
           </div>
           <div
