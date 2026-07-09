@@ -30,18 +30,22 @@ let movieNightImages = [
 ];
 
 let oriMattImages = [
+  { src: "/fs0.png", alt: "", width: 1500, height: 1500 },
   { src: "/om1.png", alt: "", width: 1500, height: 1500 },
   { src: "/om2.png", alt: "", width: 1500, height: 1500 },
   { src: "/om3.png", alt: "", width: 1500, height: 1500 },
   { src: "/allin1.png", alt: "", width: 1500, height: 1500 },
+  { src: "/fs6.png", alt: "", width: 1500, height: 1500 },
 ];
 
 let fogSeriesImages = [
+  { src: "/fs0.png", alt: "", width: 1500, height: 1500 },
   { src: "/fs1.png", alt: "", width: 1500, height: 1500 },
   { src: "/fs2.png", alt: "", width: 1500, height: 1500 },
   { src: "/fs3.jpg", alt: "", width: 1500, height: 1500 },
   { src: "/fs4.png", alt: "", width: 1500, height: 1500 },
   { src: "/fs5.png", alt: "", width: 1500, height: 1500 },
+  { src: "/fs6.png", alt: "", width: 1500, height: 1500 },
 ];
 
 const galleries = [
