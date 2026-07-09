@@ -162,7 +162,7 @@ export default function Orientation() {
         <span className="orientation-line"></span>
         <div className={styles.definitionBlock}>
           <div className={styles.sectionCopy}>
-            <div className={`${aboutStyles.rosterGrid} ${styles.crewGrid}`}>
+            <div className={styles.crewGrid}>
             <div className={`${aboutStyles.memberCard} ${styles.revealCard} reveal`}>
               <p className={aboutStyles.memberName}>Matty the Financial Caddy</p>
               <Image

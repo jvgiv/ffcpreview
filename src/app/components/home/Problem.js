@@ -10,7 +10,9 @@ export default function Problem() {
             <span className="section-label">THE PROBLEM</span>
             {/* <h2 className="section-title">YOU ARE DECIDING WITHOUT A MAP.</h2> */}
             <h2 className="section-title">
-              MONEY MATTERS ARE <span style={{ color: "var(--red)"}}>MURKY</span>. FINANCE FEELS <span style={{ color: "var(--red)"}}>FOREIGN</span>.
+              MONEY MATTERS ARE{" "}
+              <span style={{ color: "var(--red)" }}>MURKY</span>. FINANCE FEELS{" "}
+              <span style={{ color: "var(--red)" }}>FOREIGN</span>.
             </h2>
 
             <p>Most people feel the pressure. Very few say it out loud.</p>
@@ -22,13 +24,16 @@ export default function Problem() {
             <p>
               You&apos;ve made major decisions about debt, taxes, insurance, and
               retirement. Some felt right. Some felt rushed. Most felt like a
-              guess made in a language you never quite learned.</p>
-              <p> It&apos;s not a
-              lack of intelligence. It&apos;s a lack of vocabulary.
+              guess made in a language you never quite learned.
+            </p>
+            <p>
+              {" "}
+              It&apos;s not a lack of intelligence. It&apos;s a lack of
+              vocabulary.
             </p>
             <p>
               You don&apos;t need to be an expert to make the most of your
-              money. But you should be oriented.  For Growin&apos;Up&apos;s Sake.
+              money. But you should be oriented. For Growin&apos;Up&apos;s Sake.
             </p>
             {/* <p>
               That&apos;s the gap.
@@ -65,31 +70,41 @@ export default function Problem() {
             <div className="stat-item">
               <div className="stat-block stat-block-top">
                 <p className="stat-num">
-                  88 <span>PERCENT</span>
+                  98:2 <span>ODDS</span>
                 </p>
                 <p className="stat-label">
-                  of Americans say high school did not leave them fully prepared
-                  for handling money in the real world.
+                  that you skip straight to the signature page when you endorse
+                  a financial agreement nodding at the person across the desk
                 </p>
-                <div className="stat-divider" />
+                <br />
+                <p className="stat-label">
+                  quietly hoping you don&apos;t miss a trap door
+                </p>
+                {/* <div className="stat-divider" /> */}
               </div>
               <div className="stat-block stat-block-middle">
                 <p className="stat-num">
-                  1,506 <span>DOLLARS</span>
+                  X² <span>YEARS</span>
                 </p>
                 <p className="stat-label">
-                  is the estimated amount that financial illiteracy cost the average American in 2023.
-                  {/* <br /> Another 19% indicate their financial situation is best described by <i>both – my income is limited and I struggle with money management.</i> */}
+                  that&apos;s how long most people spend operating in a
+                  financial fog before they learn to take the wheel with
+                  confidence
+                  <br />
+                  the fog clears when you&apos;re ready
                 </p>
-                <div className="stat-divider" />
+                {/* <div className="stat-divider" /> */}
               </div>
               <div className="stat-block stat-block-bottom">
                 <p className="stat-num">
-                  388 <span>BILLION</span>
+                  100% <span>CERTAINTY</span>
                 </p>
                 <p className="stat-label">
-                  is the estimated cost of financial illiteracy in the United
-                  States in 2023.
+                  that each major milestone in your personal future requires
+                  basic fluency in money matters - yet you&apos;ve never been
+                  offered a primer
+                  <br />
+                  until now
                 </p>
               </div>
             </div>

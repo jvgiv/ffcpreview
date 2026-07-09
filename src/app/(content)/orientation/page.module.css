@@ -146,7 +146,16 @@
 }
 
 .crewGrid {
+  display: grid;
   width: min(100%, 34rem);
+  margin-left: auto;
+  margin-right: auto;
+  grid-template-columns: repeat(2, minmax(0, 12rem));
+  justify-content: space-evenly;
+  align-items: start;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
 }
 
 .crewImage {
@@ -225,6 +234,12 @@
   .section,
   .callout {
     padding: 1.5rem;
+  }
+
+  .crewGrid {
+    grid-template-columns: minmax(0, 12rem);
+    justify-content: center;
+    align-items: center;
   }
 }
 
