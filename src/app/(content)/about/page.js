@@ -126,8 +126,8 @@ export default function About() {
               <Image
                 src="/headshots/matty.png"
                 alt="Matty the Financial Caddy"
-                width={323}
-                height={323}
+                width={2584}
+                height={2584}
                 style={{ width: "100%", height: "auto" }}
               />
             </div>
@@ -139,8 +139,8 @@ export default function About() {
               <Image
                 src="/headshots/pete.png"
                 alt="Pete the GreensKeeper"
-                width={323}
-                height={323}
+                width={2584}
+                height={2584}
                 style={{ width: "100%", height: "auto" }}
               />
             </div>

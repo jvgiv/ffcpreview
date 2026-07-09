@@ -16,12 +16,20 @@ export default function ThoughtGalleryLightbox({ images, title, copy }) {
           height: img.height
       }));
 
+        const highlighted = copy.replace(
+          /BE/gi,
+          `<span style="color: var(--red)">BE</span>`,
+        );
+
 
   return (
       <div className={styles.gallery}>
       <div className={styles.header}>
         <h2 className={styles.title}>{title}</h2>
-        <p className={styles.meta}>{copy}</p>
+        <p 
+            className={styles.meta}
+            dangerouslySetInnerHTML={{ __html: highlighted }} 
+            />
       </div>
       <div className={styles.grid}>
         {images.map(function (img, idx) {

@@ -154,7 +154,7 @@ export default function Orientation() {
       </section>
 
       <section
-        id="continue-conversation"
+        id="call-crew"
         className={`${styles.callout} ${styles.revealCard} reveal`}
         style={{ transitionDelay: "0.08s" }}
       >
@@ -188,8 +188,8 @@ export default function Orientation() {
             </div>
           </div>
             <p>
-              Your questions don't have to wait for a written reply. Pick a time
-              and let's talk through where you are + what you see so we
+              Your questions don&apos;t have to wait for a written reply. Pick a time
+              and let&apos;s talk through where you are + what you see so we
               can address what you want to know + where you want to go.
             </p>
           </div>

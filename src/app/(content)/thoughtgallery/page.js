@@ -58,12 +58,12 @@ const galleries = [
   {
     images: fogSeriesImages,
     title: "Fog Bank",
-    copy: "Most financial stress isn't about money. It's about fog. These frames help clear it. : BE Oriented :",
+    copy: `Most financial stress isn't about money. It's about fog. These frames help clear it. : <span style={{ color: "var(--red)" }}>BE</span> Oriented :`,
   },
   {
     images: oriMattImages,
     title: "Housework",
-    copy: "You don't need more information. You need a place to stand. Come on Up + Mind Your Step",
+    copy: "You don't need more information. You need a place to stand. Come on Up + Mind Your Step.",
   },
 ];
 
