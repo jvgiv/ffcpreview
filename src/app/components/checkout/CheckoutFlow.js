@@ -1892,30 +1892,6 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
             >
               Review Full Agreement
             </Link>
-            {docuSignConfig?.consentUrl ? (
-              <a
-                href={docuSignConfig.consentUrl}
-                target="_blank"
-                rel="noreferrer"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  minHeight: "3rem",
-                  padding: "0.85rem 1.2rem",
-                  border: "1px solid rgba(245, 240, 232, 0.2)",
-                  background: "transparent",
-                  color: "var(--white)",
-                  textDecoration: "none",
-                  fontFamily: "'Space Mono', monospace",
-                  fontSize: "0.72rem",
-                  letterSpacing: "0.14em",
-                  textTransform: "uppercase",
-                }}
-              >
-                Open DocuSign Consent
-              </a>
-            ) : null}
           </div>
 
           {recipientViewUrl ? (
