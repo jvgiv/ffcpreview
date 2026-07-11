@@ -22,12 +22,8 @@ function getForgotPasswordErrorMessage(error) {
 }
 
 function buildPasswordResetActionSettings() {
-  if (typeof window === "undefined") {
-    return undefined;
-  }
-
   return {
-    url: `${window.location.origin}/reset-password`,
+    url: "https://farflungchange.com/reset-password",
     handleCodeInApp: true,
   };
 }
