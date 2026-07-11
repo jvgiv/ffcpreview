@@ -31,7 +31,7 @@ export default function HomePageDefs() {
               className="btn-ghost"
               style={{ marginTop: "1rem", display: "inline-block" }}
             >
-              Unlock the Field Guide -&gt;
+              Unlock the Field Guide
             </Link>
           </div>
           <div

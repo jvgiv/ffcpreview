@@ -42,7 +42,7 @@ export default async function ChapterPage({ params }) {
         {/* {chapter.supplement ? (
           <Link href={`/orientation/definitions/${chapter.id}/supplement`} className="nav-btn-supp">
             <span style={{ color: "var(--orange)" }}>
-              Forward to Supplement -&gt;
+              Forward to Supplement
             </span>
           </Link>
         ) : null} */}
@@ -64,7 +64,7 @@ export default async function ChapterPage({ params }) {
         {chapter.supplement ? (
           <Link href={`/orientation/definitions/${chapter.id}/supplement`} className="nav-btn-supp">
             <span style={{ color: "var(--orange)" }}>
-              Forward to Supplement -&gt;
+              Forward to Supplement
             </span>
           </Link>
         ) : null}

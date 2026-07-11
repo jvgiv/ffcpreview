@@ -126,9 +126,9 @@ export default function About() {
               <Image
                 src="/headshots/matty.png"
                 alt="Matty the Financial Caddy"
-                width={323}
-                height={323}
-                style={{ width: "100%", height: "auto" }}
+                width={2584}
+                height={2584}
+                className={styles.memberImage}
               />
             </div>
             <div
@@ -139,9 +139,9 @@ export default function About() {
               <Image
                 src="/headshots/pete.png"
                 alt="Pete the GreensKeeper"
-                width={323}
-                height={323}
-                style={{ width: "100%", height: "auto" }}
+                width={2584}
+                height={2584}
+                className={`${styles.memberImage} ${styles.peteImage}`}
               />
             </div>
           </div>
@@ -193,7 +193,7 @@ export default function About() {
               target="_blank"
               className={styles.ctaPrimary}
             >
-              View Agreement -&gt;
+              View Agreement
             </a>
             <Link href="/#scorecard" className={styles.ctaGhost}>
               Free ScoreCard First

@@ -48,7 +48,7 @@ export default function Pricing() {
           target="_blank"
           className="btn-ghost reveal"
         >
-          View Agreement -&gt;
+          View Agreement
         </a>
         <div
           className="pricing-grid reveal"

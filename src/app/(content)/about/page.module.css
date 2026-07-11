@@ -251,6 +251,19 @@
   padding: 0.75rem 1rem;
 }
 
+.memberImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+
+.peteImage {
+  transform: scale(1.09);
+  transform-origin: center;
+}
+
 .principlesSection {
   padding: 1rem 0 0;
 }

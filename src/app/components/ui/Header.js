@@ -216,6 +216,17 @@ export default function Header() {
                 Submit Your OQ
               </Link>
             </li>
+            <li>
+              <Link 
+                onClick={e => {
+                  e.preventDefault();
+                  scrollToSection('call-crew', '/orientation');
+                }}
+                className="ffc-home-menu-link" 
+                href="call-crew">
+                Call Your Flight Crew
+              </Link>
+            </li>
           </ul>
         </li>
         <li className="ffc-nav-item">
@@ -309,6 +320,11 @@ export default function Header() {
               <li>
                 <Link className="ffc-home-menu-link" href="/orientation#submit-oq" onClick={handleNavClose}>
                   Submit Your OQ
+                </Link>
+              </li>
+              <li>
+                <Link className="ffc-home-menu-link" href="/orientation#call-crew" onClick={handleNavClose}>
+                  Call Your Flight Crew
                 </Link>
               </li>
               {/* <li>

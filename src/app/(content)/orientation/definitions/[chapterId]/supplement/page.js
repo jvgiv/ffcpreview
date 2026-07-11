@@ -31,7 +31,7 @@ export default async function SupplementPage({ params }) {
         </div>
         <div className="cover-count"><span>{supplement.terms.length}</span> terms · {supplement.subTitle}</div>
         <Link href={`/orientation/definitions/${chapter.id}/supplement/terms`} className="cover-enter-btn">
-          Enter
+          Enter + Mind Your Step
         </Link>
         <div className="cover-hint">Tap any term to read its definition</div>
         <div className="ch-nav-top">
