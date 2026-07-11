@@ -32,7 +32,10 @@ function serializePaymentSummary(summary = null) {
     status: summary.status || "",
     paypalStatus: summary.paypalStatus || "",
     priceLabel: summary.priceLabel || "",
+    pricingBreakdown: summary.pricingBreakdown || "",
     amount: summary.amount || null,
+    originalAmount: summary.originalAmount || null,
+    discount: summary.discount || null,
     lastOrderId: summary.lastOrderId || "",
     lastEnvelopeId: summary.lastEnvelopeId || "",
     captureId: summary.captureId || "",
@@ -82,8 +85,33 @@ function extractCaptureId(order) {
   );
 }
 
+function buildStoredAmount(amount = null) {
+  if (!amount) {
+    return null;
+  }
+
+  return {
+    value: amount.value,
+    currencyCode: amount.currencyCode || "USD",
+    ...(typeof amount.valueInCents === "number"
+      ? { valueInCents: amount.valueInCents }
+      : {}),
+  };
+}
+
+function buildPaymentPurchasePayload(purchase) {
+  return {
+    priceLabel: purchase.priceLabel,
+    pricingBreakdown: purchase.pricingBreakdown || purchase.priceLabel,
+    amount: buildStoredAmount(purchase.amount),
+    originalAmount: buildStoredAmount(purchase.originalAmount),
+    discount: purchase.discount || null,
+  };
+}
+
 function buildOrderPayload({ order, purchase, requestUser, envelopeId }) {
   const environment = getPayPalConfig().environment;
+  const purchasePayload = buildPaymentPurchasePayload(purchase);
 
   return {
     orderId: order.id,
@@ -92,11 +120,7 @@ function buildOrderPayload({ order, purchase, requestUser, envelopeId }) {
     agreementSlug: purchase.agreementSlug,
     packageName: purchase.displayName,
     agreementTitle: purchase.agreementTitle,
-    priceLabel: purchase.priceLabel,
-    amount: {
-      value: purchase.amount.value,
-      currencyCode: purchase.amount.currencyCode,
-    },
+    ...purchasePayload,
     paymentStatus: normalizePayPalPaymentStatus(order.status),
     paypalStatus: order.status || "CREATED",
     approvalUrl: getApprovalUrl(order),
@@ -117,6 +141,7 @@ function buildOrderPayload({ order, purchase, requestUser, envelopeId }) {
 
 function buildSummaryPayload({ order, purchase, envelopeId, existingSummary = null }) {
   const paymentStatus = normalizePayPalPaymentStatus(order.status);
+  const purchasePayload = buildPaymentPurchasePayload(purchase);
   const summary = {
     agreementSlug: purchase.agreementSlug,
     packageName: purchase.displayName,
@@ -124,11 +149,7 @@ function buildSummaryPayload({ order, purchase, envelopeId, existingSummary = nu
     provider: "paypal",
     status: paymentStatus,
     paypalStatus: order.status || "CREATED",
-    priceLabel: purchase.priceLabel,
-    amount: {
-      value: purchase.amount.value,
-      currencyCode: purchase.amount.currencyCode,
-    },
+    ...purchasePayload,
     lastOrderId: order.id || existingSummary?.lastOrderId || "",
     lastEnvelopeId: envelopeId || existingSummary?.lastEnvelopeId || "",
     captureId: extractCaptureId(order) || existingSummary?.captureId || "",
@@ -164,7 +185,10 @@ function serializeOrder(docSnapshot) {
     packageName: data.packageName || "",
     agreementTitle: data.agreementTitle || "",
     priceLabel: data.priceLabel || "",
+    pricingBreakdown: data.pricingBreakdown || "",
     amount: data.amount || null,
+    originalAmount: data.originalAmount || null,
+    discount: data.discount || null,
     paymentStatus: data.paymentStatus || "",
     paypalStatus: data.paypalStatus || "",
     approvalUrl: data.approvalUrl || "",
@@ -271,6 +295,45 @@ export async function storeCapturedPayPalOrder({
   );
 
   await batch.commit();
+}
+
+export async function storeDiscountPaymentRecord({
+  purchase,
+  requestUser,
+  envelopeId,
+}) {
+  const db = getAdminDb();
+  const userRef = db.collection("users").doc(requestUser.uid);
+  const userSnapshot = await userRef.get();
+  const existingSummary =
+    userSnapshot.data()?.paymentSummary?.[purchase.agreementSlug] || null;
+  const completedOrder = {
+    id: `discount-${purchase.discount?.code || "code"}-${Date.now()}`,
+    status: "COMPLETED",
+  };
+  const summaryPayload = {
+    ...buildSummaryPayload({
+      order: completedOrder,
+      purchase,
+      envelopeId,
+      existingSummary,
+    }),
+    provider: "discount",
+    paypalStatus: "",
+    lastAction: "discount_checkout_completed",
+    completedAt: FieldValue.serverTimestamp(),
+  };
+
+  await userRef.set(
+    {
+      paymentSummary: {
+        [purchase.agreementSlug]: summaryPayload,
+      },
+    },
+    { merge: true }
+  );
+
+  return completedOrder.id;
 }
 
 export async function getUserPayPalOrder({ uid, orderId }) {

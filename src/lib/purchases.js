@@ -8,6 +8,21 @@ const USD_FORMATTER = new Intl.NumberFormat("en-US", {
 
 export const MAX_ADDITIONAL_ORIENTEERS = 4;
 
+export const DISCOUNT_CODE_DEFINITIONS = {
+  DOGSTARFFC100: {
+    code: "DogstarFFC100",
+    normalizedCode: "DOGSTARFFC100",
+    percentOff: 100,
+    label: "DogstarFFC100 discount",
+  },
+  DOGSTARFFC50: {
+    code: "DogstarFFC50",
+    normalizedCode: "DOGSTARFFC50",
+    percentOff: 50,
+    label: "DogstarFFC50 discount",
+  },
+};
+
 const ADDITIONAL_PLAN_DEFINITIONS = {
   none: {
     tier: "none",
@@ -86,7 +101,7 @@ export const PURCHASE_DEFINITIONS = {
   },
 };
 
-function formatUsdFromCents(valueInCents) {
+export function formatUsdFromCents(valueInCents) {
   return USD_FORMATTER.format(valueInCents / 100);
 }
 
@@ -95,6 +110,67 @@ function buildAmount(valueInCents) {
     currencyCode: "USD",
     value: (valueInCents / 100).toFixed(2),
     valueInCents,
+  };
+}
+
+function getAmountValueInCents(amount) {
+  if (typeof amount?.valueInCents === "number") {
+    return amount.valueInCents;
+  }
+
+  const parsedAmount = Number.parseFloat(amount?.value || "0");
+
+  return Number.isNaN(parsedAmount) ? 0 : Math.round(parsedAmount * 100);
+}
+
+export function normalizeDiscountCode(value) {
+  return typeof value === "string" ? value.trim().toUpperCase() : "";
+}
+
+export function getDiscountByCode(value) {
+  const normalizedCode = normalizeDiscountCode(value);
+
+  return DISCOUNT_CODE_DEFINITIONS[normalizedCode] || null;
+}
+
+export function applyDiscountToPurchase(purchase, discountCode) {
+  if (!purchase) {
+    return null;
+  }
+
+  const discount = getDiscountByCode(discountCode);
+
+  if (!discount) {
+    return purchase;
+  }
+
+  const originalValueInCents = getAmountValueInCents(purchase.amount);
+  const discountValueInCents = Math.min(
+    originalValueInCents,
+    Math.round((originalValueInCents * discount.percentOff) / 100)
+  );
+  const discountedValueInCents = Math.max(
+    0,
+    originalValueInCents - discountValueInCents
+  );
+  const originalAmount = purchase.originalAmount || buildAmount(originalValueInCents);
+  const discountAmount = buildAmount(discountValueInCents);
+  const discountSummary = `${discount.code} ${discount.percentOff}% discount`;
+
+  return {
+    ...purchase,
+    amount: buildAmount(discountedValueInCents),
+    originalAmount,
+    priceLabel: formatUsdFromCents(discountedValueInCents),
+    pricingBreakdown: `${
+      purchase.pricingBreakdown || purchase.priceLabel
+    } - ${discountSummary} (-${formatUsdFromCents(discountValueInCents)})`,
+    discount: {
+      code: discount.code,
+      percentOff: discount.percentOff,
+      label: discount.label,
+      amount: discountAmount,
+    },
   };
 }
 
@@ -206,6 +282,19 @@ export function buildPurchaseFromStoredRecord(record) {
     return null;
   }
 
+  const amount = {
+    currencyCode: record.amount.currencyCode || "USD",
+    value: record.amount.value,
+    valueInCents: getAmountValueInCents(record.amount),
+  };
+  const originalAmount = record.originalAmount
+    ? {
+        currencyCode: record.originalAmount.currencyCode || "USD",
+        value: record.originalAmount.value,
+        valueInCents: getAmountValueInCents(record.originalAmount),
+      }
+    : null;
+
   return {
     agreementSlug: record.agreementSlug,
     agreementTitle: record.agreementTitle || "",
@@ -213,14 +302,10 @@ export function buildPurchaseFromStoredRecord(record) {
     displayName: record.packageName || "Far Flung Change Package",
     shortLabel: record.packageName || "Far Flung Change Package",
     priceLabel: record.priceLabel || "",
-    amount: {
-      currencyCode: record.amount.currencyCode || "USD",
-      value: record.amount.value,
-      valueInCents:
-        typeof record.amount.valueInCents === "number"
-          ? record.amount.valueInCents
-          : Math.round(Number.parseFloat(record.amount.value || "0") * 100),
-    },
+    amount,
+    ...(originalAmount ? { originalAmount } : {}),
+    ...(record.pricingBreakdown ? { pricingBreakdown: record.pricingBreakdown } : {}),
+    ...(record.discount ? { discount: record.discount } : {}),
     description: record.packageName || "Far Flung Change checkout package",
     successTitle: "Checkout Complete",
   };

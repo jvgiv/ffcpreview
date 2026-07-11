@@ -12,10 +12,13 @@ import { createPayPalOrder, PayPalApiError } from "@/lib/paypal/api";
 import { PayPalConfigurationError } from "@/lib/paypal/config";
 import {
   getUserPaymentSummary,
+  storeDiscountPaymentRecord,
   storePayPalOrderRecord,
 } from "@/lib/paypal/firestore";
 import {
+  applyDiscountToPurchase,
   buildPurchaseFromStoredRecord,
+  getDiscountByCode,
   getPurchaseBySlug,
   isPaymentComplete,
 } from "@/lib/purchases";
@@ -28,6 +31,20 @@ function normalizeText(value) {
   }
 
   return value.trim();
+}
+
+function resolvePurchaseDiscount(purchase, discountCode) {
+  const normalizedDiscountCode = normalizeText(discountCode);
+
+  if (!normalizedDiscountCode) {
+    return purchase;
+  }
+
+  if (!getDiscountByCode(normalizedDiscountCode)) {
+    return null;
+  }
+
+  return applyDiscountToPurchase(purchase, normalizedDiscountCode);
 }
 
 function isEnvelopeForPurchase(document, purchase) {
@@ -102,16 +119,45 @@ export async function POST(request) {
 
     const resolvedPurchase =
       buildPurchaseFromStoredRecord(signedEnvelope.checkout?.purchase) || purchase;
+    const discountedPurchase = resolvePurchaseDiscount(
+      resolvedPurchase,
+      body?.discountCode
+    );
+
+    if (!discountedPurchase) {
+      return NextResponse.json(
+        {
+          error: "That discount code is not valid.",
+        },
+        { status: 400 }
+      );
+    }
+
+    if (discountedPurchase.amount.valueInCents <= 0) {
+      const discountOrderId = await storeDiscountPaymentRecord({
+        purchase: discountedPurchase,
+        requestUser,
+        envelopeId: signedEnvelope.envelopeId,
+      });
+
+      return NextResponse.json({
+        orderId: discountOrderId,
+        status: "COMPLETED",
+        paymentStatus: "paid",
+        requiresPayPal: false,
+        purchase: discountedPurchase,
+      });
+    }
 
     const order = await createPayPalOrder({
-      purchase: resolvedPurchase,
+      purchase: discountedPurchase,
       requestUser,
       envelopeId: signedEnvelope.envelopeId,
     });
 
     await storePayPalOrderRecord({
       order,
-      purchase: resolvedPurchase,
+      purchase: discountedPurchase,
       requestUser,
       envelopeId: signedEnvelope.envelopeId,
     });
@@ -119,6 +165,7 @@ export async function POST(request) {
     return NextResponse.json({
       orderId: order.id,
       status: order.status || "CREATED",
+      requiresPayPal: true,
     });
   } catch (error) {
     if (error instanceof FirebaseAuthenticationError) {

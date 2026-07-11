@@ -6,8 +6,10 @@ import { useEffect, useEffectEvent, useState } from "react";
 import { useAuth } from "@/app/components/auth/AuthProvider";
 import {
   MAX_ADDITIONAL_ORIENTEERS,
+  applyDiscountToPurchase,
   buildCheckoutPurchase,
   formatPaymentStatus,
+  getDiscountByCode,
   listPurchases,
   normalizeAdditionalOrienteerCount,
   normalizeAdditionalPlanTier,
@@ -502,9 +504,13 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
   const [docuSignJsError, setDocuSignJsError] = useState("");
   const [signingMessage, setSigningMessage] = useState(EMPTY_MESSAGE);
   const [paymentMessage, setPaymentMessage] = useState(EMPTY_MESSAGE);
+  const [discountCode, setDiscountCode] = useState("");
+  const [appliedDiscountCode, setAppliedDiscountCode] = useState("");
   const [isPayPalScriptReady, setIsPayPalScriptReady] = useState(false);
   const [payPalError, setPayPalError] = useState("");
   const [isCapturingPayment, setIsCapturingPayment] = useState(false);
+  const [isCompletingDiscountCheckout, setIsCompletingDiscountCheckout] =
+    useState(false);
   const [agreementFormSnapshot, setAgreementFormSnapshot] = useState("");
 
   const payPalClientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "";
@@ -525,6 +531,8 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
     setEnvelopeId("");
     setSigningMessage(EMPTY_MESSAGE);
     setPaymentMessage(EMPTY_MESSAGE);
+    setDiscountCode("");
+    setAppliedDiscountCode("");
     setDocuSignJsError("");
     setPayPalError("");
     setAgreementFormSnapshot("");
@@ -646,6 +654,8 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
       });
       setAgreementFormSnapshot(nextAgreementFormSnapshot);
       setSigningForm(nextForm);
+      setDiscountCode(data.payment?.discount?.code || "");
+      setAppliedDiscountCode(data.payment?.discount?.code || "");
 
       if (isPaymentPaid) {
         clearSigningFormDraft(signingDraftStorageKey);
@@ -671,6 +681,15 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
   const activePurchase = checkoutState.payment.isPaid
     ? checkoutState.purchase || formPurchase || selectedPurchase
     : formPurchase || checkoutState.purchase || selectedPurchase;
+  const appliedDiscount = getDiscountByCode(appliedDiscountCode);
+  const paymentPurchase =
+    !checkoutState.payment.isPaid && appliedDiscount
+      ? applyDiscountToPurchase(activePurchase, appliedDiscountCode)
+      : activePurchase;
+  const isFullyDiscounted =
+    !checkoutState.payment.isPaid &&
+    Boolean(appliedDiscount) &&
+    (paymentPurchase?.amount?.valueInCents || 0) <= 0;
   const visibleAdditionalOrienteerCount = activePurchase?.additionalCount || 0;
   const hasAdditionalOrienteers = visibleAdditionalOrienteerCount > 0;
   const selectedAdditionalPlanLabel = getAdditionalPlanSelectionLabel(
@@ -1037,7 +1056,9 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
     Boolean(authUser) &&
     isPaymentUnlocked &&
     Boolean(selectedEnvelopeId) &&
-    Boolean(payPalClientId);
+    Boolean(payPalClientId) &&
+    !isFullyDiscounted &&
+    !isCompletingDiscountCheckout;
 
   const renderPayPalButtons = useEffectEvent(async () => {
     if (!showPayPalMount || !window.paypal || !selectedPurchase) {
@@ -1067,12 +1088,17 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
           body: JSON.stringify({
             agreementSlug: selectedPurchase.agreementSlug,
             envelopeId: selectedEnvelopeId,
+            discountCode: appliedDiscountCode,
           }),
         });
         const data = await response.json();
 
         if (!response.ok) {
           throw new Error(data.error || "Unable to create the PayPal order.");
+        }
+
+        if (data.requiresPayPal === false || !data.orderId) {
+          throw new Error("This discount covers the full balance. Complete checkout below.");
         }
 
         return data.orderId;
@@ -1100,6 +1126,7 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
 
           setCheckoutState((currentState) => ({
             ...currentState,
+            purchase: paymentPurchase || currentState.purchase,
             payment: {
               ...currentState.payment,
               status: "paid",
@@ -1169,6 +1196,8 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
     };
   }, [
     isPayPalScriptReady,
+    appliedDiscountCode,
+    isFullyDiscounted,
     selectedEnvelopeId,
     selectedPurchase,
     showPayPalMount,
@@ -1185,6 +1214,93 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
           }
         : {}),
     }));
+  }
+
+  function handleDiscountCodeChange(event) {
+    setDiscountCode(event.target.value);
+  }
+
+  function handleApplyDiscount(event) {
+    event.preventDefault();
+
+    const discount = getDiscountByCode(discountCode);
+
+    if (!discount) {
+      setAppliedDiscountCode("");
+      setPaymentMessage({
+        type: "error",
+        text: "That discount code is not valid.",
+      });
+      return;
+    }
+
+    setDiscountCode(discount.code);
+    setAppliedDiscountCode(discount.code);
+    setPaymentMessage({
+      type: "success",
+      text: "Discount code applied. Your payment total has been updated.",
+    });
+  }
+
+  function handleRemoveDiscount() {
+    setDiscountCode("");
+    setAppliedDiscountCode("");
+    setPaymentMessage(EMPTY_MESSAGE);
+  }
+
+  async function handleCompleteDiscountCheckout() {
+    if (!selectedPurchase || !selectedEnvelopeId || !isFullyDiscounted) {
+      return;
+    }
+
+    setIsCompletingDiscountCheckout(true);
+    setPaymentMessage({
+      type: "success",
+      text: "Completing your discounted checkout now...",
+    });
+
+    try {
+      const response = await fetch("/api/paypal/orders", {
+        method: "POST",
+        headers: await getAuthorizedHeaders(),
+        body: JSON.stringify({
+          agreementSlug: selectedPurchase.agreementSlug,
+          envelopeId: selectedEnvelopeId,
+          discountCode: appliedDiscountCode,
+        }),
+      });
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Unable to complete the discounted checkout.");
+      }
+
+      setCheckoutState((currentState) => ({
+        ...currentState,
+        purchase: result.purchase || paymentPurchase || currentState.purchase,
+        payment: {
+          ...currentState.payment,
+          status: "paid",
+          isPaid: true,
+          lastOrderId: result.orderId || currentState.payment?.lastOrderId || "",
+          completedAt: new Date().toISOString(),
+        },
+      }));
+      setPaymentMessage({
+        type: "success",
+        text: "Discount applied. Updating your member homepage now...",
+      });
+      clearSigningFormDraft(signingDraftStorageKey);
+      await refreshProfile();
+      router.replace("/logged-in");
+    } catch (error) {
+      setPaymentMessage({
+        type: "error",
+        text: error.message || "Unable to complete the discounted checkout.",
+      });
+    } finally {
+      setIsCompletingDiscountCheckout(false);
+    }
   }
 
   async function handleStartSigning(event) {
@@ -1955,6 +2071,90 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
           {payPalError ? <MessageBanner message={{ type: "error", text: payPalError }} /> : null}
           <MessageBanner message={paymentMessage} />
 
+          {!checkoutState.payment.isPaid ? (
+            <form
+              onSubmit={handleApplyDiscount}
+              style={{
+                border: "1px solid rgba(245, 240, 232, 0.12)",
+                background: "rgba(255, 255, 255, 0.03)",
+                padding: "1rem",
+                display: "grid",
+                gap: "0.85rem",
+              }}
+            >
+              <label className={styles.fieldGroup}>
+                <span style={FIELD_LABEL_STYLE}>Discount Code</span>
+                <input
+                  className={styles.fieldInput}
+                  style={FIELD_INPUT_STYLE}
+                  name="discountCode"
+                  type="text"
+                  value={discountCode}
+                  onChange={handleDiscountCodeChange}
+                  disabled={isCapturingPayment || isCompletingDiscountCheckout}
+                  autoComplete="off"
+                />
+              </label>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.85rem" }}>
+                <button
+                  type="submit"
+                  disabled={
+                    !discountCode.trim() ||
+                    isCapturingPayment ||
+                    isCompletingDiscountCheckout
+                  }
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    minHeight: "2.75rem",
+                    padding: "0.75rem 1rem",
+                    border: "1px solid var(--red)",
+                    background: "var(--red)",
+                    color: "var(--white)",
+                    fontFamily: "'Space Mono', monospace",
+                    fontSize: "0.72rem",
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                    cursor: "pointer",
+                    opacity:
+                      !discountCode.trim() ||
+                      isCapturingPayment ||
+                      isCompletingDiscountCheckout
+                        ? 0.65
+                        : 1,
+                  }}
+                >
+                  Apply Code
+                </button>
+                {appliedDiscount ? (
+                  <button
+                    type="button"
+                    onClick={handleRemoveDiscount}
+                    disabled={isCapturingPayment || isCompletingDiscountCheckout}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      minHeight: "2.75rem",
+                      padding: "0.75rem 1rem",
+                      border: "1px solid rgba(245, 240, 232, 0.2)",
+                      background: "transparent",
+                      color: "var(--white)",
+                      fontFamily: "'Space Mono', monospace",
+                      fontSize: "0.72rem",
+                      letterSpacing: "0.14em",
+                      textTransform: "uppercase",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Remove Code
+                  </button>
+                ) : null}
+              </div>
+            </form>
+          ) : null}
+
           <div
             style={{
               display: "grid",
@@ -1982,7 +2182,7 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
               >
                 Package
               </span>
-              <strong>{activePurchase?.displayName || selectedPurchase.displayName}</strong>
+              <strong>{paymentPurchase?.displayName || selectedPurchase.displayName}</strong>
             </div>
             <div
               style={{
@@ -2006,6 +2206,32 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
               </span>
               <strong>{formatPaymentStatus(checkoutState.payment.status)}</strong>
             </div>
+            {paymentPurchase?.discount ? (
+              <div
+                style={{
+                  border: "1px solid rgba(245, 240, 232, 0.12)",
+                  background: "rgba(255, 255, 255, 0.03)",
+                  padding: "1rem",
+                  display: "grid",
+                  gap: "0.3rem",
+                }}
+              >
+                <span
+                  style={{
+                    color: "rgba(245, 240, 232, 0.6)",
+                    fontFamily: "'Space Mono', monospace",
+                    fontSize: "0.68rem",
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Discount
+                </span>
+                <strong>
+                  {paymentPurchase.discount.code} ({paymentPurchase.discount.percentOff}% off)
+                </strong>
+              </div>
+            ) : null}
             <div
               style={{
                 border: "1px solid rgba(245, 240, 232, 0.12)",
@@ -2026,7 +2252,7 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
               >
                 Amount
               </span>
-              <strong>{activePurchase?.priceLabel || selectedPurchase.priceLabel}</strong>
+              <strong>{paymentPurchase?.priceLabel || selectedPurchase.priceLabel}</strong>
             </div>
           </div>
 
@@ -2080,6 +2306,51 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
               Finish the agreement signature first. Once the signed status is saved, the PayPal
               checkout buttons will appear here automatically.
             </p>
+          ) : null}
+
+          {isFullyDiscounted ? (
+            <div
+              style={{
+                border: "1px solid rgba(245, 240, 232, 0.12)",
+                background: "rgba(255, 255, 255, 0.03)",
+                padding: "1rem",
+                display: "grid",
+                gap: "0.85rem",
+              }}
+            >
+              <button
+                type="button"
+                onClick={handleCompleteDiscountCheckout}
+                disabled={
+                  isCompletingDiscountCheckout ||
+                  isCapturingPayment ||
+                  !checkoutState.signing.isSigned
+                }
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  minHeight: "3rem",
+                  padding: "0.85rem 1.2rem",
+                  border: "1px solid var(--red)",
+                  background: "var(--red)",
+                  color: "var(--white)",
+                  fontFamily: "'Space Mono', monospace",
+                  fontSize: "0.72rem",
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                  cursor: "pointer",
+                  opacity:
+                    isCompletingDiscountCheckout ||
+                    isCapturingPayment ||
+                    !checkoutState.signing.isSigned
+                      ? 0.65
+                      : 1,
+                }}
+              >
+                {isCompletingDiscountCheckout ? "Completing Checkout..." : "Complete Checkout"}
+              </button>
+            </div>
           ) : null}
 
           {showPayPalMount ? (

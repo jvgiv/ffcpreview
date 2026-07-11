@@ -26,7 +26,11 @@ function buildCheckoutPurchaseSummary({ purchase, signedEnvelope, paymentSummary
       ...purchase,
       displayName: paymentSummary.packageName || purchase.displayName,
       priceLabel: paymentSummary.priceLabel || purchase.priceLabel,
+      pricingBreakdown:
+        paymentSummary.pricingBreakdown || purchase.pricingBreakdown || purchase.priceLabel,
       amount: paymentSummary.amount || purchase.amount,
+      originalAmount: paymentSummary.originalAmount || null,
+      discount: paymentSummary.discount || null,
     };
   }
 

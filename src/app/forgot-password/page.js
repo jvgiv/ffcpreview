@@ -21,6 +21,17 @@ function getForgotPasswordErrorMessage(error) {
   }
 }
 
+function buildPasswordResetActionSettings() {
+  if (typeof window === "undefined") {
+    return undefined;
+  }
+
+  return {
+    url: `${window.location.origin}/reset-password`,
+    handleCodeInApp: true,
+  };
+}
+
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -34,7 +45,11 @@ export default function ForgotPasswordPage() {
     setIsSubmitting(true);
 
     try {
-      await sendPasswordResetEmail(getFirebaseAuth(), email.trim());
+      await sendPasswordResetEmail(
+        getFirebaseAuth(),
+        email.trim(),
+        buildPasswordResetActionSettings()
+      );
       setSuccessMessage(
         "Password reset email sent. Check your inbox and follow the link to continue."
       );
