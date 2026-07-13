@@ -111,7 +111,7 @@ export default function TermSearch() {
                   style={{
                     fontFamily: "'Bebas Neue',sans-serif",
                     fontSize: "1rem",
-                    color: "var(--orange)",
+                    color: "var(--red)",
                     letterSpacing: "0.05em",
                   }}
                 >
@@ -134,7 +134,7 @@ export default function TermSearch() {
                     style={{
                       fontFamily: "'Space Mono',monospace",
                       fontSize: "0.6rem",
-                      color: "var(--orange)",
+                      color: "var(--red)",
                       marginLeft: "0.4rem",
                       letterSpacing: "0.1em",
                       textTransform: "uppercase",
