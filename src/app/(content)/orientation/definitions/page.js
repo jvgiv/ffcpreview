@@ -76,7 +76,7 @@ export default function Definitions() {
                   style={{
                     fontFamily: "'Bebas Neue',sans-serif",
                     fontSize: "1.6rem",
-                    color: "var(--orange)",
+                    color: "var(--red)",
                     lineHeight: "1",
                   }}
                 >
