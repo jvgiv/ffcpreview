@@ -30,7 +30,7 @@ export default function Definitions() {
         {/* </div> */}
         <div className="clock-wrap">
           <Image
-            src="/def.png"
+            src="/dogred.png"
             alt="Definitions Clock"
             width={680}
             height={680}
