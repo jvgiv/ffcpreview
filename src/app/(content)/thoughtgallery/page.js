@@ -35,7 +35,8 @@ let oriMattImages = [
   { src: "/om2.png", alt: "", width: 1500, height: 1500 },
   { src: "/om3.png", alt: "", width: 1500, height: 1500 },
   { src: "/allin1.png", alt: "", width: 1500, height: 1500 },
-  { src: "/fs6.png", alt: "", width: 1500, height: 1500 },
+  { src: "/pf0gusfinal.png", alt: "", width: 1500, height: 1500 },
+  // { src: "/fs6.png", alt: "", width: 1500, height: 1500 },
 ];
 
 let fogSeriesImages = [
@@ -45,7 +46,7 @@ let fogSeriesImages = [
   { src: "/fs3.jpg", alt: "", width: 1500, height: 1500 },
   { src: "/fs4.png", alt: "", width: 1500, height: 1500 },
   { src: "/fs5.png", alt: "", width: 1500, height: 1500 },
-  { src: "/fs6.png", alt: "", width: 1500, height: 1500 },
+  { src: "/pf0gusfinal.png", alt: "", width: 1500, height: 1500 },
 ];
 
 const galleries = [
