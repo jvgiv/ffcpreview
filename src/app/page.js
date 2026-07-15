@@ -21,11 +21,6 @@ export default function Home() {
             First Financial Advisory
             <br />- Est. 1974 -{" "}
           </p>
-
-          {/* <h1 className="hero-title">
-            <em>practical financial</em>
-            <span className="hero-title-main">ORIENTATION</span>
-          </h1> */}
           <div className="hero-sub-changes-top">
             {/* Financial stress isn&apos;t mostly a money problem. It&apos;s mostly a fog problem. Far Flung Change clears the fog.  - {" "}
             <strong style={{ color: "var(--white)" }}>Before you reach the Clubhouse.</strong> */}
@@ -38,10 +33,17 @@ export default function Home() {
             land
           </div>
           <p className="hero-sub-title-text reveal">
-            read your terrain right with financial orientation
+            Find your bearings with Financial Orientation,
             <br /> so your next step is on{" "}
             <span style={{ fontWeight: "bold" }}>purpose</span>
           </p>
+          <Link
+              href="/orientation"
+              className="btn-primary reveal"
+              style={{ fontSize: "1.3em" }}
+            >
+              LEARN HOW NOW
+            </Link>
           {/* <ul style={{ listStyleType: "none" }} className="hero-sub-list">
             <li className="hero-sub-item">
               <div className="bullet-icon">
