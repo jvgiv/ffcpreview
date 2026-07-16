@@ -42,7 +42,7 @@ export default function Home() {
               className="btn-primary reveal"
               style={{ fontSize: "1.3em" }}
             >
-              LEARN HOW NOW
+              SEE HOW IT WORKS
             </Link>
           {/* <ul style={{ listStyleType: "none" }} className="hero-sub-list">
             <li className="hero-sub-item">
