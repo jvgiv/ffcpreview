@@ -316,6 +316,7 @@
   border: 2px solid var(--red);
   transition: all 0.2s;
   display: inline-block;
+  border-radius: .75rem;
 }
 
 .btn-primary:hover {
@@ -335,6 +336,7 @@
   border: 2px solid rgba(245, 240, 232, 0.25);
   transition: all 0.2s;
   display: inline-block;
+  border-radius: .75rem;
 }
 
 .btn-ghost:hover {
