@@ -167,6 +167,7 @@ body {
 }
 
 .ffc-nav-cta {
+  border-radius: .75rem;
   position: absolute;
   right: 2.5rem;
   top: 50%;
