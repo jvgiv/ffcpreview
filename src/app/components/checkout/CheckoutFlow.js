@@ -386,7 +386,7 @@ function StepCard({ eyebrow, title, copy, statusLabel, statusTone = "default", c
           <span
             style={{
               display: "inline-block",
-              color: "var(--red-hot)",
+              color: "var(--red)",
               fontFamily: "'Space Mono', monospace",
               fontSize: "0.7rem",
               letterSpacing: "0.18em",
@@ -1414,7 +1414,7 @@ export default function CheckoutFlow({ initialAgreementSlug }) {
             <span
               style={{
                 display: "inline-block",
-                color: "var(--red-hot)",
+                color: "var(--red)",
                 fontFamily: "'Space Mono', monospace",
                 fontSize: "0.72rem",
                 letterSpacing: "0.18em",

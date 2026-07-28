@@ -496,7 +496,8 @@ header {
   font-style: italic;
   font-size: 0.95rem;
   color: var(--lgray);
-  line-height: 1.8
+  line-height: 1.8;
+  white-space: pre-line;
 }
 
 .entry-note-text-home {
@@ -888,7 +889,7 @@ footer {
 }
 
 .cover-enter-btn:hover {
-  background: #ff8c30;
+  background: #e74c3c;
   transform: scale(1.03);
 }
 
@@ -984,7 +985,7 @@ footer {
 }
 
 .cover-enter-btn:hover {
-  background: #ff8c2a;
+  background: #e74c3c;
   transform: translateY(-1px)
 }
 

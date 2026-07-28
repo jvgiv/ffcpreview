@@ -22,7 +22,7 @@
 
 .eyebrow {
   display: inline-block;
-  color: var(--red-hot);
+  color: var(--red);
   font-family: "Space Mono", monospace;
   font-size: 0.72rem;
   letter-spacing: 0.18em;
