@@ -119,6 +119,24 @@ body {
   border-bottom-color: var(--red);
 }
 
+.ffc-nav-item-home > .ffc-nav-link::after,
+.ffc-nav-item-orientation > .ffc-nav-link::after {
+  content: '';
+  display: inline-block;
+  margin-left: 0.45em;
+  border-right: 0.32em solid transparent;
+  border-bottom: 0.42em solid var(--white);
+  border-left: 0.32em solid transparent;
+  transition: transform 0.2s ease;
+}
+
+.ffc-nav-item-home:hover > .ffc-nav-link::after,
+.ffc-nav-item-home:focus-within > .ffc-nav-link::after,
+.ffc-nav-item-orientation:hover > .ffc-nav-link::after,
+.ffc-nav-item-orientation:focus-within > .ffc-nav-link::after {
+  transform: rotate(180deg);
+}
+
 .ffc-home-menu {
   position: absolute;
   top: calc(100% + 0.15rem);

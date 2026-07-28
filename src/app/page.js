@@ -194,7 +194,7 @@ export default function Home() {
           </div>
 
           <div className="scroll-hint">
-            <span>scroll</span>
+            {/* <span>scroll</span> */}
             <div className="scroll-line"></div>
           </div>
         </div>
