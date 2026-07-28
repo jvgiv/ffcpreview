@@ -269,6 +269,7 @@
 }
 
 .submitButton {
+  border-radius: .75rem;
   margin-top: 0.3rem;
   width: 100%;
   border: 1px solid var(--red);
@@ -322,7 +323,7 @@
 
 .helperLink:hover,
 .homeLink:hover {
-  color: var(--red-hot);
+  color: var(--red);
 }
 
 .homeLink {
@@ -374,7 +375,7 @@
 }
 
 .inlineLink:hover {
-  color: var(--red-hot);
+  color: var(--red);
 }
 
 @keyframes redirect-toast-fade {
