@@ -889,7 +889,7 @@ footer {
 }
 
 .cover-enter-btn:hover {
-  background: #ff8c30;
+  background: #e74c3c;
   transform: scale(1.03);
 }
 
@@ -985,7 +985,7 @@ footer {
 }
 
 .cover-enter-btn:hover {
-  background: #ff8c2a;
+  background: #e74c3c;
   transform: translateY(-1px)
 }
 

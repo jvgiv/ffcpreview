@@ -53,7 +53,7 @@ export default async function AgreementPage({ params }) {
       >
         <p
           style={{
-            color: "var(--red-hot)",
+            color: "var(--red)",
             fontFamily: "'Space Mono', monospace",
             fontSize: "0.72rem",
             letterSpacing: "0.2em",

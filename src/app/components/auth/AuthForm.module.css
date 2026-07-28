@@ -78,7 +78,7 @@
   font-size: 0.72rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--red-hot);
+  color: var(--red);
   margin-bottom: 1.4rem;
 }
 
@@ -102,7 +102,7 @@
 
 .headlineAccent {
   display: block;
-  color: var(--red-hot);
+  color: var(--red);
 }
 
 .leadCopy {
@@ -227,14 +227,14 @@
 }
 
 .passwordToggle:hover {
-  color: var(--red-hot);
+  color: var(--red);
   border-color: rgba(231, 76, 60, 0.28);
   background: rgba(231, 76, 60, 0.08);
 }
 
 .passwordToggle:focus-visible {
   outline: none;
-  color: var(--red-hot);
+  color: var(--red);
   border-color: rgba(231, 76, 60, 0.85);
 }
 
@@ -284,8 +284,8 @@
 }
 
 .submitButton:hover:not(:disabled) {
-  background: var(--red-hot);
-  border-color: var(--red-hot);
+  background: var(--red);
+  border-color: var(--red);
 }
 
 .submitButton:disabled {
