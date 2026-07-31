@@ -111,8 +111,21 @@ export default function Home() {
             <h1>GUIDED ORIENTATION?</h1>
             <h3 style={{color: "var(--gray)"}}>EVERYTHING YOU NEED
               <br />
-              TO FORGE FOG INTO <span style={{color: "var(--white"}}>FOCUS</span>
+              TO FORGE FOG INTO <span style={{color: "var(--white"}}>FOCUS</span> 
+              <br /> and nothing you don&apos;t
             </h3>
+            <div>
+              <h1><span style={{ color: "var(--red)", fontSize: "1rem" }}>01</span> YOUR <span style={{color: "var(--red)"}}>TREASURE</span> MAP</h1>
+              <p>Your facts and your perspective, brought together in a clear, personal polaroid showing where you stand</p>
+            </div>
+            <div>
+              <h1><span style={{ color: "var(--red)", fontSize: "1rem" }}>02</span> YOUR <span style={{color: "var(--red)"}}>FIELD</span> GUIDE</h1>
+              <p>650+ terms described plainly with practical field notes.  No jargon and no guessing what things mean.</p>
+            </div>
+            <div>
+              <h1><span style={{ color: "var(--red)", fontSize: "1rem" }}>03</span> YOUR <span style={{color: "var(--red)"}}>DIRECT</span> LINE</h1>
+              <p>Unlimited fiduciary-level answers as real questions arise, for one full year.  And with no sales agenda attached.</p>
+            </div>
           </div>
 
           <div>

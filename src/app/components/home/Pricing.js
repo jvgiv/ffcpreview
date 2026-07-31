@@ -1,5 +1,6 @@
 import React from "react";
 import "../../homepage.css";
+import "./pricing.css";
 import Link from "next/link";
 import { AGREEMENT_DEFINITIONS } from "@/lib/agreements";
 import { getPurchaseBySlug } from "@/lib/purchases";
@@ -21,7 +22,23 @@ export default function Pricing() {
             Flat-fee. <span style={{ color: "var(--red)" }}>No</span> products.{" "}
             <span style={{ color: "var(--red)" }}>No</span> pressure.
           </h2>
-          <ul className="pricing-features reveal">
+
+          <div className="tm-box">
+            <div className="tm-content" style={{ flex: "1" }}>
+              <div className="tm-head">
+                Your <span className="mid">Treasure</span> Map
+              </div>
+              <div className="tm-desc">
+                Every Orienteer gets one,{" "}
+                <strong>Core and Premium alike.</strong> Your facts and your
+                perspective, brought together into one clear, personal picture
+                of where you stand. It's not an upgrade. It's the starting
+                point.
+              </div>
+            </div>
+          </div>
+
+          {/* <ul className="pricing-features reveal">
             <li>Learn core financial concepts and trade-offs</li>
             <li>
               Cut through the jargon with the 360-point Compendium of DogStar
@@ -37,7 +54,26 @@ export default function Pricing() {
               Total immunity from product pitches, hidden agendas, and sales
               pressure
             </li>
-          </ul>
+          </ul> */}
+          <div className="included-title">Every Plan Includes</div>
+          <div className="bullets">
+            <div className="bullet">
+              <span className="dot">•</span> The Compendium of DogStar
+              Definitions — 650+ terms in plain language
+            </div>
+            <div className="bullet">
+              <span className="dot">•</span> Your Direct Line — fiduciary
+              answers to real questions, within 2 business days
+            </div>
+            <div className="bullet">
+              <span className="dot">•</span> Follow-up conversations by phone,
+              Zoom, or in person
+            </div>
+            <div className="bullet">
+              <span className="dot">•</span> Total immunity from product
+              pitches, hidden agendas, and sales pressure
+            </div>
+          </div>
         </div>
         {/* <div className="pricing-title">
           <span className="section-label-pric reveal">Best value</span>
@@ -50,19 +86,95 @@ export default function Pricing() {
         >
           View Agreement
         </a>
-        <div
+
+        <div className="tiers">
+          <div className="tier">
+            <div className="tier-tag core">Core Program</div>
+            <div className="tier-label">What's Included</div>
+            <div className="tier-price">
+              $500 <span>/ 1 year Caddy Service</span>
+            </div>
+            <div className="tier-desc">
+              Your foundational toolkit for financial clarity. Your Treasure Map
+              and your Vocabulary, nothing else attached.
+            </div>
+
+            <div className="tier-feature">
+              <span className="no">No</span> recommendations
+            </div>
+            <div className="tier-feature">
+              <span className="no">No</span> investment advice
+            </div>
+            <div className="tier-feature">
+              <span className="no">No</span> asset management
+            </div>
+
+
+            <div className="tier-cta-wrapper">
+              <Link
+                href={getCheckoutStartHref(
+                  AGREEMENT_DEFINITIONS["financial-orientation"].slug,
+                )}
+                className="btn-primary tier-cta"
+              >
+                Start Core Program
+              </Link>
+            </div>
+            {/* <a className="tier-btn" href="#">
+              Begin Core
+            </a> */}
+          </div>
+
+          <div className="tier premium">
+            <div className="tier-tag premium-tag">Premium Program</div>
+            <div className="tier-label">What's Included</div>
+            <div className="tier-price">
+              $750 <span>/ 1 year Caddy Service</span>
+            </div>
+            <div className="tier-desc">
+              Everything in Core, plus real-time structure and accountability
+              built around your Treasure Map.
+            </div>
+
+            <div className="tier-feature">
+              <span className="yes">Your Treasure Map, kept live</span> — synced
+              to a secure dashboard
+            </div>
+            <div className="tier-feature">
+              <span className="yes">Visual tracking</span> to see exactly where
+              you stand
+            </div>
+            <div className="tier-feature">
+              <span className="yes">Scheduled check-ins</span> and follow-ups
+            </div>
+
+            <div className="tier-cta-wrapper">
+              <Link
+                href={getCheckoutStartHref(
+                  AGREEMENT_DEFINITIONS["premium-expansion-pack"].slug,
+                )}
+                className="btn-primary tier-cta"
+              >
+                Start Premium Program
+              </Link>
+            </div>
+            {/* <a className="tier-btn" href="#">Begin Premium</a> */}
+          </div>
+        </div>
+
+        {/* <div
           className="pricing-grid reveal"
           style={{ transitionDelay: "0.1s" }}
         >
           <div id="pricing-card" className="pricing-card">
             <div className="pricing-badge">Core Program</div>
             <div className="pricing-name">
-              {/* {financialServices?.displayName ||  */}
               WHAT'S INCLUDED
-              {/* } */}
+
             </div>
             <div className="pricing-price">
-              {financialServices?.priceLabel || "$500"} <span>/ 1 year Caddy Service</span>
+              {financialServices?.priceLabel || "$500"}{" "}
+              <span>/ 1 year Caddy Service</span>
             </div>
             <div className="pricing-desc">
               Your foundational toolkit for financial clarity. No sales pitches,
@@ -104,12 +216,11 @@ export default function Pricing() {
               Premium Program
             </div>
             <div className="pricing-name">
-              {/* {premiumExpansionPack?.displayName ||  */}
               WHAT'S INCLUDED
-              {/* } */}
             </div>
             <div className="pricing-price">
-              {premiumExpansionPack?.priceLabel || "$750"} <span>/ 1 year Caddy Service</span>
+              {premiumExpansionPack?.priceLabel || "$750"}{" "}
+              <span>/ 1 year Caddy Service</span>
             </div>
             <div className="pricing-desc">
               Built for those who want real-time structure, interactive tools,
@@ -122,10 +233,6 @@ export default function Pricing() {
                 A single secure dashboard to sync your assets, master your
                 budget, and track real-time spending
               </li>
-              {/* <li>View assets + debts</li>
-              <li>Track Spending</li>
-              <li>Build budgets</li>
-              <li>Set + prioritize goals</li> */}
             </ul>
             <div className="pricing-cta">
               <Link
@@ -139,7 +246,7 @@ export default function Pricing() {
               </Link>
             </div>
           </div>
-        </div>
+        </div> */}
         <br />
       </div>
     </section>

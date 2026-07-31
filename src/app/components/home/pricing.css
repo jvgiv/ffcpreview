@@ -1,0 +1,234 @@
+:root {
+    --black: #0a0a0a;
+    --card: #1b1b1b;
+    --card-premium: #1f1414;
+    --white: #f4f4f2;
+    --gray: #8c8c8c;
+    --gray-line: #2c2c2c;
+    --red: #c8161d;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 72px 24px 96px;
+  }
+
+  h1.headline {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: clamp(30px, 5vw, 48px);
+    line-height: 1.08;
+    margin-bottom: 40px;
+  }
+
+  h1.headline .accent { color: var(--red); }
+
+  /* ---- Treasure Map highlight ---- */
+
+  .tm-box {
+    border: 1px solid var(--gray-line);
+    border-left: 4px solid var(--red);
+    padding: 32px 32px 30px;
+    margin-bottom: 56px;
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .tm-icon {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--red);
+    border: 1px solid var(--red);
+    padding: 6px 14px;
+    white-space: nowrap;
+  }
+
+  .tm-content { flex: 1; min-width: 240px; }
+
+  .tm-head {
+    font-family: 'Oswald', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .tm-head .mid { color: var(--red); }
+
+  .tm-desc {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--gray);
+    max-width: 640px;
+  }
+
+  .tm-desc strong { color: var(--white); }
+
+  /* ---- Included bullets ---- */
+
+  .included-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 20px;
+  }
+
+  .bullets {
+    margin-bottom: 56px;
+  }
+
+  .bullet {
+    display: flex;
+    gap: 12px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--gray-line);
+    font-size: 15px;
+    color: var(--white);
+  }
+
+  .bullet:first-child { border-top: 1px solid var(--gray-line); }
+
+  .bullet .dot { color: var(--red); font-weight: 700; }
+
+  .agreement-btn {
+    display: inline-block;
+    border: 1px solid var(--gray-line);
+    color: var(--white);
+    text-decoration: none;
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 14px 26px;
+    margin-bottom: 64px;
+  }
+
+  /* ---- Tier cards ---- */
+
+  .tiers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--gray-line);
+    border: 1px solid var(--gray-line);
+  }
+
+  .tier {
+    display: flex;
+    flex-direction: column;
+    background: var(--card);
+    padding: 40px 34px 36px;
+  }
+
+  .tier.premium { background: var(--card-premium); }
+
+  .tier-tag {
+    display: inline-block;
+    font-family: 'Oswald', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    margin-bottom: 20px;
+  }
+
+  .tier-tag.core { background: var(--red); color: var(--white); }
+  .tier-tag.premium-tag { background: var(--gray-line); color: var(--gray); }
+
+  .tier-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 6px;
+  }
+
+  .tier-price {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 44px;
+    margin-bottom: 4px;
+  }
+
+  .tier-price span {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--gray);
+  }
+
+  .tier-desc {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--gray);
+    margin: 18px 0 26px;
+  }
+
+  .tier-feature {
+    display: flex;
+    gap: 10px;
+    padding: 13px 0;
+    border-top: 1px solid var(--gray-line);
+    font-size: 14px;
+  }
+
+  .tier-feature:last-of-type { border-bottom: 1px solid var(--gray-line); }
+
+  .tier-feature .no { color: var(--gray); font-weight: 700; }
+  .tier-feature .yes { color: var(--red); }
+
+  .tier-cta-wrapper {
+    margin-top: auto;
+    padding-top: 28px;
+  }
+
+  .tier-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+  }
+
+  .tier-btn {
+    display: block;
+    text-align: center;
+    background: var(--red);
+    color: var(--white);
+    text-decoration: none;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 16px;
+    margin-top: 28px;
+  }
+
+  @media (max-width: 720px) {
+    .tiers { grid-template-columns: 1fr; }
+    .tm-box { flex-direction: column; }
+  }
