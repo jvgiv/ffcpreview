@@ -24,18 +24,16 @@ export default function Home() {
           <div className="hero-sub-changes-top">
             {/* Financial stress isn&apos;t mostly a money problem. It&apos;s mostly a fog problem. Far Flung Change clears the fog.  - {" "}
             <strong style={{ color: "var(--white)" }}>Before you reach the Clubhouse.</strong> */}
-            Facing your finances <br /> doesn&apos;t{" "}
-            <span style={{ fontStyle: "italic", color: "#888" }}>have to</span>
-            &nbsp;&nbsp;feel <br /> like roaming a{" "}
+            STOP{" "} <br />
             <span style={{ color: "var(--red)" }}>
-              <span style={{ fontWeight: "bold" }}>foreign</span>
+              <span style={{ fontWeight: "bold" }}>GUESSING</span> <br />
             </span>{" "}
-            land
+            ABOUT MONEY <br /> MATTERS
           </div>
           <p className="hero-sub-title-text reveal">
-            Find your bearings with Financial Orientation,
-            <br /> so your next step is on{" "}
-            <span style={{ fontWeight: "bold" }}>purpose</span>
+            Financial Orientation helps<br /> you find your bearings,
+            <br /> so your next money move<br /> is{" "}
+            <span style={{ fontWeight: "bold", color: "var(--gray)" }}>on purpose</span>
           </p>
           <Link
               href="/orientation"
