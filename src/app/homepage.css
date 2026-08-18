@@ -549,6 +549,185 @@
   color: var(--gray);
 }
 
+/* Guided Orientation overview */
+.button-section {
+  width: min(100%, 980px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5px;
+  margin: 2rem auto 0;
+  text-align: left;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.button-section-panel {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  background: var(--black);
+}
+
+.button-section-eyebrow {
+  margin-bottom: 0.75rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0.18em;
+}
+
+.button-section-title {
+  margin-bottom: 1.5rem;
+  font-family: var(--font-bebas-neue), sans-serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+}
+
+.button-section-actions,
+.button-section-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.button-section-actions {
+  justify-content: center;
+}
+
+.button-section-actions + .button-section-actions,
+.button-section-footer {
+  margin-top: 0.75rem;
+}
+
+.button-section-actions img,
+.button-section-footer img {
+  width: min(100%, 10rem);
+  height: auto;
+  transition: transform 0.2s ease;
+}
+
+.button-section-actions img:hover,
+.button-section-footer img:hover {
+  transform: translateY(-3px);
+}
+
+.button-section-footer {
+  margin-top: auto;
+  flex-direction: column;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.button-section-footer p {
+  font-family: var(--font-bebas-neue), sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 0.03em;
+}
+
+.below-logo {
+  width: min(100%, 1180px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5px;
+  margin: 3rem auto 0;
+  text-align: left;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.below-logo-panel {
+  padding: clamp(2rem, 4vw, 3.5rem);
+  background: var(--black);
+}
+
+.below-logo-eyebrow {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.below-logo-title {
+  margin-bottom: 1.5rem;
+  font-family: var(--font-bebas-neue), sans-serif;
+  font-size: clamp(2.5rem, 4.5vw, 4rem);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+}
+
+.below-logo-benefits > h3 {
+  margin-bottom: 1.75rem;
+  font-family: var(--font-bebas-neue), sans-serif;
+  font-size: clamp(1.45rem, 2.5vw, 2rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.03em;
+}
+
+.below-logo-list,
+.below-logo-phase {
+  border-top: 1px solid var(--border);
+}
+
+.below-logo-item {
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.below-logo-item h1,
+.below-logo-phase > h1 {
+  margin-bottom: 0.5rem;
+  font-family: var(--font-bebas-neue), sans-serif;
+  font-size: clamp(1.45rem, 2vw, 1.85rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.03em;
+}
+
+.below-logo-item p,
+.below-logo-step p,
+.below-logo-process > .how-p-text {
+  font-family: var(--font-source-sans), sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.below-logo-process > .how-p-text {
+  margin-bottom: 0.3rem;
+}
+
+.below-logo-process > .how-p-text:last-of-type {
+  margin-bottom: 1.5rem;
+}
+
+.below-logo-phase {
+  padding: 1.25rem 0;
+}
+
+.below-logo-phase + .below-logo-phase {
+  padding-bottom: 0;
+}
+
+.below-logo-step {
+  padding: 0.8rem 0 0.1rem 2rem;
+}
+
+.below-logo-step h2 {
+  margin-bottom: 0.25rem;
+  font-family: var(--font-bebas-neue), sans-serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.03em;
+}
+
 /* Guide */
 .guide {
   border-top: 1px solid var(--border);
@@ -1178,6 +1357,23 @@
 
   .guide-cards {
     grid-template-columns: 1fr;
+  }
+
+  .below-logo {
+    grid-template-columns: 1fr;
+    margin-top: 2rem;
+  }
+
+  .button-section {
+    grid-template-columns: 1fr;
+  }
+
+  .below-logo-panel {
+    padding: 2rem 1.5rem;
+  }
+
+  .button-section-panel {
+    padding: 2rem 1.5rem;
   }
 
   .plan-steps {
