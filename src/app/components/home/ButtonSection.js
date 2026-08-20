@@ -35,7 +35,38 @@ const previewButtons = [
       height: 1500,
     },
   },
+  {
+    buttonSrc: "/buttons/dstardefsbutton.png",
+    buttonAlt: "DogStar Definitions",
+    preview: {
+      src: '/buttonpreviews/dsd.png',
+      alt: "DogStar Definitions Preview",
+      width: 1500,
+      height: 1500,
+  }
+  },
+  {
+    buttonSrc: "/buttons/IRLoopbutton.png",
+    buttonAlt: "IR-Loop",
+    preview: {
+      src: '/buttonpreviews/irl.png',
+      alt: "IR-Loop Preview",
+      width: 1500,
+      height: 1500,
+  }
+  },
+  {
+    buttonSrc: "/buttons/flightcrewbutton.png",
+    buttonAlt: "Flight Crew",
+    preview: {
+      src: '/buttonpreviews/fc.png',
+      alt: "Flight Crew Preview",
+      width: 1500,
+      height: 1500,
+  }
+  }
 ];
+
 
 export default function ButtonSection() {
   const [lightboxIndex, setLightboxIndex] = useState(-1);
@@ -107,26 +138,42 @@ export default function ButtonSection() {
           GUIDED <span style={{ color: "var(--red)" }}>ORIENTATION</span>
         </h2>
         <div className="button-section-actions">
-          <Image
-            src="/buttons/dstardefsbutton.png"
-            alt="See How"
-            width={175}
-            height={142}
-          />
-          <Image
-            src="/buttons/IRLoopbutton.png"
-            alt="See How"
-            width={175}
-            height={142}
-          />
+            {previewButtons.slice(3, 5).map((button, index) => (
+            <button
+              key={button.buttonSrc}
+              type="button"
+              className="button-section-image-button"
+              aria-label={`Open ${button.buttonAlt} preview`}
+              onClick={() => {
+                setLightboxIndex(index + 3);
+              }}
+            >
+              <Image
+                src={button.buttonSrc}
+                alt=""
+                width={175}
+                height={142}
+              />
+            </button>
+          ))}
+            
+          <div className="button-section-actions">
+          <button
+            type="button"
+            className="button-section-image-button"
+            aria-label={`Open ${previewButtons[5].buttonAlt} preview`}
+            onClick={() => {
+              setLightboxIndex(5);
+            }}
+          >
+            <Image
+              src={previewButtons[5].buttonSrc}
+              alt=""
+              width={175}
+              height={142}
+            />
+          </button>
         </div>
-        <div className="button-section-actions">
-          <Image
-            src="/buttons/flightcrewbutton.png"
-            alt="See How"
-            width={175}
-            height={142}
-          />
         </div>
         <div className="button-section-footer">
           <Image
