@@ -55,8 +55,7 @@
   font-size: 1.2rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--gray);
-  /* color: var(--red); */
+  color: var(--red);
   margin-bottom: 2rem;
   opacity: 0;
   animation: fadeUp 0.7s 0.2s forwards;
@@ -266,14 +265,18 @@
 
 .hero-sub-title-text {
   font-family: 'Playfair Display', italic;
+  /* display: flex; */
+  /* color: red; */
+  /* font-weight: bold; */
   font-size: 1.5rem;
   align-items: center;
   color: white;
+  /* border: 1px solid green; */
   width: 100%;
   gap: 0.75rem;
   margin-bottom: 3rem;
   font-style: italic;
-  color: var(--gray);
+  /* text-transform: uppercase; */
   animation: fadeUp 0.8s 0.5s forwards;
 }
 
@@ -472,25 +475,16 @@
 .friction-stat {
   display: flex;
   flex-direction: column;
+  border: 2px solid var(--border);
   padding: 5rem 2.5rem;
   gap: 5rem;
   height: 90%;
-  width: 50%;
-  margin: 0 auto;
-}
-
-.stat-title-home {
-  font-family: var(--font-bebas-neue), sans-serif;
-  font-size: clamp(2.5rem, 6vw, 1rem);
-  line-height: 0.95;
-  letter-spacing: 0.02em;
-  margin-bottom: 1.5rem;
-  color: white;
+  
 }
 
 .stat-item {
   display: grid;
-  grid-template-rows: repeat(2, minmax(0, .85fr));
+  grid-template-rows: repeat(3, minmax(0, 1fr));
   gap: 0.8rem;
   height: 100%;
 }
@@ -499,7 +493,6 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
   min-height: 0;
 }
 
@@ -527,7 +520,6 @@
 .stat-label {
   font-family: var(--font-source-sans), sans-serif;
   font-size: 1.05rem;
-  text-align: left;
   color: var(--homepage-gray);
   line-height: 1.5;
 }
