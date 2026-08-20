@@ -113,7 +113,7 @@ export default function Home() {
 
           <BelowLogo />
           <div className="brand-signature"></div>
-          <div className="hero-actions">
+          {/* <div className="hero-actions">
             <Link
               href="#pricing-card"
               className="btn-primary"
@@ -128,7 +128,7 @@ export default function Home() {
             >
               FREE Caddy Book + Scorecard
             </Link>
-          </div>
+          </div> */}
 
           <div className="scroll-hint">
             {/* <span>scroll</span> */}

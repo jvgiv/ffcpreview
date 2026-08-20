@@ -135,7 +135,7 @@ export default function ButtonSection() {
           <span style={{ color: "var(--red)" }}>ACCESS</span>
         </h3>
         <h2 className="button-section-title">
-          GUIDED <span style={{ color: "var(--red)" }}>ORIENTATION</span>
+          GUIDED <span style={{ color: "var(--red)" }}><br />ORIENTATION</span>
         </h2>
         <div className="button-section-actions">
             {previewButtons.slice(3, 5).map((button, index) => (
