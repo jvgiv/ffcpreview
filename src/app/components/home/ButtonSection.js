@@ -1,7 +1,46 @@
-import React from "react";
+"use client";
+import { useState } from "react";
 import Image from "next/image";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
+
+const previewButtons = [
+  {
+    buttonSrc: "/buttons/caddybookbutton.png",
+    buttonAlt: "CaddyBook",
+    preview: {
+      src: "/buttonpreviews/cb.png",
+      alt: "CaddyBook Preview",
+      width: 1500,
+      height: 1500,
+    },
+  },
+  {
+    buttonSrc: "/buttons/scorecardbutton.png",
+    buttonAlt: "Scorecard",
+    preview: {
+      src: "/buttonpreviews/sc.png",
+      alt: "Scorecard Preview",
+      width: 1500,
+      height: 1500,
+    },
+  },
+  {
+    buttonSrc: "/buttons/tmapbutton.png",
+    buttonAlt: "Treasure Map",
+    preview: {
+      src: "/buttonpreviews/map.png",
+      alt: "Treasure Map Preview",
+      width: 1500,
+      height: 1500,
+    },
+  },
+];
 
 export default function ButtonSection() {
+  const [lightboxIndex, setLightboxIndex] = useState(-1);
+  const slides = previewButtons.map((button) => button.preview);
+
   return (
     <section className="button-section" aria-label="Orientation options">
       <div className="button-section-panel">
@@ -13,36 +52,49 @@ export default function ButtonSection() {
           FREE <span style={{ color: "var(--red)" }}>ORIENTATION</span> TOOLS
         </h2>
         <div className="button-section-actions">
-          <Image
-            src="/buttons/seehow.png"
-            alt="See How"
-            width={175}
-            height={142}
-          />
-          <Image
-            src="/buttons/seehow.png"
-            alt="See How"
-            width={175}
-            height={142}
-          />
+          {previewButtons.slice(0, 2).map((button, index) => (
+            <button
+              key={button.buttonSrc}
+              type="button"
+              className="button-section-image-button"
+              aria-label={`Open ${button.buttonAlt} preview`}
+              onClick={() => {
+                setLightboxIndex(index);
+              }}
+            >
+              <Image
+                src={button.buttonSrc}
+                alt=""
+                width={175}
+                height={142}
+              />
+            </button>
+          ))}
         </div>
         <div className="button-section-actions">
-          <Image
-            src="/buttons/seehow.png"
-            alt="See How"
-            width={175}
-            height={142}
-          />
+          <button
+            type="button"
+            className="button-section-image-button"
+            aria-label={`Open ${previewButtons[2].buttonAlt} preview`}
+            onClick={() => {
+              setLightboxIndex(2);
+            }}
+          >
+            <Image
+              src={previewButtons[2].buttonSrc}
+              alt=""
+              width={175}
+              height={142}
+            />
+          </button>
         </div>
         <div className="button-section-footer">
           <Image
-            src="/buttons/seehow.png"
+            src="/buttons/register+momorrow.png"
             alt="See How"
-            width={175}
-            height={142}
+            width={400}
+            height={163}
           />
-
-          <p>MOMENTUM BEGINS HERE</p>
         </div>
       </div>
 
@@ -56,13 +108,13 @@ export default function ButtonSection() {
         </h2>
         <div className="button-section-actions">
           <Image
-            src="/buttons/seehow.png"
+            src="/buttons/dstardefsbutton.png"
             alt="See How"
             width={175}
             height={142}
           />
           <Image
-            src="/buttons/seehow.png"
+            src="/buttons/IRLoopbutton.png"
             alt="See How"
             width={175}
             height={142}
@@ -70,7 +122,7 @@ export default function ButtonSection() {
         </div>
         <div className="button-section-actions">
           <Image
-            src="/buttons/seehow.png"
+            src="/buttons/flightcrewbutton.png"
             alt="See How"
             width={175}
             height={142}
@@ -78,14 +130,22 @@ export default function ButtonSection() {
         </div>
         <div className="button-section-footer">
           <Image
-            src="/buttons/seehow.png"
+            src="/buttons/enroll+momorrow.png"
             alt="See How"
             width={175}
             height={142}
           />
-          <p>MOMENTUM BEGINS HERE</p>
         </div>
+        
       </div>
+      <Lightbox
+        open={lightboxIndex >= 0}
+        close={() => {
+          setLightboxIndex(-1);
+        }}
+        slides={slides}
+        index={lightboxIndex}
+      />
     </section>
   );
 }

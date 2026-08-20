@@ -200,7 +200,7 @@ export default function Orientation() {
               rel="noreferrer"
               target="_blank"
             >
-              LET'S CONNECT
+              LET&apos;S CONNECT
             </a>
           </div>
         </div>

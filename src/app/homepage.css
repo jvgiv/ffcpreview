@@ -598,6 +598,27 @@
   justify-content: center;
 }
 
+.button-section-image-button {
+  display: block;
+  flex: 0 1 10rem;
+  width: min(100%, 10rem);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  line-height: 0;
+  cursor: pointer;
+}
+
+.button-section-image-button img {
+  display: block;
+  width: 100%;
+}
+
+.button-section-image-button:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 4px;
+}
+
 .button-section-actions + .button-section-actions,
 .button-section-footer {
   margin-top: 0.75rem;
