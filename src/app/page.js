@@ -35,9 +35,9 @@ export default function Home() {
             ABOUT MONEY <br /> MATTERS
           </div>
           <p className="hero-sub-title-text reveal">
-            Financial Orientation helps<br /> you find your bearings,
-            <br /> so your next money move<br /> is{" "}
-            <span style={{ fontWeight: "bold", color: "var(--gray)" }}>on purpose</span>
+            <span style={{ fontWeight: "bold", color: "var(--gray)" }}>Financial Orientation helps<br /> you find your bearings,
+            <br /> so your next money move<br /> is{" "}</span>
+            on purpose
           </p>
           <Link
               href="/orientation"
