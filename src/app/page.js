@@ -12,6 +12,7 @@ import HomePageDefs from "./components/home/HomePageDefs";
 import BelowLogo from "./components/home/BelowLogo";
 import { Button } from "@mui/material";
 import ButtonSection from "./components/home/ButtonSection";
+import Stat from "./components/home/Stat";
 
 export default function Home() {
   return (
@@ -105,7 +106,9 @@ export default function Home() {
               </div>
             </li>
           </ul> */}
+          
           <div className="hero-sub-changes">
+            
             {/* <span style={{ color: "var(--red)" }}>
               Welcome to Far Flung Change
             </span> */}
@@ -144,15 +147,17 @@ export default function Home() {
             {/* </div> */}
             {/* </div> */}
 
+            <Stat />
+
             <div className="hero-image-block hero-final-block">
-              <Image
+              {/* <Image
                 className="hero-final-image"
                 src="/home/final.png"
                 width={750}
                 height={766}
                 sizes="(max-width: 768px) 70vw, 700px"
                 alt="Flight Path"
-              />
+              /> */}
             </div>
             {/* <div className="mobile-hidden" style={{  }}>
               <Image
