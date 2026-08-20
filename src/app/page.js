@@ -9,6 +9,9 @@ import PunchTheClock from "./components/home/PunchTheClock";
 import Image from "next/image";
 import Link from "next/link";
 import HomePageDefs from "./components/home/HomePageDefs";
+import BelowLogo from "./components/home/BelowLogo";
+import { Button } from "@mui/material";
+import ButtonSection from "./components/home/ButtonSection";
 
 export default function Home() {
   return (
@@ -160,21 +163,12 @@ export default function Home() {
               />
             </div> */}
           </div>
-          {/* <p className="hero-sub">Welcome to FinancialOrientation</p> */}
-          <div className="brand-signature">
-            {/* <Image
-              src="/ffcfgus.png"
-              alt="for Growin'up's sake"
-              width={358}
-              height={100}
-            /> */}
-            {/* <span className="sig-for">for</span>
-            <span className="sig-main">
-              <span className="red-word">growin'up's</span>{" "}
-              <span className="white-word">sake</span>
-            </span> */}
-          </div>
-          <div className="hero-actions">
+
+          <ButtonSection />
+
+          <BelowLogo />
+          <div className="brand-signature"></div>
+          {/* <div className="hero-actions">
             <Link
               href="#pricing-card"
               className="btn-primary"
@@ -189,7 +183,7 @@ export default function Home() {
             >
               FREE Caddy Book + Scorecard
             </Link>
-          </div>
+          </div> */}
 
           <div className="scroll-hint">
             {/* <span>scroll</span> */}
