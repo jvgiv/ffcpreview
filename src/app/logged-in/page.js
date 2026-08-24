@@ -534,7 +534,6 @@ export default function LoggedInPage() {
     <ClientDashboard
       authUser={authUser}
       profile={profile}
-      roleLabel={roleLabel}
       displayName={displayName}
       refreshProfile={refreshProfile}
     />

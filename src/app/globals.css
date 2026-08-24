@@ -242,6 +242,18 @@ button.ffc-nav-cta {
   height: 1.55rem;
 }
 
+.ffc-nav-profile-image {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid rgba(245, 240, 232, 0.42);
+  border-radius: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: 0 0 0 2px rgba(10, 10, 10, 0.8);
+}
+
 .ffc-nav-profile-button:hover,
 .ffc-nav-profile-button:focus-visible,
 .ffc-nav-profile-button.active {
@@ -560,6 +572,11 @@ button.ffc-nav-cta {
   .ffc-nav-profile-button svg {
     width: 1.45rem;
     height: 1.45rem;
+  }
+
+  .ffc-nav-profile-image {
+    width: 1.85rem;
+    height: 1.85rem;
   }
 
   .ffc-nav.mobile-open {

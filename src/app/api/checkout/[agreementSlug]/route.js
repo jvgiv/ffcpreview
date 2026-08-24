@@ -24,7 +24,6 @@ function buildCheckoutPurchaseSummary({ purchase, signedEnvelope, paymentSummary
   if (paymentSummary?.amount?.value) {
     return {
       ...purchase,
-      displayName: paymentSummary.packageName || purchase.displayName,
       priceLabel: paymentSummary.priceLabel || purchase.priceLabel,
       pricingBreakdown:
         paymentSummary.pricingBreakdown || purchase.pricingBreakdown || purchase.priceLabel,
@@ -38,6 +37,8 @@ function buildCheckoutPurchaseSummary({ purchase, signedEnvelope, paymentSummary
     return {
       ...purchase,
       ...signedEnvelope.checkout.purchase,
+      displayName: purchase.displayName,
+      shortLabel: purchase.shortLabel,
     };
   }
 

@@ -78,6 +78,8 @@ function serializeUser(docSnapshot) {
     phoneNumber: data.phoneNumber || "",
     zipCode: data.zipCode || "",
     ageRange: data.ageRange || "",
+    profileImageUrl: data.profileImageUrl || "",
+    doNotSendEmail: data.doNotSendEmail === true,
     role,
     roleLabel: formatUserRole(role),
     paymentSummary: serializePaymentSummary(data.paymentSummary),

@@ -1,14 +1,14 @@
 export const AGREEMENT_DEFINITIONS = {
   "financial-orientation": {
     slug: "financial-orientation",
-    packageName: "Financial Orientation",
-    agreementTitle: "Financial Orientation Agreement",
+    packageName: "Core Program",
+    agreementTitle: "Core Program Agreement",
     priceLabel: "$500 / 1 year",
     shortDescription:
       "A flat-fee educational engagement focused on financial clarity, confidence, and foundational decision support.",
     viewerIntro:
-      "This agreement covers the core Financial Orientation package. It is the agreement a visitor should review before purchasing the $500 program.",
-    ctaLabel: "Continue To Signing",
+      "This agreement covers the Core Program. It is the agreement a visitor should review before purchasing the $500 program.",
+    ctaLabel: "Continue To Core Program Signing",
     sections: [
       {
         heading: "Scope of Engagement",
@@ -20,7 +20,7 @@ export const AGREEMENT_DEFINITIONS = {
       {
         heading: "Program Access",
         paragraphs: [
-          "The Financial Orientation package includes one year of access to educational conversations, term definitions, and decision-support guidance delivered by phone, video, or in person when available.",
+          "The Core Program includes one year of access to educational conversations, term definitions, and decision-support guidance delivered by phone, video, or in person when available.",
           "Response times, scheduling availability, and communication channels may vary, but the goal of the engagement is steady access to clarity rather than transactional product placement.",
         ],
       },
@@ -48,19 +48,19 @@ export const AGREEMENT_DEFINITIONS = {
   },
   "premium-expansion-pack": {
     slug: "premium-expansion-pack",
-    packageName: "Premium Expansion Pack",
-    agreementTitle: "Premium Expansion Pack Agreement",
+    packageName: "Premium Program",
+    agreementTitle: "Premium Program Agreement",
     priceLabel: "$750 / 1 year",
     shortDescription:
       "A premium engagement for clients who want more structure, recurring accountability, and organized progress tracking.",
     viewerIntro:
-      "This agreement covers the Premium Expansion Pack package. It is the agreement a visitor should review before purchasing the $750 premium engagement.",
-    ctaLabel: "Continue To Premium Expansion Signing",
+      "This agreement covers the Premium Program. It is the agreement a visitor should review before purchasing the $750 premium engagement.",
+    ctaLabel: "Continue To Premium Program Signing",
     sections: [
       {
         heading: "Premium Scope",
         paragraphs: [
-          "The Premium Expansion Pack is intended for clients who want additional structure, recurring check-ins, and accountability support.",
+          "The Premium Program is intended for clients who want additional structure, recurring check-ins, and accountability support.",
           "This package expands the level of ongoing process support and progress visibility available through the engagement.",
         ],
       },

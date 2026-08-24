@@ -71,8 +71,8 @@ function formatPricingBreakdown(basePurchase, additionalPlan, additionalCount) {
 export const PURCHASE_DEFINITIONS = {
   "financial-orientation": {
     agreementSlug: "financial-orientation",
-    displayName: "Financial Services",
-    shortLabel: "Financial Services",
+    displayName: "Core Program",
+    shortLabel: "Core Program",
     planTier: "basic",
     priceLabel: "$500",
     amount: {
@@ -82,12 +82,12 @@ export const PURCHASE_DEFINITIONS = {
     },
     description:
       "Far Flung Change's core educational financial services engagement for one year.",
-    successTitle: "Financial Services Payment Complete",
+    successTitle: "Core Program Payment Complete",
   },
   "premium-expansion-pack": {
     agreementSlug: "premium-expansion-pack",
-    displayName: "Premium Expansion Pack",
-    shortLabel: "Premium Expansion Pack",
+    displayName: "Premium Program",
+    shortLabel: "Premium Program",
     planTier: "premium",
     priceLabel: "$750",
     amount: {
@@ -97,7 +97,7 @@ export const PURCHASE_DEFINITIONS = {
     },
     description:
       "Far Flung Change's premium expansion engagement with additional structure and accountability support.",
-    successTitle: "Premium Expansion Pack Payment Complete",
+    successTitle: "Premium Program Payment Complete",
   },
 };
 
@@ -282,6 +282,7 @@ export function buildPurchaseFromStoredRecord(record) {
     return null;
   }
 
+  const configuredPurchase = getPurchaseBySlug(record.agreementSlug);
   const amount = {
     currencyCode: record.amount.currencyCode || "USD",
     value: record.amount.value,
@@ -297,17 +298,21 @@ export function buildPurchaseFromStoredRecord(record) {
 
   return {
     agreementSlug: record.agreementSlug,
-    agreementTitle: record.agreementTitle || "",
-    agreementPackageName: record.packageName || "",
-    displayName: record.packageName || "Far Flung Change Package",
-    shortLabel: record.packageName || "Far Flung Change Package",
+    agreementTitle: configuredPurchase?.agreementTitle || record.agreementTitle || "",
+    agreementPackageName:
+      configuredPurchase?.agreementPackageName || record.packageName || "",
+    displayName:
+      configuredPurchase?.displayName || record.packageName || "Far Flung Change Package",
+    shortLabel:
+      configuredPurchase?.shortLabel || record.packageName || "Far Flung Change Package",
     priceLabel: record.priceLabel || "",
     amount,
     ...(originalAmount ? { originalAmount } : {}),
     ...(record.pricingBreakdown ? { pricingBreakdown: record.pricingBreakdown } : {}),
     ...(record.discount ? { discount: record.discount } : {}),
-    description: record.packageName || "Far Flung Change checkout package",
-    successTitle: "Checkout Complete",
+    description:
+      configuredPurchase?.description || record.packageName || "Far Flung Change checkout package",
+    successTitle: configuredPurchase?.successTitle || "Checkout Complete",
   };
 }
 

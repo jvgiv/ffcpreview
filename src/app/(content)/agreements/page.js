@@ -37,9 +37,8 @@ export default function Agreements() {
               maxWidth: "38rem",
             }}
           >
-            Each package has its own agreement. Choose the core Financial Orientation agreement or
-            the Premium Expansion Pack add-on agreement to review the details in the same Far Flung
-            Change flow.
+            Each program has its own agreement. Choose the Core Program or Premium Program
+            agreement to review the details in the same Far Flung Change flow.
           </p>
         </section>
 
@@ -69,7 +68,7 @@ export default function Agreements() {
                     : undefined
                 }
               >
-                {agreement.slug === "financial-orientation" ? "Core Program" : "Add-on"}
+                {agreement.slug === "financial-orientation" ? "Core Program" : "Premium Program"}
               </div>
               <div className="pricing-name">{agreement.packageName}</div>
               <div className="pricing-price">{agreement.priceLabel}</div>

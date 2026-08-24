@@ -115,4 +115,22 @@ export function getAdminAuth() {
   return admin.auth();
 }
 
+export function getAdminStorageBucket() {
+  const bucketName = getEnvValue(
+    "FIREBASE_STORAGE_BUCKET",
+    "NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET"
+  );
+
+  if (!bucketName) {
+    throw new FirebaseAdminConfigurationError(
+      "Firebase Storage is missing a bucket name. Add FIREBASE_STORAGE_BUCKET or NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET in Vercel and your local environment.",
+      ["FIREBASE_STORAGE_BUCKET or NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET"]
+    );
+  }
+
+  getFirebaseAdminApp();
+
+  return admin.storage().bucket(bucketName);
+}
+
 export const FieldValue = admin.firestore.FieldValue;

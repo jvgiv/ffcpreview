@@ -81,6 +81,19 @@ function buildUserProfileRecord(user, profile = {}, existingProfile = null) {
   );
   const zipCode = firstAvailableText(profile.zipCode, existingProfile?.zipCode);
   const ageRange = firstAvailableText(profile.ageRange, existingProfile?.ageRange);
+  const doNotSendEmail =
+    typeof profile.doNotSendEmail === "boolean"
+      ? profile.doNotSendEmail
+      : existingProfile?.doNotSendEmail === true;
+  const profileImageUrl = firstAvailableText(
+    profile.profileImageUrl,
+    existingProfile?.profileImageUrl,
+    user.photoURL
+  );
+  const profileImagePath = firstAvailableText(
+    profile.profileImagePath,
+    existingProfile?.profileImagePath
+  );
 
   const favoriteTerms = normalizeFavoriteTerms(profile.favoriteTerms ?? existingProfile?.favoriteTerms);
 
@@ -92,6 +105,9 @@ function buildUserProfileRecord(user, profile = {}, existingProfile = null) {
     ...(phoneNumber ? { phoneNumber } : {}),
     ...(zipCode ? { zipCode } : {}),
     ...(ageRange ? { ageRange } : {}),
+    ...(profileImageUrl ? { profileImageUrl } : {}),
+    ...(profileImagePath ? { profileImagePath } : {}),
+    doNotSendEmail,
     favoriteTerms,
     updatedAt: serverTimestamp(),
   };
@@ -107,6 +123,13 @@ export function buildResolvedFirebaseUserProfile(user, ...profiles) {
   );
 
   const favoriteTerms = normalizeFavoriteTerms(resolvedProfile.favoriteTerms);
+  const profileImageUrl = firstAvailableText(
+    resolvedProfile.profileImageUrl,
+    user.photoURL
+  );
+  const profileImageVersion = serializeTimestamp(
+    resolvedProfile.profileImageUpdatedAt
+  );
 
   return {
     uid: user.uid,
@@ -116,6 +139,12 @@ export function buildResolvedFirebaseUserProfile(user, ...profiles) {
     zipCode: firstAvailableText(resolvedProfile.zipCode),
     ageRange: firstAvailableText(resolvedProfile.ageRange),
     role: normalizeUserRole(resolvedProfile.role || DEFAULT_USER_ROLE),
+    profileImageUrl,
+    hasProfileImage: Boolean(
+      firstAvailableText(resolvedProfile.profileImagePath) || profileImageUrl
+    ),
+    profileImageVersion: profileImageVersion || profileImageUrl,
+    doNotSendEmail: resolvedProfile.doNotSendEmail === true,
     favoriteTerms,
     paymentSummary: buildResolvedPaymentSummary(resolvedProfile.paymentSummary),
   };

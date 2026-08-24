@@ -2,17 +2,20 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { onAuthStateChanged, signOut } from 'firebase/auth'
+import { signOut } from 'firebase/auth'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
+import { useAuth } from '@/app/components/auth/AuthProvider'
 import { getFirebaseAuth } from '@/lib/firebase/auth'
+import { useAuthenticatedProfileImage } from '@/lib/firebase/useAuthenticatedProfileImage'
 
 export default function Header() {
   const pathName = usePathname();
+  const { authUser, profile } = useAuth()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false)
-  const [authUser, setAuthUser] = useState(null)
   const profileMenuRef = useRef(null)
+  const profileImageUrl = useAuthenticatedProfileImage(authUser, profile)
   const homeSectionLinks = [
     { href: '/#problem', label: 'The Problem', element: "problem" },
     { href: '/#solution', label: 'The Solution', element: "solution" },
@@ -22,20 +25,6 @@ export default function Header() {
     { href: '/#pricing', label: 'MenuBoard', element: "pricing" },
     { href: '/#cta', label: 'Punch The Clock', element: "cta" },
   ]
-
-  useEffect(() => {
-    const auth = getFirebaseAuth()
-
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setAuthUser(user)
-
-      if (!user) {
-        setIsProfileMenuOpen(false)
-      }
-    })
-
-    return unsubscribe
-  }, [])
 
   useEffect(() => {
     if (!isProfileMenuOpen) {
@@ -121,7 +110,9 @@ export default function Header() {
         }
       } 
     }
-    else {window.location.href = `${targetPage}#${id}`};
+    else {
+      window.location.assign(`${targetPage}#${id}`)
+    }
   };
 
   return (
@@ -389,7 +380,15 @@ export default function Header() {
             aria-label={isProfileMenuOpen ? 'Close profile menu' : 'Open profile menu'}
             onClick={handleProfileMenuToggle}
           >
-            <FontAwesomeIcon icon={faCircleUser} />
+            {profileImageUrl ? (
+              <span
+                className="ffc-nav-profile-image"
+                style={{ backgroundImage: `url("${profileImageUrl}")` }}
+                aria-hidden="true"
+              />
+            ) : (
+              <FontAwesomeIcon icon={faCircleUser} />
+            )}
           </button>
           <ul
             id="ffc-profile-menu"

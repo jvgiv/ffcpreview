@@ -4,9 +4,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { hasDefinitionsAccess } from "@/lib/access";
 import { getFirebaseAuth } from "@/lib/firebase/auth";
 import { AGE_RANGE_OPTIONS } from "@/lib/firebase/profileOptions";
+import { useAuthenticatedProfileImage } from "@/lib/firebase/useAuthenticatedProfileImage";
 import { getPurchaseBySlug, isPaymentComplete } from "@/lib/purchases";
 
 const pageStyle = {
@@ -117,6 +117,14 @@ const PROGRAM_ACCESS = [
   getPurchaseBySlug("premium-expansion-pack"),
 ].filter(Boolean);
 
+const MAX_PROFILE_IMAGE_SIZE = 5 * 1024 * 1024;
+const ALLOWED_PROFILE_IMAGE_TYPES = new Set([
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/gif",
+]);
+
 function buildFormState(profile, authUser) {
   return {
     displayName: profile?.displayName || authUser?.displayName || "",
@@ -169,46 +177,6 @@ function MessageBanner({ type, message }) {
     >
       {message}
     </p>
-  );
-}
-
-function DashboardStat({ label, value, copy }) {
-  return (
-    <article
-      style={{
-        border: "1px solid rgba(245, 240, 232, 0.12)",
-        background: "rgba(10, 10, 10, 0.88)",
-        padding: "1.25rem",
-        display: "grid",
-        gap: "0.45rem",
-      }}
-    >
-      <span
-        style={{
-          display: "block",
-          color: "rgba(245, 240, 232, 0.64)",
-          fontFamily: "'Space Mono', monospace",
-          fontSize: "0.72rem",
-          letterSpacing: "0.12em",
-          textTransform: "uppercase",
-        }}
-      >
-        {label}
-      </span>
-      <span
-        style={{
-          display: "block",
-          color: "var(--white)",
-          fontFamily: "var(--font-bebas-neue), sans-serif",
-          fontSize: "clamp(2rem, 5vw, 3rem)",
-          letterSpacing: "0.04em",
-          textTransform: "uppercase",
-        }}
-      >
-        {value}
-      </span>
-      <p style={{ margin: 0, color: "rgba(245, 240, 232, 0.66)", lineHeight: 1.7 }}>{copy}</p>
-    </article>
   );
 }
 
@@ -292,12 +260,16 @@ function AccessCard({ item }) {
         {item.meta}
       </p>
 
-      {item.isDisabled ? (
+      {!item.ctaLabel ? null : item.isDisabled ? (
         <span style={actionStyle} aria-disabled="true">
           {item.ctaLabel}
         </span>
       ) : item.isDownload ? (
         <a href={item.href} download style={actionStyle}>
+          {item.ctaLabel}
+        </a>
+      ) : item.isExternal ? (
+        <a href={item.href} style={actionStyle}>
           {item.ctaLabel}
         </a>
       ) : (
@@ -312,116 +284,175 @@ function AccessCard({ item }) {
 export default function ClientDashboard({
   authUser,
   profile,
-  roleLabel,
   displayName,
   refreshProfile,
 }) {
   const router = useRouter();
+  const profileImageUrl = useAuthenticatedProfileImage(authUser, profile);
   const [formData, setFormData] = useState(() => buildFormState(profile, authUser));
   const [saveErrorMessage, setSaveErrorMessage] = useState("");
   const [deleteErrorMessage, setDeleteErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [emailPreferenceErrorMessage, setEmailPreferenceErrorMessage] = useState("");
+  const [emailPreferenceSuccessMessage, setEmailPreferenceSuccessMessage] = useState("");
+  const [profileImageErrorMessage, setProfileImageErrorMessage] = useState("");
+  const [profileImageSuccessMessage, setProfileImageSuccessMessage] = useState("");
   const [isSaving, setIsSaving] = useState(false);
+  const [isSavingEmailPreference, setIsSavingEmailPreference] = useState(false);
+  const [isUploadingProfileImage, setIsUploadingProfileImage] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isAgeRangeFocused, setIsAgeRangeFocused] = useState(false);
+  const [doNotSendEmail, setDoNotSendEmail] = useState(
+    () => profile?.doNotSendEmail === true
+  );
   const paymentSummary = profile?.paymentSummary || {};
-  const canOpenDefinitions = hasDefinitionsAccess({ paymentSummary });
-  const hasPremiumProgram = isPaymentComplete(paymentSummary?.["premium-expansion-pack"]?.status);
-  const purchasedProgramCount = PROGRAM_ACCESS.filter((purchase) =>
+  const purchasedPrograms = PROGRAM_ACCESS.filter((purchase) =>
     isPaymentComplete(paymentSummary?.[purchase.agreementSlug]?.status)
-  ).length;
-  const memberAccessItems = [
-    ...PROGRAM_ACCESS.map((purchase) => {
-      const summary = paymentSummary?.[purchase.agreementSlug] || null;
-      const isPurchased = isPaymentComplete(summary?.status);
-      const isSupersededByPremium =
-        purchase.agreementSlug === "financial-orientation" &&
-        hasPremiumProgram &&
-        !isPurchased;
-
-      return {
-        title: purchase.displayName,
-        description: isPurchased
-          ? "Your agreement and payment are already tied to this program. Reopen the checkout page any time to review status."
-          : isSupersededByPremium
-            ? "Your $750 premium plan is already active, so the $500 base plan is no longer needed from this dashboard."
-          : "Available from your member account whenever you are ready to start the sign-and-pay flow.",
-        meta: isPurchased
-          ? summary?.completedAt
-            ? `Purchased on ${new Date(summary.completedAt).toLocaleDateString("en-US")}`
-            : "Purchased and active"
-          : isSupersededByPremium
-            ? "Covered by your premium purchase"
-          : `${purchase.priceLabel} flat-fee access`,
-        href: `/logged-in/checkout?agreement=${purchase.agreementSlug}`,
-        ctaLabel: isPurchased
-          ? "View Program Status"
-          : isSupersededByPremium
-            ? "Premium Already Active"
-          : "Start Checkout",
-        badgeLabel: isPurchased ? "Purchased" : isSupersededByPremium ? "Unavailable" : "Available",
-        badgeTone: isPurchased ? "success" : isSupersededByPremium ? "default" : "accent",
-        isPrimary: !isPurchased && !isSupersededByPremium,
-        isDisabled: isSupersededByPremium,
-      };
-    }),
+  );
+  const isOrienteer = purchasedPrograms.length > 0;
+  const accountTypeLabel = isOrienteer ? "Orienteer" : "Registrant";
+  const registrantAccessItems = [
     {
-      title: "DogStar Definitions",
-      description: canOpenDefinitions
-        ? "Browse the definitions library so concepts, terms, and trade-offs stay within easy reach."
-        : "Unlock the compendium through a paid Orientation package before opening the definitions library.",
-      meta: canOpenDefinitions
-        ? "Unlocked through your paid orientation package"
-        : "Purchase required",
-      href: canOpenDefinitions
-        ? "/orientation/definitions"
-        : "/logged-in/checkout?agreement=financial-orientation",
-      ctaLabel: canOpenDefinitions ? "Open Definitions" : "Unlock With Orientation",
-      badgeLabel: canOpenDefinitions ? "Unlocked" : "Purchase Required",
-      badgeTone: canOpenDefinitions ? "success" : "accent",
-      isPrimary: !canOpenDefinitions,
+      title: "CaddyBook of Orientation",
+      description:
+        "Keep the foundational guide nearby as you begin finding your bearings across your financial life.",
+      meta: "Included with registration",
+      href: "/files/CaddyBook.pdf",
+      ctaLabel: "Download CaddyBook",
+      badgeLabel: "Registrant Access",
+      badgeTone: "success",
+      isDownload: true,
+    },
+    {
+      title: "Orientation ScoreCard",
+      description:
+        "Use the ScoreCard to take stock of the eighteen areas that shape your financial orientation.",
+      meta: "Included with registration",
+      href: "/scorecard.pdf",
+      ctaLabel: "Download ScoreCard",
+      badgeLabel: "Registrant Access",
+      badgeTone: "success",
+      isDownload: true,
     },
     {
       title: "Thought Gallery",
       description:
-        "Revisit writing and perspective pieces that support the broader Far Flung Change philosophy.",
-      meta: "Included member resource",
+        "Explore writing and perspective pieces that support the broader Far Flung Change philosophy.",
+      meta: "Included with registration",
       href: "/thoughtgallery",
       ctaLabel: "Open Thought Gallery",
-      badgeLabel: "Included",
+      badgeLabel: "Registrant Access",
       badgeTone: "success",
-      isPrimary: false,
-    },
-    {
-      title: "Free Caddy Book + ScoreCard",
-      description:
-        "Download the Caddy Book and ScoreCard PDF again anytime from your account home.",
-      meta: "Included member download",
-      href: "/files/CaddyBook.pdf",
-      ctaLabel: "Download PDF",
-      badgeLabel: "Included",
-      badgeTone: "success",
-      isPrimary: false,
-      isDownload: true,
-    },
-    {
-      title: "Signed Documents",
-      description:
-        "Review the agreements already connected to your account and reopen stored PDFs when needed.",
-      meta: "Account-linked member tool",
-      href: "/logged-in/documents",
-      ctaLabel: "View Signed Documents",
-      badgeLabel: "Member Tool",
-      badgeTone: "default",
-      isPrimary: false,
     },
   ];
-  const includedResourceCount = memberAccessItems.filter(
-    (item) => item.badgeLabel === "Included" || item.badgeLabel === "Member Tool"
-  ).length;
+  const orienteerBenefitItems = [
+    {
+      title: "Dogstar Definitions",
+      description:
+        "A plain-language financial vocabulary built to make concepts, terms, and trade-offs easier to navigate.",
+      meta: "Included with Core and Premium Programs",
+      badgeLabel: "Orienteer Benefit",
+      badgeTone: "accent",
+    },
+    {
+      title: "Treasure Map",
+      description:
+        "A guided view of where you stand now, what matters most, and the terrain between you and your destination.",
+      meta: "Included with Core and Premium Programs",
+      badgeLabel: "Orienteer Benefit",
+      badgeTone: "accent",
+    },
+    {
+      title: "I-RL System (Inquiry Response Loop System)",
+      description:
+        "A direct loop for asking real-world financial questions and receiving clear, fiduciary-level responses.",
+      meta: "Included with Core and Premium Programs",
+      badgeLabel: "Orienteer Benefit",
+      badgeTone: "accent",
+    },
+  ];
+  const programOptionItems = PROGRAM_ACCESS.map((purchase) => ({
+    title: purchase.displayName,
+    description:
+      purchase.agreementSlug === "financial-orientation"
+        ? "Your foundational toolkit for financial clarity, including your Treasure Map and financial vocabulary."
+        : "Everything in Core, plus real-time structure and accountability built around your Treasure Map.",
+    meta: `${purchase.priceLabel} for one year of Caddy Service`,
+    href: `/logged-in/checkout?agreement=${purchase.agreementSlug}`,
+    ctaLabel: `Choose ${purchase.displayName}`,
+    badgeLabel: "Paid Program",
+    badgeTone: "accent",
+    isPrimary: true,
+  }));
+  const memberAccessItems = isOrienteer
+    ? [
+        ...purchasedPrograms.map((purchase) => {
+          const summary = paymentSummary?.[purchase.agreementSlug] || null;
+
+          return {
+            title: purchase.displayName,
+            description:
+              "Your agreement and payment are already tied to this program. Reopen the checkout page any time to review.",
+            meta: summary?.completedAt
+              ? `Purchased on ${new Date(summary.completedAt).toLocaleDateString("en-US")}`
+              : "Purchased and active",
+            href: `/logged-in/checkout?agreement=${purchase.agreementSlug}`,
+            ctaLabel: "Review Program",
+            badgeLabel: "Purchased",
+            badgeTone: "success",
+          };
+        }),
+        {
+          title: "Dogstar Definitions",
+          description:
+            "Browse the definitions library so concepts, terms, and trade-offs stay within easy reach.",
+          meta: "Unlocked through your paid program",
+          href: "/orientation/definitions",
+          ctaLabel: "Open Definitions",
+          badgeLabel: "Unlocked",
+          badgeTone: "success",
+        },
+        {
+          title: "Orientation ScoreCard",
+          description:
+            "Download your ScoreCard and revisit the eighteen areas that shape your financial orientation.",
+          meta: "Orienteer download",
+          href: "/scorecard.pdf",
+          ctaLabel: "Download ScoreCard",
+          badgeLabel: "Unlocked",
+          badgeTone: "success",
+          isDownload: true,
+        },
+        {
+          title: "Treasure Map",
+          description:
+            "Begin mapping where you stand now, what matters most, and the financial terrain ahead.",
+          meta: "Guided Orienteer resource",
+          href: "mailto:deliberate@FarFlungChange.com?subject=Begin%20My%20Treasure%20Map",
+          ctaLabel: "Begin Mapping",
+          badgeLabel: "Unlocked",
+          badgeTone: "success",
+          isPrimary: true,
+          isExternal: true,
+        },
+        {
+          title: "The CaddyBook of Orientation",
+          description:
+            "Download the foundational guide again whenever you want to revisit your orientation.",
+          meta: "Orienteer download",
+          href: "/files/CaddyBook.pdf",
+          ctaLabel: "Download CaddyBook",
+          badgeLabel: "Unlocked",
+          badgeTone: "success",
+          isDownload: true,
+        },
+      ]
+    : registrantAccessItems;
+  const primaryPurchasedProgram = purchasedPrograms[0] || null;
 
   useEffect(() => {
     setFormData(buildFormState(profile, authUser));
+    setDoNotSendEmail(profile?.doNotSendEmail === true);
   }, [authUser, profile]);
 
   function handleChange(event) {
@@ -511,13 +542,140 @@ export default function ClientDashboard({
     }
   }
 
+  async function handleEmailPreferenceChange(event) {
+    const nextDoNotSendEmail = event.target.checked;
+    const previousDoNotSendEmail = doNotSendEmail;
+
+    setDoNotSendEmail(nextDoNotSendEmail);
+    setEmailPreferenceErrorMessage("");
+    setEmailPreferenceSuccessMessage("");
+
+    if (!authUser) {
+      setDoNotSendEmail(previousDoNotSendEmail);
+      setEmailPreferenceErrorMessage(
+        "Sign in again before updating your email preference."
+      );
+      return;
+    }
+
+    setIsSavingEmailPreference(true);
+
+    try {
+      const idToken = await authUser.getIdToken();
+      const response = await fetch("/api/account", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${idToken}`,
+        },
+        body: JSON.stringify({ doNotSendEmail: nextDoNotSendEmail }),
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Unable to update your email preference.");
+      }
+
+      setDoNotSendEmail(data.profile?.doNotSendEmail === true);
+
+      if (typeof refreshProfile === "function") {
+        await refreshProfile();
+      }
+
+      setEmailPreferenceSuccessMessage(
+        nextDoNotSendEmail
+          ? "Email preference saved. We will not send non-essential email to this account."
+          : "Email preference saved. Non-essential account email is allowed again."
+      );
+    } catch (error) {
+      setDoNotSendEmail(previousDoNotSendEmail);
+      setEmailPreferenceErrorMessage(
+        error.message || "Unable to update your email preference."
+      );
+    } finally {
+      setIsSavingEmailPreference(false);
+    }
+  }
+
+  async function handleProfileImageChange(event) {
+    const input = event.target;
+    const image = input.files?.[0] || null;
+
+    setProfileImageErrorMessage("");
+    setProfileImageSuccessMessage("");
+
+    if (!image) {
+      return;
+    }
+
+    if (!ALLOWED_PROFILE_IMAGE_TYPES.has(image.type)) {
+      setProfileImageErrorMessage("Choose a JPG, PNG, WebP, or GIF image.");
+      input.value = "";
+      return;
+    }
+
+    if (image.size > MAX_PROFILE_IMAGE_SIZE) {
+      setProfileImageErrorMessage("Profile images must be 5 MB or smaller.");
+      input.value = "";
+      return;
+    }
+
+    if (!authUser) {
+      setProfileImageErrorMessage("Sign in again before uploading a profile image.");
+      input.value = "";
+      return;
+    }
+
+    setIsUploadingProfileImage(true);
+
+    try {
+      const idToken = await authUser.getIdToken();
+      const uploadData = new FormData();
+      uploadData.append("profileImage", image);
+      const response = await fetch("/api/account", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+        },
+        body: uploadData,
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        const reference =
+          response.status >= 500 && data.requestId
+            ? ` Reference: ${data.requestId}`
+            : "";
+
+        throw new Error(
+          `${data.error || "Unable to upload your profile image."}${reference}`
+        );
+      }
+
+      if (typeof refreshProfile === "function") {
+        await refreshProfile();
+      }
+
+      setProfileImageSuccessMessage(
+        "Profile image updated. It now appears in your account menu."
+      );
+    } catch (error) {
+      setProfileImageErrorMessage(
+        error.message || "Unable to upload your profile image."
+      );
+    } finally {
+      setIsUploadingProfileImage(false);
+      input.value = "";
+    }
+  }
+
   async function handleDeleteAccount() {
     if (!authUser || isDeleting) {
       return;
     }
 
     const shouldDelete = window.confirm(
-      "Delete your account? This removes your login and profile details and cannot be undone."
+      "Permanently delete your account? Your login, profile, saved email preference, and dashboard access will be removed. This cannot be undone."
     );
 
     if (!shouldDelete) {
@@ -572,7 +730,7 @@ export default function ClientDashboard({
               marginBottom: "0.85rem",
             }}
           >
-            Client Home
+            {isOrienteer ? "Orienteer Home" : "Registrant Home"}
           </span>
           <h1
             style={{
@@ -583,37 +741,22 @@ export default function ClientDashboard({
               margin: "0 0 0.75rem",
             }}
           >
-            Welcome, {displayName || "Client"}
+            Welcome, {displayName || accountTypeLabel}
           </h1>
           <p style={{ color: "rgba(245, 240, 232, 0.75)", lineHeight: 1.8, margin: 0 }}>
-            Signed in as <strong style={{ color: "var(--white)" }}>{roleLabel}</strong>. This
-            page is your member home, with direct access to the resources, documents, and program
-            paths connected to your login.
+            {isOrienteer ? (
+              <>
+                Signed in as <strong style={{ color: "var(--white)" }}>Orienteer</strong>. This
+                page is your home for the resources, documents, and program connected to your
+                account.
+              </>
+            ) : (
+              <>
+                Thanks for registering your account. Please checkout what you have unlocked and
+                send us any questions you have about Financial Orientation.
+              </>
+            )}
           </p>
-        </section>
-
-        <section
-          style={{
-            display: "grid",
-            gap: "1rem",
-            gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-          }}
-        >
-          <DashboardStat
-            label="Member Access"
-            value={memberAccessItems.length}
-            copy="Distinct resources and program paths you can jump into from this page."
-          />
-          <DashboardStat
-            label="Included Resources"
-            value={includedResourceCount}
-            copy="Always available with your logged-in account."
-          />
-          <DashboardStat
-            label="Active Programs"
-            value={purchasedProgramCount}
-            copy="Packages already purchased and tied to your account."
-          />
         </section>
 
         <section id="member-access" style={panelStyle}>
@@ -626,11 +769,12 @@ export default function ClientDashboard({
               margin: "0 0 0.35rem",
             }}
           >
-            Your Member Access
+            {isOrienteer ? "Your Member Access" : "Your Registrant Access"}
           </h2>
           <p style={{ color: "rgba(245, 240, 232, 0.72)", lineHeight: 1.7, margin: "0 0 1.25rem" }}>
-            Everything below is organized around your account. Open what is already unlocked, or
-            jump straight into checkout where access still needs to be activated.
+            {isOrienteer
+              ? "Your paid program appears first, followed by the tools unlocked with your Orienteer access."
+              : "These resources are unlocked and ready to use with your registered account."}
           </p>
 
           <div
@@ -645,6 +789,79 @@ export default function ClientDashboard({
             ))}
           </div>
         </section>
+
+        {!isOrienteer ? (
+          <>
+            <section style={panelStyle}>
+              <h2
+                style={{
+                  fontFamily: "var(--font-bebas-neue), sans-serif",
+                  fontSize: "clamp(2rem, 4vw, 2.8rem)",
+                  letterSpacing: "0.04em",
+                  textTransform: "uppercase",
+                  margin: "0 0 0.35rem",
+                }}
+              >
+                Orienteers Receive
+              </h2>
+              <p
+                style={{
+                  color: "rgba(245, 240, 232, 0.72)",
+                  lineHeight: 1.7,
+                  margin: "0 0 1.25rem",
+                }}
+              >
+                Choose a paid program to add guided orientation and these tools to your account.
+              </p>
+              <div
+                style={{
+                  display: "grid",
+                  gap: "1rem",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+                }}
+              >
+                {orienteerBenefitItems.map((item) => (
+                  <AccessCard key={item.title} item={item} />
+                ))}
+              </div>
+            </section>
+
+            <section style={panelStyle}>
+              <h2
+                style={{
+                  fontFamily: "var(--font-bebas-neue), sans-serif",
+                  fontSize: "clamp(2rem, 4vw, 2.8rem)",
+                  letterSpacing: "0.04em",
+                  textTransform: "uppercase",
+                  margin: "0 0 0.35rem",
+                }}
+              >
+                Choose Your Program
+              </h2>
+              <p
+                style={{
+                  color: "rgba(245, 240, 232, 0.72)",
+                  lineHeight: 1.7,
+                  margin: "0 0 1.25rem",
+                }}
+              >
+                Both paths provide one year of Financial Orientation. Choose the level of support
+                that fits how you want to move forward.
+              </p>
+              <div
+                style={{
+                  display: "grid",
+                  gap: "1rem",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                }}
+              >
+                {programOptionItems.map((item) => (
+                  <AccessCard key={item.title} item={item} />
+                ))}
+              </div>
+            </section>
+          </>
+        ) : null}
 
         <section
           style={{
@@ -675,13 +892,101 @@ export default function ClientDashboard({
               Your sign-in email is shown here for reference. Profile edits are managed in the form
               below.
             </p>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "1rem",
+                flexWrap: "wrap",
+                padding: "1rem",
+                marginBottom: "1.25rem",
+                border: "1px solid rgba(245, 240, 232, 0.12)",
+                background: "rgba(255, 255, 255, 0.03)",
+              }}
+            >
+              <div
+                role="img"
+                aria-label={
+                  profileImageUrl
+                    ? "Current profile image"
+                    : "Default profile image"
+                }
+                style={{
+                  width: "5rem",
+                  height: "5rem",
+                  flex: "0 0 5rem",
+                  display: "grid",
+                  placeItems: "center",
+                  overflow: "hidden",
+                  border: "1px solid rgba(245, 240, 232, 0.28)",
+                  borderRadius: "50%",
+                  backgroundColor: "rgba(245, 240, 232, 0.06)",
+                  backgroundImage: profileImageUrl
+                    ? `url("${profileImageUrl}")`
+                    : "none",
+                  backgroundPosition: "center",
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover",
+                  color: "rgba(245, 240, 232, 0.72)",
+                  fontFamily: "var(--font-bebas-neue), sans-serif",
+                  fontSize: "1.4rem",
+                  letterSpacing: "0.08em",
+                }}
+              >
+                {profileImageUrl
+                  ? null
+                  : (displayName || accountTypeLabel).slice(0, 2).toUpperCase()}
+              </div>
+              <div style={{ display: "grid", gap: "0.55rem", flex: "1 1 210px" }}>
+                <strong style={{ color: "var(--white)" }}>Profile Image</strong>
+                <span style={{ color: "rgba(245, 240, 232, 0.62)", lineHeight: 1.6 }}>
+                  Upload a JPG, PNG, WebP, or GIF up to 5 MB and 4096 pixels per side. Square
+                  images work best; animated images use their first frame.
+                </span>
+                <label
+                  style={{
+                    ...secondaryButtonStyle,
+                    width: "fit-content",
+                    cursor: isUploadingProfileImage ? "wait" : "pointer",
+                  }}
+                >
+                  {isUploadingProfileImage ? "Uploading..." : "Choose Profile Image"}
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp,image/gif"
+                    onChange={handleProfileImageChange}
+                    disabled={
+                      isSaving ||
+                      isSavingEmailPreference ||
+                      isUploadingProfileImage ||
+                      isDeleting
+                    }
+                    style={{
+                      position: "absolute",
+                      width: 1,
+                      height: 1,
+                      padding: 0,
+                      margin: -1,
+                      overflow: "hidden",
+                      clip: "rect(0, 0, 0, 0)",
+                      whiteSpace: "nowrap",
+                      border: 0,
+                    }}
+                  />
+                </label>
+              </div>
+              <div style={{ flexBasis: "100%" }}>
+                <MessageBanner type="error" message={profileImageErrorMessage} />
+                <MessageBanner type="success" message={profileImageSuccessMessage} />
+              </div>
+            </div>
             <div style={{ display: "grid", gap: "0.9rem" }}>
               <SummaryRow label="Full Name" value={profile?.displayName || authUser?.displayName} />
               <SummaryRow label="Sign-In Email" value={profile?.email || authUser?.email} />
               <SummaryRow label="Phone Number" value={profile?.phoneNumber || authUser?.phoneNumber} />
               <SummaryRow label="Zip Code" value={profile?.zipCode} />
               <SummaryRow label="Age Range" value={profile?.ageRange} />
-              <SummaryRow label="Account Type" value={roleLabel} />
+              <SummaryRow label="Account Type" value={accountTypeLabel} />
             </div>
           </article>
 
@@ -710,11 +1015,23 @@ export default function ClientDashboard({
               <Link href="/forgot-password" style={primaryButtonStyle}>
                 Reset Password
               </Link>
-              <Link href="/logged-in/checkout" style={secondaryButtonStyle}>
-                View Checkout Options
-              </Link>
+              {isOrienteer && primaryPurchasedProgram ? (
+                <Link
+                  href={`/logged-in/checkout?agreement=${primaryPurchasedProgram.agreementSlug}`}
+                  style={secondaryButtonStyle}
+                >
+                  Review My Program
+                </Link>
+              ) : (
+                <Link href="/logged-in/checkout" style={secondaryButtonStyle}>
+                  View Checkout Options
+                </Link>
+              )}
               <Link href="/agreements" style={secondaryButtonStyle}>
                 Review Agreements
+              </Link>
+              <Link href="/logged-in/documents" style={secondaryButtonStyle}>
+                View Signed Documents
               </Link>
               <Link href="/account/favorites" style={secondaryButtonStyle}>
                 View Definition Favorites
@@ -739,7 +1056,7 @@ export default function ClientDashboard({
             Update Account Information
           </h2>
           <p style={{ color: "rgba(245, 240, 232, 0.72)", lineHeight: 1.7, margin: "0 0 1.25rem" }}>
-            Keep your name and contact details current so the member experience stays tied to the
+            Keep your name and contact details current so your account experience stays tied to the
             right information.
           </p>
 
@@ -825,7 +1142,16 @@ export default function ClientDashboard({
             <MessageBanner type="success" message={successMessage} />
 
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.85rem" }}>
-              <button type="submit" style={inlineButtonStyle} disabled={isSaving || isDeleting}>
+              <button
+                type="submit"
+                style={inlineButtonStyle}
+                disabled={
+                  isSaving ||
+                  isSavingEmailPreference ||
+                  isUploadingProfileImage ||
+                  isDeleting
+                }
+              >
                 {isSaving ? "Saving..." : "Save Account Changes"}
               </button>
             </div>
@@ -840,15 +1166,94 @@ export default function ClientDashboard({
               letterSpacing: "0.04em",
               textTransform: "uppercase",
               margin: "0 0 0.35rem",
-              color: "#ffd8cf",
+              color: "var(--white)",
             }}
           >
-            Danger Zone
+            Take A Step Back
           </h2>
-          <p style={{ color: "rgba(245, 240, 232, 0.72)", lineHeight: 1.7, margin: "0 0 1.25rem" }}>
-            Deleting your account removes your login and profile details. Signed DocuSign records
-            already captured by the system may still remain in administrative history.
-          </p>
+
+          <div
+            style={{
+              display: "grid",
+              gap: "1rem",
+              color: "rgba(245, 240, 232, 0.72)",
+              lineHeight: 1.7,
+              marginBottom: "1.5rem",
+            }}
+          >
+            <p style={{ margin: 0 }}>
+              If you want fewer messages but still want access to your account, update your email
+              preference below instead of deleting your account.
+            </p>
+            <label
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                gap: "0.9rem",
+                padding: "1rem",
+                border: "1px solid rgba(245, 240, 232, 0.14)",
+                background: "rgba(255, 255, 255, 0.035)",
+                cursor: isSavingEmailPreference ? "wait" : "pointer",
+              }}
+            >
+              <input
+                type="checkbox"
+                checked={doNotSendEmail}
+                onChange={handleEmailPreferenceChange}
+                disabled={
+                  isSaving ||
+                  isSavingEmailPreference ||
+                  isUploadingProfileImage ||
+                  isDeleting
+                }
+                style={{ width: "1.15rem", height: "1.15rem", marginTop: "0.2rem" }}
+              />
+              <span style={{ display: "grid", gap: "0.25rem" }}>
+                <strong style={{ color: "var(--white)" }}>Do not send email</strong>
+                <span>
+                  Save an opt-out preference on your account for non-essential email. Password
+                  resets, payment receipts, and other messages needed to operate your account may
+                  still be sent.
+                </span>
+                {isSavingEmailPreference ? (
+                  <span
+                    style={{
+                      color: "rgba(245, 240, 232, 0.58)",
+                      fontFamily: "'Space Mono', monospace",
+                      fontSize: "0.7rem",
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Saving preference...
+                  </span>
+                ) : null}
+              </span>
+            </label>
+
+            <MessageBanner type="error" message={emailPreferenceErrorMessage} />
+            <MessageBanner type="success" message={emailPreferenceSuccessMessage} />
+
+            <div
+              style={{
+                paddingTop: "1.25rem",
+                borderTop: "1px solid rgba(245, 240, 232, 0.12)",
+              }}
+            >
+              <p style={{ margin: "0 0 0.7rem", color: "var(--white)" }}>
+                Deleting your account is permanent and means:
+              </p>
+              <ul style={{ margin: "0 0 1.25rem", paddingLeft: "1.25rem" }}>
+                <li>Your Far Flung Change login and profile will be removed.</li>
+                <li>You will lose access to this dashboard and its account tools.</li>
+                <li>Your saved email preference will be deleted with your profile.</li>
+                <li>
+                  Signed agreements may remain in administrative history when they must be retained
+                  as business records.
+                </li>
+              </ul>
+            </div>
+          </div>
 
           <MessageBanner type="error" message={deleteErrorMessage} />
 
@@ -856,7 +1261,12 @@ export default function ClientDashboard({
             type="button"
             style={dangerButtonStyle}
             onClick={handleDeleteAccount}
-            disabled={isSaving || isDeleting}
+            disabled={
+              isSaving ||
+              isSavingEmailPreference ||
+              isUploadingProfileImage ||
+              isDeleting
+            }
           >
             {isDeleting ? "Deleting Account..." : "Delete My Account"}
           </button>
