@@ -82,7 +82,7 @@ export default function ButtonSection() {
         <h2 className="button-section-title">
           FREE <span style={{ color: "var(--red)" }}>ORIENTATION</span> TOOLS
         </h2>
-        <div className="button-section-actions">
+        <div className="button-section-actions-left">
           {previewButtons.slice(0, 2).map((button, index) => (
             <button
               key={button.buttonSrc}
@@ -102,23 +102,7 @@ export default function ButtonSection() {
             </button>
           ))}
         </div>
-        <div className="button-section-actions">
-          <button
-            type="button"
-            className="button-section-image-button"
-            aria-label={`Open ${previewButtons[2].buttonAlt} preview`}
-            onClick={() => {
-              setLightboxIndex(2);
-            }}
-          >
-            <Image
-              src={previewButtons[2].buttonSrc}
-              alt=""
-              width={175}
-              height={142}
-            />
-          </button>
-        </div>
+        
         <div className="button-section-footer">
           <Image
             src="/buttons/register+momorrow.png"
@@ -137,6 +121,23 @@ export default function ButtonSection() {
         <h2 className="button-section-title">
           GUIDED <span style={{ color: "var(--red)" }}><br />ORIENTATION</span>
         </h2>
+        <div className="button-section-actions">
+          <button
+            type="button"
+            className="button-section-image-button"
+            aria-label={`Open ${previewButtons[2].buttonAlt} preview`}
+            onClick={() => {
+              setLightboxIndex(2);
+            }}
+          >
+            <Image
+              src={previewButtons[2].buttonSrc}
+              alt=""
+              width={175}
+              height={142}
+            />
+          </button>
+        </div>
         <div className="button-section-actions">
             {previewButtons.slice(3, 5).map((button, index) => (
             <button

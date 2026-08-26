@@ -3,6 +3,8 @@ import "../../homepage.css";
 
 export default function Stat() {
   return (
+    <div className="stat-home">
+      
     <div className="friction-stat reveal">
       <div className="stat-item">
         <div className="stat-block stat-block-top">
@@ -39,6 +41,8 @@ export default function Stat() {
           </p>
         </div>
       </div>
+    </div>
+    
     </div>
   );
 }

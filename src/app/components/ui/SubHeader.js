@@ -8,7 +8,7 @@ export default function SubHeader() {
 
   return (
     <div className="utility-bar">
-      {isAuthenticated ? (
+      {/* {isAuthenticated ? (
         <Link className="utility-links" href="/caddybook">
           CADDY BOOK
         </Link>
@@ -25,7 +25,7 @@ export default function SubHeader() {
         href="/orientation/definitions"
       >
         DOGSTAR DEFINITIONS
-      </Link>
+      </Link> */}
     </div>
   );
 }

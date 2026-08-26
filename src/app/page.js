@@ -39,13 +39,13 @@ export default function Home() {
             <br /> so your next money move<br /> is{" "}</span>
             on purpose
           </p>
-          <Link
+          {/* <Link
               href="/orientation"
               className="btn-primary reveal"
               style={{ fontSize: "1.3em" }}
             >
               SEE HOW IT WORKS
-            </Link>
+            </Link> */}
           {/* <ul style={{ listStyleType: "none" }} className="hero-sub-list">
             <li className="hero-sub-item">
               <div className="bullet-icon">
@@ -196,14 +196,14 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <Problem />
-      <Guide />
-      <Plan />
-      <HomePageDefs />
-      <NewScorecard />
-      <Pricing />
+      {/* <Problem /> */}
+      {/* <Guide /> */}
+      {/* <Plan /> */}
+      {/* <HomePageDefs /> */}
+      {/* <NewScorecard /> */}
+      {/* <Pricing /> */}
       <Quote />
-      <PunchTheClock />
+      {/* <PunchTheClock /> */}
     </main>
   );
 }

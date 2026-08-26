@@ -55,7 +55,7 @@
   font-size: 1.2rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--red);
+  color: var(--gray);
   margin-bottom: 2rem;
   opacity: 0;
   animation: fadeUp 0.7s 0.2s forwards;
@@ -429,6 +429,15 @@
   align-items: center;
 }
 
+.stat-home {
+  width: min(100%, 430px);
+  margin-inline: auto;
+}
+
+.stat-home .friction-stat {
+  width: 100%;
+}
+
 .friction-copy p {
   font-family: var(--font-source-sans), sans-serif;
   font-size: 1.1rem;
@@ -563,7 +572,7 @@
 .button-section-eyebrow {
   margin-bottom: 0.75rem;
   font-family: 'Space Mono', monospace;
-  font-size: 0.75rem;
+  font-size: 1.25rem;
   font-weight: 400;
   line-height: 1.2;
   letter-spacing: 0.18em;
@@ -590,6 +599,17 @@
   justify-content: center;
 }
 
+.button-section-actions-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.button-section-actions-left .button-section-image-button {
+  flex: 0 0 auto;
+}
+
 .button-section-image-button {
   display: block;
   flex: 0 1 10rem;
@@ -604,6 +624,8 @@
 .button-section-image-button img {
   display: block;
   width: 100%;
+  aspect-ratio: 175 / 142;
+  object-fit: contain;
 }
 
 .button-section-image-button:focus-visible {
