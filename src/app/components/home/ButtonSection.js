@@ -3,6 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
+import Link from "next/link";
 
 const previewButtons = [
   {
@@ -104,12 +105,14 @@ export default function ButtonSection() {
         </div>
         
         <div className="button-section-footer">
+          <Link href="/register" aria-label="Register and unlock free orientation tools">
           <Image
             src="/buttons/register+momorrow.png"
             alt="See How"
-            width={400}
-            height={163}
-          />
+            width={175}
+            height={142}
+            />
+            </Link>
         </div>
       </div>
 
@@ -177,12 +180,14 @@ export default function ButtonSection() {
         </div>
         </div>
         <div className="button-section-footer">
+          <Link href="/register"  aria-label="Enroll and access guided orientation">
           <Image
             src="/buttons/enroll+momorrow.png"
             alt="See How"
             width={175}
             height={142}
           />
+          </Link>
         </div>
         
       </div>

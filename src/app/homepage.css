@@ -640,7 +640,7 @@
 
 .button-section-actions img,
 .button-section-footer img {
-  width: min(100%, 10rem);
+  width: min(100%, 16rem);
   height: auto;
   transition: transform 0.2s ease;
 }
