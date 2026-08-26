@@ -28,15 +28,19 @@ export default function Home() {
           <div className="hero-sub-changes-top">
             {/* Financial stress isn&apos;t mostly a money problem. It&apos;s mostly a fog problem. Far Flung Change clears the fog.  - {" "}
             <strong style={{ color: "var(--white)" }}>Before you reach the Clubhouse.</strong> */}
-            STOP{" "} <br />
+            STOP <br />
             <span style={{ color: "var(--red)" }}>
               <span style={{ fontWeight: "bold" }}>GUESSING</span> <br />
             </span>{" "}
             ABOUT MONEY <br /> MATTERS
           </div>
           <p className="hero-sub-title-text reveal">
-            <span style={{ fontWeight: "bold", color: "var(--gray)" }}>Financial Orientation helps<br /> you find your bearings,
-            <br /> so your next money move<br /> is{" "}</span>
+            <span style={{ fontWeight: "bold", color: "var(--gray)" }}>
+              Financial Orientation helps
+              <br /> you find your bearings,
+              <br /> so your next money move
+              <br /> is{" "}
+            </span>
             on purpose
           </p>
           {/* <Link
@@ -106,9 +110,8 @@ export default function Home() {
               </div>
             </li>
           </ul> */}
-          
+
           <div className="hero-sub-changes">
-            
             {/* <span style={{ color: "var(--red)" }}>
               Welcome to Far Flung Change
             </span> */}
@@ -137,15 +140,34 @@ export default function Home() {
             /> */}
             {/* <div className="hero-logo-ring"> */}
             {/* <div className="hero-image-block hero-logo-block"> */}
-              <Image
-                className="hero-graphic-image"
-                src="/svg/lgs.png"
-                alt="FFC Logo"
-                width={412}
-                height={394}
-              />
+            <Image
+              className="hero-graphic-image"
+              src="/svg/lgs.png"
+              alt="FFC Logo"
+              width={412}
+              height={394}
+            />
             {/* </div> */}
             {/* </div> */}
+
+            <div>
+              <Link href="">
+                <Image
+                  src="/buttons/seehow.png"
+                  alt="See How It Works"
+                  width={200}
+                  height={150}
+                />
+              </Link>
+              <Link href="">
+                <Image
+                  src="/buttons/beginow.png"
+                  alt="Begin Now"
+                  width={200}
+                  height={150}
+                />
+              </Link>
+            </div>
 
             <Stat />
 

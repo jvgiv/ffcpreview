@@ -207,8 +207,8 @@
   display: block;
 }
 
-.hero-sub-changes p {
-  font-size: clamp(2rem, 2vw, 1.2rem);
+.hero-sub-changes > p {
+  font-size: clamp(1.2rem, 2vw, 2rem);
 }
 
 .hero-sub-changes-top {
@@ -432,10 +432,18 @@
 .stat-home {
   width: min(100%, 430px);
   margin-inline: auto;
+  font-style: normal;
 }
 
 .stat-home .friction-stat {
   width: 100%;
+}
+
+.stat-title-home {
+  margin-bottom: 1.5rem;
+  font-family: var(--font-bebas-neue), sans-serif;
+  font-size: 2.5rem;
+  line-height: 1;
 }
 
 .friction-copy p {
@@ -638,6 +646,7 @@
   margin-top: 0.75rem;
 }
 
+.button-section-actions-left img,
 .button-section-actions img,
 .button-section-footer img {
   width: min(100%, 16rem);
@@ -645,6 +654,8 @@
   transition: transform 0.2s ease;
 }
 
+
+.button-section-actions-left img:hover,
 .button-section-actions img:hover,
 .button-section-footer img:hover {
   transform: translateY(-3px);
