@@ -117,7 +117,7 @@ const PROGRAM_ACCESS = [
   getPurchaseBySlug("premium-expansion-pack"),
 ].filter(Boolean);
 
-const MAX_PROFILE_IMAGE_SIZE = 5 * 1024 * 1024;
+const MAX_PROFILE_IMAGE_SIZE = 4 * 1024 * 1024;
 const ALLOWED_PROFILE_IMAGE_TYPES = new Set([
   "image/jpeg",
   "image/png",
@@ -615,7 +615,7 @@ export default function ClientDashboard({
     }
 
     if (image.size > MAX_PROFILE_IMAGE_SIZE) {
-      setProfileImageErrorMessage("Profile images must be 5 MB or smaller.");
+      setProfileImageErrorMessage("Profile images must be 4 MB or smaller.");
       input.value = "";
       return;
     }
@@ -639,7 +639,21 @@ export default function ClientDashboard({
         },
         body: uploadData,
       });
-      const data = await response.json();
+      const responseText = await response.text();
+      let data = {};
+
+      if (responseText) {
+        try {
+          data = JSON.parse(responseText);
+        } catch {
+          const hostingErrorMessage =
+            response.status === 413
+              ? "Profile images must be 4 MB or smaller."
+              : `The upload service returned an unexpected response (HTTP ${response.status}).`;
+
+          throw new Error(hostingErrorMessage);
+        }
+      }
 
       if (!response.ok) {
         const reference =
@@ -940,7 +954,7 @@ export default function ClientDashboard({
               <div style={{ display: "grid", gap: "0.55rem", flex: "1 1 210px" }}>
                 <strong style={{ color: "var(--white)" }}>Profile Image</strong>
                 <span style={{ color: "rgba(245, 240, 232, 0.62)", lineHeight: 1.6 }}>
-                  Upload a JPG, PNG, WebP, or GIF up to 5 MB and 4096 pixels per side. Square
+                  Upload a JPG, PNG, WebP, or GIF up to 4 MB and 4096 pixels per side. Square
                   images work best; animated images use their first frame.
                 </span>
                 <label

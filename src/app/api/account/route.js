@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { randomUUID } from "node:crypto";
-import sharp from "sharp";
 import {
   FieldValue,
   FirebaseAdminConfigurationError,
@@ -17,7 +16,8 @@ import { normalizeUserRole } from "@/lib/firebase/userRoles";
 
 export const runtime = "nodejs";
 
-const MAX_PROFILE_IMAGE_SIZE = 5 * 1024 * 1024;
+// Keep multipart uploads safely below Vercel's 4.5 MB Function payload limit.
+const MAX_PROFILE_IMAGE_SIZE = 4 * 1024 * 1024;
 const MAX_PROFILE_IMAGE_DIMENSION = 4096;
 const MAX_PROFILE_IMAGE_INPUT_PIXELS = 16 * 1024 * 1024;
 const PROFILE_IMAGE_OUTPUT_DIMENSION = 1024;
@@ -35,6 +35,8 @@ const PROFILE_IMAGE_FORMAT_TYPES = new Map([
   ["webp", "image/webp"],
   ["gif", "image/gif"],
 ]);
+
+let sharpModulePromise;
 
 class AccountRequestError extends Error {
   constructor(message, status = 400) {
@@ -76,7 +78,20 @@ function isOwnedProfileImagePath(profileImagePath, uid) {
     profileImagePath.startsWith(`profile-images/${uid}/`);
 }
 
+function loadImageProcessor() {
+  if (!sharpModulePromise) {
+    sharpModulePromise = import("sharp").then(
+      (sharpModule) => sharpModule.default || sharpModule
+    );
+  }
+
+  return sharpModulePromise;
+}
+
 async function buildSanitizedProfileImage(image) {
+  // Load the native dependency only for uploads. A processor packaging failure
+  // must not prevent the other /api/account methods from starting.
+  const sharp = await loadImageProcessor();
   let sourceBuffer;
   let imagePipeline;
   let metadata;
@@ -391,7 +406,7 @@ export async function POST(request) {
     }
 
     if (!image.size || image.size > MAX_PROFILE_IMAGE_SIZE) {
-      throw new AccountRequestError("Profile images must be 5 MB or smaller.");
+      throw new AccountRequestError("Profile images must be 4 MB or smaller.");
     }
 
     inputContentType = image.type;
