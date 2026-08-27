@@ -492,7 +492,7 @@
 .friction-stat {
   display: flex;
   flex-direction: column;
-  border: 2px solid var(--border);
+  border: 3px solid var(--border);
   padding: 5rem 2.5rem;
   gap: 5rem;
   height: 90%;
@@ -556,6 +556,7 @@
 
 .how-p-text {
   color: var(--gray);
+  font-size: 1.5rem;
 }
 
 /* Guided Orientation overview */
@@ -567,7 +568,7 @@
   margin: 2rem auto 0;
   text-align: left;
   background: var(--border);
-  border: 1px solid var(--border);
+  border: 3px solid var(--border);
 }
 
 .button-section-panel {
@@ -654,7 +655,7 @@
   transition: transform 0.2s ease;
 }
 
-
+.cta-butt-top-page img:hover,
 .button-section-actions-left img:hover,
 .button-section-actions img:hover,
 .button-section-footer img:hover {
@@ -682,7 +683,7 @@
   margin: 3rem auto 0;
   text-align: left;
   background: var(--border);
-  border: 1px solid var(--border);
+  border: 3px solid var(--border);
 }
 
 .below-logo-panel {
@@ -690,11 +691,15 @@
   background: var(--black);
 }
 
+.below-logo-intro {
+  text-align: center;
+}
+
 .below-logo-eyebrow {
   display: block;
   margin-bottom: 0.75rem;
   font-family: 'Space Mono', monospace;
-  font-size: 0.75rem;
+  font-size: 1.25rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
@@ -739,17 +744,17 @@
 
 .below-logo-item p,
 .below-logo-step p,
-.below-logo-process > .how-p-text {
+.below-logo-process .below-logo-intro > .how-p-text {
   font-family: var(--font-source-sans), sans-serif;
   font-size: 1rem;
   line-height: 1.6;
 }
 
-.below-logo-process > .how-p-text {
+.below-logo-process .below-logo-intro > .how-p-text {
   margin-bottom: 0.3rem;
 }
 
-.below-logo-process > .how-p-text:last-of-type {
+.below-logo-process .below-logo-intro > .how-p-text:last-of-type {
   margin-bottom: 1.5rem;
 }
 
@@ -1253,6 +1258,38 @@
 }
 
 /* Final CTA */
+.new-cta {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding: clamp(1.5rem, 5vw, 4rem) clamp(1rem, 4vw, 2rem);
+  background: #000;
+}
+
+.new-cta-link {
+  display: block;
+  width: min(92%, 760px);
+  line-height: 0;
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.new-cta-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.new-cta-link:hover {
+  filter: brightness(1.05);
+  transform: translateY(-3px);
+}
+
+.new-cta-link:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 6px;
+}
+
 .final-cta {
   border-top: 1px solid var(--border);
   background: #100505;

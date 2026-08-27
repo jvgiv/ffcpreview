@@ -4,14 +4,18 @@ export default function BelowLogo() {
   return (
     <section className="below-logo" aria-label="Guided Orientation overview">
       <div className="below-logo-panel below-logo-benefits">
-        <span className="below-logo-eyebrow">WHAT DO YOU GET WITH</span>
-        <h2 className="below-logo-title">GUIDED ORIENTATION?</h2>
-        <h3 style={{ color: "var(--gray)" }}>
-          EVERYTHING YOU NEED
-          <br />
-          TO FORGE FOG INTO <span style={{ color: "var(--white)" }}>FOCUS</span>
-          <br /> and nothing you don&apos;t
-        </h3>
+        <div className="below-logo-intro">
+          <span style={{ color: "var(--red)" }} className="below-logo-eyebrow">
+            WHAT DO YOU GET WITH
+          </span>
+          <h2 className="below-logo-title">GUIDED ORIENTATION?</h2>
+          <p style={{ color: "var(--gray)", fontSize: "1.35rem" }} className="below-logo-subtitle">
+            EVERYTHING YOU NEED
+            <br />
+            TO FORGE FOG INTO <span style={{ color: "var(--white)" }}>FOCUS</span>
+            <br /> <span style={{ textTransform: "lowercase"}}>and nothing you don&apos;t</span>
+          </p>
+        </div>
         <div className="below-logo-list">
         <div className="below-logo-item">
           <h1>
@@ -47,14 +51,16 @@ export default function BelowLogo() {
       </div>
 
       <div className="below-logo-panel below-logo-process">
-        <span className="below-logo-eyebrow" style={{ color: "var(--red)" }}>
-          THE <span style={{ color: "var(--white)" }}>[</span>SIMPLE
-          <span style={{ color: "var(--white)" }}>]</span> PROCESS
-        </span>
-        <h2 className="below-logo-title">HOW ORIENTATION WORKS</h2>
-        <p className="how-p-text">Financial Orientation comes in two phases.</p>
-        <p className="how-p-text">The first gets you moving.</p>
-        <p className="how-p-text">The second keeps you going.</p>
+        <div className="below-logo-intro">
+          <span className="below-logo-eyebrow" style={{ color: "var(--red)" }}>
+            THE <span style={{ color: "var(--white)" }}>[</span>SIMPLE
+            <span style={{ color: "var(--white)" }}>]</span> PROCESS
+          </span>
+          <h2 className="below-logo-title">HOW ORIENTATION WORKS</h2>
+          <p className="how-p-text">Financial Orientation comes in two phases.</p>
+          <p className="how-p-text">The first gets you moving.</p>
+          <p className="how-p-text">The second keeps you going.</p>
+        </div>
         <div className="below-logo-phase">
           <h1>
             <span style={{ color: "var(--red)", fontSize: "1rem" }}>01</span>{" "}

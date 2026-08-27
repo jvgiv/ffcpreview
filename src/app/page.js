@@ -13,6 +13,7 @@ import BelowLogo from "./components/home/BelowLogo";
 import { Button } from "@mui/material";
 import ButtonSection from "./components/home/ButtonSection";
 import Stat from "./components/home/Stat";
+import NewCta from "./components/home/NewCta";
 
 export default function Home() {
   return (
@@ -151,7 +152,7 @@ export default function Home() {
             {/* </div> */}
 
             <div>
-              <Link href="">
+              <Link className="cta-butt-top-page" href="/orientation" aria-label="See How It Works">
                 <Image
                   src="/buttons/seehow.png"
                   alt="See How It Works"
@@ -159,7 +160,7 @@ export default function Home() {
                   height={150}
                 />
               </Link>
-              <Link href="">
+              <Link className="cta-butt-top-page" href="/register">
                 <Image
                   src="/buttons/beginow.png"
                   alt="Begin Now"
@@ -226,6 +227,7 @@ export default function Home() {
       {/* <Pricing /> */}
       <Quote />
       {/* <PunchTheClock /> */}
+      <NewCta />
     </main>
   );
 }
