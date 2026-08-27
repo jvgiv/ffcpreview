@@ -119,7 +119,7 @@ body {
   border-bottom-color: var(--red);
 }
 
-.ffc-nav-item-home > .ffc-nav-link::after,
+/* .ffc-nav-item-home > .ffc-nav-link::after, */
 .ffc-nav-item-orientation > .ffc-nav-link::after {
   content: '';
   display: inline-block;

@@ -55,7 +55,7 @@
   font-size: 1.2rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--red);
+  color: var(--gray);
   margin-bottom: 2rem;
   opacity: 0;
   animation: fadeUp 0.7s 0.2s forwards;
@@ -207,8 +207,8 @@
   display: block;
 }
 
-.hero-sub-changes p {
-  font-size: clamp(2rem, 2vw, 1.2rem);
+.hero-sub-changes > p {
+  font-size: clamp(1.2rem, 2vw, 2rem);
 }
 
 .hero-sub-changes-top {
@@ -429,6 +429,23 @@
   align-items: center;
 }
 
+.stat-home {
+  width: min(100%, 430px);
+  margin-inline: auto;
+  font-style: normal;
+}
+
+.stat-home .friction-stat {
+  width: 100%;
+}
+
+.stat-title-home {
+  margin-bottom: 1.5rem;
+  font-family: var(--font-bebas-neue), sans-serif;
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
 .friction-copy p {
   font-family: var(--font-source-sans), sans-serif;
   font-size: 1.1rem;
@@ -475,7 +492,7 @@
 .friction-stat {
   display: flex;
   flex-direction: column;
-  border: 2px solid var(--border);
+  border: 3px solid var(--border);
   padding: 5rem 2.5rem;
   gap: 5rem;
   height: 90%;
@@ -539,6 +556,7 @@
 
 .how-p-text {
   color: var(--gray);
+  font-size: 1.5rem;
 }
 
 /* Guided Orientation overview */
@@ -550,7 +568,7 @@
   margin: 2rem auto 0;
   text-align: left;
   background: var(--border);
-  border: 1px solid var(--border);
+  border: 3px solid var(--border);
 }
 
 .button-section-panel {
@@ -563,7 +581,7 @@
 .button-section-eyebrow {
   margin-bottom: 0.75rem;
   font-family: 'Space Mono', monospace;
-  font-size: 0.75rem;
+  font-size: 1.25rem;
   font-weight: 400;
   line-height: 1.2;
   letter-spacing: 0.18em;
@@ -590,6 +608,17 @@
   justify-content: center;
 }
 
+.button-section-actions-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.button-section-actions-left .button-section-image-button {
+  flex: 0 0 auto;
+}
+
 .button-section-image-button {
   display: block;
   flex: 0 1 10rem;
@@ -604,6 +633,8 @@
 .button-section-image-button img {
   display: block;
   width: 100%;
+  aspect-ratio: 175 / 142;
+  object-fit: contain;
 }
 
 .button-section-image-button:focus-visible {
@@ -616,13 +647,16 @@
   margin-top: 0.75rem;
 }
 
+.button-section-actions-left img,
 .button-section-actions img,
 .button-section-footer img {
-  width: min(100%, 10rem);
+  width: min(100%, 16rem);
   height: auto;
   transition: transform 0.2s ease;
 }
 
+.cta-butt-top-page img:hover,
+.button-section-actions-left img:hover,
 .button-section-actions img:hover,
 .button-section-footer img:hover {
   transform: translateY(-3px);
@@ -649,7 +683,7 @@
   margin: 3rem auto 0;
   text-align: left;
   background: var(--border);
-  border: 1px solid var(--border);
+  border: 3px solid var(--border);
 }
 
 .below-logo-panel {
@@ -657,11 +691,15 @@
   background: var(--black);
 }
 
+.below-logo-intro {
+  text-align: center;
+}
+
 .below-logo-eyebrow {
   display: block;
   margin-bottom: 0.75rem;
   font-family: 'Space Mono', monospace;
-  font-size: 0.75rem;
+  font-size: 1.25rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
@@ -706,17 +744,17 @@
 
 .below-logo-item p,
 .below-logo-step p,
-.below-logo-process > .how-p-text {
+.below-logo-process .below-logo-intro > .how-p-text {
   font-family: var(--font-source-sans), sans-serif;
   font-size: 1rem;
   line-height: 1.6;
 }
 
-.below-logo-process > .how-p-text {
+.below-logo-process .below-logo-intro > .how-p-text {
   margin-bottom: 0.3rem;
 }
 
-.below-logo-process > .how-p-text:last-of-type {
+.below-logo-process .below-logo-intro > .how-p-text:last-of-type {
   margin-bottom: 1.5rem;
 }
 
@@ -1220,6 +1258,38 @@
 }
 
 /* Final CTA */
+.new-cta {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding: clamp(1.5rem, 5vw, 4rem) clamp(1rem, 4vw, 2rem);
+  background: #000;
+}
+
+.new-cta-link {
+  display: block;
+  width: min(92%, 760px);
+  line-height: 0;
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.new-cta-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.new-cta-link:hover {
+  filter: brightness(1.05);
+  transform: translateY(-3px);
+}
+
+.new-cta-link:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 6px;
+}
+
 .final-cta {
   border-top: 1px solid var(--border);
   background: #100505;

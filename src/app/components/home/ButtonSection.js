@@ -3,6 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
+import Link from "next/link";
 
 const previewButtons = [
   {
@@ -82,7 +83,7 @@ export default function ButtonSection() {
         <h2 className="button-section-title">
           FREE <span style={{ color: "var(--red)" }}>ORIENTATION</span> TOOLS
         </h2>
-        <div className="button-section-actions">
+        <div className="button-section-actions-left">
           {previewButtons.slice(0, 2).map((button, index) => (
             <button
               key={button.buttonSrc}
@@ -102,6 +103,27 @@ export default function ButtonSection() {
             </button>
           ))}
         </div>
+        
+        <div className="button-section-footer">
+          <Link href="/register" aria-label="Register and unlock free orientation tools">
+          <Image
+            src="/buttons/register+momorrow.png"
+            alt="See How"
+            width={175}
+            height={142}
+            />
+            </Link>
+        </div>
+      </div>
+
+      <div className="button-section-panel">
+        <h3 className="button-section-eyebrow">
+          <span style={{ color: "var(--red)" }}>ENROLL</span> +{" "}
+          <span style={{ color: "var(--red)" }}>ACCESS</span>
+        </h3>
+        <h2 className="button-section-title">
+          GUIDED <span style={{ color: "var(--red)" }}><br />ORIENTATION</span>
+        </h2>
         <div className="button-section-actions">
           <button
             type="button"
@@ -119,24 +141,6 @@ export default function ButtonSection() {
             />
           </button>
         </div>
-        <div className="button-section-footer">
-          <Image
-            src="/buttons/register+momorrow.png"
-            alt="See How"
-            width={400}
-            height={163}
-          />
-        </div>
-      </div>
-
-      <div className="button-section-panel">
-        <h3 className="button-section-eyebrow">
-          <span style={{ color: "var(--red)" }}>ENROLL</span> +{" "}
-          <span style={{ color: "var(--red)" }}>ACCESS</span>
-        </h3>
-        <h2 className="button-section-title">
-          GUIDED <span style={{ color: "var(--red)" }}><br />ORIENTATION</span>
-        </h2>
         <div className="button-section-actions">
             {previewButtons.slice(3, 5).map((button, index) => (
             <button
@@ -176,12 +180,14 @@ export default function ButtonSection() {
         </div>
         </div>
         <div className="button-section-footer">
+          <Link href="/register"  aria-label="Enroll and access guided orientation">
           <Image
             src="/buttons/enroll+momorrow.png"
             alt="See How"
             width={175}
             height={142}
           />
+          </Link>
         </div>
         
       </div>

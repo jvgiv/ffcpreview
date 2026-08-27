@@ -139,7 +139,7 @@ export default function Header() {
           >
             HOME
           </Link>
-          <ul className="ffc-home-menu" aria-label="Home section links">
+          {/* <ul className="ffc-home-menu" aria-label="Home section links">
             {homeSectionLinks.map((item) => (
               <li key={item.href}>
                 <Link 
@@ -153,7 +153,7 @@ export default function Header() {
                 </Link>
               </li>
             ))}
-          </ul>
+          </ul> */}
         </li>
         {/* <li className="ffc-nav-item">
           <Link
@@ -251,7 +251,7 @@ export default function Header() {
             >
               HOME
             </Link>
-            <ul className="ffc-home-mobile-menu" aria-label="Home section links">
+            {/* <ul className="ffc-home-mobile-menu" aria-label="Home section links">
               {homeSectionLinks.map((item) => (
                 <li key={item.href}>
                   <Link className="ffc-home-menu-link" href={item.href} onClick={handleNavClose}>
@@ -259,7 +259,7 @@ export default function Header() {
                   </Link>
                 </li>
               ))}
-            </ul>
+            </ul> */}
           </li>
           {/* <li className="ffc-nav-mobile-item">
             <Link
